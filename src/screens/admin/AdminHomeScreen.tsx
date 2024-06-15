@@ -14,6 +14,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
 interface AdminHOmeProps {
@@ -121,7 +122,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                   }}></View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <TouchableOpacity onPress={() => navigation?.openDrawer()}>
               <Feather name="menu" color="white" size={24} />
             </TouchableOpacity>
           </View>
@@ -318,7 +319,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                   right: 0,
                   padding: 10,
                 }}>
-                <FontAwesome5 name="tasks" color="#686868" size={18} />
+                <FontAwesome name="tasks" color="#686868" size={18} />
               </TouchableOpacity>
             </View>
           ))}

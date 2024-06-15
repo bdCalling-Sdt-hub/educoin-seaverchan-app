@@ -11,6 +11,7 @@ import HomeScreen from '../screens/HomeScreen';
 import SignUpScreen from '../screens/signup/SignUpScreen';
 import SplashScreen from '../screens/slpash/SplashScreen';
 import AdminRoutes from './AdminRoutes';
+import CreateRewords from '../screens/admin/CreateRewords';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,8 @@ export const Routes = () => {
         <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
         <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        {/* Admins All Screens  */}
+        <Stack.Screen name="CreateRewords" component={CreateRewords} />
       </Stack.Navigator>
     </NavigationContainer>
   );

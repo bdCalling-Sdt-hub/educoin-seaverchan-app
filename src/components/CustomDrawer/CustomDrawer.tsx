@@ -7,7 +7,7 @@ import {Image, Linking, View, Text, TouchableOpacity} from 'react-native';
 import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
 function CustomDrawer(props: any) {
   return (
     <>
@@ -108,7 +108,7 @@ function CustomDrawer(props: any) {
               fontWeight: 'bold',
               transform: [{rotate: '180deg'}],
             }}>
-            <Feather name="log-out" color="#3D3D3D" size={20} />
+            <Entypo name="log-out" color="#3D3D3D" size={20} />
           </Text>
           <Text
             style={{
