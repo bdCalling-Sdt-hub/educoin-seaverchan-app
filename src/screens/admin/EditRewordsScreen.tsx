@@ -18,12 +18,16 @@ interface HeaderBackgroundProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
-  const [rewordName, setRewordName] = React.useState('');
+const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
+  const [rewordName, setRewordName] = React.useState(
+    'Playing outside with dad',
+  );
   const [rewordDescription, setRewordDescription] = React.useState('');
-  const [rewordPoints, setRewordPoints] = React.useState<number>();
+  const [rewordPoints, setRewordPoints] = React.useState<number>(5);
   const [rewordCategory, setRewordCategory] = React.useState('');
-  const [rewordImage, setRewordImage] = React.useState<string | undefined>();
+  const [rewordImage, setRewordImage] = React.useState<string | undefined>(
+    'file:///data/user/0/com.childeneducation/cache/rn_image_picker_lib_temp_c6e63f36-7f33-4ae2-a789-a9b05544e5b2.jpg',
+  );
 
   const handleImagePick = async () => {
     try {
@@ -46,7 +50,7 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
 
   return (
     <View>
-      <HeaderBackground title="Create Rewords" navigation={navigation} />
+      <HeaderBackground title="Edit Rewords" navigation={navigation} />
       <View>
         <View
           style={{
@@ -67,9 +71,11 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
+            onChangeText={text => setRewordName(text)}
             placeholderTextColor="#3D3D3D"
             multiline
             placeholder="Rewords Name"
+            value={rewordName}
           />
         </View>
         <View
@@ -191,7 +197,7 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
           flexDirection: 'row',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('CreateRewords')}
           style={{
             backgroundColor: GStyles.primaryBlue,
             padding: 10,
@@ -224,6 +230,6 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
   );
 };
 
-export default CreateRewords;
+export default EditRewordsScreen;
 
 const styles = StyleSheet.create({});

@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import AdminRewords from '../screens/admin/AdminRewords';
 import AdminTask from '../screens/admin/AdminTask';
+import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
 const Tab = createBottomTabNavigator();
 
 function AdminRoutes() {
@@ -54,8 +55,8 @@ function AdminRoutes() {
         }}
       />
       <Tab.Screen
-        name="AdminTask"
-        component={AdminTask}
+        name="CreateTask"
+        component={CreateTaskScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {

@@ -26,85 +26,87 @@ const AdminRewords = ({navigation}: AdminRoutesProps) => {
         height: '100%',
       }}>
       <HeaderBackground navigation={navigation} title="Rewords" />
-      <View
-        style={{
-          paddingHorizontal: '4%',
-          marginTop: 10,
-        }}>
-        {/* card container  */}
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {[...Array(10)].map((item, index) => (
-            <Fragment key={index}>
+
+      {/* card container  */}
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 80,
+          paddingTop: 15,
+        }}
+        showsVerticalScrollIndicator={false}>
+        {[...Array(10)].map((item, index) => (
+          <Fragment key={index}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingVertical: 5,
+                paddingHorizontal: 10,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                marginVertical: 5,
+                //   borderColor: 'gray',
+                //   borderWidth: 1,
+              }}>
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  marginVertical: 5,
-                  //   borderColor: 'gray',
-                  //   borderWidth: 1,
+                  gap: 15,
+                  padding: 14,
                 }}>
-                <View
+                <Image
+                  source={{
+                    uri: 'https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__',
+                  }}
                   style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 15,
-                    padding: 14,
-                  }}>
-                  <Image
-                    source={{
-                      uri: 'https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__',
-                    }}
+                    width: 30,
+                    height: 30,
+                    borderRadius: 100,
+                  }}
+                />
+                <View style={{gap: 5}}>
+                  <Text
                     style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 100,
-                    }}
-                  />
-                  <View style={{gap: 5}}>
+                      fontSize: 16,
+                      fontWeight: '500',
+                      color: '#3D3D3D',
+                      fontFamily: GStyles.PoppinsSemiBold,
+                      letterSpacing: 0.8,
+                    }}>
+                    Playing outside with dad
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      gap: 3,
+                    }}>
+                    <AntDesign name="staro" size={20} color="#C3C3C3" />
                     <Text
                       style={{
-                        fontSize: 16,
-                        fontWeight: '500',
-                        color: '#3D3D3D',
-                        fontFamily: GStyles.PoppinsSemiBold,
+                        color: '#C3C3C3',
+                        fontFamily: GStyles.Poppins,
+                        fontSize: 18,
                         letterSpacing: 0.8,
                       }}>
-                      Playing outside with dad
+                      100
                     </Text>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        gap: 3,
-                      }}>
-                      <AntDesign name="staro" size={20} color="#C3C3C3" />
-                      <Text
-                        style={{
-                          color: '#C3C3C3',
-                          fontFamily: GStyles.Poppins,
-                          fontSize: 18,
-                          letterSpacing: 0.8,
-                        }}>
-                        100
-                      </Text>
-                    </View>
                   </View>
                 </View>
-                <TouchableOpacity
-                  style={{
-                    padding: 5,
-                  }}>
-                  <Feather name="edit" size={20} color="#3D3D3D" />
-                </TouchableOpacity>
               </View>
-            </Fragment>
-          ))}
-        </ScrollView>
-      </View>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('EditRewords')}
+                style={{
+                  padding: 5,
+                }}>
+                <Feather name="edit" size={20} color="#3D3D3D" />
+              </TouchableOpacity>
+            </View>
+          </Fragment>
+        ))}
+      </ScrollView>
+
       {/* create new rewards button  */}
       <View
         style={{

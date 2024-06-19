@@ -12,6 +12,15 @@ import SignUpScreen from '../screens/signup/SignUpScreen';
 import SplashScreen from '../screens/slpash/SplashScreen';
 import AdminRoutes from './AdminRoutes';
 import CreateRewords from '../screens/admin/CreateRewords';
+import EditRewordsScreen from '../screens/admin/EditRewordsScreen';
+import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
+import CustomTaskScreen from '../screens/admin/CustomTaskScreen';
+import EditCustomTaskScreen from '../screens/admin/EditCustomTaskScreen';
+import FeedBackScreen from '../screens/admin/FeedBackScreen';
+import AdminProfileScreen from '../screens/admin/AdminProfileScreen';
+import AssignTaskScreen from '../screens/admin/AssignTaskScreen';
+import AllTeacherScreen from '../screens/admin/AllTeacherScreen';
+import AdminNotification from '../screens/admin/AdminNotification';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +35,7 @@ export const Routes = () => {
           // statusBarTranslucent: true,
           animation: 'slide_from_right',
         }}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="LoginAs" component={LoginAsScreen} />
         <Stack.Screen name="TeacherLogin" component={TeacherLoginScreen} />
         <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
@@ -34,14 +44,23 @@ export const Routes = () => {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         {/* Admins All Screens  */}
         <Stack.Screen name="CreateRewords" component={CreateRewords} />
+        <Stack.Screen name="EditRewords" component={EditRewordsScreen} />
+        <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
+        <Stack.Screen name="CustomTask" component={CustomTaskScreen} />
+        <Stack.Screen name="EditCustomTask" component={EditCustomTaskScreen} />
+        <Stack.Screen name="FeedBack" component={FeedBackScreen} />
+        <Stack.Screen name="AdminProfile" component={AdminProfileScreen} />
+        <Stack.Screen name="AssignTask" component={AssignTaskScreen} />
+        <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
+        <Stack.Screen name="AdminNotification" component={AdminNotification} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-function AppRoutes() {
-  const [appLoad, setAppLoad] = React.useState(true);
-  return <>{appLoad ? <SplashScreen setLoad={setAppLoad} /> : <Routes />}</>;
-}
+// function AppRoutes() {
+//   const [appLoad, setAppLoad] = React.useState(true);
+//   return <>{appLoad ? <SplashScreen setLoad={setAppLoad} /> : <Routes />}</>;
+// }
 
-export default AppRoutes;
+export default Routes;

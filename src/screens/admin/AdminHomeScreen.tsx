@@ -102,7 +102,8 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
               alignItems: 'center',
               gap: 28,
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AdminNotification')}>
               <View
                 style={{
                   position: 'relative',
@@ -161,6 +162,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
             alignItems: 'flex-end',
           }}>
           <TouchableOpacity
+            onPress={() => navigation.navigate('AllTeacher')}
             style={{
               width: 70,
               padding: 4,
@@ -319,7 +321,16 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                   right: 0,
                   padding: 10,
                 }}>
-                <FontAwesome name="tasks" color="#686868" size={18} />
+                {/* <FontAwesome name="tasks" color="#686868" size={18} />
+                 */}
+                <Image
+                  source={require('../../assets/icons/taskIcon.png')}
+                  style={{
+                    width: 18,
+                    height: 18,
+                    resizeMode: 'contain',
+                  }}
+                />
               </TouchableOpacity>
             </View>
           ))}

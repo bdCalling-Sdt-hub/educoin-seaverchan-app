@@ -35,16 +35,8 @@ const AdminLoginScreen = ({navigation}: AdminLoginScreenProps) => {
         <Text style={styles.welcomeText}>Welcome!</Text>
         <View style={styles.animationContainer}>
           <View style={styles.animationCircle}>
-            <LottieView
-              source={require('../../assets/lottie/login-animation.json')}
-              style={{width: 252, height: 141}}
-              autoPlay
-              // duration={2000}
-              speed={2}
-              loop={true}
-              onAnimationFinish={() => {
-                console.log('Animation end');
-              }}
+            <Image
+              source={require('../../assets/images/loginAs/bearFace.png')}
             />
           </View>
           <View>
