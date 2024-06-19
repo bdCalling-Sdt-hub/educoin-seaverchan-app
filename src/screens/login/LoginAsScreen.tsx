@@ -14,36 +14,8 @@ import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
 const AsLoginData = [
   {
-    id: 1,
-    name: 'Teacher',
-    route: 'TeacherLogin',
-    image: require('../../assets/images/loginAs/teacher.png'),
-    style: {
-      algin: 'left',
-      bgColor: '#9556D7',
-      gradientColor: {
-        start: 'rgba(182, 9, 243, 0.01)',
-        end: 'rgba(165, 95, 239, 1)',
-      },
-    },
-  },
-  {
-    id: 2,
-    name: 'Admin',
-    route: 'AdminLogin',
-    style: {
-      algin: 'right',
-      bgColor: '#3AAFFF',
-      gradientColor: {
-        start: 'rgba(58, 175, 255, .01)',
-        end: 'rgba(26, 162, 255, 1)',
-      },
-    },
-    image: require('../../assets/images/loginAs/admin.png'),
-  },
-  {
     id: 3,
-    name: 'Child',
+    name: 'Login as a Child',
     route: 'ChildLogin',
     style: {
       algin: 'left',
@@ -55,6 +27,34 @@ const AsLoginData = [
     },
     image: require('../../assets/images/loginAs/child.png'),
   },
+  {
+    id: 1,
+    name: 'Login As Teacher',
+    route: 'TeacherLogin',
+    image: require('../../assets/images/loginAs/teacher.png'),
+    style: {
+      algin: 'right',
+      bgColor: '#9556D7',
+      gradientColor: {
+        start: 'rgba(182, 9, 243, 0.01)',
+        end: 'rgba(165, 95, 239, 1)',
+      },
+    },
+  },
+  {
+    id: 2,
+    name: 'Login as a Admin',
+    route: 'AdminLogin',
+    style: {
+      algin: 'left',
+      bgColor: '#3AAFFF',
+      gradientColor: {
+        start: 'rgba(58, 175, 255, .01)',
+        end: 'rgba(26, 162, 255, 1)',
+      },
+    },
+    image: require('../../assets/images/loginAs/admin.png'),
+  },
 ];
 
 interface LoginAsProps {
@@ -64,12 +64,12 @@ interface LoginAsProps {
 const LoginAsScreen = ({navigation}: LoginAsProps) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.bgImage}
-        source={require('../../assets/images/loginBg.png')}>
+      <View style={styles.bgImage}>
         {/* title on login as  */}
         <View style={styles.loginAsContainer}>
-          <Text style={styles.loginAsText}>Login as a</Text>
+          <Image
+            source={require('../../assets/images/loginAs/loginAsImage.png')}
+          />
         </View>
         {/* card container  */}
         <View style={styles.cardContainer}>
@@ -79,46 +79,6 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
               style={[styles.card, {backgroundColor: data.style.bgColor}]}
               key={index}>
               <View
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  overflow: 'hidden',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                }}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    transform:
-                      data.style.algin === 'right'
-                        ? [
-                            {rotate: '110deg'},
-                            {translateX: -40},
-                            {translateY: 55},
-                          ]
-                        : [
-                            {rotate: '55deg'},
-                            {translateX: -40},
-                            {translateY: -55},
-                          ],
-                  }}>
-                  <LinearGradient
-                    colors={[
-                      data.style.gradientColor.start,
-                      data.style.gradientColor.end,
-                    ]}
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    style={{
-                      height: 48,
-                      width: 99,
-                      borderRadius: 100,
-                    }}
-                  />
-                </View>
-              </View>
-              <View
                 style={[
                   styles.cardContentContainer,
                   {
@@ -126,14 +86,25 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
                       data.style.algin === 'right' ? 'row-reverse' : 'row',
                   },
                 ]}>
-                <Image style={styles.cardImage} source={data.image} />
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    borderRadius: 100,
+                    width: 70,
+                    height: 70,
+                    overflow: 'hidden',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image style={styles.cardImage} source={data.image} />
+                </View>
                 <Text style={styles.cardTitle}>{data.name}</Text>
               </View>
             </TouchableOpacity>
           ))}
         </View>
-      </ImageBackground>
-      <StatusBar backgroundColor={GStyles.blue.light} barStyle="dark-content" />
+      </View>
+      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
     </View>
   );
 };
@@ -145,14 +116,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: GStyles.blue.light,
+    backgroundColor: 'white',
   },
   bgImage: {
     width: '100%',
     height: '100%',
   },
   loginAsContainer: {
-    paddingVertical: '15%',
+    paddingVertical: '20%',
+    alignItems: 'center',
     // gap: 20,
   },
   loginAsText: {
@@ -165,13 +137,14 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     alignItems: 'center',
-    gap: 50,
+    gap: 24,
+    // height: 74,
   },
   card: {
     width: '85%',
-    height: 125,
+    height: 84,
     backgroundColor: '#9556D7',
-    borderRadius: 10,
+    borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -193,14 +166,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardImage: {
-    width: 150,
-    height: 150,
-    position: 'relative',
-    bottom: 12,
+    width: 58,
+    height: 58,
   },
   cardTitle: {
-    fontFamily: GStyles.Poppins,
-    fontSize: 32,
+    fontFamily: GStyles.ProstoOneRegular,
+    fontSize: 24,
     fontWeight: '600',
     lineHeight: 34,
     color: GStyles.white,

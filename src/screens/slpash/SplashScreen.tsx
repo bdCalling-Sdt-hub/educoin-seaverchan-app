@@ -1,40 +1,87 @@
-import {ImageBackground, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {Dispatch, SetStateAction} from 'react';
 import LottieView from 'lottie-react-native';
 import {GStyles} from '../../styles/GStyles';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
 interface splashProps {
-  setLoad: Dispatch<boolean>;
+  // setLoad: Dispatch<boolean>;
+  navigation: NavigationProp<ParamListBase>;
 }
 
-const SplashScreen = ({setLoad}: splashProps) => {
+// const SplashScreen = ({setLoad}: splashProps) => {
+const SplashScreen = ({navigation}: splashProps) => {
+  const [appLoad, setAppLoad] = React.useState(false);
+
+  setTimeout(() => {
+    setAppLoad(true);
+    // setTimeout(()=>{
+    //   navigation.navigate('Login');
+    // },2000)
+  }, 2000);
+
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.splashBg}
-        source={require('../../assets/images/splashBg.png')}>
+      <View style={styles.splashBg}>
         <View style={styles.splashContainer}>
-          <LottieView
-            source={require('../../assets/lottie/splash-animation-cartoon.json')}
-            style={{width: 305, height: 322}}
-            autoPlay
-            duration={2000}
-            speed={-0.1}
-            loop={false}
-            onAnimationFinish={() => {
-              console.log('Animation end');
-              setLoad(false);
+          <Image
+            source={require('../../assets/images/splashImage.png')}
+            style={{
+              width: 327,
+              height: 327,
             }}
           />
           <LottieView
-            source={require('../../assets/lottie/splash-loading-animation.json')}
-            style={{width: 44, height: 44}}
+            source={require('../../assets/lottie/login-animation.json')}
+            style={{width: 200, height: 200}}
             autoPlay
-            loop
+            // loop={false}
+            onAnimationFinish={() => {
+              console.log('Animation end');
+              // setAppLoad(true);
+            }}
           />
         </View>
-      </ImageBackground>
-      <StatusBar backgroundColor={GStyles.primaryPurple} />
+        {appLoad && (
+          <View
+            style={{
+              width: '95%',
+              alignSelf: 'center',
+              position: 'absolute',
+              bottom: 30,
+              paddingHorizontal: 20,
+            }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('LoginAs')}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                padding: 15,
+                borderRadius: 100,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 16,
+                  fontFamily: GStyles.PoppinsMedium,
+                  letterSpacing: 0.8,
+                }}>
+                Get Start
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+      <StatusBar backgroundColor={'white'} />
     </View>
   );
 };
@@ -46,7 +93,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: GStyles.primaryPurple,
+    backgroundColor: 'white',
   },
   splashBg: {
     width: '100%',

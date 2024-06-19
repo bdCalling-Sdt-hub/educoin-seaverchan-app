@@ -7,8 +7,10 @@ import {Image, Linking, View, Text, TouchableOpacity} from 'react-native';
 import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
+import {useNavigation} from '@react-navigation/native';
 function CustomDrawer(props: any) {
+  const navigation = useNavigation();
   return (
     <>
       <View
@@ -64,12 +66,11 @@ function CustomDrawer(props: any) {
           }}
           style={{
             // height: 100,
-            marginBottom: 30,
             marginTop: 23,
-            borderBottomColor: '#4A2B6C',
-            borderBottomWidth: 1,
           }}
-          onPress={() => console.log('ok')}
+          onPress={() => {
+            navigation.navigate('AdminProfile');
+          }}
         />
         <DrawerItem
           label="Feedback"
@@ -84,14 +85,85 @@ function CustomDrawer(props: any) {
 
             letterSpacing: 0.8,
           }}
-          style={{
-            // height: 100,
-            // paddingVertical: 2,
-            borderBottomColor: '#4A2B6C',
-            borderBottomWidth: 1,
+          style={
+            {
+              // height: 100,
+              // paddingVertical: 2,
+            }
+          }
+          onPress={() => {
+            navigation.navigate('FeedBack');
           }}
-          onPress={() => console.log('ok')}
         />
+        {/* <DrawerItem
+          label="AssignTask"
+          icon={() => (
+            <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
+          )}
+          labelStyle={{
+            color: '#4A2B6C',
+            fontFamily: GStyles.Poppins,
+            fontSize: 16,
+            fontWeight: '400',
+
+            letterSpacing: 0.8,
+          }}
+          style={
+            {
+              // height: 100,
+              // paddingVertical: 2,
+            }
+          }
+          onPress={() => {
+            navigation.navigate('AssignTask');
+          }}
+        />
+        <DrawerItem
+          label="AllTeacher"
+          icon={() => (
+            <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
+          )}
+          labelStyle={{
+            color: '#4A2B6C',
+            fontFamily: GStyles.Poppins,
+            fontSize: 16,
+            fontWeight: '400',
+
+            letterSpacing: 0.8,
+          }}
+          style={
+            {
+              // height: 100,
+              // paddingVertical: 2,
+            }
+          }
+          onPress={() => {
+            navigation.navigate('AllTeacher');
+          }}
+        />
+        <DrawerItem
+          label="Notification"
+          icon={() => (
+            <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
+          )}
+          labelStyle={{
+            color: '#4A2B6C',
+            fontFamily: GStyles.Poppins,
+            fontSize: 16,
+            fontWeight: '400',
+
+            letterSpacing: 0.8,
+          }}
+          style={
+            {
+              // height: 100,
+              // paddingVertical: 2,
+            }
+          }
+          onPress={() => {
+            navigation.navigate('AdminNotification');
+          }}
+        /> */}
       </DrawerContentScrollView>
       <View>
         <TouchableOpacity
@@ -108,7 +180,7 @@ function CustomDrawer(props: any) {
               fontWeight: 'bold',
               transform: [{rotate: '180deg'}],
             }}>
-            <Feather name="log-out" color="#3D3D3D" size={20} />
+            <Entypo name="log-out" color="#3D3D3D" size={20} />
           </Text>
           <Text
             style={{
