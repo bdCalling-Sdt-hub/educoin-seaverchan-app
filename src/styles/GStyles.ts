@@ -28,6 +28,17 @@ export const GStyles = {
     darkHover: '#733d08',
     darkActive: '#593006',
   },
+  purple: {
+    light: '#f6effd',
+    lightHover: '#f2e7fd',
+    lightActive: '#e3cdfa',
+    normal: '#a55fef',
+    normalHover: '#9556d7',
+    normalActive: '#844cbf',
+    dark: '#7c47b3',
+    darkHover: '#63398f',
+    darkActive: '#63398f',
+  },
   gray: {
     light: '#ececec',
     lightHover: '#e2e2e2',
@@ -42,6 +53,7 @@ export const GStyles = {
 
   SuezOne: 'SuezOne-Regular',
   RussoOne: 'RussoOne-Regular',
+  SarinaRegular: 'Sarina-Regular',
   ProstoOneRegular: 'ProstoOne-Regular',
   Poppins: 'Poppins-Regular',
   PoppinsBold: 'Poppins-Bold',

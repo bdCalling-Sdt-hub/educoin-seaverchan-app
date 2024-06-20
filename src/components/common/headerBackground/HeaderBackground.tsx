@@ -10,6 +10,7 @@ interface HeaderBackgroundProps {
   navigation?: NavigationProp<ParamListBase>;
   backgroundColor?: string;
   ringColor?: string;
+  opacity?: number;
 }
 
 const HeaderBackground = ({
@@ -17,6 +18,7 @@ const HeaderBackground = ({
   backgroundColor,
   ringColor,
   navigation,
+  opacity,
 }: HeaderBackgroundProps) => {
   return (
     <View>
@@ -44,7 +46,7 @@ const HeaderBackground = ({
             borderColor: ringColor ? ringColor : '#349EE6',
             borderWidth: 10,
             borderRadius: 100,
-            opacity: 0.4,
+            opacity: opacity ? opacity : 0.4,
           }}></View>
         <View
           style={{
@@ -56,7 +58,7 @@ const HeaderBackground = ({
             borderColor: ringColor ? ringColor : '#349EE6',
             borderWidth: 24,
             borderRadius: 100,
-            opacity: 0.4,
+            opacity: opacity ? opacity : 0.4,
           }}></View>
         <TouchableOpacity
           onPress={() => navigation?.goBack()}

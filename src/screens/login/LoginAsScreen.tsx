@@ -42,20 +42,20 @@ const AsLoginData = [
       },
     },
   },
-  {
-    id: 2,
-    name: 'Login as a Admin',
-    route: 'AdminLogin',
-    style: {
-      algin: 'left',
-      bgColor: '#3AAFFF',
-      gradientColor: {
-        start: 'rgba(58, 175, 255, .01)',
-        end: 'rgba(26, 162, 255, 1)',
-      },
-    },
-    image: require('../../assets/images/loginAs/admin.png'),
-  },
+  // {
+  //   id: 2,
+  //   name: 'Login as a Admin',
+  //   route: 'AdminLogin',
+  //   style: {
+  //     algin: 'left',
+  //     bgColor: '#3AAFFF',
+  //     gradientColor: {
+  //       start: 'rgba(58, 175, 255, .01)',
+  //       end: 'rgba(26, 162, 255, 1)',
+  //     },
+  //   },
+  //   image: require('../../assets/images/loginAs/admin.png'),
+  // },
 ];
 
 interface LoginAsProps {
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: GStyles.RussoOne,
-    fontSize: 24,
+    fontSize: 23,
     // fontWeight: 'bold',
     color: GStyles.white,
     textAlign: 'center',

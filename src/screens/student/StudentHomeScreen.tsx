@@ -112,7 +112,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
               gap: 28,
             }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('AdminNotification')}>
+              onPress={() => navigation.navigate('StudentNotification')}>
               <View
                 style={{
                   position: 'relative',
@@ -452,6 +452,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
               </TouchableOpacity>
 
               <TouchableOpacity
+                onPress={() => navigation.navigate('AllStudents')}
                 style={{
                   width: 156,
                   height: 168,
@@ -702,7 +703,8 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                 paddingHorizontal: 10,
                 alignItems: 'center',
               }}>
-              <View
+              <TouchableOpacity
+                onPress={() => navigation.navigate('StudentPublicProfile')}
                 style={{
                   width: 156,
                   height: 168,
@@ -798,9 +800,10 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     }}
                   />
                 </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
 
-              <View
+              <TouchableOpacity
+                onPress={() => navigation.navigate('AllStudents')}
                 style={{
                   width: 156,
                   height: 168,
@@ -919,7 +922,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     }}
                   />
                 </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             </View>
           </>
         )}

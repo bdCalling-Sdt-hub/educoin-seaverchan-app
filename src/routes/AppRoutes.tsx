@@ -23,6 +23,14 @@ import AllTeacherScreen from '../screens/admin/AllTeacherScreen';
 import AdminNotification from '../screens/admin/AdminNotification';
 import StudentRoutes from './StudentRoutes';
 import StudentPublicProfileScreen from '../screens/student/StudentPublicProfileScreen';
+import StudentFeedbackScreen from '../screens/student/StudentFeedbackScreen';
+import StudentProfileScreen from '../screens/student/StudentProfileScreen';
+import StudentNotification from '../screens/student/StudentNotificaiton';
+import AllStudentsScreen from '../screens/student/AllStudentsScreen';
+import TeacherRoutes from './TeacherRoutes';
+import PrivacyAndPolicyScreen from '../screens/teacher/PrivacyAndPolicyScreen';
+import TermsAndConditionScreen from '../screens/teacher/TermsAndConditionScreen';
+import TeacherDrawerRoutes from './TeacherDrawerRoutes';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +68,30 @@ export const Routes = () => {
         <Stack.Screen
           name="StudentPublicProfile"
           component={StudentPublicProfileScreen}
+        />
+        <Stack.Screen
+          name="StudentFeedBack"
+          component={StudentFeedbackScreen}
+        />
+        <Stack.Screen name="StudentProfile" component={StudentProfileScreen} />
+        <Stack.Screen
+          name="StudentNotification"
+          component={StudentNotification}
+        />
+        <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
+
+        {/* Teachers All Screens  */}
+        <Stack.Screen
+          name="TeacherDrawerRoutes"
+          component={TeacherDrawerRoutes}
+        />
+        <Stack.Screen
+          name="PrivacyAndPolicy"
+          component={PrivacyAndPolicyScreen}
+        />
+        <Stack.Screen
+          name="TermsAndCondition"
+          component={TermsAndConditionScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

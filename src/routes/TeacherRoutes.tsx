@@ -11,17 +11,19 @@ import StudentDrawerRoutes from './StudentDrawerRoutes';
 import {GStyles} from '../styles/GStyles';
 import StudentRewordsScreen from '../screens/student/StudentRewordsScreen';
 import ProgressScreen from '../screens/student/ProgressScreen';
+import TeacherDrawerRoutes from './TeacherDrawerRoutes';
+import TeacherHomeScreen from '../screens/teacher/TeacherHomeScreen';
 const Tab = createBottomTabNavigator();
 
-function StudentRoutes() {
+function TeacherRoutes() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
       }}>
       <Tab.Screen
-        name="StudentDRoutes"
-        component={StudentDrawerRoutes}
+        name="TeacherHome"
+        component={TeacherHomeScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
@@ -35,9 +37,30 @@ function StudentRoutes() {
             height: 30,
             color: GStyles.primaryOrange,
           },
-          tabBarActiveTintColor: GStyles.primaryOrange,
+          tabBarActiveTintColor: GStyles.primaryPurple,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="home" color={color} size={30} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="CreateTask"
+        component={CreateTaskScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarLabelStyle: {
+            display: 'none',
+          },
+          tabBarStyle: {
+            height: 70,
+          },
+          tabBarIconStyle: {
+            width: 30,
+            height: 30,
+          },
+          tabBarActiveTintColor: GStyles.primaryPurple,
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome6 name="clipboard-list" color={color} size={size} />
           ),
         }}
       />
@@ -56,7 +79,7 @@ function StudentRoutes() {
             width: 30,
             height: 30,
           },
-          tabBarActiveTintColor: GStyles.primaryOrange,
+          tabBarActiveTintColor: GStyles.primaryPurple,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="gift" color={color} size={size} />
           ),
@@ -77,7 +100,7 @@ function StudentRoutes() {
             width: 30,
             height: 30,
           },
-          tabBarActiveTintColor: GStyles.primaryOrange,
+          tabBarActiveTintColor: GStyles.primaryPurple,
           tabBarIcon: ({color, size}) => (
             <Entypo name="bar-graph" color={color} size={size} />
           ),
@@ -87,4 +110,4 @@ function StudentRoutes() {
   );
 }
 
-export default StudentRoutes;
+export default TeacherRoutes;

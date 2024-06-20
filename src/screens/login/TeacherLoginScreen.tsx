@@ -13,8 +13,9 @@ import React from 'react';
 import BackButton from '../../components/BackButton';
 import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
+import {NavigProps} from '../../interfaces/NavigationPros';
 
-const TeacherLoginScreen = () => {
+const TeacherLoginScreen = ({navigation}: NavigProps) => {
   const [code, setCode] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
   const handlePress = () => {
@@ -60,7 +61,9 @@ const TeacherLoginScreen = () => {
           </View>
         </View>
         <View style={styles.buttonContain}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('TeacherDrawerRoutes')}>
             <Text style={styles.buttonText}>Go</Text>
           </TouchableOpacity>
         </View>

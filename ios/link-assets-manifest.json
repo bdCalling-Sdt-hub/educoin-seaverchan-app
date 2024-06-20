@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/OFL.txt",
+      "sha1": "2f96ea445de5dd20c494576a9c227221d214ff95"
+    },
+    {
       "path": "src/assets/fonts/Poppins-Black.ttf",
       "sha1": "645e04c53c6b5b35bce654a811ebce16af8aa721"
     },
@@ -80,6 +84,10 @@
     {
       "path": "src/assets/fonts/RussoOne-Regular.ttf",
       "sha1": "4a12533ad9ee3d6c83da4ac659d78ef9fb702ab4"
+    },
+    {
+      "path": "src/assets/fonts/Sarina-Regular.ttf",
+      "sha1": "2a07178884c7ea4ca41bda8592c86d81094a5074"
     },
     {
       "path": "src/assets/fonts/SuezOne-Regular.ttf",

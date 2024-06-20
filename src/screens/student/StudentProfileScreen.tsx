@@ -1,11 +1,22 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {BarChart} from 'react-native-gifted-charts';
+
+const StudentProfileScreen = ({navigation}: NavigProps) => {
+  const barData = [
+    {value: 30, label: 'Sun'},
+    {value: 50, label: 'Mon'},
+    {value: 20, label: 'Tue'},
+    {value: 70, label: 'Wed'},
+    {value: 35, label: 'Thu'},
+    {value: 90, label: 'Fri'},
+    {value: 20, label: 'Sat'},
+  ];
   return (
     <View>
       <HeaderBackground
@@ -18,7 +29,8 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
         style={{
           borderColor: GStyles.borderColor['#ECECEC'],
           borderWidth: 1,
-          padding: 28,
+          padding: 10,
+          marginVertical: 10,
           justifyContent: 'center',
           alignItems: 'center',
           borderRadius: 10,
@@ -135,10 +147,141 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
           </View>
         </View>
       </View>
+      <View
+        style={{
+          marginBottom: 15,
+          marginTop: 5,
+          marginHorizontal: '4%',
+          paddingVertical: 5,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          //   borderColor: GStyles.borderColor['#ECECEC'],
+          //   borderWidth: 1,
+          //   borderRadius: 5,
+        }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: GStyles.primaryOrange,
+            width: 88,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 100,
+          }}>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 14,
+              color: GStyles.white,
+              fontWeight: '500',
+              letterSpacing: 0.5,
+            }}>
+            Weak
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            // backgroundColor: GStyles.primaryOrange,
+            width: 88,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 100,
+          }}>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 14,
+              color: '#828282',
+              fontWeight: '500',
+              letterSpacing: 0.5,
+            }}>
+            Month
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            // backgroundColor: GStyles.primaryOrange,
+            width: 88,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 100,
+          }}>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 14,
+              color: '#828282',
+              fontWeight: '500',
+              letterSpacing: 0.5,
+            }}>
+            Year
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          paddingHorizontal: '4%',
+        }}>
+        <View>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              gap: 5,
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              borderRadius: 100,
+              borderWidth: 1,
+              borderColor: GStyles.borderColor['#ECECEC'],
+              padding: 5,
+              paddingHorizontal: 10,
+              width: 69,
+              alignSelf: 'flex-end',
+            }}>
+            <Text
+              style={{
+                fontFamily: GStyles.PoppinsSemiBold,
+                fontSize: 12,
+                color: GStyles.textColor['#3D3D3D'],
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              2024
+            </Text>
+            <AntDesign
+              name="down"
+              color={GStyles.textColor['#3D3D3D']}
+              size={10}
+            />
+          </TouchableOpacity>
+        </View>
+        <BarChart
+          barWidth={21}
+          noOfSections={10}
+          stepHeight={25}
+          frontColor={GStyles.primaryBlue}
+          rulesColor={'white'}
+          maxValue={100}
+          barBorderBottomLeftRadius={0}
+          barBorderBottomRightRadius={0}
+          barBorderTopLeftRadius={0}
+          barBorderTopRightRadius={0}
+          barStyle={{
+            borderRadius: 0,
+            // hight: 250,
+          }}
+          //   height={250}
+          data={barData}
+          yAxisThickness={0}
+          xAxisThickness={0}
+        />
+      </View>
     </View>
   );
 };
 
-export default StudentPublicProfileScreen;
+export default StudentProfileScreen;
 
 const styles = StyleSheet.create({});

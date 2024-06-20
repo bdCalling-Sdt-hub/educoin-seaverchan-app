@@ -10,14 +10,14 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-function StudentCustomDrawer(props: any) {
+function TeacherCustomDrawer(props: any) {
   const navigation = useNavigation<any>();
   return (
     <>
       <View
         style={{
           height: 104,
-          backgroundColor: GStyles.primaryOrange,
+          backgroundColor: GStyles.primaryPurple,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -70,11 +70,11 @@ function StudentCustomDrawer(props: any) {
         <DrawerItemList {...props} />
         <DrawerItem
           label="Profile"
-          icon={() => <AntDesign name="user" color={'#4A2B6C'} size={24} />}
+          icon={() => <AntDesign name="user" color={'#4A2B6C'} size={20} />}
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: '400',
             letterSpacing: 0.8,
           }}
@@ -88,11 +88,11 @@ function StudentCustomDrawer(props: any) {
         />
         <DrawerItem
           label="Feedback"
-          icon={() => <Octicons name="report" color={'#4A2B6C'} size={24} />}
+          icon={() => <Octicons name="report" color={'#4A2B6C'} size={20} />}
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -107,75 +107,97 @@ function StudentCustomDrawer(props: any) {
             navigation.navigate('StudentFeedBack');
           }}
         />
-        {/* <DrawerItem
-            label="AssignTask"
-            icon={() => (
-              <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
-            )}
-            labelStyle={{
-              color: '#4A2B6C',
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              fontWeight: '400',
-  
-              letterSpacing: 0.8,
-            }}
-            style={
-              {
-                // height: 100,
-                // paddingVertical: 2,
-              }
+        <DrawerItem
+          label="Privacy & Policy"
+          icon={() => <AntDesign name="unlock" color={'#4A2B6C'} size={20} />}
+          labelStyle={{
+            color: '#4A2B6C',
+            fontFamily: GStyles.Poppins,
+            fontSize: 14,
+            fontWeight: '400',
+
+            letterSpacing: 0.8,
+          }}
+          style={
+            {
+              // height: 100,
+              // paddingVertical: 2,
             }
-            onPress={() => {
-              navigation.navigate('AssignTask');
-            }}
-          />
-          <DrawerItem
-            label="AllTeacher"
-            icon={() => (
-              <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
-            )}
-            labelStyle={{
-              color: '#4A2B6C',
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              fontWeight: '400',
-  
-              letterSpacing: 0.8,
-            }}
-            style={
-              {
-                // height: 100,
-                // paddingVertical: 2,
-              }
+          }
+          onPress={() => {
+            navigation.navigate('PrivacyAndPolicy');
+          }}
+        />
+        <DrawerItem
+          label="Terms & Condition"
+          icon={() => (
+            <AntDesign name="exclamationcircleo" color={'#4A2B6C'} size={20} />
+          )}
+          labelStyle={{
+            color: '#4A2B6C',
+            fontFamily: GStyles.Poppins,
+            fontSize: 14,
+            fontWeight: '400',
+
+            letterSpacing: 0.8,
+          }}
+          style={
+            {
+              // height: 100,
+              // paddingVertical: 2,
             }
-            onPress={() => {
-              navigation.navigate('AllTeacher');
-            }}
-          />
-          <DrawerItem
-            label="Notification"
-            icon={() => (
-              <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
-            )}
-            labelStyle={{
-              color: '#4A2B6C',
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              fontWeight: '400',
-  
-              letterSpacing: 0.8,
-            }}
-            style={
-              {
-                // height: 100,
-                // paddingVertical: 2,
+          }
+          onPress={() => {
+            navigation.navigate('TermsAndCondition');
+          }}
+        />
+        {/* 
+            <DrawerItem
+              label="AllTeacher"
+              icon={() => (
+                <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
+              )}
+              labelStyle={{
+                color: '#4A2B6C',
+                fontFamily: GStyles.Poppins,
+                fontSize: 16,
+                fontWeight: '400',
+    
+                letterSpacing: 0.8,
+              }}
+              style={
+                {
+                  // height: 100,
+                  // paddingVertical: 2,
+                }
               }
-            }
-            onPress={() => {
-              navigation.navigate('AdminNotification');
-            }}
-          /> */}
+              onPress={() => {
+                navigation.navigate('AllTeacher');
+              }}
+            />
+            <DrawerItem
+              label="Notification"
+              icon={() => (
+                <MaterialIcons name="feedback" color={'#4A2B6C'} size={24} />
+              )}
+              labelStyle={{
+                color: '#4A2B6C',
+                fontFamily: GStyles.Poppins,
+                fontSize: 16,
+                fontWeight: '400',
+    
+                letterSpacing: 0.8,
+              }}
+              style={
+                {
+                  // height: 100,
+                  // paddingVertical: 2,
+                }
+              }
+              onPress={() => {
+                navigation.navigate('AdminNotification');
+              }}
+            /> */}
       </DrawerContentScrollView>
       <View>
         <TouchableOpacity
@@ -210,4 +232,4 @@ function StudentCustomDrawer(props: any) {
     </>
   );
 }
-export default StudentCustomDrawer;
+export default TeacherCustomDrawer;
