@@ -2,18 +2,23 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import AdminHomeScreen from '../screens/admin/AdminHomeScreen';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import AdminCustomDrawer from '../components/CustomDrawer/AdminCustomDrawer';
+import StudentHomeScreen from '../screens/student/StudentHomeScreen';
+
+import StudentCustomDrawer from '../components/CustomDrawer/StudentCustomDrawer';
+import TeacherHomeScreen from '../screens/teacher/TeacherHomeScreen';
+import TeacherCustomDrawer from '../components/CustomDrawer/TeacherCustomDrawer';
+import TeacherRoutes from './TeacherRoutes';
 const Drawer = createDrawerNavigator();
 
-function AdminDrawerRoutes() {
+function TeacherDrawerRoutes() {
   return (
     <Drawer.Navigator
-      drawerContent={props => <AdminCustomDrawer {...props} />}
+      drawerContent={props => <TeacherCustomDrawer {...props} />}
       screenOptions={{
         headerShown: false,
       }}>
       <Drawer.Screen
-        name="AdminHome"
+        name="TeacherRoutes"
         options={{
           drawerStyle: {
             // display: 'none',
@@ -25,10 +30,10 @@ function AdminDrawerRoutes() {
             display: 'none',
           },
         }}
-        component={AdminHomeScreen}
+        component={TeacherRoutes}
       />
     </Drawer.Navigator>
   );
 }
 
-export default AdminDrawerRoutes;
+export default TeacherDrawerRoutes;

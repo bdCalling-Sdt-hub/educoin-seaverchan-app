@@ -8,9 +8,9 @@ import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {useNavigation} from '@react-navigation/native';
-function CustomDrawer(props: any) {
-  const navigation = useNavigation();
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+function AdminCustomDrawer(props: any) {
+  const navigation = useNavigation<any>();
   return (
     <>
       <View
@@ -19,14 +19,15 @@ function CustomDrawer(props: any) {
           backgroundColor: GStyles.primaryBlue,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          paddingHorizontal: 10,
+          alignItems: 'center',
         }}>
         <Image
-          source={require('../../assets/images/bearImage.png')}
+          source={require('../../assets/images/loginAs/bearFace.png')}
           style={{
-            width: 82,
-            height: 82,
+            width: 115,
+            height: 115,
+            marginLeft: -10,
+            marginBottom: -10,
           }}
         />
         <View
@@ -197,4 +198,4 @@ function CustomDrawer(props: any) {
     </>
   );
 }
-export default CustomDrawer;
+export default AdminCustomDrawer;

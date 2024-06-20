@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   Image,
   ImageBackground,
   StatusBar,
@@ -41,25 +42,28 @@ const AsLoginData = [
       },
     },
   },
-  {
-    id: 2,
-    name: 'Login as a Admin',
-    route: 'AdminLogin',
-    style: {
-      algin: 'left',
-      bgColor: '#3AAFFF',
-      gradientColor: {
-        start: 'rgba(58, 175, 255, .01)',
-        end: 'rgba(26, 162, 255, 1)',
-      },
-    },
-    image: require('../../assets/images/loginAs/admin.png'),
-  },
+  // {
+  //   id: 2,
+  //   name: 'Login as a Admin',
+  //   route: 'AdminLogin',
+  //   style: {
+  //     algin: 'left',
+  //     bgColor: '#3AAFFF',
+  //     gradientColor: {
+  //       start: 'rgba(58, 175, 255, .01)',
+  //       end: 'rgba(26, 162, 255, 1)',
+  //     },
+  //   },
+  //   image: require('../../assets/images/loginAs/admin.png'),
+  // },
 ];
 
 interface LoginAsProps {
   navigation: NavigationProp<ParamListBase>;
 }
+
+const deviceFontSize = Dimensions.get('window').fontScale;
+console.log(deviceFontSize);
 
 const LoginAsScreen = ({navigation}: LoginAsProps) => {
   return (
@@ -127,14 +131,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // gap: 20,
   },
-  loginAsText: {
-    fontSize: 32,
-    fontWeight: '400',
-    color: GStyles.primaryPurple,
-    lineHeight: 41,
-    textAlign: 'center',
-    fontFamily: 'SuezOne-Regular',
-  },
+
   cardContainer: {
     alignItems: 'center',
     gap: 24,
@@ -170,10 +167,9 @@ const styles = StyleSheet.create({
     height: 58,
   },
   cardTitle: {
-    fontFamily: GStyles.ProstoOneRegular,
-    fontSize: 24,
-    fontWeight: '600',
-    lineHeight: 34,
+    fontFamily: GStyles.RussoOne,
+    fontSize: 23,
+    // fontWeight: 'bold',
     color: GStyles.white,
     textAlign: 'center',
     paddingHorizontal: 10,

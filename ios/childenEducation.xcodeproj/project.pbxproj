@@ -35,7 +35,9 @@
 		BAB084CA6BBF4826B2291626 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6713C85B08554B81B17C8DED /* Poppins-ThinItalic.ttf */; };
 		24026B115E094789BC343810 /* ProstoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04EBE4F0AFE44BEDB74F28D2 /* ProstoOne-Regular.ttf */; };
 		AA3CA0B84A4143D6B9210F76 /* SuezOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 844C3E4ED2C7473DBED87138 /* SuezOne-Regular.ttf */; };
-		18BFA63E8481447093B98ACD /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = EB78D9A5FC9F4F5881AA6EA9 /* OFL.txt */; };
+		5C8FA0B4BEBC473C8F06ABD4 /* RussoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 650B8741DE5443EC967F0FE8 /* RussoOne-Regular.ttf */; };
+		19AF14DDC733450B9A1C5EE2 /* Sarina-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BD1AA3428F0442C9B42D54B /* Sarina-Regular.ttf */; };
+		A8BB0545B9C346F5BF941256 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8ED96CAA4716808EA18E /* OFL.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +89,9 @@
 		6713C85B08554B81B17C8DED /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Poppins-ThinItalic.ttf"; path = "../src/assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		04EBE4F0AFE44BEDB74F28D2 /* ProstoOne-Regular.ttf */ = {isa = PBXFileReference; name = "ProstoOne-Regular.ttf"; path = "../src/assets/fonts/ProstoOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		844C3E4ED2C7473DBED87138 /* SuezOne-Regular.ttf */ = {isa = PBXFileReference; name = "SuezOne-Regular.ttf"; path = "../src/assets/fonts/SuezOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EB78D9A5FC9F4F5881AA6EA9 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../src/assets/fonts/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		650B8741DE5443EC967F0FE8 /* RussoOne-Regular.ttf */ = {isa = PBXFileReference; name = "RussoOne-Regular.ttf"; path = "../src/assets/fonts/RussoOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0BD1AA3428F0442C9B42D54B /* Sarina-Regular.ttf */ = {isa = PBXFileReference; name = "Sarina-Regular.ttf"; path = "../src/assets/fonts/Sarina-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		71CF8ED96CAA4716808EA18E /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../src/assets/fonts/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,7 +221,9 @@
 				6713C85B08554B81B17C8DED /* Poppins-ThinItalic.ttf */,
 				04EBE4F0AFE44BEDB74F28D2 /* ProstoOne-Regular.ttf */,
 				844C3E4ED2C7473DBED87138 /* SuezOne-Regular.ttf */,
-				EB78D9A5FC9F4F5881AA6EA9 /* OFL.txt */,
+				650B8741DE5443EC967F0FE8 /* RussoOne-Regular.ttf */,
+				0BD1AA3428F0442C9B42D54B /* Sarina-Regular.ttf */,
+				71CF8ED96CAA4716808EA18E /* OFL.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -339,7 +345,9 @@
 				BAB084CA6BBF4826B2291626 /* Poppins-ThinItalic.ttf in Resources */,
 				24026B115E094789BC343810 /* ProstoOne-Regular.ttf in Resources */,
 				AA3CA0B84A4143D6B9210F76 /* SuezOne-Regular.ttf in Resources */,
-				18BFA63E8481447093B98ACD /* OFL.txt in Resources */,
+				5C8FA0B4BEBC473C8F06ABD4 /* RussoOne-Regular.ttf in Resources */,
+				19AF14DDC733450B9A1C5EE2 /* Sarina-Regular.ttf in Resources */,
+				A8BB0545B9C346F5BF941256 /* OFL.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,31 +6,28 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
 interface HeaderBackgroundProps {
-  style?: any;
   title?: string;
-  onPress?: () => void;
-  icon?: any;
-  iconStyle?: any;
-  titleStyle?: any;
-  back?: boolean;
-  backStyle?: any;
-  backIcon?: any;
-  backIconStyle?: any;
-  backTitle?: string;
-  backTitleStyle?: any;
-  backOnPress?: () => void;
-  backIconOnPress?: () => void;
-  backTitleOnPress?: () => void;
   navigation?: NavigationProp<ParamListBase>;
+  backgroundColor?: string;
+  ringColor?: string;
+  opacity?: number;
 }
 
-const HeaderBackground = ({title, navigation}: HeaderBackgroundProps) => {
+const HeaderBackground = ({
+  title,
+  backgroundColor,
+  ringColor,
+  navigation,
+  opacity,
+}: HeaderBackgroundProps) => {
   return (
     <View>
       <View
         style={{
           position: 'relative',
-          backgroundColor: GStyles.primaryBlue,
+          backgroundColor: backgroundColor
+            ? backgroundColor
+            : GStyles.primaryBlue,
           height: 90,
           borderBottomRightRadius: 24,
           borderBottomLeftRadius: 24,
@@ -46,10 +43,10 @@ const HeaderBackground = ({title, navigation}: HeaderBackgroundProps) => {
             left: -30,
             width: 153,
             height: 153,
-            borderColor: '#349EE6',
+            borderColor: ringColor ? ringColor : '#349EE6',
             borderWidth: 10,
             borderRadius: 100,
-            opacity: 0.4,
+            opacity: opacity ? opacity : 0.4,
           }}></View>
         <View
           style={{
@@ -58,10 +55,10 @@ const HeaderBackground = ({title, navigation}: HeaderBackgroundProps) => {
             right: -10,
             width: 216,
             height: 216,
-            borderColor: '#349EE6',
+            borderColor: ringColor ? ringColor : '#349EE6',
             borderWidth: 24,
             borderRadius: 100,
-            opacity: 0.4,
+            opacity: opacity ? opacity : 0.4,
           }}></View>
         <TouchableOpacity
           onPress={() => navigation?.goBack()}

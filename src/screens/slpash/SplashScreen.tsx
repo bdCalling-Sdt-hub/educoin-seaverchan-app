@@ -32,8 +32,33 @@ const SplashScreen = ({navigation}: splashProps) => {
     <View style={styles.container}>
       <View style={styles.splashBg}>
         <View style={styles.splashContainer}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 30,
+            }}>
+            <Text
+              style={{
+                fontSize: 33,
+
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.SarinaRegular,
+              }}>
+              Welcome to
+            </Text>
+            <Text
+              style={{
+                fontSize: 24,
+
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.SarinaRegular,
+              }}>
+              Edu coin
+            </Text>
+          </View>
           <Image
-            source={require('../../assets/images/splashImage.png')}
+            source={require('../../assets/images/splash/splashImage.png')}
             style={{
               width: 327,
               height: 327,

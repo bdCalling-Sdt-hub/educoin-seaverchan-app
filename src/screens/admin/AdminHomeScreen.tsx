@@ -16,9 +16,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 
 interface AdminHOmeProps {
-  navigation: NavigationProp<ParamListBase>;
+  navigation: DrawerNavigationProp<ParamListBase>;
 }
 
 const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
