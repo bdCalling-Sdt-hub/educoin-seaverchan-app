@@ -28,6 +28,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       style={{
         height: '100%',
         backgroundColor: GStyles.white,
+        position: 'relative',
       }}>
       {/* header part  start */}
       <View
@@ -1383,7 +1384,22 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         </View>
       </ScrollView>
       {/* body part end */}
-
+      <View>
+        <TouchableOpacity
+          style={{
+            width: 68,
+            height: 68,
+            backgroundColor: GStyles.primaryPurple,
+            borderRadius: 100,
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            bottom: 20,
+            right: 30,
+          }}>
+          <AntDesign name="plus" color={'white'} size={24} />
+        </TouchableOpacity>
+      </View>
       <StatusBar
         backgroundColor={GStyles.primaryPurple}
         barStyle="light-content"
