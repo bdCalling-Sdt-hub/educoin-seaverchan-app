@@ -22,14 +22,19 @@ interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
 }
 
-const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
+const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
+  const [isCompeted, setIsCompeted] = React.useState(false);
+
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+      }}>
       {/* header part  start */}
       <View
         style={{
           height: 170,
-          backgroundColor: GStyles.primaryBlue,
+          backgroundColor: GStyles.primaryOrange,
           borderBottomLeftRadius: 24,
           borderBottomRightRadius: 24,
           position: 'relative',
@@ -44,7 +49,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
             left: -20,
             width: 153,
             height: 153,
-            borderColor: '#349EE6',
+            borderColor: GStyles.primaryOrange,
             borderWidth: 15,
             borderRadius: 100,
             opacity: 0.4,
@@ -53,6 +58,8 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
+            paddingHorizontal: 8,
+            paddingVertical: 5,
           }}>
           <View
             style={{
@@ -69,7 +76,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                 //   alignSelf: 'center',
               }}
               source={{
-                uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
+                uri: 'https://s3-alpha-sig.figma.com/img/7e25/5623/4294ee5c7b1b9f58586be6b07d5af09b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UqVh6r11OAxRRUyG9Ja8zPMX~ljsBgG1IQzANVfrxnuDysbnef64v2qruEJL6c~1sQfwVOryFtqkQaNFbXvhaAxNOVYFtCbe1UN~i1AOGAgAOrK4Zb0D6vJ8G5-uVV1Z8mcLcIbg68eMBOuh7KRB0iTkjG6RIKyp0j7LdBRFf9B-DHREoCbHAfgeMGKHdJ5ZEzuzgYmAX8GP1I9YhjiJuzfnTWEucKKFdzFkD8ntIJbtePxOD7myM6uIRrzqAsW8SXaU1M8xglowzRma9rkzofTVy170u7386aKAuDbHoIMGI44B4x8C2cr6PueVzpGeFP2O3WxADEXSxtmb1MoEqA__',
               }}
             />
             <View>
@@ -82,18 +89,17 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                   lineHeight: 22,
                   letterSpacing: 1.4,
                 }}>
-                Welcome back
+                Rina Karina
               </Text>
               <Text
                 style={{
                   color: 'white',
-                  fontSize: 20,
+                  fontSize: 14,
                   fontFamily: GStyles.Poppins,
-                  fontWeight: '800',
+                  fontWeight: '400',
                   letterSpacing: 0.8,
-                  lineHeight: 27,
                 }}>
-                Aarav Sharma
+                Your Points: 100
               </Text>
             </View>
           </View>
@@ -151,197 +157,185 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
       </View>
       {/* header part  end */}
       {/* body part start */}
-      <View
+      <ScrollView
         style={{
           paddingHorizontal: '4%',
+          paddingVertical: 20,
         }}>
         <View
           style={{
-            paddingVertical: 24,
-            paddingHorizontal: 5,
-            width: '100%',
-            alignItems: 'flex-end',
-          }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('AllTeacher')}
-            style={{
-              width: 70,
-              padding: 4,
-            }}>
-            <Text
-              style={{
-                textAlign: 'right',
-                color: GStyles.primaryPurple,
-                fontSize: 14,
-                fontWeight: '400',
-                fontFamily: GStyles.Poppins,
-                lineHeight: 19,
-              }}>
-              View All
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* simple Card  start */}
-
-        <View
-          style={{
-            height: 70,
-            width: '100%',
-            borderWidth: 1,
-            borderColor: '#ECECEC',
             flexDirection: 'row',
-            alignItems: 'center',
             justifyContent: 'space-between',
-            padding: 10,
-            borderRadius: 8,
+            paddingHorizontal: 10,
+            alignItems: 'center',
+            borderBottomColor: GStyles.borderColor['#ECECEC'],
+            borderBottomWidth: 2,
           }}>
-          <View>
-            <Text
-              style={{
-                color: '#3D3D3D',
-                fontSize: 16,
-                fontWeight: '600',
-                fontFamily: GStyles.PoppinsSemiBold,
-                lineHeight: 22,
-                letterSpacing: 0.8,
-              }}>
-              Dan’s family
-            </Text>
-            <Text
-              style={{
-                color: '#3D3D3D',
-                fontSize: 14,
-                fontWeight: '400',
-                fontFamily: GStyles.Poppins,
-                lineHeight: 19,
-                letterSpacing: 0.8,
-              }}>
-              Kids Count : 26
-            </Text>
-          </View>
           <TouchableOpacity
+            onPress={() => setIsCompeted(!isCompeted)}
             style={{
-              padding: 10,
+              width: '40%',
             }}>
-            <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
+            <Text
+              style={{
+                color: GStyles.textColor['#3D3D3D'],
+                fontSize: 16,
+                fontFamily: GStyles.Poppins,
+                fontWeight: '400',
+                borderBottomColor: isCompeted
+                  ? GStyles.borderColor['#ECECEC']
+                  : GStyles.primaryOrange,
+                borderBottomWidth: isCompeted ? 0 : 3,
+                textAlign: 'center',
+              }}>
+              New Task
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setIsCompeted(!isCompeted)}
+            style={{
+              width: '40%',
+            }}>
+            <Text
+              style={{
+                color: GStyles.textColor['#3D3D3D'],
+                fontSize: 16,
+                fontFamily: GStyles.Poppins,
+                fontWeight: '400',
+                borderBottomColor: isCompeted
+                  ? GStyles.primaryOrange
+                  : GStyles.borderColor['#ECECEC'],
+                borderBottomWidth: isCompeted ? 3 : 0,
+                textAlign: 'center',
+              }}>
+              Completed Task
+            </Text>
           </TouchableOpacity>
         </View>
-        {/* simple Card  end */}
-
-        {/* kids card start */}
-        <ScrollView
-          contentContainerStyle={{
-            paddingVertical: 10,
-            gap: 15,
-          }}
-          showsHorizontalScrollIndicator={false}
-          horizontal>
-          {[...Array(10)].map((item, index) => (
+        <View>
+          <View
+            // key={i}
+            style={{
+              padding: 12,
+              borderWidth: 1,
+              borderColor: '#ECECEC',
+              borderRadius: 8,
+              marginVertical: 10,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
             <View
-              key={index}
               style={{
-                width: 156,
-                height: 168,
-                borderRadius: 13,
+                flexDirection: 'row',
+                gap: 14,
+                // alignItems: 'center',
                 justifyContent: 'center',
-                alignItems: 'center',
-                gap: 8,
-                padding: 24,
-                position: 'relative',
-                //   backgroundColor: GStyles.primaryBlue,
-                borderWidth: 1,
-                borderColor: '#ECECEC',
               }}>
               <View
                 style={{
-                  width: 61,
-                  height: 61,
+                  width: 56,
+                  height: 56,
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   borderWidth: 1,
                   borderColor: GStyles.primaryBlue,
-                  padding: 3,
                   borderRadius: 100,
                 }}>
                 <Image
+                  source={{
+                    uri: 'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K~gmlW1G6g5XRSx36O1Frt5zyupXRqxCUz4lJFTg1sC92Wij9xKlXrGfrqjpOszO74yM-8qMQVXvtj03PtQpYwwm29OkuZdsGHhNTq97CPSjQab8IPyIvpSJIfcD814JsuPBE8Y7p~dJaR7ntiFamBpNKLxuJ3f36DYf8-wmZP8iv4vtHfm55Q26s3gjKT~2NEL7ss8iSDL282wxCC7woBNemG9gjMmA7Qxa96-PvXQRsGTKqX9aMDBJ7AI2qKYpmvjP9w4d1pM7IR7JtEdhFAf3jcnptld-3EYZGrcr9ITpjbBGb0GZKguL11wwH07SxkzyB5if8wZt44qA3Ee5tA__',
+                  }}
                   style={{
-                    width: 53,
-                    height: 53,
+                    width: 46,
+                    height: 46,
                     borderRadius: 100,
                   }}
-                  source={{
-                    uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                  }}
                 />
               </View>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontFamily: GStyles.Poppins,
+                    color: GStyles.primaryPurple,
+                  }}>
+                  Home Errands
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: GStyles.PoppinsMedium,
+                    color: '#3D3D3D',
+                  }}>
+                  Make Your Bed
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 10,
+                  }}>
+                  <Text>Points:</Text>
+                  <Text>50</Text>
+                  <AntDesign name="star" color={GStyles.primaryYellow} />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontFamily: GStyles.Poppins,
+                    color: GStyles.primaryBlue,
+                    marginTop: 8,
+                  }}>
+                  anytime
+                </Text>
+              </View>
+            </View>
+            {/* {assign.includes(i) ? ( */}
+            {/* <TouchableOpacity
+                onPress={() => navigation.navigate('EditCustomTask')}
+                style={{
+                  backgroundColor: GStyles.primaryBlue,
+                  paddingVertical: 10,
+                  paddingHorizontal: 15,
+                  borderRadius: 100,
+                  width: 90,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <AntDesign name="edit" size={16} color="white" />
+              </TouchableOpacity>
+            ) : ( */}
+            <TouchableOpacity
+              onPress={() => {
+                //   setAssign([...assign, i]);
+              }}
+              style={{
+                backgroundColor: GStyles.primaryBlue,
+                borderRadius: 100,
+                width: 100,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
               <Text
                 style={{
-                  color: '#3D3D3D',
+                  color: 'white',
                   fontSize: 16,
-                  fontWeight: '500',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 24,
-                  letterSpacing: 0.8,
+                  fontFamily: GStyles.Poppins,
                 }}>
-                Aadi T
+                Achieve
               </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  gap: 5,
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: '#797979',
-                    fontFamily: GStyles.Poppins,
-                    lineHeight: 18,
-                    fontWeight: '400',
-                    letterSpacing: 0.8,
-                  }}>
-                  Reword:
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: '#797979',
-                    fontFamily: GStyles.Poppins,
-                    lineHeight: 18,
-                    fontWeight: '400',
-                    letterSpacing: 0.8,
-                  }}>
-                  4.5
-                </Text>
-                <AntDesign name="star" color={GStyles.primaryYellow} />
-              </View>
-              <TouchableOpacity
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  padding: 10,
-                }}>
-                {/* <FontAwesome name="tasks" color="#686868" size={18} />
-                 */}
-                <Image
-                  source={require('../../assets/icons/taskIcon.png')}
-                  style={{
-                    width: 18,
-                    height: 18,
-                    resizeMode: 'contain',
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          ))}
-        </ScrollView>
-        {/* kids card end */}
-      </View>
+            </TouchableOpacity>
+            {/* )} */}
+          </View>
+        </View>
+      </ScrollView>
       {/* body part end */}
 
       <StatusBar
-        backgroundColor={GStyles.primaryBlue}
+        backgroundColor={GStyles.primaryOrange}
         barStyle="light-content"
         animated
         showHideTransition="slide"
@@ -350,6 +344,6 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
   );
 };
 
-export default AdminHomeScreen;
+export default StudentHomeScreen;
 
 const styles = StyleSheet.create({});

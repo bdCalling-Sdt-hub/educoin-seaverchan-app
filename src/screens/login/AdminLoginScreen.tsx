@@ -16,11 +16,11 @@ import BackButton from '../../components/BackButton';
 import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
-interface AdminLoginScreenProps {
+export interface NavigationProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const AdminLoginScreen = ({navigation}: AdminLoginScreenProps) => {
+const AdminLoginScreen = ({navigation}: NavigationProps) => {
   const [code, setCode] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
   const handlePress = () => {

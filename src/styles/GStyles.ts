@@ -4,6 +4,12 @@ export const GStyles = {
   primaryYellow: '#FDDF50',
   primaryPurple: '#A55FEF',
   white: '#ffff',
+  textColor: {
+    '#3D3D3D': '#3D3D3D',
+  },
+  borderColor: {
+    '#ECECEC': '#ECECEC',
+  },
   blue: {
     light: '#ebf7ff',
     lightHover: '#e1f3ff',
@@ -24,6 +30,7 @@ export const GStyles = {
   },
 
   SuezOne: 'SuezOne-Regular',
+  RussoOne: 'RussoOne-Regular',
   ProstoOneRegular: 'ProstoOne-Regular',
   Poppins: 'Poppins-Regular',
   PoppinsBold: 'Poppins-Bold',

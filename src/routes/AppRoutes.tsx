@@ -21,6 +21,7 @@ import AdminProfileScreen from '../screens/admin/AdminProfileScreen';
 import AssignTaskScreen from '../screens/admin/AssignTaskScreen';
 import AllTeacherScreen from '../screens/admin/AllTeacherScreen';
 import AdminNotification from '../screens/admin/AdminNotification';
+import StudentRoutes from './StudentRoutes';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +54,8 @@ export const Routes = () => {
         <Stack.Screen name="AssignTask" component={AssignTaskScreen} />
         <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
         <Stack.Screen name="AdminNotification" component={AdminNotification} />
+        {/* student routes  */}
+        <Stack.Screen name="StudentRoutes" component={StudentRoutes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
