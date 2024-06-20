@@ -17,6 +17,17 @@ export const GStyles = {
     normal: '#3aafff',
     normalHover: '#349ee6',
   },
+  orange: {
+    light: '#fff3e7',
+    lightHover: '#ffeddb',
+    lightActive: '#ffdab5',
+    normal: '#ff8811',
+    normalHover: '#e67a0f',
+    normalActive: '#cc6d0e',
+    dark: '#bf660d',
+    darkHover: '#733d08',
+    darkActive: '#593006',
+  },
   gray: {
     light: '#ececec',
     lightHover: '#e2e2e2',

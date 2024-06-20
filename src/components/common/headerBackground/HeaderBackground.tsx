@@ -9,15 +9,13 @@ interface HeaderBackgroundProps {
   title?: string;
   navigation?: NavigationProp<ParamListBase>;
   backgroundColor?: string;
-  smallRingColor?: string;
-  bigRingColor?: string;
+  ringColor?: string;
 }
 
 const HeaderBackground = ({
   title,
   backgroundColor,
-  bigRingColor,
-  smallRingColor,
+  ringColor,
   navigation,
 }: HeaderBackgroundProps) => {
   return (
@@ -43,7 +41,7 @@ const HeaderBackground = ({
             left: -30,
             width: 153,
             height: 153,
-            borderColor: smallRingColor ? smallRingColor : '#349EE6',
+            borderColor: ringColor ? ringColor : '#349EE6',
             borderWidth: 10,
             borderRadius: 100,
             opacity: 0.4,
@@ -55,7 +53,7 @@ const HeaderBackground = ({
             right: -10,
             width: 216,
             height: 216,
-            borderColor: bigRingColor ? bigRingColor : '#349EE6',
+            borderColor: ringColor ? ringColor : '#349EE6',
             borderWidth: 24,
             borderRadius: 100,
             opacity: 0.4,

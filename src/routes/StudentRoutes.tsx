@@ -3,6 +3,7 @@ import AdminHomeScreen from '../screens/admin/AdminHomeScreen';
 import AdminDrawerRoutes from './AdminDrawerRoutes';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import Entypo from 'react-native-vector-icons/Entypo';
 import AdminRewords from '../screens/admin/AdminRewords';
 import AdminTask from '../screens/admin/AdminTask';
 import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
@@ -77,7 +78,7 @@ function StudentRoutes() {
             height: 30,
           },
           tabBarIcon: ({color, size}) => (
-            <FontAwesome6 name="clipboard-list" color={color} size={size} />
+            <Entypo name="bar-graph" color={color} size={size} />
           ),
         }}
       />

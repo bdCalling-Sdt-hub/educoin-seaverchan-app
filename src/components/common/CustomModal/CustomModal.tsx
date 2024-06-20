@@ -1,6 +1,7 @@
 import {View, Modal, Pressable, TouchableOpacity} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {GStyles} from '../../../styles/GStyles';
 
 type CustomModalProps = {
   modalVisible: boolean;
@@ -73,12 +74,12 @@ const CustomModal = ({
                   width: 30,
                   height: 30,
                   // backgroundColor: globalStyle.primary,
-                  backgroundColor: 'gray',
+                  //   backgroundColor: 'gray',
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 100,
                 }}>
-                <AntDesign name="close" size={22} color={'white'} />
+                <AntDesign name="close" size={24} color={'#3D3D3D'} />
               </View>
             </TouchableOpacity>
           )}

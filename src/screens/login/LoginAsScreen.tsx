@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: GStyles.RussoOne,
-    fontSize: 27,
+    fontSize: 24,
     // fontWeight: 'bold',
     color: GStyles.white,
     textAlign: 'center',
