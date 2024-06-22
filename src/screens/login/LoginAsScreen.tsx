@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 3,
     position: 'relative',
   },
 
@@ -168,10 +168,11 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: GStyles.RussoOne,
-    fontSize: 23,
+    fontSize: 24,
     // fontWeight: 'bold',
     color: GStyles.white,
     textAlign: 'center',
     paddingHorizontal: 10,
+    letterSpacing: 0.8,
   },
 });

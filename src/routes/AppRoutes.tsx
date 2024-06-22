@@ -27,10 +27,19 @@ import StudentFeedbackScreen from '../screens/student/StudentFeedbackScreen';
 import StudentProfileScreen from '../screens/student/StudentProfileScreen';
 import StudentNotification from '../screens/student/StudentNotificaiton';
 import AllStudentsScreen from '../screens/student/AllStudentsScreen';
-import TeacherRoutes from './TeacherRoutes';
 import PrivacyAndPolicyScreen from '../screens/teacher/PrivacyAndPolicyScreen';
 import TermsAndConditionScreen from '../screens/teacher/TermsAndConditionScreen';
 import TeacherDrawerRoutes from './TeacherDrawerRoutes';
+import StudentsProgressAndInfo from '../screens/teacher/StudentsProgressAndInfo';
+import TeacherNotification from '../screens/teacher/TeacherNotification';
+import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
+import TeacherCustomTask from '../screens/teacher/TeacherCustomTask';
+import EditTeacherCustomTask from '../screens/teacher/EditTeacherCustomTask';
+import TeacherTaskAssign from '../screens/teacher/TeacherTaskAssign';
+import TeacherRewords from '../screens/teacher/TeacherRewords';
+import TeacherCreateRewords from '../screens/teacher/TeacherCreateRewords';
+import TeacherEditRewords from '../screens/teacher/EditTeacherRewords';
+import TeacherAddCategory from '../screens/teacher/TeacherAddCategory';
 
 const Stack = createNativeStackNavigator();
 
@@ -92,6 +101,38 @@ export const Routes = () => {
         <Stack.Screen
           name="TermsAndCondition"
           component={TermsAndConditionScreen}
+        />
+        <Stack.Screen
+          name="StudentsProgressAndInfo"
+          component={StudentsProgressAndInfo}
+        />
+        <Stack.Screen
+          name="TeacherNotification"
+          component={TeacherNotification}
+        />
+        <Stack.Screen name="TeacherCreateTask" component={TeacherCreateTask} />
+        <Stack.Screen name="TeacherCustomTask" component={TeacherCustomTask} />
+        <Stack.Screen
+          name="EditTeacherCustomTask"
+          component={EditTeacherCustomTask}
+        />
+        <Stack.Screen name="TeacherTaskAssign" component={TeacherTaskAssign} />
+        <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
+        <Stack.Screen
+          name="TeacherCreateRewords"
+          component={TeacherCreateRewords}
+        />
+        <Stack.Screen
+          name="TeacherEditRewords"
+          component={TeacherEditRewords}
+        />
+        <Stack.Screen
+          name="TeacherAddCategory"
+          component={TeacherAddCategory}
+        />
+        <Stack.Screen
+          name="TeacherAddNewClass"
+          component={TeacherAddCategory}
         />
       </Stack.Navigator>
     </NavigationContainer>

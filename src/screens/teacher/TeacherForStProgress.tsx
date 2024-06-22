@@ -1,29 +1,47 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import StudentMiniCard from '../../components/common/Cards/StudentMiniCard';
 
-const ProgressScreen = ({navigation}: NavigProps) => {
+const TeacherForStProgress = ({navigation}: NavigProps) => {
+  const [isOp, setIsOp] = React.useState('Profile');
+
+  const [select, setSelect] = React.useState<number | null>(null);
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Progress"
-        backgroundColor={GStyles.primaryOrange}
-        ringColor={GStyles.orange.normalHover}
+        ringColor={GStyles.purple.normalHover}
+        opacity={0.02}
+        backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
+
       <View
         style={{
           borderColor: GStyles.borderColor['#ECECEC'],
-          borderWidth: 1,
+          borderWidth: 3,
           padding: 15,
           marginVertical: 10,
           justifyContent: 'center',
           alignItems: 'center',
-          borderRadius: 10,
+          borderRadius: 8,
           marginHorizontal: '4%',
           marginTop: 15,
           gap: 10,
@@ -112,7 +130,7 @@ const ProgressScreen = ({navigation}: NavigProps) => {
       <View
         style={{
           marginTop: 10,
-          paddingHorizontal: '4%',
+          paddingHorizontal: '8%',
         }}>
         <View
           style={{
@@ -120,14 +138,14 @@ const ProgressScreen = ({navigation}: NavigProps) => {
             justifyContent: 'space-between',
             backgroundColor: '#FFF3E7',
             height: 65,
+            borderRadius: 8,
           }}>
           <View
             style={{
               backgroundColor: GStyles.primaryOrange,
               height: 65,
               width: '40%',
-              borderTopRightRadius: 4,
-              borderBottomRightRadius: 4,
+              borderRadius: 8,
             }}
           />
         </View>
@@ -178,10 +196,56 @@ const ProgressScreen = ({navigation}: NavigProps) => {
           </Text>
         </View>
       </View>
+
+      <View
+        style={{
+          marginTop: '20%',
+          marginBottom: 20,
+          paddingHorizontal: '4%',
+
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: GStyles.textColor['#3D3D3D'],
+            fontFamily: GStyles.PoppinsMedium,
+            fontWeight: '500',
+            letterSpacing: 0.5,
+            textAlign: 'center',
+          }}>
+          Class : 1
+        </Text>
+
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingHorizontal: 15,
+            gap: 15,
+            paddingVertical: 10,
+          }}
+          data={[...Array(10)]}
+          renderItem={item => (
+            <StudentMiniCard
+              borderColor={
+                select === item.index
+                  ? GStyles.primaryOrange
+                  : GStyles.borderColor['#ECECEC']
+              }
+              onPress={() => {
+                setSelect(item.index);
+              }}
+              key={item.index}
+            />
+          )}
+        />
+      </View>
     </View>
   );
 };
 
-export default ProgressScreen;
+export default TeacherForStProgress;
 
 const styles = StyleSheet.create({});

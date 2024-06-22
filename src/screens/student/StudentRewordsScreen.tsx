@@ -15,6 +15,7 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import LottieView from 'lottie-react-native';
+import RewordsCard from '../../components/common/Cards/RewordsCard';
 
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
@@ -36,6 +37,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
         ringColor={GStyles.orange.normalHover}
         navigation={navigation}
       />
+
       <View>
         <View>
           <TouchableOpacity
@@ -144,74 +146,15 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
             showsVerticalScrollIndicator={false}>
             {[...Array(10)].map((item, index) => (
               <Fragment key={index}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    // paddingVertical: 5,
-                    paddingHorizontal: 8,
-                    backgroundColor: 'white',
-                    borderRadius: 10,
-                    marginVertical: 5,
-                    borderColor: GStyles.borderColor['#ECECEC'],
-                    borderWidth: 2,
-                    marginHorizontal: '5%',
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 15,
-                      padding: 14,
-                    }}>
-                    <Image
-                      source={{
-                        uri: 'https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__',
-                      }}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: 100,
-                      }}
-                    />
-                    <View style={{gap: 5}}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: '500',
-                          color: '#3D3D3D',
-                          fontFamily: GStyles.PoppinsSemiBold,
-                          letterSpacing: 0.8,
-                        }}>
-                        30 min play a video game
-                      </Text>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 3,
-                        }}>
-                        <AntDesign name="staro" size={20} color={'#C3C3C3'} />
-                        <Text
-                          style={{
-                            color: '#C3C3C3',
-                            fontFamily: GStyles.Poppins,
-                            fontSize: 18,
-                            letterSpacing: 0.8,
-                          }}>
-                          100
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  {/* <TouchableOpacity
-                onPress={() => navigation.navigate('EditRewords')}
-                style={{
-                  padding: 5,
-                }}>
-                <Feather name="edit" size={20} color="#3D3D3D" />
-              </TouchableOpacity> */}
-                </View>
+                <RewordsCard
+                  navigation={navigation}
+                  // route="EditRewords"
+                  // routeData={'demo'}
+                  // editOption={true}
+                  // achieved
+                  title="Playing outside with dad"
+                  img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__"
+                />
               </Fragment>
             ))}
           </ScrollView>
@@ -262,78 +205,17 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
             showsVerticalScrollIndicator={false}>
             {[...Array(10)].map((item, index) => (
               <Fragment key={index}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    // paddingVertical: 5,
-                    paddingHorizontal: 8,
-                    backgroundColor: 'white',
-                    borderRadius: 10,
-                    marginVertical: 5,
-                    borderColor: GStyles.borderColor['#ECECEC'],
-                    borderWidth: 2,
-                    marginHorizontal: '5%',
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 15,
-                      padding: 14,
-                    }}>
-                    <Image
-                      source={{
-                        uri: 'https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__',
-                      }}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: 100,
-                      }}
-                    />
-                    <View style={{gap: 5}}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: '500',
-                          color: '#3D3D3D',
-                          fontFamily: GStyles.PoppinsSemiBold,
-                          letterSpacing: 0.8,
-                        }}>
-                        30 min play a video game
-                      </Text>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 3,
-                        }}>
-                        <AntDesign
-                          name="staro"
-                          size={20}
-                          color={GStyles.primaryYellow}
-                        />
-                        <Text
-                          style={{
-                            color: GStyles.primaryYellow,
-                            fontFamily: GStyles.Poppins,
-                            fontSize: 18,
-                            letterSpacing: 0.8,
-                          }}>
-                          100
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  {/* <TouchableOpacity
-                onPress={() => navigation.navigate('EditRewords')}
-                style={{
-                  padding: 5,
-                }}>
-                <Feather name="edit" size={20} color="#3D3D3D" />
-              </TouchableOpacity> */}
-                </View>
+                <Fragment key={index}>
+                  <RewordsCard
+                    navigation={navigation}
+                    // route="EditRewords"
+                    // routeData={'demo'}
+                    // editOption={true}
+                    achieved
+                    title="Playing outside with dad"
+                    img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__"
+                  />
+                </Fragment>
               </Fragment>
             ))}
           </ScrollView>
