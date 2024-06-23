@@ -1,4 +1,4 @@
-package com.childeneducation
+package com.educoin
 
 import android.app.Application
 import com.facebook.react.PackageList
