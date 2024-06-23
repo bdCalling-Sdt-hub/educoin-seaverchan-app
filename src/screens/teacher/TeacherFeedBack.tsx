@@ -7,13 +7,12 @@ import {
 } from 'react-native';
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
+
 import {GStyles} from '../../styles/GStyles';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-interface AdminRoutesProps {
-  navigation: NavigationProp<ParamListBase>;
-}
-const StudentFeedback = ({navigation}: AdminRoutesProps) => {
+import {NavigProps} from '../../interfaces/NavigationPros';
+
+const TeacherFeedback = ({navigation}: NavigProps) => {
   const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
@@ -24,8 +23,9 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
       }}>
       <HeaderBackground
         title="Feedback"
-        backgroundColor={GStyles.primaryOrange}
-        ringColor={GStyles.orange.normalHover}
+        ringColor={GStyles.purple.normalHover}
+        opacity={0.02}
+        backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
       <View
@@ -97,7 +97,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
         }}>
         <TouchableOpacity
           style={{
-            borderColor: GStyles.primaryOrange,
+            borderColor: GStyles.primaryPurple,
             borderWidth: 2,
             padding: 15,
             borderRadius: 100,
@@ -108,7 +108,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           }}>
           <Text
             style={{
-              color: GStyles.primaryOrange,
+              color: GStyles.primaryPurple,
               fontSize: 16,
               fontWeight: 'bold',
             }}>
@@ -118,7 +118,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
         <TouchableOpacity
           onPress={() => setModalVisible(true)}
           style={{
-            backgroundColor: GStyles.primaryOrange,
+            backgroundColor: GStyles.primaryPurple,
             padding: 15,
             borderRadius: 100,
             width: '30%',
@@ -173,7 +173,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
             <TouchableOpacity
               onPress={() => setModalVisible(false)}
               style={{
-                backgroundColor: GStyles.primaryOrange,
+                backgroundColor: GStyles.primaryPurple,
                 width: '30%',
                 paddingVertical: 10,
                 paddingHorizontal: 15,
@@ -198,6 +198,6 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
   );
 };
 
-export default StudentFeedback;
+export default TeacherFeedback;
 
 const styles = StyleSheet.create({});

@@ -120,14 +120,14 @@ const ProgressScreen = ({navigation}: NavigProps) => {
             justifyContent: 'space-between',
             backgroundColor: '#FFF3E7',
             height: 65,
+            borderRadius: 4,
           }}>
           <View
             style={{
               backgroundColor: GStyles.primaryOrange,
               height: 65,
               width: '40%',
-              borderTopRightRadius: 4,
-              borderBottomRightRadius: 4,
+              borderRadius: 4,
             }}
           />
         </View>

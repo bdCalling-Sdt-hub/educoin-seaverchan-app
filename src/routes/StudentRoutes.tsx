@@ -11,6 +11,7 @@ import StudentDrawerRoutes from './StudentDrawerRoutes';
 import {GStyles} from '../styles/GStyles';
 import StudentRewordsScreen from '../screens/student/StudentRewordsScreen';
 import ProgressScreen from '../screens/student/ProgressScreen';
+import StudentHomeScreen from '../screens/student/StudentHomeScreen';
 const Tab = createBottomTabNavigator();
 
 function StudentRoutes() {
@@ -20,8 +21,8 @@ function StudentRoutes() {
         headerShown: false,
       }}>
       <Tab.Screen
-        name="StudentDRoutes"
-        component={StudentDrawerRoutes}
+        name="StudentHome"
+        component={StudentHomeScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {

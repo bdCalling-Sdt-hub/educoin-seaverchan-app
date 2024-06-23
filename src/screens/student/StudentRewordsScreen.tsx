@@ -16,14 +16,16 @@ import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import LottieView from 'lottie-react-native';
 import RewordsCard from '../../components/common/Cards/RewordsCard';
+import HeaderOption from '../../components/common/header/HeaderOption';
 
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
 const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
-  const [isEarned, setIsEarned] = React.useState(false);
+  const [isEarned, setIsEarned] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [selected, setSelected] = React.useState(1);
   return (
     <View
       style={{
@@ -76,66 +78,17 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
             <AntDesign name="star" color={GStyles.primaryYellow} size={20} />
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            paddingHorizontal: '5%',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingHorizontal: 10,
-              alignItems: 'center',
-              borderBottomColor: GStyles.borderColor['#ECECEC'],
-              borderBottomWidth: 2,
-            }}>
-            <TouchableOpacity
-              onPress={() => setIsEarned(!isEarned)}
-              style={{
-                width: '40%',
-              }}>
-              <Text
-                style={{
-                  color: GStyles.textColor['#3D3D3D'],
-                  fontSize: 16,
-                  fontFamily: GStyles.Poppins,
-                  fontWeight: '400',
-                  borderBottomColor: isEarned
-                    ? GStyles.borderColor['#ECECEC']
-                    : GStyles.primaryOrange,
-                  borderBottomWidth: isEarned ? 0 : 3,
-                  textAlign: 'center',
-                  paddingVertical: 8,
-                }}>
-                Earned
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setIsEarned(!isEarned)}
-              style={{
-                width: '40%',
-              }}>
-              <Text
-                style={{
-                  color: GStyles.textColor['#3D3D3D'],
-                  fontSize: 16,
-                  fontFamily: GStyles.Poppins,
-                  fontWeight: '400',
-                  borderBottomColor: isEarned
-                    ? GStyles.primaryOrange
-                    : GStyles.borderColor['#ECECEC'],
-                  borderBottomWidth: isEarned ? 3 : 0,
-                  textAlign: 'center',
-                  paddingVertical: 8,
-                }}>
-                Achieve
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <HeaderOption
+          isOp={isEarned}
+          setIsOp={setIsEarned}
+          op1="Earned"
+          op2="Achieve"
+          activeBorderColor={GStyles.primaryOrange}
+          marginHorizontal={30}
+        />
       </View>
 
-      {isEarned ? (
+      {isEarned === 'Achieve' ? (
         <>
           {/* card container  */}
           <ScrollView
@@ -152,6 +105,12 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
                   // routeData={'demo'}
                   // editOption={true}
                   // achieved
+                  borderColor={
+                    selected === index
+                      ? GStyles.primaryOrange
+                      : GStyles.borderColor['#ECECEC']
+                  }
+                  onPress={() => setSelected(index)}
                   title="Playing outside with dad"
                   img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__"
                 />
@@ -164,11 +123,13 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
             style={{
               paddingHorizontal: '4%',
               position: 'absolute',
-              bottom: 10,
+              bottom: 0,
               right: 0,
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
+              backgroundColor: GStyles.white,
+              paddingVertical: 15,
             }}>
             <TouchableOpacity
               onPress={() => setModalVisible(true)}
@@ -211,6 +172,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
                     // route="EditRewords"
                     // routeData={'demo'}
                     // editOption={true}
+                    disabled
                     achieved
                     title="Playing outside with dad"
                     img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__"
@@ -232,7 +194,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
               justifyContent: 'center',
             }}>
             <TouchableOpacity
-              onPress={() => setIsEarned(true)}
+              onPress={() => setIsEarned('Achieve')}
               style={{
                 backgroundColor: GStyles.primaryOrange,
                 padding: 10,
@@ -257,7 +219,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
                   letterSpacing: 0.8,
                   marginTop: 5,
                 }}>
-                Create rewords
+                Add rewords
               </Text>
             </TouchableOpacity>
           </View>

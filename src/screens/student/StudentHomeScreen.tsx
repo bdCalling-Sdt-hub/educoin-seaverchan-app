@@ -18,13 +18,14 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderOption from '../../components/common/header/HeaderOption';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
 }
 
 const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
-  const [isCompeted, setIsCompeted] = React.useState(false);
+  const [isCompeted, setIsCompeted] = React.useState('New Task');
   const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
@@ -164,59 +165,15 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
           paddingHorizontal: '4%',
           paddingVertical: 20,
         }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 10,
-            alignItems: 'center',
-            borderBottomColor: GStyles.borderColor['#ECECEC'],
-            borderBottomWidth: 2,
-          }}>
-          <TouchableOpacity
-            onPress={() => setIsCompeted(!isCompeted)}
-            style={{
-              width: '40%',
-            }}>
-            <Text
-              style={{
-                color: GStyles.textColor['#3D3D3D'],
-                fontSize: 16,
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                borderBottomColor: isCompeted
-                  ? GStyles.borderColor['#ECECEC']
-                  : GStyles.primaryOrange,
-                borderBottomWidth: isCompeted ? 0 : 3,
-                textAlign: 'center',
-                paddingVertical: 8,
-              }}>
-              New Task
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setIsCompeted(!isCompeted)}
-            style={{
-              width: '40%',
-            }}>
-            <Text
-              style={{
-                color: GStyles.textColor['#3D3D3D'],
-                fontSize: 16,
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                borderBottomColor: isCompeted
-                  ? GStyles.primaryOrange
-                  : GStyles.borderColor['#ECECEC'],
-                borderBottomWidth: isCompeted ? 3 : 0,
-                textAlign: 'center',
-                paddingVertical: 8,
-              }}>
-              Completed Task
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {isCompeted ? (
+        <HeaderOption
+          isOp={isCompeted}
+          setIsOp={setIsCompeted}
+          op1="New Task"
+          op2="Completed Task"
+          // borderColor={GStyles.primaryOrange}
+          activeBorderColor={GStyles.primaryOrange}
+        />
+        {isCompeted === 'Completed Task' ? (
           <>
             <View
               style={{

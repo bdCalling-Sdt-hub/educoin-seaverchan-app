@@ -14,6 +14,10 @@ interface RewordsCardProps extends NavigProps {
   img: string;
   route?: string;
   routeData?: any;
+  onPress?: () => void;
+  borderColor?: string;
+  borderWidth?: number;
+  disabled?: boolean;
 }
 
 const RewordsCard = ({
@@ -25,9 +29,15 @@ const RewordsCard = ({
   navigation,
   route,
   routeData,
+  borderColor,
+  onPress,
+  borderWidth,
+  disabled,
 }: RewordsCardProps) => {
   return (
-    <View
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -37,8 +47,8 @@ const RewordsCard = ({
         backgroundColor: 'white',
         borderRadius: 10,
         marginVertical: 5,
-        borderColor: GStyles.borderColor['#ECECEC'],
-        borderWidth: 2,
+        borderColor: borderColor ? borderColor : GStyles.borderColor['#ECECEC'],
+        borderWidth: borderWidth ? borderWidth : 2,
         marginHorizontal: marginHorizontal ? marginHorizontal : '5%',
       }}>
       <View
@@ -131,7 +141,7 @@ const RewordsCard = ({
           <FontAwesome5 name="edit" size={20} color="#3D3D3D" />
         </TouchableOpacity>
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

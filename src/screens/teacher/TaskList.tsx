@@ -18,9 +18,12 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import StudentCard from '../../components/common/Cards/StudentCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import TaskCard from '../../components/common/Cards/TaskCard';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
 
 const TaskList = ({navigation}: NavigProps) => {
   const [op, setOp] = React.useState('Task List');
+
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
     <View
@@ -44,7 +47,7 @@ const TaskList = ({navigation}: NavigProps) => {
           paddingHorizontal: '4%',
           paddingVertical: 20,
           paddingTop: 10,
-          paddingBottom: 50,
+          paddingBottom: 90,
         }}
         ListHeaderComponentStyle={{
           width: '100%',
@@ -64,9 +67,32 @@ const TaskList = ({navigation}: NavigProps) => {
         renderItem={item => (
           <>
             {op === 'Task List' ? (
-              <TaskCard key={item.index} />
+              <TaskCard
+                optionList={[
+                  {
+                    title: 'Details',
+                    onPress: () => {
+                      navigation.navigate('TaskDetails');
+                    },
+                  },
+                  {
+                    title: 'clear',
+                    onPress: () => {
+                      console.log('Cleared');
+                    },
+                  },
+                ]}
+                key={item.index}
+              />
             ) : (
-              <TaskCard isButton buttonText="Approve" key={item.index} />
+              <TaskCard
+                isButton
+                buttonText="Approve"
+                approveOnPress={() => {
+                  setModalVisible(true);
+                }}
+                key={item.index}
+              />
             )}
           </>
         )}
@@ -113,6 +139,64 @@ const TaskList = ({navigation}: NavigProps) => {
           </Text>
         </TouchableOpacity>
       </View>
+      <CustomModal
+        modalVisible={modalVisible}
+        backButton
+        setModalVisible={setModalVisible}
+        height={'30%'}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+              marginTop: 10,
+            }}>
+            Task Approved Successfully
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              textAlign: 'center',
+            }}>
+            simply dummy text of the printing and typesetting industry
+          </Text>
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Exit
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
     </View>
   );
 };

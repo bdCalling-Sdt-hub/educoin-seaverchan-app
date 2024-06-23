@@ -55,24 +55,37 @@ const TeacherCreateRewords = ({navigation}: NavigProps) => {
           style={{
             paddingHorizontal: '4%',
           }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: GStyles.PoppinsSemiBold,
+              color: '#3D3D3D',
+              lineHeight: 24,
+              fontWeight: '500',
+              letterSpacing: 0.5,
+              marginTop: 15,
+            }}>
+            Rewords Name
+          </Text>
           <TextInput
             style={{
               borderBottomColor: '#E2E2E2',
               borderBottomWidth: 1,
               width: '100%',
-              height: 75,
               paddingLeft: 10,
               paddingRight: 10,
-              fontFamily: GStyles.PoppinsSemiBold,
+              fontFamily: GStyles.Poppins,
               fontSize: 16,
               color: '#3D3D3D',
-              lineHeight: 24,
+
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            placeholderTextColor="#3D3D3D"
+            onChangeText={text => setRewordName(text)}
+            placeholderTextColor="gray"
             multiline
             placeholder="Rewords Name"
+            value={rewordName}
           />
         </View>
         <View

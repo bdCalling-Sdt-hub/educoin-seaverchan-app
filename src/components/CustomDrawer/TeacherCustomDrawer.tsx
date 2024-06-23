@@ -90,7 +90,7 @@ function TeacherCustomDrawer(props: any) {
             marginTop: 23,
           }}
           onPress={() => {
-            navigation.navigate('StudentProfile');
+            navigation.navigate('TeacherProfile');
           }}
         />
         <DrawerItem
@@ -111,7 +111,7 @@ function TeacherCustomDrawer(props: any) {
             }
           }
           onPress={() => {
-            navigation.navigate('StudentFeedBack');
+            navigation.navigate('TeacherFeedBack');
           }}
         />
         <DrawerItem

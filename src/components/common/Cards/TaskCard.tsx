@@ -1,5 +1,12 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useEffect} from 'react';
 import {GStyles} from '../../../styles/GStyles';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,8 +22,18 @@ interface TaskCardProps {
   completed?: boolean;
   onPress?: () => void;
   isButton?: boolean;
-
+  onPressOption?: () => void;
+  approveOnPress?: () => void;
+  optionList?: OptionList[];
   buttonText?: string;
+  optionContainerHight?: number;
+  approveBTColor?: string;
+  approveDisabled?: boolean;
+}
+
+interface OptionList {
+  title: string;
+  onPress: () => void;
 }
 
 const TaskCard = ({
@@ -25,11 +42,24 @@ const TaskCard = ({
   date,
   time,
   isButton,
-
+  onPressOption,
   buttonText,
+  optionList,
+  optionContainerHight,
+  approveOnPress,
+  approveBTColor,
+  approveDisabled,
 }: TaskCardProps) => {
+  const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    return () => setOpen(false);
+  }, []);
   return (
-    <View
+    <Pressable
+      onPress={onPress}
+      onPressIn={() => {
+        setOpen(false);
+      }}
       style={{
         padding: 12,
         borderWidth: 3,
@@ -39,6 +69,8 @@ const TaskCard = ({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+
+        zIndex: 0,
       }}>
       <View
         style={{
@@ -130,9 +162,12 @@ const TaskCard = ({
         </View>
       ) : isButton ? (
         <TouchableOpacity
-          onPress={onPress}
+          disabled={approveDisabled}
+          onPress={approveOnPress}
           style={{
-            backgroundColor: GStyles.primaryBlue,
+            backgroundColor: approveBTColor
+              ? approveBTColor
+              : GStyles.primaryBlue,
             borderRadius: 100,
             width: 100,
             height: 40,
@@ -149,14 +184,61 @@ const TaskCard = ({
           </Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity
+        <View
           style={{
-            paddingHorizontal: 10,
+            position: 'relative',
           }}>
-          <Entypo name="dots-three-horizontal" size={20} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setOpen(!open);
+            }}
+            style={{
+              paddingHorizontal: 10,
+            }}>
+            <Entypo name="dots-three-horizontal" size={20} />
+          </TouchableOpacity>
+          {open && (
+            <View
+              style={{
+                position: 'absolute',
+                top: 20,
+                right: 10,
+                backgroundColor: GStyles.white,
+                height: optionContainerHight ? optionContainerHight : 68,
+                width: 85,
+                borderRadius: 10,
+                borderColor: GStyles.borderColor['#ECECEC'],
+                borderWidth: 2,
+                shadowColor: GStyles.gray.dark,
+                shadowOffset: {width: 1, height: 2},
+                shadowRadius: 4,
+                shadowOpacity: 1,
+                zIndex: 9999,
+                gap: 2,
+              }}>
+              {optionList?.map((item, index) => (
+                <TouchableOpacity
+                  onPress={item.onPress}
+                  key={index}
+                  style={{
+                    padding: 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingVertical: 3,
+                    backgroundColor: GStyles.white,
+                    borderRadius: 10,
+                    borderColor: GStyles.borderColor['#ECECEC'],
+                    borderWidth: 2,
+                    shadowColor: GStyles.gray.dark,
+                  }}>
+                  <Text>{item.title}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+        </View>
       )}
-    </View>
+    </Pressable>
   );
 };
 

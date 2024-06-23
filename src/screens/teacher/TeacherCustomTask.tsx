@@ -56,6 +56,9 @@ const categories = [
   },
 ];
 
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+
 const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
   const [customName, setCustomName] = React.useState('');
   const [customDescription, setCustomDescription] = React.useState('');
@@ -66,6 +69,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
     <View
@@ -74,7 +78,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
         backgroundColor: GStyles.white,
       }}>
       <HeaderBackground
-        title="Create Task"
+        title="New Task"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
@@ -85,24 +89,37 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
           style={{
             paddingHorizontal: '4%',
           }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: GStyles.PoppinsSemiBold,
+              color: '#3D3D3D',
+              lineHeight: 24,
+              fontWeight: '500',
+              letterSpacing: 0.5,
+              marginTop: 15,
+            }}>
+            Task Name
+          </Text>
           <TextInput
             style={{
               borderBottomColor: '#E2E2E2',
               borderBottomWidth: 1,
               width: '100%',
-              height: 75,
               paddingLeft: 10,
               paddingRight: 10,
-              fontFamily: GStyles.PoppinsSemiBold,
+              fontFamily: GStyles.Poppins,
               fontSize: 16,
               color: '#3D3D3D',
-              lineHeight: 24,
+
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            placeholderTextColor="#3D3D3D"
+            onChangeText={text => setCustomName(text)}
+            placeholderTextColor="gray"
             multiline
-            placeholder="customs Name"
+            placeholder="Rewords Name"
+            value={customName}
           />
         </View>
         <View
@@ -130,7 +147,23 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
               alignItems: 'center',
               gap: 10,
             }}>
-            {[...Array(7)].map((e, i) => (
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible(true);
+              }}
+              style={{
+                width: 45,
+                height: 45,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: '#C3C3C3',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'white',
+              }}>
+              <AntDesign name="plus" size={20} color={'gray'} />
+            </TouchableOpacity>
+            {[...Array(6)].map((e, i) => (
               <TouchableOpacity
                 onPress={() => setCustomPoints(i)}
                 key={i}
@@ -271,7 +304,9 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
             }}
             data={categories}
             renderItem={item => (
-              <TouchableOpacity key={item.index}>
+              <TouchableOpacity
+                key={item.index}
+                onPress={() => setCustomCategory(item.item.title)}>
                 <View
                   style={{
                     gap: 12,
@@ -301,7 +336,10 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
-                      color: '#3D3D3D',
+                      color:
+                        item.item.title === customCategory
+                          ? GStyles.primaryPurple
+                          : '#3D3D3D',
                       paddingVertical: 5,
                     }}>
                     {item.item.title}
@@ -405,7 +443,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
           flexDirection: 'row',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('TeacherTaskAssign')}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,
@@ -446,6 +484,65 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
           setOpen(false);
         }}
       />
+
+      <CustomModal
+        modalVisible={modalVisible}
+        backButton
+        setModalVisible={setModalVisible}
+        height={'33%'}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+            }}>
+            Please Enter The Custom Points
+          </Text>
+          <TextInput
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              fontSize: 16,
+            }}
+            placeholder="number"
+            keyboardType="decimal-pad"
+          />
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
     </View>
   );
 };

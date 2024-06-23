@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import StudentHomeScreen from '../screens/student/StudentHomeScreen';
 
 import StudentCustomDrawer from '../components/CustomDrawer/StudentCustomDrawer';
+import StudentRoutes from './StudentRoutes';
 const Drawer = createDrawerNavigator();
 
 function StudentDrawerRoutes() {
@@ -15,7 +16,7 @@ function StudentDrawerRoutes() {
         headerShown: false,
       }}>
       <Drawer.Screen
-        name="StudentHome"
+        name="StudentRoutes"
         options={{
           drawerStyle: {
             // display: 'none',
@@ -27,7 +28,7 @@ function StudentDrawerRoutes() {
             display: 'none',
           },
         }}
-        component={StudentHomeScreen}
+        component={StudentRoutes}
       />
     </Drawer.Navigator>
   );

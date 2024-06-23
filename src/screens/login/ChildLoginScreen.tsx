@@ -63,7 +63,7 @@ const ChildLoginScreen = ({navigation}: NavigProps) => {
         <View style={styles.buttonContain}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('StudentRoutes')}>
+            onPress={() => navigation.navigate('StudentDrawerRoutes')}>
             <Text style={styles.buttonText}>Go</Text>
           </TouchableOpacity>
         </View>

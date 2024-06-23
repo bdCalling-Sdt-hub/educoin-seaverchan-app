@@ -81,7 +81,7 @@ const TeacherCreateTask = ({navigation}: NavigProps) => {
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title="Create Task"
+        title="Add new task"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}

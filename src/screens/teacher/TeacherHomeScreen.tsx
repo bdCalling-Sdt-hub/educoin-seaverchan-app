@@ -1,4 +1,5 @@
 import {
+  Button,
   FlatList,
   Image,
   ScrollView,
@@ -9,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -21,6 +22,7 @@ import {DrawerNavigationProp} from '@react-navigation/drawer';
 import SmallSubHeaderCard from '../../components/common/Cards/SmallSubHeaderCard';
 import StudentCard from '../../components/common/Cards/StudentCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -28,6 +30,7 @@ interface AdminHOmeProps {
 
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const [op, setOp] = React.useState<string>('All Students');
+  const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <View
       style={{
@@ -210,26 +213,55 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           />
         )}
         renderItem={item => (
-          <StudentCard
-            imgBorderColor={GStyles.primaryPurple}
-            width={'45%'}
-            student={{
-              image:
-                'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
-              class: 1,
-              level: 9,
-              name: 'John Doe',
-              points: 100,
-            }}
-            onPress={() => {
-              // console.log('lol');
-              navigation.navigate('StudentsProgressAndInfo');
-            }}
-            key={item.index}
-          />
+          <Fragment key={item.index}>
+            {op === 'All Students' ? (
+              <StudentCard
+                imgBorderColor={GStyles.primaryPurple}
+                width={'45%'}
+                student={{
+                  image:
+                    'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
+                  class: 1,
+                  level: 9,
+                  name: 'John Doe',
+                  points: 100,
+                }}
+                onPress={() => {
+                  // console.log('lol');
+                  navigation.navigate('StudentsProgressAndInfo');
+                }}
+                key={item.index}
+              />
+            ) : (
+              <TouchableOpacity
+                style={{
+                  height: 168,
+                  width: '45%',
+                  borderWidth: 3,
+                  borderColor: GStyles.borderColor['#ECECEC'],
+                  borderRadius: 8,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 10,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    color: GStyles.textColor['#3D3D3D'],
+
+                    textAlign: 'center',
+                    fontFamily: GStyles.Poppins,
+                  }}>
+                  Class : {item.index + 1}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </Fragment>
         )}
       />
       <TouchableOpacity
+        onPress={() => setModalVisible(true)}
         style={{
           width: 68,
           height: 68,
@@ -251,6 +283,79 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         animated
         showHideTransition="slide"
       />
+      <CustomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        Radius={8}
+        height={'33%'}
+        width={'80%'}
+        backButton>
+        <View
+          style={{
+            gap: 15,
+            marginTop: 10,
+          }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              fontWeight: '500',
+              marginTop: 20,
+              color: GStyles.textColor['#3D3D3D'],
+            }}>
+            What do you want to add?
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(false);
+              navigation.navigate('TeacherAddNewStudent');
+            }}
+            style={{
+              borderColor: GStyles.primaryPurple,
+              borderWidth: 1,
+              height: 56,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.Poppins,
+              }}>
+              Add New Student
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(false);
+              navigation.navigate('TeacherAddNewClass');
+            }}
+            style={{
+              borderColor: GStyles.primaryPurple,
+              borderWidth: 1,
+              height: 56,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.Poppins,
+              }}>
+              Add New Class
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </CustomModal>
     </View>
   );
 };
