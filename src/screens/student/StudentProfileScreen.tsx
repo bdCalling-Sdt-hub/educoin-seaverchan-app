@@ -18,7 +18,11 @@ const StudentProfileScreen = ({navigation}: NavigProps) => {
     {value: 20, label: 'Sat'},
   ];
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Profile"
         backgroundColor={GStyles.primaryOrange}
@@ -44,7 +48,7 @@ const StudentProfileScreen = ({navigation}: NavigProps) => {
             height: 70,
             borderRadius: 100,
             borderColor: GStyles.primaryOrange,
-            borderWidth: 2,
+            borderWidth: 1,
             justifyContent: 'center',
             alignItems: 'center',
             marginBottom: 5,

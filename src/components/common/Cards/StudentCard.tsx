@@ -37,7 +37,7 @@ const StudentCard = ({
         padding: 15,
         position: 'relative',
         //   backgroundColor: GStyles.primaryBlue,
-        borderWidth: 3,
+        borderWidth: 1,
         borderColor: '#ECECEC',
         width: width ? width : '100%',
       }}>

@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {Fragment} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {GStyles} from '../../styles/GStyles';
@@ -84,7 +84,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal: '4%',
@@ -97,7 +97,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
               lineHeight: 24,
               fontWeight: '500',
               letterSpacing: 0.5,
-              marginTop: 15,
+              marginTop: 25,
             }}>
             Task Name
           </Text>
@@ -126,6 +126,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
           style={{
             paddingHorizontal: '4%',
             paddingVertical: '5%',
+            marginTop: -10,
           }}>
           <Text
             style={{
@@ -139,60 +140,67 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
             }}>
             Points
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              //   justifyContent: 'center',
-              alignItems: 'center',
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
               gap: 10,
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              style={{
-                width: 45,
-                height: 45,
-                borderRadius: 10,
-                borderWidth: 1,
-                borderColor: '#C3C3C3',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'white',
-              }}>
-              <AntDesign name="plus" size={20} color={'gray'} />
-            </TouchableOpacity>
-            {[...Array(6)].map((e, i) => (
+            }}
+            data={[...Array(8)]}
+            ListHeaderComponent={() => (
               <TouchableOpacity
-                onPress={() => setCustomPoints(i)}
-                key={i}
+                onPress={() => {
+                  setModalVisible(true);
+                }}
                 style={{
                   width: 45,
                   height: 45,
                   borderRadius: 10,
                   borderWidth: 1,
-                  borderColor:
-                    customPoints === i ? GStyles.primaryOrange : '#C3C3C3',
+                  borderColor: '#C3C3C3',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor:
-                    customPoints === i ? GStyles.primaryOrange : 'white',
+                  backgroundColor: 'white',
                 }}>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    color: customPoints === i ? 'white' : '#3D3D3D',
-                    fontWeight: '500',
-                    letterSpacing: 0.5,
-                    // padding: 1,
-                  }}>
-                  {i === 0 ? 1 : i * 5}
-                </Text>
+                <AntDesign name="plus" size={20} color={'gray'} />
               </TouchableOpacity>
-            ))}
-          </View>
+            )}
+            renderItem={item => (
+              <Fragment key={item.index}>
+                <TouchableOpacity
+                  onPress={() => setCustomPoints(item.index)}
+                  key={item.index}
+                  style={{
+                    width: 45,
+                    height: 45,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor:
+                      customPoints === item.index
+                        ? GStyles.primaryOrange
+                        : '#C3C3C3',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor:
+                      customPoints === item.index
+                        ? GStyles.primaryOrange
+                        : 'white',
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: GStyles.PoppinsSemiBold,
+                      color: customPoints === item.index ? 'white' : '#3D3D3D',
+                      fontWeight: '500',
+                      letterSpacing: 0.5,
+                      // padding: 1,
+                    }}>
+                    {item.index === 0 ? 1 : item.index * 5}
+                  </Text>
+                </TouchableOpacity>
+              </Fragment>
+            )}
+          />
         </View>
         <View
           style={{
@@ -236,7 +244,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
                     height: 15,
                     borderRadius: 100,
                     borderColor: GStyles.primaryBlue,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
@@ -272,7 +280,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
                     height: 15,
                     borderRadius: 100,
                     borderColor: GStyles.primaryBlue,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
@@ -489,7 +497,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'33%'}
+        height={250}
         width={'85%'}
         Radius={10}>
         <View
@@ -528,6 +536,7 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
                 paddingHorizontal: 15,
                 borderRadius: 100,
                 alignSelf: 'center',
+                marginTop: 10,
               }}>
               <Text
                 style={{

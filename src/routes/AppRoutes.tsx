@@ -7,7 +7,6 @@ import LoginAsScreen from '../screens/login/LoginAsScreen';
 import TeacherLoginScreen from '../screens/login/TeacherLoginScreen';
 import AdminLoginScreen from '../screens/login/AdminLoginScreen';
 import ChildLoginScreen from '../screens/login/ChildLoginScreen';
-import HomeScreen from '../screens/HomeScreen';
 import SignUpScreen from '../screens/signup/SignUpScreen';
 import SplashScreen from '../screens/slpash/SplashScreen';
 import AdminRoutes from './AdminRoutes';
@@ -47,6 +46,7 @@ import StudentAllAvatar from '../screens/teacher/StudentAllAvater';
 import TeacherAddNewClass from '../screens/teacher/TeacherAddNewClass';
 import StudentDrawerRoutes from './StudentDrawerRoutes';
 import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
+import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
 
 const Stack = createNativeStackNavigator();
 
@@ -152,6 +152,10 @@ export const Routes = () => {
         <Stack.Screen name="TeacherProfile" component={TeacherProfile} />
         <Stack.Screen name="StudentAllAvatar" component={StudentAllAvatar} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+        <Stack.Screen
+          name="ParticularClassStudent"
+          component={ParticularClassStudents}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

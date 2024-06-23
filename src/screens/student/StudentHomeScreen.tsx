@@ -32,6 +32,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
     <View
       style={{
         height: '100%',
+        backgroundColor: 'white',
       }}>
       {/* header part  start */}
       <View
@@ -315,7 +316,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -437,7 +438,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -648,7 +649,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -768,7 +769,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -862,7 +863,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'33%'}
+        height={'30%'}
         width={'85%'}
         Radius={10}>
         <View

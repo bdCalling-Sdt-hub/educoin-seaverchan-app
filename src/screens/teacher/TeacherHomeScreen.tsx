@@ -184,6 +184,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       />
 
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={[...Array(20)]}
         numColumns={2}
         contentContainerStyle={{
@@ -234,10 +235,15 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
               />
             ) : (
               <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('ParticularClassStudent', {
+                    class: item.index + 1,
+                  });
+                }}
                 style={{
                   height: 168,
                   width: '45%',
-                  borderWidth: 3,
+                  borderWidth: 1,
                   borderColor: GStyles.borderColor['#ECECEC'],
                   borderRadius: 8,
                   justifyContent: 'center',

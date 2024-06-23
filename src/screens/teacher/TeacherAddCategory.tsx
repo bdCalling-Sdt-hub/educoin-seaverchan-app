@@ -144,7 +144,7 @@ const TeacherAddCategory = ({navigation}: NavigProps) => {
                 height: 26,
                 borderRadius: 100,
                 borderColor: GStyles.primaryBlue,
-                borderWidth: 2,
+                borderWidth: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
@@ -179,7 +179,7 @@ const TeacherAddCategory = ({navigation}: NavigProps) => {
                 height: 26,
                 borderRadius: 100,
                 borderColor: GStyles.primaryBlue,
-                borderWidth: 2,
+                borderWidth: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
@@ -354,7 +354,7 @@ const TeacherAddCategory = ({navigation}: NavigProps) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'33%'}
+        height={'30%'}
         width={'85%'}
         Radius={10}>
         <View

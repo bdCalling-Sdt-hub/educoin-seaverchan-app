@@ -98,7 +98,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
         <TouchableOpacity
           style={{
             borderColor: GStyles.primaryOrange,
-            borderWidth: 2,
+            borderWidth: 1,
             padding: 15,
             borderRadius: 100,
             width: '30%',
@@ -140,13 +140,13 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'33%'}
+        height={'30%'}
         width={'85%'}
         Radius={10}>
         <View
           style={{
             padding: 20,
-            gap: 10,
+            gap: 20,
             justifyContent: 'center',
             flex: 1,
           }}>

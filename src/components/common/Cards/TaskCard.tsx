@@ -62,7 +62,7 @@ const TaskCard = ({
       }}
       style={{
         padding: 12,
-        borderWidth: 3,
+        borderWidth: 1,
         borderColor: '#ECECEC',
         borderRadius: 8,
         marginVertical: 10,
@@ -100,7 +100,10 @@ const TaskCard = ({
             }}
           />
         </View>
-        <View>
+        <View
+          style={{
+            gap: 5,
+          }}>
           <Text
             style={{
               fontSize: 12,
@@ -186,7 +189,9 @@ const TaskCard = ({
       ) : (
         <View
           style={{
-            position: 'relative',
+            position: 'absolute',
+            top: 15,
+            right: 0,
           }}>
           <TouchableOpacity
             onPress={() => {
@@ -195,26 +200,28 @@ const TaskCard = ({
             style={{
               paddingHorizontal: 10,
             }}>
-            <Entypo name="dots-three-horizontal" size={20} />
+            <Entypo name="dots-three-vertical" size={20} />
           </TouchableOpacity>
           {open && (
             <View
               style={{
                 position: 'absolute',
-                top: 20,
+                top: 25,
                 right: 10,
                 backgroundColor: GStyles.white,
                 height: optionContainerHight ? optionContainerHight : 68,
                 width: 85,
-                borderRadius: 10,
+                borderRadius: 6,
                 borderColor: GStyles.borderColor['#ECECEC'],
-                borderWidth: 2,
+                borderWidth: 1,
                 shadowColor: GStyles.gray.dark,
                 shadowOffset: {width: 1, height: 2},
                 shadowRadius: 4,
                 shadowOpacity: 1,
                 zIndex: 9999,
                 gap: 2,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
               {optionList?.map((item, index) => (
                 <TouchableOpacity
@@ -224,12 +231,12 @@ const TaskCard = ({
                     padding: 2,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingVertical: 3,
+                    paddingVertical: 4,
                     backgroundColor: GStyles.white,
                     borderRadius: 10,
                     borderColor: GStyles.borderColor['#ECECEC'],
-                    borderWidth: 2,
-                    shadowColor: GStyles.gray.dark,
+                    // borderWidth: 1,
+                    // shadowColor: GStyles.gray.dark,
                   }}>
                   <Text>{item.title}</Text>
                 </TouchableOpacity>

@@ -34,7 +34,7 @@ const StudentMiniCard = ({onPress, student, borderColor}: StudentCardProps) => {
           justifyContent: 'center',
           alignItems: 'center',
           gap: 16,
-          borderWidth: 3,
+          borderWidth: 1,
           borderColor: borderColor
             ? borderColor
             : GStyles.borderColor['#ECECEC'],
@@ -47,7 +47,7 @@ const StudentMiniCard = ({onPress, student, borderColor}: StudentCardProps) => {
           style={{
             borderRadius: 100,
             borderColor: GStyles.primaryOrange,
-            borderWidth: 2,
+            borderWidth: 1,
             justifyContent: 'center',
             alignItems: 'center',
             width: 45,

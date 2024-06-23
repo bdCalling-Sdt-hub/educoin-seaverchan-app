@@ -182,7 +182,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderColor: GStyles.borderColor['#ECECEC'],
-                  borderWidth: 3,
+                  borderWidth: 1,
                 }}>
                 <AntDesign
                   name="plus"
@@ -201,7 +201,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderColor: GStyles.primaryPurple,
-                  borderWidth: 3,
+                  borderWidth: 1,
                 }}>
                 <Image
                   style={{
@@ -263,7 +263,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'33%'}
+        height={'30%'}
         width={'85%'}
         Radius={10}>
         <View

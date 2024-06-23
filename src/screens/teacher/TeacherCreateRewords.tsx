@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {Fragment} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {GStyles} from '../../styles/GStyles';
@@ -14,6 +14,7 @@ import {GStyles} from '../../styles/GStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {NavigProps} from '../../interfaces/NavigationPros';
+import {FlatList} from 'react-native';
 
 const TeacherCreateRewords = ({navigation}: NavigProps) => {
   const [rewordName, setRewordName] = React.useState('');
@@ -42,7 +43,11 @@ const TeacherCreateRewords = ({navigation}: NavigProps) => {
   };
 
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Create Rewards"
         ringColor={GStyles.purple.normalHover}
@@ -63,7 +68,7 @@ const TeacherCreateRewords = ({navigation}: NavigProps) => {
               lineHeight: 24,
               fontWeight: '500',
               letterSpacing: 0.5,
-              marginTop: 15,
+              marginTop: 25,
             }}>
             Rewords Name
           </Text>
@@ -92,6 +97,7 @@ const TeacherCreateRewords = ({navigation}: NavigProps) => {
           style={{
             paddingHorizontal: '4%',
             paddingVertical: '5%',
+            marginTop: -10,
           }}>
           <Text
             style={{
@@ -103,46 +109,69 @@ const TeacherCreateRewords = ({navigation}: NavigProps) => {
               letterSpacing: 0.5,
               marginVertical: 15,
             }}>
-            Add Points
+            Points
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              //   justifyContent: 'center',
-              alignItems: 'center',
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
               gap: 10,
-            }}>
-            {[...Array(14)].map((e, i) => (
-              <TouchableOpacity
-                onPress={() => setRewordPoints(i)}
-                key={i}
-                style={{
-                  width: 45,
-                  height: 45,
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  borderColor:
-                    rewordPoints === i ? GStyles.primaryOrange : '#C3C3C3',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor:
-                    rewordPoints === i ? GStyles.primaryOrange : 'white',
-                }}>
-                <Text
+            }}
+            data={[...Array(8)]}
+            // ListHeaderComponent={() => (
+            //   <TouchableOpacity
+            //     onPress={() => {
+            //       // setModalVisible(true);
+            //     }}
+            //     style={{
+            //       width: 45,
+            //       height: 45,
+            //       borderRadius: 10,
+            //       borderWidth: 1,
+            //       borderColor: '#C3C3C3',
+            //       alignItems: 'center',
+            //       justifyContent: 'center',
+            //       backgroundColor: 'white',
+            //     }}>
+            //     <AntDesign name="plus" size={20} color={'gray'} />
+            //   </TouchableOpacity>
+            // )}
+            renderItem={item => (
+              <Fragment key={item.index}>
+                <TouchableOpacity
+                  onPress={() => setRewordPoints(item.index)}
+                  key={item.index}
                   style={{
-                    fontSize: 16,
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    color: rewordPoints === i ? 'white' : '#3D3D3D',
-                    fontWeight: '500',
-                    letterSpacing: 0.5,
-                    // padding: 1,
+                    width: 45,
+                    height: 45,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor:
+                      rewordPoints === item.index
+                        ? GStyles.primaryOrange
+                        : '#C3C3C3',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor:
+                      rewordPoints === item.index
+                        ? GStyles.primaryOrange
+                        : 'white',
                   }}>
-                  {i + 1}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: GStyles.PoppinsSemiBold,
+                      color: rewordPoints === item.index ? 'white' : '#3D3D3D',
+                      fontWeight: '500',
+                      letterSpacing: 0.5,
+                      // padding: 1,
+                    }}>
+                    {item.index === 0 ? 1 : item.index * 5}
+                  </Text>
+                </TouchableOpacity>
+              </Fragment>
+            )}
+          />
         </View>
         <View
           style={{

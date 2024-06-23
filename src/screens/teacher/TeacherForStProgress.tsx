@@ -36,7 +36,7 @@ const TeacherForStProgress = ({navigation}: NavigProps) => {
       <View
         style={{
           borderColor: GStyles.borderColor['#ECECEC'],
-          borderWidth: 3,
+          borderWidth: 1,
           padding: 15,
           marginVertical: 10,
           justifyContent: 'center',
@@ -52,7 +52,7 @@ const TeacherForStProgress = ({navigation}: NavigProps) => {
             height: 70,
             borderRadius: 100,
             borderColor: GStyles.primaryOrange,
-            borderWidth: 2,
+            borderWidth: 1,
             justifyContent: 'center',
             alignItems: 'center',
             marginBottom: 5,

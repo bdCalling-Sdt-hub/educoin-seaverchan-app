@@ -8,7 +8,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const ProgressScreen = ({navigation}: NavigProps) => {
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Progress"
         backgroundColor={GStyles.primaryOrange}
@@ -34,7 +38,7 @@ const ProgressScreen = ({navigation}: NavigProps) => {
             height: 70,
             borderRadius: 100,
             borderColor: GStyles.primaryOrange,
-            borderWidth: 2,
+            borderWidth: 1,
             justifyContent: 'center',
             alignItems: 'center',
             marginBottom: 5,

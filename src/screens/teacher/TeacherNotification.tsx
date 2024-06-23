@@ -9,7 +9,11 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 const TeacherNotification = ({navigation}: NavigProps) => {
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Notifications"
         ringColor={GStyles.purple.normalHover}

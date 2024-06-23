@@ -30,6 +30,7 @@ const TaskList = ({navigation}: NavigProps) => {
       style={{
         position: 'relative',
         height: '100%',
+        backgroundColor: 'white',
       }}>
       <HeaderBackground
         title="Task List"
@@ -41,6 +42,7 @@ const TaskList = ({navigation}: NavigProps) => {
 
       {/* card container  */}
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={[...Array(20)]}
         contentContainerStyle={{
           gap: 10,
@@ -76,7 +78,7 @@ const TaskList = ({navigation}: NavigProps) => {
                     },
                   },
                   {
-                    title: 'clear',
+                    title: 'Clear',
                     onPress: () => {
                       console.log('Cleared');
                     },

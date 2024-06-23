@@ -175,7 +175,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'33%'}
+        height={'30%'}
         width={'85%'}
         Radius={10}>
         <View

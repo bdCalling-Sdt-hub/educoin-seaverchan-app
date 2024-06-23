@@ -48,7 +48,7 @@ const StudentAllAvatar = ({navigation}: NavigProps) => {
               justifyContent: 'center',
               alignItems: 'center',
               // borderColor: GStyles.primaryPurple,
-              // borderWidth: 2,
+              // borderWidth: 1,
             }}>
             <Image
               style={{

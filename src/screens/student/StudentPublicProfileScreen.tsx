@@ -7,7 +7,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Profile"
         backgroundColor={GStyles.primaryOrange}
@@ -31,7 +35,7 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
             height: 70,
             borderRadius: 100,
             borderColor: GStyles.primaryOrange,
-            borderWidth: 2,
+            borderWidth: 1,
             justifyContent: 'center',
             alignItems: 'center',
           }}>

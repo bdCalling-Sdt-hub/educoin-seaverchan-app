@@ -30,7 +30,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderColor: GStyles.borderColor['#ECECEC'],
-            borderWidth: 2,
+            borderWidth: 1,
             marginHorizontal: '4%',
             marginVertical: 20,
             borderRadius: 8,

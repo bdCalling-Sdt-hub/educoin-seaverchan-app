@@ -19,6 +19,7 @@ const AllStudentsScreen = ({navigation}: NavigProps) => {
     <View
       style={{
         height: '100%',
+        backgroundColor: 'white',
       }}>
       <HeaderBackground
         title="Progress"
@@ -90,7 +91,7 @@ const AllStudentsScreen = ({navigation}: NavigProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,

@@ -29,6 +29,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps) => {
     <View
       style={{
         height: '100%',
+        backgroundColor: 'white',
       }}>
       <HeaderBackground
         title="Assign Task"

@@ -89,6 +89,7 @@ const TeacherCreateTask = ({navigation}: NavigProps) => {
       />
 
       <FlatList
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingHorizontal: '4%',
           paddingVertical: 30,
@@ -111,7 +112,7 @@ const TeacherCreateTask = ({navigation}: NavigProps) => {
             style={{
               //   height: 182,
 
-              borderWidth: 2,
+              borderWidth: 1,
               borderColor: '#E9E9E9',
               borderRadius: 8,
               padding: 16,

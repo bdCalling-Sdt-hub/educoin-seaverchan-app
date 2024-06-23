@@ -85,6 +85,7 @@ const CreateTaskScreen = ({navigation}: AdminRoutesProps) => {
       <HeaderBackground title="Create Task" navigation={navigation} />
 
       <FlatList
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingHorizontal: '4%',
           paddingVertical: 30,
@@ -107,7 +108,7 @@ const CreateTaskScreen = ({navigation}: AdminRoutesProps) => {
             style={{
               //   height: 182,
 
-              borderWidth: 2,
+              borderWidth: 1,
               borderColor: '#E9E9E9',
               borderRadius: 8,
               padding: 16,

@@ -57,7 +57,7 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps) => {
                 height: 70,
                 borderRadius: 100,
                 borderColor: GStyles.primaryOrange,
-                borderWidth: 2,
+                borderWidth: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginBottom: 5,
@@ -214,6 +214,7 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps) => {
       {isOp === 'Tasks' && (
         <>
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={[...Array(10)]}
             ListHeaderComponent={item => (
               <HeaderOption

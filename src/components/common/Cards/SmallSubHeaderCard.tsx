@@ -36,7 +36,7 @@ const SmallSubHeaderCard = ({
     <View
       style={{
         height: 70,
-        borderWidth: 3,
+        borderWidth: 1,
         borderColor: '#ECECEC',
         flexDirection: 'row',
         alignItems: 'center',
