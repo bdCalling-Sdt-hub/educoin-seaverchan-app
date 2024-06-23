@@ -1,4 +1,6 @@
 import {
+  Button,
+  FlatList,
   Image,
   ScrollView,
   StatusBar,
@@ -8,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -17,12 +19,18 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
+import SmallSubHeaderCard from '../../components/common/Cards/SmallSubHeaderCard';
+import StudentCard from '../../components/common/Cards/StudentCard';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
 }
 
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
+  const [op, setOp] = React.useState<string>('All Students');
+  const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <View
       style={{
@@ -121,7 +129,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
               gap: 28,
             }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('AdminNotification')}>
+              onPress={() => navigation.navigate('TeacherNotification')}>
               <View
                 style={{
                   position: 'relative',
@@ -168,1244 +176,192 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       </View>
       {/* header part  end */}
 
-      {/* body part start */}
-      <ScrollView
+      <SmallSubHeaderCard
+        marginTop={10}
+        title="Teacher Name"
+        count={20}
+        subTitle="Students Counts"
+      />
+
+      <FlatList
         showsVerticalScrollIndicator={false}
+        data={[...Array(20)]}
+        numColumns={2}
         contentContainerStyle={{
-          paddingVertical: 20,
+          gap: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingTop: 10,
+          paddingBottom: 50,
+        }}
+        columnWrapperStyle={{
+          gap: 10,
+          alignSelf: 'center',
+        }}
+        ListHeaderComponentStyle={{
+          width: '100%',
+        }}
+        ListHeaderComponent={item => (
+          <HeaderOption
+            op1="All Students"
+            op2="All Classes"
+            initialOp="All Students"
+            setIsOp={setOp}
+            isOp={op}
+            borderColor="white"
+            borderWidth={0}
+            activeBorderColor={GStyles.primaryPurple}
+          />
+        )}
+        renderItem={item => (
+          <Fragment key={item.index}>
+            {op === 'All Students' ? (
+              <StudentCard
+                imgBorderColor={GStyles.primaryPurple}
+                width={'45%'}
+                student={{
+                  image:
+                    'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
+                  class: 1,
+                  level: 9,
+                  name: 'John Doe',
+                  points: 100,
+                }}
+                onPress={() => {
+                  // console.log('lol');
+                  navigation.navigate('StudentsProgressAndInfo');
+                }}
+                key={item.index}
+              />
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('ParticularClassStudent', {
+                    class: item.index + 1,
+                  });
+                }}
+                style={{
+                  height: 168,
+                  width: '45%',
+                  borderWidth: 1,
+                  borderColor: GStyles.borderColor['#ECECEC'],
+                  borderRadius: 8,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 10,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    color: GStyles.textColor['#3D3D3D'],
+
+                    textAlign: 'center',
+                    fontFamily: GStyles.Poppins,
+                  }}>
+                  Class : {item.index + 1}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </Fragment>
+        )}
+      />
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        style={{
+          width: 68,
+          height: 68,
+          backgroundColor: GStyles.primaryPurple,
+          borderRadius: 100,
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          bottom: 20,
+          right: 30,
+          zIndex: 9999,
         }}>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
+        <AntDesign name="plus" color={'white'} size={24} />
+      </TouchableOpacity>
 
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Dan’s family
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
-
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Esther
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
-
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Dan’s family
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
-
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Dan’s family
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
-
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Dan’s family
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
-
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Dan’s family
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
-
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Dan’s family
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          {/* simple Card  start */}
-
-          <View
-            style={{
-              height: 70,
-              width: '100%',
-              borderWidth: 1,
-              borderColor: '#ECECEC',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderRadius: 8,
-            }}>
-            <View>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 16,
-                  fontWeight: '600',
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
-                  letterSpacing: 0.8,
-                }}>
-                Dan’s family
-              </Text>
-              <Text
-                style={{
-                  color: '#3D3D3D',
-                  fontSize: 14,
-                  fontWeight: '400',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
-                  letterSpacing: 0.8,
-                }}>
-                Kids Count: 26
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-              }}>
-              <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-            </TouchableOpacity>
-          </View>
-          {/* simple Card  end */}
-
-          {/* kids card start */}
-          <ScrollView
-            contentContainerStyle={{
-              paddingVertical: 10,
-              gap: 15,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal>
-            {[...Array(10)].map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  width: 156,
-                  height: 168,
-                  borderRadius: 13,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: 24,
-                  position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                }}>
-                <View
-                  style={{
-                    width: 61,
-                    height: 61,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
-                    padding: 3,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    style={{
-                      width: 53,
-                      height: 53,
-                      borderRadius: 100,
-                    }}
-                    source={{
-                      uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-                    }}
-                  />
-                </View>
-                <Text
-                  style={{
-                    color: '#3D3D3D',
-                    fontSize: 16,
-                    fontWeight: '500',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
-                    letterSpacing: 0.8,
-                  }}>
-                  Aadi T
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    Reword:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#797979',
-                      fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
-                      fontWeight: '400',
-                      letterSpacing: 0.8,
-                    }}>
-                    4.5
-                  </Text>
-                  <AntDesign name="star" color={GStyles.primaryYellow} />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    padding: 10,
-                  }}>
-                  <FontAwesome name="tasks" color="#686868" size={18} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-          {/* kids card end */}
-        </View>
-      </ScrollView>
-      {/* body part end */}
-      <View>
-        <TouchableOpacity
-          style={{
-            width: 68,
-            height: 68,
-            backgroundColor: GStyles.primaryPurple,
-            borderRadius: 100,
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute',
-            bottom: 20,
-            right: 30,
-          }}>
-          <AntDesign name="plus" color={'white'} size={24} />
-        </TouchableOpacity>
-      </View>
       <StatusBar
         backgroundColor={GStyles.primaryPurple}
         barStyle="light-content"
         animated
         showHideTransition="slide"
       />
+      <CustomModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        Radius={8}
+        height={'33%'}
+        width={'80%'}
+        backButton>
+        <View
+          style={{
+            gap: 15,
+            marginTop: 10,
+          }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              fontWeight: '500',
+              marginTop: 20,
+              color: GStyles.textColor['#3D3D3D'],
+            }}>
+            What do you want to add?
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(false);
+              navigation.navigate('TeacherAddNewStudent');
+            }}
+            style={{
+              borderColor: GStyles.primaryPurple,
+              borderWidth: 1,
+              height: 56,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.Poppins,
+              }}>
+              Add New Student
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(false);
+              navigation.navigate('TeacherAddNewClass');
+            }}
+            style={{
+              borderColor: GStyles.primaryPurple,
+              borderWidth: 1,
+              height: 56,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.Poppins,
+              }}>
+              Add New Class
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </CustomModal>
     </View>
   );
 };

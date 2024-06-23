@@ -3,7 +3,14 @@ import {
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Image, Linking, View, Text, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  Linking,
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native';
 import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -178,7 +185,8 @@ function StudentCustomDrawer(props: any) {
           /> */}
       </DrawerContentScrollView>
       <View>
-        <TouchableOpacity
+        <TouchableHighlight
+          underlayColor={'rgba(0, 0, 0, 0.25)'}
           onPress={() => navigation.navigate('LoginAs')}
           style={{
             flexDirection: 'row',
@@ -187,25 +195,36 @@ function StudentCustomDrawer(props: any) {
             justifyContent: 'center',
             paddingHorizontal: 10,
             paddingVertical: 10,
+            marginVertical: 30,
+            marginHorizontal: 10,
+            borderRadius: 5,
           }}>
-          <Text
+          <View
             style={{
-              fontWeight: 'bold',
-              transform: [{rotate: '180deg'}],
+              flexDirection: 'row',
+              gap: 10,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
-            <Entypo name="log-out" color="#3D3D3D" size={20} />
-          </Text>
-          <Text
-            style={{
-              color: '#3D3D3D',
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              fontWeight: '400',
-              letterSpacing: 0.8,
-            }}>
-            Log Out
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                transform: [{rotate: '180deg'}],
+              }}>
+              <Entypo name="log-out" color="#3D3D3D" size={20} />
+            </Text>
+            <Text
+              style={{
+                color: '#3D3D3D',
+                fontFamily: GStyles.Poppins,
+                fontSize: 15,
+                fontWeight: '400',
+                letterSpacing: 0.8,
+              }}>
+              Log Out
+            </Text>
+          </View>
+        </TouchableHighlight>
       </View>
     </>
   );

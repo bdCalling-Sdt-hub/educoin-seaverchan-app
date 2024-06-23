@@ -18,7 +18,11 @@ const StudentProfileScreen = ({navigation}: NavigProps) => {
     {value: 20, label: 'Sat'},
   ];
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Profile"
         backgroundColor={GStyles.primaryOrange}
@@ -29,13 +33,14 @@ const StudentProfileScreen = ({navigation}: NavigProps) => {
         style={{
           borderColor: GStyles.borderColor['#ECECEC'],
           borderWidth: 1,
-          padding: 10,
+          padding: 15,
           marginVertical: 10,
           justifyContent: 'center',
           alignItems: 'center',
           borderRadius: 10,
           marginHorizontal: '4%',
           marginTop: 15,
+          gap: 10,
         }}>
         <View
           style={{
@@ -43,9 +48,11 @@ const StudentProfileScreen = ({navigation}: NavigProps) => {
             height: 70,
             borderRadius: 100,
             borderColor: GStyles.primaryOrange,
-            borderWidth: 2,
+            borderWidth: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            marginBottom: 5,
+            alignSelf: 'center',
           }}>
           <Image
             style={{
@@ -60,223 +67,130 @@ const StudentProfileScreen = ({navigation}: NavigProps) => {
         </View>
         <View
           style={{
-            gap: -5,
+            gap: 4,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              color: GStyles.textColor['#3D3D3D'],
+              fontWeight: '600',
+              letterSpacing: 0.5,
+            }}>
+            Aadi T
+          </Text>
+
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 12,
+              color: GStyles.textColor['#3D3D3D'],
+              fontWeight: '400',
+              letterSpacing: 0.5,
+            }}>
+            Class : 01
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.PoppinsSemiBold,
+              fontSize: 20,
+              color: GStyles.primaryOrange,
+              fontWeight: '500',
+              letterSpacing: 0.5,
+            }}>
+            Level 1
+          </Text>
+
           <View
             style={{
               flexDirection: 'row',
-              marginTop: 10,
 
               gap: 5,
             }}>
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                color: GStyles.textColor['#3D3D3D'],
-                fontWeight: '500',
-                letterSpacing: 0.5,
-              }}>
-              Points :{' '}
-            </Text>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: 12,
                 color: '#797979',
                 fontWeight: '400',
                 letterSpacing: 0.5,
               }}>
               45{' '}
             </Text>
-            <AntDesign name="star" size={24} color={GStyles.primaryYellow} />
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: 10,
-              gap: 5,
-            }}>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                color: GStyles.textColor['#3D3D3D'],
-                fontWeight: '500',
-                letterSpacing: 0.5,
-              }}>
-              Name :{' '}
-            </Text>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                color: GStyles.textColor['#3D3D3D'],
-                fontWeight: '500',
-                letterSpacing: 0.5,
-              }}>
-              Aadi T
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: 10,
-              gap: 10,
-            }}>
-            <Text
-              style={{
-                fontFamily: GStyles.PoppinsLight,
-                fontSize: 16,
-                color: GStyles.textColor['#3D3D3D'],
-                fontWeight: '200',
-                letterSpacing: 0.5,
-              }}>
-              Progress:
-            </Text>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                color: GStyles.primaryPurple,
-                fontWeight: '500',
-                letterSpacing: 0.5,
-              }}>
-              Good
-            </Text>
+            <AntDesign name="star" size={15} color={GStyles.primaryYellow} />
           </View>
         </View>
       </View>
       <View
         style={{
-          marginBottom: 15,
-          marginTop: 5,
-          marginHorizontal: '4%',
-          paddingVertical: 5,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          //   borderColor: GStyles.borderColor['#ECECEC'],
-          //   borderWidth: 1,
-          //   borderRadius: 5,
-        }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: GStyles.primaryOrange,
-            width: 88,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 100,
-          }}>
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 14,
-              color: GStyles.white,
-              fontWeight: '500',
-              letterSpacing: 0.5,
-            }}>
-            Weak
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            // backgroundColor: GStyles.primaryOrange,
-            width: 88,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 100,
-          }}>
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 14,
-              color: '#828282',
-              fontWeight: '500',
-              letterSpacing: 0.5,
-            }}>
-            Month
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            // backgroundColor: GStyles.primaryOrange,
-            width: 88,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 100,
-          }}>
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 14,
-              color: '#828282',
-              fontWeight: '500',
-              letterSpacing: 0.5,
-            }}>
-            Year
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
+          marginTop: 10,
           paddingHorizontal: '4%',
         }}>
-        <View>
-          <TouchableOpacity
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: '#FFF3E7',
+            height: 65,
+            borderRadius: 4,
+          }}>
+          <View
+            style={{
+              backgroundColor: GStyles.primaryOrange,
+              height: 65,
+              width: '40%',
+              borderRadius: 4,
+            }}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginVertical: 17,
+          }}>
+          <Text
+            style={{
+              fontSize: 12,
+              color: GStyles.textColor['#3D3D3D'],
+              fontFamily: GStyles.Poppins,
+              fontWeight: '400',
+              letterSpacing: 0.8,
+            }}>
+            level 1
+          </Text>
+          <View
             style={{
               flexDirection: 'row',
+              justifyContent: 'space-between',
               gap: 5,
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              borderRadius: 100,
-              borderWidth: 1,
-              borderColor: GStyles.borderColor['#ECECEC'],
-              padding: 5,
-              paddingHorizontal: 10,
-              width: 69,
-              alignSelf: 'flex-end',
             }}>
             <Text
               style={{
-                fontFamily: GStyles.PoppinsSemiBold,
                 fontSize: 12,
-                color: GStyles.textColor['#3D3D3D'],
-                fontWeight: '500',
-                letterSpacing: 0.5,
+                color: '#000000',
+                fontFamily: GStyles.Poppins,
+                fontWeight: '400',
+                letterSpacing: 0.8,
               }}>
-              2024
+              45\200
             </Text>
-            <AntDesign
-              name="down"
-              color={GStyles.textColor['#3D3D3D']}
-              size={10}
-            />
-          </TouchableOpacity>
+            <AntDesign name="star" size={15} color={GStyles.primaryYellow} />
+          </View>
+          <Text
+            style={{
+              fontSize: 12,
+              color: GStyles.textColor['#3D3D3D'],
+              fontFamily: GStyles.Poppins,
+              fontWeight: '400',
+              letterSpacing: 0.8,
+            }}>
+            level 2
+          </Text>
         </View>
-        <BarChart
-          barWidth={21}
-          noOfSections={10}
-          stepHeight={25}
-          frontColor={GStyles.primaryBlue}
-          rulesColor={'white'}
-          maxValue={100}
-          barBorderBottomLeftRadius={0}
-          barBorderBottomRightRadius={0}
-          barBorderTopLeftRadius={0}
-          barBorderTopRightRadius={0}
-          barStyle={{
-            borderRadius: 0,
-            // hight: 250,
-          }}
-          //   height={250}
-          data={barData}
-          yAxisThickness={0}
-          xAxisThickness={0}
-        />
       </View>
     </View>
   );

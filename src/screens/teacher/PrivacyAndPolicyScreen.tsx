@@ -25,7 +25,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         }}>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -44,7 +44,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -58,7 +58,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
 
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -73,7 +73,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -93,7 +93,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -105,7 +105,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -119,7 +119,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -135,7 +135,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
@@ -148,7 +148,7 @@ const PrivacyAndPolicyScreen = ({navigation}: NavigProps) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: 24,
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,

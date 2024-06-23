@@ -11,7 +11,11 @@ import Feather from 'react-native-vector-icons/Feather';
 
 const StudentNotification = ({navigation}: AdminRoutesProps) => {
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <HeaderBackground
         title="Notification"
         backgroundColor={GStyles.primaryOrange}

@@ -13,6 +13,9 @@ import StudentRewordsScreen from '../screens/student/StudentRewordsScreen';
 import ProgressScreen from '../screens/student/ProgressScreen';
 import TeacherDrawerRoutes from './TeacherDrawerRoutes';
 import TeacherHomeScreen from '../screens/teacher/TeacherHomeScreen';
+import TeacherForStProgress from '../screens/teacher/TeacherForStProgress';
+import TaskList from '../screens/teacher/TaskList';
+import TeacherRewords from '../screens/teacher/TeacherRewords';
 const Tab = createBottomTabNavigator();
 
 function TeacherRoutes() {
@@ -44,8 +47,8 @@ function TeacherRoutes() {
         }}
       />
       <Tab.Screen
-        name="CreateTask"
-        component={CreateTaskScreen}
+        name="TaskList"
+        component={TaskList}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
@@ -65,8 +68,8 @@ function TeacherRoutes() {
         }}
       />
       <Tab.Screen
-        name="StudentRewords"
-        component={StudentRewordsScreen}
+        name="TeacherRewords"
+        component={TeacherRewords}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
@@ -86,8 +89,8 @@ function TeacherRoutes() {
         }}
       />
       <Tab.Screen
-        name="StudentProgress"
-        component={ProgressScreen}
+        name="TeacherForStProgress"
+        component={TeacherForStProgress}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {

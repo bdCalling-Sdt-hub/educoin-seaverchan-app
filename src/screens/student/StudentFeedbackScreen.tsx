@@ -9,10 +9,13 @@ import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {GStyles} from '../../styles/GStyles';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
 const StudentFeedback = ({navigation}: AdminRoutesProps) => {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
   return (
     <View
       style={{
@@ -113,6 +116,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => setModalVisible(true)}
           style={{
             backgroundColor: GStyles.primaryOrange,
             padding: 15,
@@ -132,6 +136,64 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           </Text>
         </TouchableOpacity>
       </View>
+      <CustomModal
+        modalVisible={modalVisible}
+        backButton
+        setModalVisible={setModalVisible}
+        height={'30%'}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+              marginTop: 10,
+            }}>
+            Your Feedback Send Successfully
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              textAlign: 'center',
+            }}>
+            simply dummy text of the printing and typesetting industry
+          </Text>
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                backgroundColor: GStyles.primaryOrange,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Exit
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
     </View>
   );
 };

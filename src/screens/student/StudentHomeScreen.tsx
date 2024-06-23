@@ -18,19 +18,21 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderOption from '../../components/common/header/HeaderOption';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
 }
 
 const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
-  const [isCompeted, setIsCompeted] = React.useState(false);
+  const [isCompeted, setIsCompeted] = React.useState('New Task');
   const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
     <View
       style={{
         height: '100%',
+        backgroundColor: 'white',
       }}>
       {/* header part  start */}
       <View
@@ -164,168 +166,111 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
           paddingHorizontal: '4%',
           paddingVertical: 20,
         }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 10,
-            alignItems: 'center',
-            borderBottomColor: GStyles.borderColor['#ECECEC'],
-            borderBottomWidth: 2,
-          }}>
-          <TouchableOpacity
-            onPress={() => setIsCompeted(!isCompeted)}
-            style={{
-              width: '40%',
-            }}>
-            <Text
-              style={{
-                color: GStyles.textColor['#3D3D3D'],
-                fontSize: 16,
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                borderBottomColor: isCompeted
-                  ? GStyles.borderColor['#ECECEC']
-                  : GStyles.primaryOrange,
-                borderBottomWidth: isCompeted ? 0 : 3,
-                textAlign: 'center',
-                paddingVertical: 8,
-              }}>
-              New Task
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setIsCompeted(!isCompeted)}
-            style={{
-              width: '40%',
-            }}>
-            <Text
-              style={{
-                color: GStyles.textColor['#3D3D3D'],
-                fontSize: 16,
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                borderBottomColor: isCompeted
-                  ? GStyles.primaryOrange
-                  : GStyles.borderColor['#ECECEC'],
-                borderBottomWidth: isCompeted ? 3 : 0,
-                textAlign: 'center',
-                paddingVertical: 8,
-              }}>
-              Completed Task
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {isCompeted ? (
+        <HeaderOption
+          isOp={isCompeted}
+          setIsOp={setIsCompeted}
+          op1="New Task"
+          op2="Completed Task"
+          // borderColor={GStyles.primaryOrange}
+          activeBorderColor={GStyles.primaryOrange}
+        />
+        {isCompeted === 'Completed Task' ? (
           <>
-            <View>
-              <View
-                // key={i}
-                style={{
-                  padding: 12,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                  borderRadius: 8,
-                  marginVertical: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
+            <View
+              style={{
+                marginBottom: 25,
+              }}>
+              {[...Array(10)].map((_, index) => (
                 <View
+                  key={index}
                   style={{
+                    padding: 12,
+                    borderWidth: 1,
+                    borderColor: '#ECECEC',
+                    borderRadius: 8,
+                    marginVertical: 10,
                     flexDirection: 'row',
-                    gap: 14,
-                    // alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}>
                   <View
                     style={{
-                      width: 56,
-                      height: 56,
+                      flexDirection: 'row',
+                      gap: 14,
+                      // alignItems: 'center',
                       justifyContent: 'center',
-                      alignItems: 'center',
-                      borderWidth: 1,
-                      borderColor: GStyles.primaryBlue,
-                      borderRadius: 100,
                     }}>
-                    <Image
-                      source={{
-                        uri: 'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K~gmlW1G6g5XRSx36O1Frt5zyupXRqxCUz4lJFTg1sC92Wij9xKlXrGfrqjpOszO74yM-8qMQVXvtj03PtQpYwwm29OkuZdsGHhNTq97CPSjQab8IPyIvpSJIfcD814JsuPBE8Y7p~dJaR7ntiFamBpNKLxuJ3f36DYf8-wmZP8iv4vtHfm55Q26s3gjKT~2NEL7ss8iSDL282wxCC7woBNemG9gjMmA7Qxa96-PvXQRsGTKqX9aMDBJ7AI2qKYpmvjP9w4d1pM7IR7JtEdhFAf3jcnptld-3EYZGrcr9ITpjbBGb0GZKguL11wwH07SxkzyB5if8wZt44qA3Ee5tA__',
-                      }}
-                      style={{
-                        width: 46,
-                        height: 46,
-                        borderRadius: 100,
-                      }}
-                    />
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontFamily: GStyles.Poppins,
-                        color: GStyles.primaryPurple,
-                      }}>
-                      Home Errands
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontFamily: GStyles.PoppinsMedium,
-                        color: '#3D3D3D',
-                      }}>
-                      Make Your Bed
-                    </Text>
                     <View
                       style={{
-                        flexDirection: 'row',
+                        width: 56,
+                        height: 56,
+                        justifyContent: 'center',
                         alignItems: 'center',
-                        gap: 10,
+                        borderWidth: 1,
+                        borderColor: GStyles.primaryBlue,
+                        borderRadius: 100,
                       }}>
-                      <Text>Points:</Text>
-                      <Text>50</Text>
-                      <AntDesign name="star" color={GStyles.primaryYellow} />
+                      <Image
+                        source={{
+                          uri: 'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K~gmlW1G6g5XRSx36O1Frt5zyupXRqxCUz4lJFTg1sC92Wij9xKlXrGfrqjpOszO74yM-8qMQVXvtj03PtQpYwwm29OkuZdsGHhNTq97CPSjQab8IPyIvpSJIfcD814JsuPBE8Y7p~dJaR7ntiFamBpNKLxuJ3f36DYf8-wmZP8iv4vtHfm55Q26s3gjKT~2NEL7ss8iSDL282wxCC7woBNemG9gjMmA7Qxa96-PvXQRsGTKqX9aMDBJ7AI2qKYpmvjP9w4d1pM7IR7JtEdhFAf3jcnptld-3EYZGrcr9ITpjbBGb0GZKguL11wwH07SxkzyB5if8wZt44qA3Ee5tA__',
+                        }}
+                        style={{
+                          width: 46,
+                          height: 46,
+                          borderRadius: 100,
+                        }}
+                      />
+                    </View>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontFamily: GStyles.Poppins,
+                          color: GStyles.primaryPurple,
+                        }}>
+                        Home Errands
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontFamily: GStyles.PoppinsMedium,
+                          color: '#3D3D3D',
+                        }}>
+                        Make Your Bed
+                      </Text>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 10,
+                        }}>
+                        <Text>Points:</Text>
+                        <Text>50</Text>
+                        <AntDesign name="star" color={GStyles.primaryYellow} />
+                      </View>
                     </View>
                   </View>
-                </View>
-                {/* {assign.includes(i) ? ( */}
-                {/* <TouchableOpacity
-                onPress={() => navigation.navigate('EditCustomTask')}
-                style={{
-                  backgroundColor: GStyles.primaryBlue,
-                  paddingVertical: 10,
-                  paddingHorizontal: 15,
-                  borderRadius: 100,
-                  width: 90,
-                  height: 40,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <AntDesign name="edit" size={16} color="white" />
-              </TouchableOpacity>
-            ) : ( */}
-                <View
-                  style={{
-                    // backgroundColor: GStyles.primaryBlue,
 
-                    width: 100,
-                    height: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text
+                  <View
                     style={{
-                      color: GStyles.primaryBlue,
-                      fontSize: 14,
-                      fontFamily: GStyles.Poppins,
+                      width: 100,
+                      height: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}>
-                    Done
-                  </Text>
+                    <Text
+                      style={{
+                        color: GStyles.primaryBlue,
+                        fontSize: 14,
+                        fontFamily: GStyles.Poppins,
+                      }}>
+                      Done
+                    </Text>
+                  </View>
                 </View>
-                {/* )} */}
-              </View>
+              ))}
             </View>
-            <View
+            {/* <View
               style={{
                 paddingHorizontal: '4%',
                 // borderWidth: 1,
@@ -344,7 +289,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}>
                 Class Member
               </Text>
-            </View>
+            </View> */}
             <View
               style={{
                 flexDirection: 'row',
@@ -352,7 +297,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                 paddingHorizontal: 10,
                 alignItems: 'center',
               }}>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => navigation.navigate('StudentPublicProfile')}
                 style={{
                   width: 156,
@@ -371,7 +316,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -438,8 +383,8 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     right: 0,
                     padding: 10,
                   }}>
-                  {/* <FontAwesome name="tasks" color="#686868" size={18} />
-                   */}
+                  
+               
                   <Image
                     source={require('../../assets/icons/taskIcon.png')}
                     style={{
@@ -449,9 +394,9 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     }}
                   />
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
 
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => navigation.navigate('AllStudents')}
                 style={{
                   width: 156,
@@ -493,7 +438,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -560,8 +505,6 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     right: 0,
                     padding: 10,
                   }}>
-                  {/* <FontAwesome name="tasks" color="#686868" size={18} />
-                   */}
                   <Image
                     source={require('../../assets/icons/taskIcon.png')}
                     style={{
@@ -571,132 +514,117 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     }}
                   />
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </>
         ) : (
           <>
             <View>
               <View
-                // key={i}
                 style={{
-                  padding: 12,
-                  borderWidth: 1,
-                  borderColor: '#ECECEC',
-                  borderRadius: 8,
-                  marginVertical: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  marginBottom: 25,
                 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    gap: 14,
-                    // alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
+                {[...Array(10)].map((_, index) => (
                   <View
+                    key={index}
                     style={{
-                      width: 56,
-                      height: 56,
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      padding: 12,
                       borderWidth: 1,
-                      borderColor: GStyles.primaryBlue,
-                      borderRadius: 100,
+                      borderColor: '#ECECEC',
+                      borderRadius: 8,
+                      marginVertical: 10,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                     }}>
-                    <Image
-                      source={{
-                        uri: 'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K~gmlW1G6g5XRSx36O1Frt5zyupXRqxCUz4lJFTg1sC92Wij9xKlXrGfrqjpOszO74yM-8qMQVXvtj03PtQpYwwm29OkuZdsGHhNTq97CPSjQab8IPyIvpSJIfcD814JsuPBE8Y7p~dJaR7ntiFamBpNKLxuJ3f36DYf8-wmZP8iv4vtHfm55Q26s3gjKT~2NEL7ss8iSDL282wxCC7woBNemG9gjMmA7Qxa96-PvXQRsGTKqX9aMDBJ7AI2qKYpmvjP9w4d1pM7IR7JtEdhFAf3jcnptld-3EYZGrcr9ITpjbBGb0GZKguL11wwH07SxkzyB5if8wZt44qA3Ee5tA__',
-                      }}
-                      style={{
-                        width: 46,
-                        height: 46,
-                        borderRadius: 100,
-                      }}
-                    />
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontFamily: GStyles.Poppins,
-                        color: GStyles.primaryPurple,
-                      }}>
-                      Home Errands
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontFamily: GStyles.PoppinsMedium,
-                        color: '#3D3D3D',
-                      }}>
-                      Make Your Bed
-                    </Text>
                     <View
                       style={{
                         flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 10,
+                        gap: 14,
+                        // alignItems: 'center',
+                        justifyContent: 'center',
                       }}>
-                      <Text>Points:</Text>
-                      <Text>50</Text>
-                      <AntDesign name="star" color={GStyles.primaryYellow} />
+                      <View
+                        style={{
+                          width: 56,
+                          height: 56,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          borderWidth: 1,
+                          borderColor: GStyles.primaryBlue,
+                          borderRadius: 100,
+                        }}>
+                        <Image
+                          source={{
+                            uri: 'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K~gmlW1G6g5XRSx36O1Frt5zyupXRqxCUz4lJFTg1sC92Wij9xKlXrGfrqjpOszO74yM-8qMQVXvtj03PtQpYwwm29OkuZdsGHhNTq97CPSjQab8IPyIvpSJIfcD814JsuPBE8Y7p~dJaR7ntiFamBpNKLxuJ3f36DYf8-wmZP8iv4vtHfm55Q26s3gjKT~2NEL7ss8iSDL282wxCC7woBNemG9gjMmA7Qxa96-PvXQRsGTKqX9aMDBJ7AI2qKYpmvjP9w4d1pM7IR7JtEdhFAf3jcnptld-3EYZGrcr9ITpjbBGb0GZKguL11wwH07SxkzyB5if8wZt44qA3Ee5tA__',
+                          }}
+                          style={{
+                            width: 46,
+                            height: 46,
+                            borderRadius: 100,
+                          }}
+                        />
+                      </View>
+                      <View>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            fontFamily: GStyles.Poppins,
+                            color: GStyles.primaryPurple,
+                          }}>
+                          Home Errands
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            fontFamily: GStyles.PoppinsMedium,
+                            color: '#3D3D3D',
+                          }}>
+                          Make Your Bed
+                        </Text>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 10,
+                          }}>
+                          <Text>Points:</Text>
+                          <Text>50</Text>
+                          <AntDesign
+                            name="star"
+                            color={GStyles.primaryYellow}
+                          />
+                        </View>
+                      </View>
                     </View>
-                    <Text
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        //   setAssign([...assign, i]);
+                        setModalVisible(true);
+                      }}
                       style={{
-                        fontSize: 12,
-                        fontFamily: GStyles.Poppins,
-                        color: GStyles.primaryBlue,
-                        marginTop: 8,
+                        backgroundColor: GStyles.primaryBlue,
+                        borderRadius: 100,
+                        width: 100,
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}>
-                      anytime
-                    </Text>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontSize: 16,
+                          fontFamily: GStyles.Poppins,
+                        }}>
+                        Achieve
+                      </Text>
+                    </TouchableOpacity>
                   </View>
-                </View>
-                {/* {assign.includes(i) ? ( */}
-                {/* <TouchableOpacity
-                onPress={() => navigation.navigate('EditCustomTask')}
-                style={{
-                  backgroundColor: GStyles.primaryBlue,
-                  paddingVertical: 10,
-                  paddingHorizontal: 15,
-                  borderRadius: 100,
-                  width: 90,
-                  height: 40,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <AntDesign name="edit" size={16} color="white" />
-              </TouchableOpacity>
-            ) : ( */}
-                <TouchableOpacity
-                  onPress={() => {
-                    //   setAssign([...assign, i]);
-                    setModalVisible(true);
-                  }}
-                  style={{
-                    backgroundColor: GStyles.primaryBlue,
-                    borderRadius: 100,
-                    width: 100,
-                    height: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontSize: 16,
-                      fontFamily: GStyles.Poppins,
-                    }}>
-                    Achieve
-                  </Text>
-                </TouchableOpacity>
-                {/* )} */}
+                ))}
               </View>
             </View>
-            <View
+            {/* <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -714,7 +642,6 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   gap: 8,
                   padding: 24,
                   position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
                   borderWidth: 1,
                   borderColor: '#ECECEC',
                 }}>
@@ -722,7 +649,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -789,8 +716,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     right: 0,
                     padding: 10,
                   }}>
-                  {/* <FontAwesome name="tasks" color="#686868" size={18} />
-                   */}
+              
                   <Image
                     source={require('../../assets/icons/taskIcon.png')}
                     style={{
@@ -813,7 +739,6 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   gap: 8,
                   padding: 24,
                   position: 'relative',
-                  //   backgroundColor: GStyles.primaryBlue,
                   borderWidth: 1,
                   borderColor: '#ECECEC',
                 }}>
@@ -844,7 +769,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   style={{
                     width: 61,
                     height: 61,
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: GStyles.primaryBlue,
                     padding: 3,
                     borderRadius: 100,
@@ -911,8 +836,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                     right: 0,
                     padding: 10,
                   }}>
-                  {/* <FontAwesome name="tasks" color="#686868" size={18} />
-                   */}
+                
                   <Image
                     source={require('../../assets/icons/taskIcon.png')}
                     style={{
@@ -923,7 +847,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
                   />
                 </TouchableOpacity>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </>
         )}
       </ScrollView>
@@ -939,12 +863,13 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={289}
+        height={'30%'}
+        width={'85%'}
         Radius={10}>
         <View
           style={{
             padding: 20,
-            gap: 20,
+            gap: 10,
             justifyContent: 'center',
             flex: 1,
           }}>

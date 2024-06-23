@@ -7,7 +7,6 @@ import LoginAsScreen from '../screens/login/LoginAsScreen';
 import TeacherLoginScreen from '../screens/login/TeacherLoginScreen';
 import AdminLoginScreen from '../screens/login/AdminLoginScreen';
 import ChildLoginScreen from '../screens/login/ChildLoginScreen';
-import HomeScreen from '../screens/HomeScreen';
 import SignUpScreen from '../screens/signup/SignUpScreen';
 import SplashScreen from '../screens/slpash/SplashScreen';
 import AdminRoutes from './AdminRoutes';
@@ -27,10 +26,27 @@ import StudentFeedbackScreen from '../screens/student/StudentFeedbackScreen';
 import StudentProfileScreen from '../screens/student/StudentProfileScreen';
 import StudentNotification from '../screens/student/StudentNotificaiton';
 import AllStudentsScreen from '../screens/student/AllStudentsScreen';
-import TeacherRoutes from './TeacherRoutes';
 import PrivacyAndPolicyScreen from '../screens/teacher/PrivacyAndPolicyScreen';
 import TermsAndConditionScreen from '../screens/teacher/TermsAndConditionScreen';
 import TeacherDrawerRoutes from './TeacherDrawerRoutes';
+import StudentsProgressAndInfo from '../screens/teacher/StudentsProgressAndInfo';
+import TeacherNotification from '../screens/teacher/TeacherNotification';
+import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
+import TeacherCustomTask from '../screens/teacher/TeacherCustomTask';
+import EditTeacherCustomTask from '../screens/teacher/EditTeacherCustomTask';
+import TeacherTaskAssign from '../screens/teacher/TeacherTaskAssign';
+import TeacherRewords from '../screens/teacher/TeacherRewords';
+import TeacherCreateRewords from '../screens/teacher/TeacherCreateRewords';
+import TeacherEditRewords from '../screens/teacher/EditTeacherRewords';
+import TeacherAddCategory from '../screens/teacher/TeacherAddCategory';
+import TeacherFeedback from '../screens/teacher/TeacherFeedBack';
+import TeacherProfile from '../screens/teacher/TeacherProfile';
+import TeacherAddNewStudent from '../screens/teacher/TeacherAddNewStudent';
+import StudentAllAvatar from '../screens/teacher/StudentAllAvater';
+import TeacherAddNewClass from '../screens/teacher/TeacherAddNewClass';
+import StudentDrawerRoutes from './StudentDrawerRoutes';
+import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
+import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
 
 const Stack = createNativeStackNavigator();
 
@@ -63,8 +79,11 @@ export const Routes = () => {
         <Stack.Screen name="AssignTask" component={AssignTaskScreen} />
         <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
         <Stack.Screen name="AdminNotification" component={AdminNotification} />
-        {/* student routes  */}
-        <Stack.Screen name="StudentRoutes" component={StudentRoutes} />
+        {/*--------------------- student routes----------------  */}
+        <Stack.Screen
+          name="StudentDrawerRoutes"
+          component={StudentDrawerRoutes}
+        />
         <Stack.Screen
           name="StudentPublicProfile"
           component={StudentPublicProfileScreen}
@@ -80,7 +99,7 @@ export const Routes = () => {
         />
         <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
 
-        {/* Teachers All Screens  */}
+        {/*-------------------- Teachers All Screens ----------- */}
         <Stack.Screen
           name="TeacherDrawerRoutes"
           component={TeacherDrawerRoutes}
@@ -92,6 +111,50 @@ export const Routes = () => {
         <Stack.Screen
           name="TermsAndCondition"
           component={TermsAndConditionScreen}
+        />
+        <Stack.Screen
+          name="StudentsProgressAndInfo"
+          component={StudentsProgressAndInfo}
+        />
+        <Stack.Screen
+          name="TeacherNotification"
+          component={TeacherNotification}
+        />
+        <Stack.Screen name="TeacherCreateTask" component={TeacherCreateTask} />
+        <Stack.Screen name="TeacherCustomTask" component={TeacherCustomTask} />
+        <Stack.Screen
+          name="EditTeacherCustomTask"
+          component={EditTeacherCustomTask}
+        />
+        <Stack.Screen name="TeacherTaskAssign" component={TeacherTaskAssign} />
+        <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
+        <Stack.Screen
+          name="TeacherCreateRewords"
+          component={TeacherCreateRewords}
+        />
+        <Stack.Screen
+          name="TeacherEditRewords"
+          component={TeacherEditRewords}
+        />
+        <Stack.Screen
+          name="TeacherAddCategory"
+          component={TeacherAddCategory}
+        />
+        <Stack.Screen
+          name="TeacherAddNewClass"
+          component={TeacherAddNewClass}
+        />
+        <Stack.Screen
+          name="TeacherAddNewStudent"
+          component={TeacherAddNewStudent}
+        />
+        <Stack.Screen name="TeacherFeedBack" component={TeacherFeedback} />
+        <Stack.Screen name="TeacherProfile" component={TeacherProfile} />
+        <Stack.Screen name="StudentAllAvatar" component={StudentAllAvatar} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+        <Stack.Screen
+          name="ParticularClassStudent"
+          component={ParticularClassStudents}
         />
       </Stack.Navigator>
     </NavigationContainer>
