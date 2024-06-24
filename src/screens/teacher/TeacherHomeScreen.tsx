@@ -169,6 +169,9 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             <TextInput
               placeholder="Search here...."
               placeholderTextColor="#858585"
+              style={{
+                flex: 1,
+              }}
             />
             <Feather name="search" color="#858585" size={24} />
           </View>

@@ -72,7 +72,7 @@ const data = [
   },
 ];
 
-const TeacherCreateTask = ({navigation}: NavigProps) => {
+const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   return (
     <View
       style={{

@@ -16,9 +16,13 @@ type CustomModalProps = {
   center?: string;
   appearance?: boolean;
   backButton?: boolean;
+  containerAlign?: 'center' | 'flex-start' | 'flex-end';
+  backGroundColor?: string;
+  transparent?: boolean;
+  containerColor?: string;
 };
 
-const CustomModal = ({
+const ModalOfBottom = ({
   children,
   modalVisible,
   setModalVisible,
@@ -31,6 +35,10 @@ const CustomModal = ({
   center,
   appearance: normal,
   backButton,
+  containerAlign,
+  backGroundColor,
+  transparent,
+  containerColor,
 }: CustomModalProps) => {
   return (
     <Modal
@@ -42,9 +50,13 @@ const CustomModal = ({
         onPress={() => setModalVisible(!modalVisible)}
         style={{
           paddingHorizontal: paddingHorizontal ? paddingHorizontal : '0%',
-          justifyContent: 'center',
+          justifyContent: containerAlign ? containerAlign : 'center',
           alignItems: 'center',
-          backgroundColor: '#00000AAA',
+          backgroundColor: transparent
+            ? 'transparent'
+            : backGroundColor
+            ? backGroundColor
+            : '#00000AAA',
           height: '100%',
           width: '100%',
         }}>
@@ -53,12 +65,15 @@ const CustomModal = ({
             borderRadius: Radius ? 9 : 0,
             borderTopRightRadius: onlyTopRadius && 9,
             borderTopLeftRadius: onlyTopRadius && 9,
-            backgroundColor: 'white',
+            backgroundColor: containerColor ? containerColor : 'white',
             height: height ? height : '50%',
             width: width ? width : '90%',
             padding: 10,
             justifyContent: center && 'center',
             position: 'relative',
+
+            borderTopColor: GStyles.borderColor['#ECECEC'],
+            borderTopWidth: 3,
           }}>
           {backButton && (
             <TouchableOpacity
@@ -75,7 +90,6 @@ const CustomModal = ({
                   height: 30,
                   // backgroundColor: globalStyle.primary,
                   //   backgroundColor: 'gray',
-
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 100,
@@ -91,4 +105,4 @@ const CustomModal = ({
   );
 };
 
-export default CustomModal;
+export default ModalOfBottom;

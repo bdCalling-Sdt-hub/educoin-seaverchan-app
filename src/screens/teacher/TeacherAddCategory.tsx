@@ -14,63 +14,90 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import ModalOfBottom from '../../components/common/CustomModal/ModalOfButtom';
 
 const categories = [
   {
+    id: 1,
     title: 'Education',
     img: 'https://s3-alpha-sig.figma.com/img/4777/e823/f2073e01b6413fb39cbb25157f8234bb?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UKpyveKfIOK1nBuKnCAZqVvdhB7h0k-QjCj~u1xHAmwmroqyzZdyXWAFc935ohZN1LXuDjIbmgRMtHn5EYYAr~W4tmWpGE-MRIULrIlE-neTBkH8tEmRtHWSR~RD2u-PQ68izM3pYJ2zGVD~05EcuGJvNv8HYuFBtj1ncDjjcZL6ZRXNYNF8LK4AraXipm8rPsjUd5WE52e5fo4Hx2OmJRwuaEJzqtrpZnw0hiqVUdk6e1sheYYPumUkG5umsvGOztOJjvQatYYjZP1xEDuTnZYwEDh5sZUOJs~clRmIz~c0huYCLajvR3-A3c9LkRLRto01LtnCuCUic7xb12Zsog__',
   },
   {
+    id: 2,
     title: 'Home Errands',
     img: 'https://s3-alpha-sig.figma.com/img/a65f/9958/64bddfadea534455e97f5abcaa27e6f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=aXbeeFYQgRdEtjZlTWWaqQfh2BZcrEWj7KLb5-ko9MDhA2m1iLwIBFWtbrOpS6mVn2zBu07yEX9civ3jfWuMlZHgFkjRmdnq5tmhVsx-eXhX2RijYWJjnxE1xEYpLJBvhUY3I-Eqm1NkyB30KfMgjm1A61WOYPiPzoYHIgqJ16gFdSQ1onYpeYJtD2I0bfb7JGpabLj2nFB0xSEmRIF776KopQ2yiawn0IWf52DRy8oIs79jSh47D-J46UfZ8Rq-wm6UywV7UjB7t2DzWGyz5AhR2dEfHdWEqlMHaWU3oj~clleNF3Xyfurvf-e1rd3z8EMuEjMV-E~3El0nhoO-Eg__',
   },
   {
+    id: 3,
     title: 'Hygiene',
     img: 'https://s3-alpha-sig.figma.com/img/7ea3/7b0a/140c497d8570975110f2963ecc61b456?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lVfzCOTa-T4fdXGRAG6KbLm3bDpaFxQd~DZMEPehOHcOrFD0QobUcDheetOQ~6HuCzQXrAfGuAQjyHG9eEBBMwwuCTsYMN7Gv2UchStdRBfDKogJlpCNC~wxA6Ti75QkqMCdp816bfsHvVSH1JHW5P9~UJTwL7SO1fTGJzYLDMPtPb7fhUKr08ED73mz~u4iJeCsbB2LPKKn14DQeWBfgUQ-UhGzV9xFP1vxYA3f0CuD9Xnc3DeXXXzLlT3AnWZhWNiuJ6xKkMUUh1BCMfYvIyM1lZkGSKYsSogn7W8dG55Z7QSEoGy-Tpjib8KtzB5i1f5yL5bRGroegdE1bJbNeQ__',
   },
   {
+    id: 4,
     title: 'Behaviour',
     img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
   },
   {
+    id: 5,
     title: 'Behaviour',
     img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
   },
   {
+    id: 7,
     title: 'Behaviour',
     img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
   },
   {
+    id: 8,
     title: 'Behaviour',
     img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
   },
   {
+    id: 9,
     title: 'Behaviour',
     img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
   },
 ];
 
-const TeacherAddCategory = ({navigation}: NavigProps) => {
+const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [launchCameraModal, setLaunchCameraModal] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
   const [rewordImage, setRewordImage] = React.useState<string | undefined>('');
 
-  const [customCategory, setCustomCategory] = React.useState('Hygiene');
+  const [customCategory, setCustomCategory] = React.useState<number>();
 
-  const handleImagePick = async () => {
+  const handleImagePick = async (option: 'camera' | 'library') => {
     try {
-      const result = await launchCamera({
-        mediaType: 'photo',
-        maxWidth: 500,
-        maxHeight: 500,
-        quality: 0.5,
-        includeBase64: true,
-      });
+      if (option === 'camera') {
+        const result = await launchCamera({
+          mediaType: 'photo',
+          maxWidth: 500,
+          maxHeight: 500,
+          quality: 0.5,
+          includeBase64: true,
+        });
 
-      if (!result.didCancel) {
-        setRewordImage(result?.assets![0].uri);
-        console.log(result);
+        if (!result.didCancel) {
+          setRewordImage(result?.assets![0].uri);
+          console.log(result);
+        }
+      }
+      if (option === 'library') {
+        const result = await launchImageLibrary({
+          mediaType: 'photo',
+          maxWidth: 500,
+          maxHeight: 500,
+          quality: 0.5,
+          includeBase64: true,
+        });
+
+        if (!result.didCancel) {
+          setRewordImage(result?.assets![0].uri);
+          console.log(result);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -212,8 +239,7 @@ const TeacherAddCategory = ({navigation}: NavigProps) => {
             }}>
             Add Image
           </Text>
-          <TouchableOpacity
-            onPress={() => handleImagePick()}
+          <View
             style={{
               height: 150,
               alignItems: 'center',
@@ -223,33 +249,73 @@ const TeacherAddCategory = ({navigation}: NavigProps) => {
               marginVertical: 20,
             }}>
             {rewordImage ? (
-              <Image
-                source={{uri: rewordImage}}
+              <View
                 style={{
-                  width: '100%',
+                  position: 'relative',
                   height: '100%',
-                  resizeMode: 'cover',
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  borderColor: '#E2E2E2',
-                }}
-              />
+                  width: '100%',
+                }}>
+                <Image
+                  source={{uri: rewordImage}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    resizeMode: 'cover',
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: '#E2E2E2',
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={() => setRewordImage(undefined)}
+                  style={{
+                    position: 'absolute',
+                    top: 5,
+                    right: 5,
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                    padding: 5,
+                    borderRadius: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Ionicons name="close" size={20} color={'white'} />
+                </TouchableOpacity>
+              </View>
             ) : (
               <>
-                <Ionicons name="image-outline" size={90} color="#C3C3C3" />
-                <Text
+                <View
                   style={{
-                    fontSize: 12,
-                    fontFamily: GStyles.Poppins,
-                    color: GStyles.primaryPurple,
-                    lineHeight: 24,
-                    fontWeight: '500',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    width: '100%',
                   }}>
-                  Browse your image{' '}
-                </Text>
+                  <TouchableOpacity
+                    onPress={() => handleImagePick('camera')}
+                    style={{
+                      padding: 20,
+                    }}>
+                    <Feather
+                      name="camera"
+                      size={80}
+                      color={GStyles.primaryPurple}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => handleImagePick('library')}
+                    style={{
+                      padding: 20,
+                    }}>
+                    <Feather
+                      name="folder"
+                      size={80}
+                      color={GStyles.primaryPurple}
+                    />
+                  </TouchableOpacity>
+                </View>
               </>
             )}
-          </TouchableOpacity>
+          </View>
         </View>
         <View
           style={{
@@ -274,7 +340,7 @@ const TeacherAddCategory = ({navigation}: NavigProps) => {
             renderItem={item => (
               <TouchableOpacity
                 onPress={() => {
-                  // setCustomCategory(item.item.title);
+                  setCustomCategory(item.item.id);
                 }}
                 key={item.index}>
                 <View
@@ -283,13 +349,20 @@ const TeacherAddCategory = ({navigation}: NavigProps) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     marginVertical: 15,
+                    borderColor:
+                      customCategory === item.item.id
+                        ? GStyles.primaryPurple
+                        : GStyles.gray.light,
+                    padding: 5,
+                    borderWidth: 1,
+                    borderRadius: 100,
                   }}>
                   <View
                     style={{
                       width: 65,
                       height: 65,
-                      borderRadius: 100,
                       backgroundColor: GStyles.blue.light,
+                      borderRadius: 100,
                       padding: 2,
                     }}>
                     <Image
