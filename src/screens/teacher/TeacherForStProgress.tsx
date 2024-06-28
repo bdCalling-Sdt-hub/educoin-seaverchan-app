@@ -12,12 +12,15 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import StudentMiniCard from '../../components/common/Cards/StudentMiniCard';
+import {Dropdown} from 'react-native-element-dropdown';
 
-const TeacherForStProgress = ({navigation}: NavigProps) => {
+const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
   const [isOp, setIsOp] = React.useState('Profile');
-
+  const [value, setValue] = React.useState<string>();
+  const [isFocus, setIsFocus] = React.useState(false);
   const [select, setSelect] = React.useState<number | null>(null);
   return (
     <View
@@ -206,17 +209,55 @@ const TeacherForStProgress = ({navigation}: NavigProps) => {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <Text
-          style={{
-            fontSize: 16,
-            color: GStyles.textColor['#3D3D3D'],
-            fontFamily: GStyles.PoppinsMedium,
-            fontWeight: '500',
-            letterSpacing: 0.5,
-            textAlign: 'center',
-          }}>
-          Class : 1
-        </Text>
+        <View style={{}}>
+          <Dropdown
+            maxHeight={150}
+            style={{
+              // flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingHorizontal: 12,
+              paddingVertical: 15,
+              borderWidth: 1,
+              borderColor: '#E2E2E2',
+              borderRadius: 10,
+              width: '100%',
+              gap: 20,
+            }}
+            iconStyle={{
+              marginHorizontal: 10,
+            }}
+            labelField="label"
+            valueField="value"
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setValue(item?.value);
+              setIsFocus(false);
+            }}
+            placeholder="class 1"
+            data={[
+              {label: 'class 1', value: '1'},
+              {label: 'class 2', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+              {label: 'class 3', value: '2'},
+            ]}
+          />
+        </View>
 
         <FlatList
           horizontal

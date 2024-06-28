@@ -17,7 +17,7 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 const data = [
   {
-    title: 'Custom',
+    title: 'New Task',
     img: 'https://s3-alpha-sig.figma.com/img/1070/f8fd/67dcaf37ebc77ffc315ed4635c4f37c3?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZTZ5W--Szt4n8aPb8OQgNCel4IjH09pO4H9xC50AXwAwZtj50h-WijCvQcWdBinPJEFx2cEyxTIixmsnn0MrRAlPaJHWLNekrF3UiCAxQMDq2bECgD7D3-HjXJgjH7AtWHObPd48jKUxvWb6UTd8fdwRW54aeJxUVhOGinedSihICi5NhRMg1zMCKetCs~H6UTW2q7nVBmOhnceaiZ5xtEnbrlnTLBsdIRbJZum6sWCoNURIl6eeDYggPtwE3b2t-bgkQ9WjueMcyHx2uxu85zRX6XS-OlBSTtsBfgprQsgaK0xjfmWPf2k6iDJKUvc9-7UvqWXw5KbSdaRWAnPtUw__',
   },
   {
@@ -104,9 +104,9 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         renderItem={item => (
           <TouchableOpacity
             onPress={() =>
-              item.item.title === 'Custom'
-                ? navigation.navigate('TeacherCustomTask')
-                : navigation.navigate('TeacherTaskAssign')
+              item.item.title === 'New Task'
+                ? navigation?.navigate('TeacherCustomTask')
+                : navigation?.navigate('TeacherTaskAssign')
             }
             key={item.index}
             style={{
@@ -132,7 +132,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                   fontSize: 16,
                   color: '#3D3D3D',
                 }}>
-                {item.item.title === 'Custom' ? 'Custom' : item.item.title}
+                {item.item.title === 'New Task' ? 'New Task' : item.item.title}
               </Text>
               <Image
                 source={{
@@ -144,7 +144,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                   height: 62,
                 }}
               />
-              {item.item.title !== 'Custom' && (
+              {item.item.title !== 'New Task' && (
                 <>
                   <View
                     style={{
@@ -172,7 +172,9 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                     </Text>
                   </View>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('EditTeacherCustomTask')}
+                    onPress={() =>
+                      navigation?.navigate('EditTeacherCustomTask')
+                    }
                     style={{
                       backgroundColor: GStyles.primaryPurple,
 

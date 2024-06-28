@@ -58,8 +58,11 @@ const categories = [
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import {Dropdown} from 'react-native-element-dropdown';
 
 const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
+  const [value, setValue] = React.useState<string>();
+  const [isFocus, setIsFocus] = React.useState(false);
   const [customName, setCustomName] = React.useState('');
   const [customDescription, setCustomDescription] = React.useState('');
   const [customPoints, setCustomPoints] = React.useState<number>();
@@ -372,12 +375,9 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
             }}>
             Date
           </Text>
-          <TouchableOpacity
-            onPress={() => {
-              setOpen(true);
-            }}
+          <Dropdown
             style={{
-              flexDirection: 'row',
+              // flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
               paddingHorizontal: 12,
@@ -386,23 +386,37 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
               borderColor: '#E2E2E2',
               borderRadius: 10,
               width: '100%',
-            }}>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 14,
-                color: '#3D3D3D',
-              }}>
-              Repeat everyday
-            </Text>
-            <Feather
-              name="calendar"
-              size={24}
-              style={{
-                fontWeight: '900',
-              }}
-            />
-          </TouchableOpacity>
+              gap: 20,
+            }}
+            iconStyle={{
+              marginHorizontal: 10,
+            }}
+            labelField="label"
+            valueField="value"
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setValue(item?.value);
+              setIsFocus(false);
+            }}
+            placeholder="Repeat everyday"
+            data={[
+              {label: 'Repeat every day', value: '1'},
+              {label: 'Repeat every weak', value: '2'},
+              {label: 'Repeat every month', value: '2'},
+            ]}
+            renderLeftIcon={() => (
+              <Feather
+                name="calendar"
+                size={24}
+                style={{
+                  fontWeight: '900',
+                  marginRight: 10,
+                }}
+              />
+            )}
+          />
         </View>
         <View
           style={{
@@ -419,9 +433,9 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
             }}>
             Hours
           </Text>
-          <View
+          <Dropdown
             style={{
-              flexDirection: 'row',
+              // flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
               paddingHorizontal: 12,
@@ -430,16 +444,33 @@ const TeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
               borderColor: '#E2E2E2',
               borderRadius: 10,
               width: '100%',
-            }}>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 14,
-                color: '#3D3D3D',
-              }}>
-              Anytime
-            </Text>
-          </View>
+              gap: 20,
+            }}
+            iconStyle={{
+              marginHorizontal: 10,
+            }}
+            labelField="label"
+            valueField="value"
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setValue(item?.value);
+              setIsFocus(false);
+            }}
+            placeholder="Any Time"
+            data={[{label: 'Any Time', value: '1'}]}
+            renderLeftIcon={() => (
+              <Ionicons
+                name="time-outline"
+                size={24}
+                style={{
+                  fontWeight: '900',
+                  marginRight: 10,
+                }}
+              />
+            )}
+          />
         </View>
       </ScrollView>
       <View

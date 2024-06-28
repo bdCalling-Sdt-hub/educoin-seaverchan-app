@@ -89,6 +89,7 @@ const TaskList = ({navigation}: NavigProps) => {
             ) : (
               <TaskCard
                 isButton
+                button
                 buttonText="Approve"
                 approveOnPress={() => {
                   setModalVisible(true);

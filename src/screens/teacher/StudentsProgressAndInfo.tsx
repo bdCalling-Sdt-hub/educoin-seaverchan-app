@@ -1,4 +1,11 @@
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {Fragment} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {GStyles} from '../../styles/GStyles';
@@ -7,10 +14,45 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import TaskCard from '../../components/common/Cards/TaskCard';
-
-const StudentsProgressAndInfo = ({navigation}: NavigProps) => {
+import {PieChart} from 'react-native-chart-kit';
+const screenWidth = Dimensions.get('window').width;
+const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
   const [isOp, setIsOp] = React.useState('Profile');
   const [taskOp, setTaskOp] = React.useState('New Task');
+
+  const data = [
+    {
+      name: 'Assigned',
+      population: 50,
+      color: '#FF8811',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+    {
+      name: 'Completed',
+      population: 50,
+      color: '#3AAFFF',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    },
+    {
+      name: 'Uncompleted',
+      population: 50,
+      color: '#A55FEF',
+      legendFontColor: '#A55FEF',
+      legendFontSize: 15,
+    },
+  ];
+  const chartConfig = {
+    backgroundGradientFrom: '#1E2923',
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: '#08130D',
+    backgroundGradientToOpacity: 0.5,
+    backgroundColor: 'white',
+    color: (opacity = 1) => `#A55FEF`,
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+  };
   return (
     <View
       style={{
@@ -234,10 +276,16 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps) => {
             renderItem={item => (
               <Fragment>
                 {taskOp === 'New Task' ? (
-                  <TaskCard isButton time="ss" key={item.index} />
+                  <TaskCard time="ss" key={item.index} />
                 ) : (
                   taskOp === 'Completed Task' && (
-                    <TaskCard key={item.index} time="as" completed />
+                    <TaskCard
+                      button
+                      isButton
+                      key={item.index}
+                      time="as"
+                      completed
+                    />
                   )
                 )}
               </Fragment>
@@ -246,78 +294,138 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps) => {
         </>
       )}
       {isOp === 'Records' && (
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 50,
-          }}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: GStyles.primaryOrange,
-              fontFamily: GStyles.PoppinsBold,
-              fontWeight: '600',
-              letterSpacing: 0.5,
-            }}>
-            Level 1
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              gap: 5,
-            }}>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 14,
-                color: '#797979',
-                fontWeight: '400',
-                letterSpacing: 0.5,
-              }}>
-              45{' '}
-            </Text>
-            <AntDesign name="star" size={20} color={GStyles.primaryYellow} />
+        <Fragment>
+          <View>
+            <PieChart
+              data={data}
+              width={screenWidth}
+              height={220}
+              chartConfig={chartConfig}
+              accessor={'population'}
+              avoidFalseZero
+              fromNumber={10}
+              hidePointsAtIndex={[10, 20, 4]}
+              backgroundColor={'transparent'}
+              paddingLeft={'15'}
+              // hasLegend={false}
+              // center={[(screenWidth / 100) * 20, 0]}
+              // absolute
+            />
           </View>
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: 20,
-              gap: 8,
             }}>
             <Text
               style={{
-                fontSize: 16,
-                color: GStyles.textColor['#3D3D3D'],
-                fontFamily: GStyles.Poppins,
-                fontWeight: '500',
+                fontSize: 20,
+                color: GStyles.primaryOrange,
+                fontFamily: GStyles.PoppinsBold,
+                fontWeight: '600',
                 letterSpacing: 0.5,
               }}>
-              Total Assigned Work: 10
+              Level 1
             </Text>
-            <Text
+            <View
               style={{
-                fontSize: 16,
-                color: GStyles.textColor['#3D3D3D'],
-                fontFamily: GStyles.Poppins,
-                fontWeight: '500',
-                letterSpacing: 0.5,
+                flexDirection: 'row',
+                gap: 5,
               }}>
-              Total Completed Work: 15
-            </Text>
-            <Text
+              <Text
+                style={{
+                  fontFamily: GStyles.Poppins,
+                  fontSize: 14,
+                  color: '#797979',
+                  fontWeight: '400',
+                  letterSpacing: 0.5,
+                }}>
+                45{' '}
+              </Text>
+              <AntDesign name="star" size={20} color={GStyles.primaryYellow} />
+            </View>
+            <View
               style={{
-                fontSize: 16,
-                color: GStyles.textColor['#3D3D3D'],
-                fontFamily: GStyles.Poppins,
-                fontWeight: '500',
-                letterSpacing: 0.5,
+                justifyContent: 'center',
+                // alignItems: 'center',
+                marginTop: 20,
+                gap: 8,
               }}>
-              Total Uncompleted Work: 08
-            </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 10,
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    backgroundColor: GStyles.primaryOrange,
+                    height: 20,
+                    width: 20,
+                    borderRadius: 100,
+                  }}></View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: GStyles.textColor['#3D3D3D'],
+                    fontFamily: GStyles.Poppins,
+                    fontWeight: '500',
+                    letterSpacing: 0.5,
+                  }}>
+                  Total Assigned Work: 10
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 10,
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    backgroundColor: GStyles.primaryBlue,
+                    height: 20,
+                    width: 20,
+                    borderRadius: 100,
+                  }}></View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: GStyles.textColor['#3D3D3D'],
+                    fontFamily: GStyles.Poppins,
+                    fontWeight: '500',
+                    letterSpacing: 0.5,
+                  }}>
+                  Total Completed Work: 15
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 10,
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    backgroundColor: GStyles.primaryPurple,
+                    height: 20,
+                    width: 20,
+                    borderRadius: 100,
+                  }}></View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: GStyles.textColor['#3D3D3D'],
+                    fontFamily: GStyles.Poppins,
+                    fontWeight: '500',
+                    letterSpacing: 0.5,
+                  }}>
+                  Total Uncompleted Work: 08
+                </Text>
+              </View>
+            </View>
           </View>
-        </View>
+        </Fragment>
       )}
     </View>
   );

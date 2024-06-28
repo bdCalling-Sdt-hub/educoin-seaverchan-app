@@ -16,7 +16,7 @@ import {NavigationProp, ParamListBase} from '@react-navigation/native';
 const AsLoginData = [
   {
     id: 3,
-    name: 'Login as a Child',
+    name: 'Login as a Student',
     route: 'ChildLogin',
     style: {
       algin: 'left',

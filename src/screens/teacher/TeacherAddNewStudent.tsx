@@ -16,7 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 
-const TeacherAddNewStudent = ({navigation}: NavigProps) => {
+const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <View
@@ -150,7 +150,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps) => {
             <TouchableOpacity
               style={{}}
               onPress={() => {
-                navigation.navigate('StudentAllAvatar');
+                navigation?.navigate('StudentAllAvatar');
               }}>
               <Text
                 style={{
@@ -281,7 +281,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps) => {
               color: GStyles.textColor['#3D3D3D'],
               marginTop: 10,
             }}>
-            Child Added Successfully
+            Student Added Successfully
           </Text>
           <Text
             style={{

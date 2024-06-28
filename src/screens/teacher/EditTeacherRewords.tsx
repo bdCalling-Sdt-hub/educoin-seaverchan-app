@@ -302,7 +302,7 @@ const TeacherEditRewords = ({navigation}: NavigProps<null>) => {
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate('TeacherCreateRewords')
-            navigation.goBack();
+            navigation?.goBack();
           }}
           style={{
             backgroundColor: GStyles.primaryPurple,

@@ -43,7 +43,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
               width: '100%',
               color: '#6E6E6F',
             }}
-            value="khushi"
+            // value="khushi"
           />
         </View>
         <View>
@@ -55,10 +55,10 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
               marginBottom: 10,
               lineHeight: 20,
             }}>
-            Child Name
+            Student Name
           </Text>
           <TextInput
-            placeholder="Child name"
+            placeholder="Student name"
             style={{
               borderWidth: 1,
               borderColor: '#EEEEEE',

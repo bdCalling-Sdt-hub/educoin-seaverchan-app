@@ -293,7 +293,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           flexDirection: 'row',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation?.goBack()}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,

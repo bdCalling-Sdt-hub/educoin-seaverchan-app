@@ -72,12 +72,12 @@ const SmallSubHeaderCard = ({
           {subTitle}: {count}
         </Text>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           padding: 10,
         }}>
         <Entypo name="dots-three-horizontal" color="#3D3D3D" size={20} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

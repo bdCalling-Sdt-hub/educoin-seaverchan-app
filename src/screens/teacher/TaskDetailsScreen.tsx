@@ -8,7 +8,7 @@ import {TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ScrollView} from 'react-native';
 
-const TaskDetailsScreen = ({navigation}: NavigProps) => {
+const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
   return (
     <View
       style={{
@@ -110,7 +110,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('EditTeacherCustomTask');
+              navigation?.navigate('EditTeacherCustomTask');
             }}
             style={{
               position: 'absolute',
@@ -140,7 +140,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}>
-            Children who completed this task
+            Student who completed this task
           </Text>
           <FlatList
             horizontal
@@ -149,7 +149,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps) => {
             renderItem={item => (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('StudentsProgressAndInfo');
+                  navigation?.navigate('StudentsProgressAndInfo');
                 }}
                 style={{
                   borderRadius: 13,
@@ -215,7 +215,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps) => {
           justifyContent: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('TeacherCreateTask')}
+          onPress={() => navigation?.navigate('TeacherCreateTask')}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,

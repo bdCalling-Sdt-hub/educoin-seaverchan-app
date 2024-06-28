@@ -29,6 +29,7 @@ interface TaskCardProps {
   optionContainerHight?: number;
   approveBTColor?: string;
   approveDisabled?: boolean;
+  button?: boolean;
 }
 
 interface OptionList {
@@ -49,6 +50,7 @@ const TaskCard = ({
   approveOnPress,
   approveBTColor,
   approveDisabled,
+  button,
 }: TaskCardProps) => {
   const [open, setOpen] = React.useState(false);
   useEffect(() => {
@@ -145,105 +147,108 @@ const TaskCard = ({
             ))}
         </View>
       </View>
-
-      {completed ? (
-        <View
-          style={{
-            width: 100,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              color: GStyles.primaryBlue,
-              fontSize: 14,
-              fontFamily: GStyles.Poppins,
-            }}>
-            Done
-          </Text>
-        </View>
-      ) : isButton ? (
-        <TouchableOpacity
-          disabled={approveDisabled}
-          onPress={approveOnPress}
-          style={{
-            backgroundColor: approveBTColor
-              ? approveBTColor
-              : GStyles.primaryBlue,
-            borderRadius: 100,
-            width: 100,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              color: 'white',
-              fontSize: 16,
-              fontFamily: GStyles.Poppins,
-            }}>
-            {buttonText ? buttonText : 'Achieve'}
-          </Text>
-        </TouchableOpacity>
-      ) : (
-        <View
-          style={{
-            position: 'absolute',
-            top: 15,
-            right: 0,
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              setOpen(!open);
-            }}
-            style={{
-              paddingHorizontal: 10,
-            }}>
-            <Entypo name="dots-three-vertical" size={20} />
-          </TouchableOpacity>
-          {open && (
+      {button && (
+        <>
+          {completed ? (
+            <View
+              style={{
+                width: 100,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{
+                  color: GStyles.primaryBlue,
+                  fontSize: 14,
+                  fontFamily: GStyles.Poppins,
+                }}>
+                Done
+              </Text>
+            </View>
+          ) : isButton ? (
+            <TouchableOpacity
+              disabled={approveDisabled}
+              onPress={approveOnPress}
+              style={{
+                backgroundColor: approveBTColor
+                  ? approveBTColor
+                  : GStyles.primaryBlue,
+                borderRadius: 100,
+                width: 100,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 16,
+                  fontFamily: GStyles.Poppins,
+                }}>
+                {buttonText ? buttonText : 'Achieve'}
+              </Text>
+            </TouchableOpacity>
+          ) : (
             <View
               style={{
                 position: 'absolute',
-                top: 25,
-                right: 10,
-                backgroundColor: GStyles.white,
-                height: optionContainerHight ? optionContainerHight : 68,
-                width: 85,
-                borderRadius: 6,
-                borderColor: GStyles.borderColor['#ECECEC'],
-                borderWidth: 1,
-                shadowColor: GStyles.gray.dark,
-                shadowOffset: {width: 1, height: 2},
-                shadowRadius: 4,
-                shadowOpacity: 1,
-                zIndex: 9999,
-                gap: 2,
-                justifyContent: 'center',
-                alignItems: 'center',
+                top: 15,
+                right: 0,
               }}>
-              {optionList?.map((item, index) => (
-                <TouchableOpacity
-                  onPress={item.onPress}
-                  key={index}
+              <TouchableOpacity
+                onPress={() => {
+                  setOpen(!open);
+                }}
+                style={{
+                  paddingHorizontal: 10,
+                }}>
+                <Entypo name="dots-three-vertical" size={20} />
+              </TouchableOpacity>
+              {open && (
+                <View
                   style={{
-                    padding: 2,
+                    position: 'absolute',
+                    top: 25,
+                    right: 10,
+                    backgroundColor: GStyles.white,
+                    height: optionContainerHight ? optionContainerHight : 68,
+                    width: 85,
+                    borderRadius: 6,
+                    borderColor: GStyles.borderColor['#ECECEC'],
+                    borderWidth: 1,
+                    shadowColor: GStyles.gray.dark,
+                    shadowOffset: {width: 1, height: 2},
+                    shadowRadius: 4,
+                    shadowOpacity: 1,
+                    zIndex: 9999,
+                    gap: 2,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingVertical: 4,
-                    backgroundColor: GStyles.white,
-                    borderRadius: 10,
-                    borderColor: GStyles.borderColor['#ECECEC'],
-                    // borderWidth: 1,
-                    // shadowColor: GStyles.gray.dark,
                   }}>
-                  <Text>{item.title}</Text>
-                </TouchableOpacity>
-              ))}
+                  {optionList?.map((item, index) => (
+                    <TouchableOpacity
+                      onPress={item.onPress}
+                      key={index}
+                      style={{
+                        padding: 2,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        paddingVertical: 4,
+                        backgroundColor: GStyles.white,
+                        borderRadius: 10,
+                        borderColor: GStyles.borderColor['#ECECEC'],
+                        // borderWidth: 1,
+                        // shadowColor: GStyles.gray.dark,
+                      }}>
+                      <Text>{item.title}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
             </View>
           )}
-        </View>
+        </>
       )}
     </Pressable>
   );

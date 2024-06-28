@@ -12,7 +12,7 @@ import {GStyles} from '../../styles/GStyles';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
-const TeacherFeedback = ({navigation}: NavigProps) => {
+const TeacherFeedback = ({navigation}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
@@ -55,7 +55,7 @@ const TeacherFeedback = ({navigation}: NavigProps) => {
               width: '100%',
               color: '#6E6E6F',
             }}
-            value="khushi"
+            // value="khushi"
           />
         </View>
 
