@@ -15,6 +15,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import {PieChart} from 'react-native-chart-kit';
+import PieChartWithLabels from '../../utils/PieChart';
 const screenWidth = Dimensions.get('window').width;
 const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
   const [isOp, setIsOp] = React.useState('Profile');
@@ -296,7 +297,7 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
       {isOp === 'Records' && (
         <Fragment>
           <View>
-            <PieChart
+            {/* <PieChart
               data={data}
               width={screenWidth}
               height={220}
@@ -307,17 +308,18 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
               hidePointsAtIndex={[10, 20, 4]}
               backgroundColor={'transparent'}
               paddingLeft={'15'}
-              // hasLegend={false}
-              // center={[(screenWidth / 100) * 20, 0]}
+              hasLegend={false}
+              center={[(screenWidth / 100) * 20, 0]}
               // absolute
-            />
+            /> */}
+            <PieChartWithLabels />
           </View>
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text
+            {/* <Text
               style={{
                 fontSize: 20,
                 color: GStyles.primaryOrange,
@@ -334,8 +336,8 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
               }}>
               <Text
                 style={{
-                  fontFamily: GStyles.Poppins,
                   fontSize: 14,
+                  fontFamily: GStyles.Poppins,
                   color: '#797979',
                   fontWeight: '400',
                   letterSpacing: 0.5,
@@ -343,7 +345,7 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
                 45{' '}
               </Text>
               <AntDesign name="star" size={20} color={GStyles.primaryYellow} />
-            </View>
+            </View> */}
             <View
               style={{
                 justifyContent: 'center',
