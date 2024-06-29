@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -6,8 +6,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
+import { ScrollView } from 'react-native';
 
-const TeacherProfile = ({navigation}: NavigProps<null>) => {
+const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   return (
     <View
       style={{
@@ -21,7 +22,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <View
+      <ScrollView
         style={{
           paddingHorizontal: '4%',
           marginTop: 24,
@@ -126,9 +127,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}>
               Personal Information:
             </Text>
-            <TouchableOpacity 
-            onPress={()=>navigation?.navigate("EditTeacherProfile")}
-            >
+            {/* <TouchableOpacity>
               <AntDesign
                 name="edit"
                 style={{
@@ -137,7 +136,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                   fontWeight: 'bold',
                 }}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View
             style={{
@@ -151,13 +150,13 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}>
               Name :{' '}
             </Text>
-            <Text
+            <TextInput
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
-              }}>
-              Alan Marcus
-            </Text>
+              }} placeholder='Alan Marcus' />
+       
+           
           </View>
           <View
             style={{
@@ -171,13 +170,13 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}>
               Email :
             </Text>
-            <Text
+            <TextInput
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
-              }}>
-              deanna.curtis@example.com
-            </Text>
+              }} placeholder='deanna.curtis@example.com' />
+           
+           
           </View>
           <View
             style={{
@@ -191,13 +190,12 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}>
               Phone number :
             </Text>
-            <Text
+            <TextInput
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
-              }}>
-              +1 145528 455265
-            </Text>
+              }} placeholder='+1 145528 455265' />
+           
           </View>
           <View
             style={{
@@ -211,20 +209,50 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}>
               Address :
             </Text>
-            <Text
+            <TextInput
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
-              }}>
-              Bushwick Brooklyn, NY, USA
-            </Text>
+              }} placeholder='Bushwack Brooklyn, NY, USA' />
+             
+          
           </View>
         </View>
-      </View>
+      </ScrollView>
+      <TouchableOpacity
+          onPress={() => navigation?.goBack()}
+          style={{
+            backgroundColor: GStyles.primaryPurple,
+            padding: 10,
+            borderRadius: 100,
+            marginVertical: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+            alignSelf : "center",
+            flexDirection: 'row',
+            width: '90%',
+          }}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+            }}>
+            {/* <AntDesign name="plus" size={20} color="white" /> */}
+          </Text>
+          <Text
+            style={{
+              color: 'white',
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              letterSpacing: 0.8,
+              marginTop: 5,
+            }}>
+            Save
+          </Text>
+        </TouchableOpacity>
     </View>
   );
 };
 
-export default TeacherProfile;
+export default EditTeacherProfile;
 
 const styles = StyleSheet.create({});

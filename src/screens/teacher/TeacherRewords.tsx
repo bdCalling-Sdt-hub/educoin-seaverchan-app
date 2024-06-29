@@ -18,7 +18,7 @@ import LottieView from 'lottie-react-native';
 import RewordsCard from '../../components/common/Cards/RewordsCard';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
-const TeacherRewords = ({navigation}: NavigProps) => {
+const TeacherRewords = ({navigation}: NavigProps<null>) => {
   const [isEarned, setIsEarned] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   return (
@@ -46,12 +46,12 @@ const TeacherRewords = ({navigation}: NavigProps) => {
           <Fragment key={index}>
             <RewordsCard
               navigation={navigation}
-              route="TeacherEditRewords"
+              editRoute="TeacherEditRewords"
               // routeData={'demo'}
               editOption={true}
               // achieved
               title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__"
+              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
             />
           </Fragment>
         ))}
@@ -67,7 +67,7 @@ const TeacherRewords = ({navigation}: NavigProps) => {
           justifyContent: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('TeacherCreateRewords')}
+          onPress={() => navigation?.navigate('TeacherCreateRewords')}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,

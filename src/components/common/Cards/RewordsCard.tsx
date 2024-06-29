@@ -6,13 +6,13 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {NavigProps} from '../../../interfaces/NavigationPros';
 
-interface RewordsCardProps extends NavigProps {
+interface RewordsCardProps extends NavigProps<null> {
   title: string;
   achieved?: boolean;
   marginHorizontal?: number;
   editOption?: boolean;
   img: string;
-  route?: string;
+  editRoute? : string;
   routeData?: any;
   onPress?: () => void;
   borderColor?: string;
@@ -27,12 +27,13 @@ const RewordsCard = ({
   editOption,
   img,
   navigation,
-  route,
+  editRoute,
   routeData,
   borderColor,
   onPress,
   borderWidth,
   disabled,
+
 }: RewordsCardProps) => {
   return (
     <TouchableOpacity
@@ -65,7 +66,7 @@ const RewordsCard = ({
           style={{
             width: 30,
             height: 30,
-            borderRadius: 100,
+            // borderRadius: 100,
           }}
         />
         {achieved ? (
@@ -131,9 +132,9 @@ const RewordsCard = ({
       {editOption && (
         <TouchableOpacity
           onPress={() =>
-            route &&
+            editRoute &&
             editOption &&
-            navigation?.navigate(route, {data: routeData})
+            navigation?.navigate(editRoute, {data: routeData})
           }
           style={{
             padding: 5,

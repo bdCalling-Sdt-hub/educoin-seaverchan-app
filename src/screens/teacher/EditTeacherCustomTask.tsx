@@ -18,6 +18,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {FlatList} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
 
 interface HeaderBackgroundProps {
   navigation: NavigationProp<ParamListBase>;
@@ -25,52 +26,43 @@ interface HeaderBackgroundProps {
 
 const categories = [
   {
-    title: 'Education',
-    img: 'https://s3-alpha-sig.figma.com/img/4777/e823/f2073e01b6413fb39cbb25157f8234bb?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UKpyveKfIOK1nBuKnCAZqVvdhB7h0k-QjCj~u1xHAmwmroqyzZdyXWAFc935ohZN1LXuDjIbmgRMtHn5EYYAr~W4tmWpGE-MRIULrIlE-neTBkH8tEmRtHWSR~RD2u-PQ68izM3pYJ2zGVD~05EcuGJvNv8HYuFBtj1ncDjjcZL6ZRXNYNF8LK4AraXipm8rPsjUd5WE52e5fo4Hx2OmJRwuaEJzqtrpZnw0hiqVUdk6e1sheYYPumUkG5umsvGOztOJjvQatYYjZP1xEDuTnZYwEDh5sZUOJs~clRmIz~c0huYCLajvR3-A3c9LkRLRto01LtnCuCUic7xb12Zsog__',
+    title: 'Home Work',
+    img: 'https://s3-alpha-sig.figma.com/img/b4b7/69da/3f48ccb089f02a63c21231f6c0aea8ab?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=oXO6kM4EWeIxKwPgh2Dh7WJLaIE6BRnvK-fMUddz9x-xHBqaHYjERe0V4rwcQscl1Z8aOmeam~v0eJCStEUD~0cHT6sMOOdLFjzcrgfofE5vMx-6TaSlbVw6d-QSHWd~W8lSTWOO3t8Qz6bHtVXf3ZfZN8GgfCVAU8dAqRQ3Vs6Svv8LEzwrOovmGaoUlo5TyFyvPGk90SzSclrs8CmjQ56kISB8uHiaBnMsPV~Pw8yx00lX-7o10Bfgi-XNv8xsoFP6AYbnopsJ0NgQ1waMy-1ejFPurEE95wXGHonGPTqI~mhGrlhzUno9bs3nM-iw5fWhn6KA5xkawWVR~zENvQ__',
   },
   {
-    title: 'Home Errands',
-    img: 'https://s3-alpha-sig.figma.com/img/a65f/9958/64bddfadea534455e97f5abcaa27e6f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=aXbeeFYQgRdEtjZlTWWaqQfh2BZcrEWj7KLb5-ko9MDhA2m1iLwIBFWtbrOpS6mVn2zBu07yEX9civ3jfWuMlZHgFkjRmdnq5tmhVsx-eXhX2RijYWJjnxE1xEYpLJBvhUY3I-Eqm1NkyB30KfMgjm1A61WOYPiPzoYHIgqJ16gFdSQ1onYpeYJtD2I0bfb7JGpabLj2nFB0xSEmRIF776KopQ2yiawn0IWf52DRy8oIs79jSh47D-J46UfZ8Rq-wm6UywV7UjB7t2DzWGyz5AhR2dEfHdWEqlMHaWU3oj~clleNF3Xyfurvf-e1rd3z8EMuEjMV-E~3El0nhoO-Eg__',
+    title: 'Participant',
+    img: 'https://s3-alpha-sig.figma.com/img/4ffd/f831/b77dbe53f7212ceaffb5cd3f04bcaba9?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kbG-K-AjUjRNQo8Ud84xsIVhEKB08oeLB8h00nFu0t94XKFz7tkL2sfiXWMQyeQqivpisqY2uT~aO060oOlezMyaHcGjEe2HA8cV2VZz3ssmxMGRHY64ptw2tF-nmbDvaauThWSRe9~0gZNXlEgeMNTF88YtNq2gAoFnInDPpe7CEjNeUfIZEy~RGMK30iGUw05NXy8NbNixeBq5hx72vOsW3bIR-VQ14H-o4VQu0k1nG5sxBFov~X11~Yo0yXzYEAva26DP3XxyG8LNRCwzJV7Nvbps3NEf75fNZL5hkGAjz9sJNM2GOFMyU688dN7XxGSyJWygD3VQu4MOBeTrrg__',
   },
   {
-    title: 'Hygiene',
-    img: 'https://s3-alpha-sig.figma.com/img/7ea3/7b0a/140c497d8570975110f2963ecc61b456?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lVfzCOTa-T4fdXGRAG6KbLm3bDpaFxQd~DZMEPehOHcOrFD0QobUcDheetOQ~6HuCzQXrAfGuAQjyHG9eEBBMwwuCTsYMN7Gv2UchStdRBfDKogJlpCNC~wxA6Ti75QkqMCdp816bfsHvVSH1JHW5P9~UJTwL7SO1fTGJzYLDMPtPb7fhUKr08ED73mz~u4iJeCsbB2LPKKn14DQeWBfgUQ-UhGzV9xFP1vxYA3f0CuD9Xnc3DeXXXzLlT3AnWZhWNiuJ6xKkMUUh1BCMfYvIyM1lZkGSKYsSogn7W8dG55Z7QSEoGy-Tpjib8KtzB5i1f5yL5bRGroegdE1bJbNeQ__',
+    title: 'Test',
+    img: 'https://s3-alpha-sig.figma.com/img/2fae/085f/d303147e3c3431163db769f78d221f8a?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cBuBJO~nvEwAaMzOkmXAN1LSr6ZOrQy~oqf4yqxYbZT53hPbZVuhUo8ZhCqBIdPsgX24tgotPztAPZdHH4t4bqtRZIILqw-wCwjMMBBdFn4O2pqZFtEESccWdKBXAZDRoUCGbnKlDAOtuxsPNeBM0RcIQ0CEsk0mmhpF2X-d8kqiUv~OCBCrbu4YAUt5tNN9dfK1RxbOHtjt0YslsFv2IQNzZXGa8MB2Q6qNd1SIplTSGyKeYizZDZdJOd~9oScS7fSjWULBolLRLd6bNaUKZdlWrW5SkdGG4kZ5xFXgm88GgLYyjzYZMN5AXGdujkn1UtLnQ1BHWy1yG3IU~JAkpw__',
+  },
+  {
+    title: 'Behaviour',
+    img: 'https://s3-alpha-sig.figma.com/img/66a7/f47c/39de512a12b14f3b6836acbb9bfcd244?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IMBUa3XXhDnv551AFnmfkws76dggk7T5RtGYFVXveSO7SVhIDjGFAxDllfvL25gf0wOqFU2OlS2E~Pkuk2rjxzoe4HfDu5fhs2QoIopXzUw2SWBaV3X-jkJkA3EUnDPWMC0-MmdHisnASdxqUiWt2dmX0Um1j1x~mM96D5RbDV8eqiuumxxcViwF79hKXmnp2y9oJWkXKa6uv4X5~MInqnu6ctbUrg3WtOfut9FxppajQHtrUiVSSbu~iuIXGkjcii1SD6eT-MOXhfGBNYdQfZTFIg0We6ldzP2ALpaA1sM8t83~31M0vpOqh9kISFCJENig2KJI9LXe9OaDgigsyQ__',
   },
   {
     title: 'Behaviour',
     img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
   },
-  {
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-  {
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-  {
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-  {
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
+ 
+ 
 ];
 
 const EditTeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
   const [value, setValue] = React.useState<string>();
   const [isFocus, setIsFocus] = React.useState(false);
-  const [customName, setCustomName] = React.useState('Giring Furqon');
+  const [customName, setCustomName] = React.useState('Test');
   const [customDescription, setCustomDescription] = React.useState('');
   const [customPoints, setCustomPoints] = React.useState<number>(4);
-  const [customCategory, setCustomCategory] = React.useState('Hygiene');
+  const [customCategory, setCustomCategory] = React.useState('Participant');
   const [customImage, setCustomImage] = React.useState<string | undefined>();
 
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
-
+  const [modalVisible, setModalVisible] = React.useState(false);
+  
   return (
     <View
       style={{
@@ -78,7 +70,7 @@ const EditTeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
         backgroundColor: GStyles.white,
       }}>
       <HeaderBackground
-        title="Create Task"
+        title="Edit Task"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
@@ -128,18 +120,26 @@ const EditTeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
             paddingVertical: '5%',
             marginTop: -10,
           }}>
-          <Text
+         <View
             style={{
-              fontSize: 16,
-              fontFamily: GStyles.PoppinsSemiBold,
-              color: '#3D3D3D',
-              lineHeight: 24,
-              fontWeight: '500',
-              letterSpacing: 0.5,
               marginVertical: 15,
+              flexDirection: 'row',
+              gap: 10,
+              alignItems: 'center',
             }}>
-            Points
-          </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                lineHeight: 24,
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              Points
+            </Text>
+            <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
+          </View>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -150,7 +150,8 @@ const EditTeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
             ListHeaderComponent={() => (
               <TouchableOpacity
                 onPress={() => {
-                  // setModalVisible(true);
+                  setModalVisible(true);
+
                 }}
                 style={{
                   width: 45,
@@ -522,6 +523,65 @@ const EditTeacherCustomTask = ({navigation}: HeaderBackgroundProps) => {
           setOpen(false);
         }}
       />
+       <CustomModal
+        modalVisible={modalVisible}
+        backButton
+        setModalVisible={setModalVisible}
+        height={250}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+            }}>
+            Please Enter The Custom Points
+          </Text>
+          <TextInput
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              fontSize: 16,
+            }}
+            placeholder="number"
+            keyboardType="decimal-pad"
+          />
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+                marginTop: 10,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
     </View>
   );
 };

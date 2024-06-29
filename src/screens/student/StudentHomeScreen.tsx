@@ -13,18 +13,20 @@ import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HeaderOption from '../../components/common/header/HeaderOption';
+import HomeTopHeader from '../../components/common/header/HomeTopHeader';
+import { HomeNavigProps } from '../../interfaces/NavigationPros';
 
-interface AdminHOmeProps {
-  navigation: DrawerNavigationProp<ParamListBase>;
-}
 
-const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
+
+const StudentHomeScreen = ({
+  navigation,
+
+}: HomeNavigProps<null>) => {
   const [isCompeted, setIsCompeted] = React.useState('New Task');
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -32,10 +34,10 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
     <View
       style={{
         height: '100%',
-        // backgroundColor: 'white',
+        backgroundColor: 'white',
       }}>
       {/* header part  start */}
-      <View
+      {/* <View
         style={{
           height: 170,
           backgroundColor: GStyles.primaryOrange,
@@ -158,7 +160,22 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
             <Feather name="search" color="#858585" size={24} />
           </View>
         </View>
-      </View>
+      </View> */}
+      <HomeTopHeader
+        drawerNavigation={navigation}
+        navigation={navigation}
+        backgroundColor={GStyles.primaryOrange}
+        ringColor={GStyles.orange.normalHover}
+        notifyRoute="StudentNotification"
+        profileStyle="student"
+        userDetails={{
+          image:
+            'https://s3-alpha-sig.figma.com/img/7e25/5623/4294ee5c7b1b9f58586be6b07d5af09b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UqVh6r11OAxRRUyG9Ja8zPMX~ljsBgG1IQzANVfrxnuDysbnef64v2qruEJL6c~1sQfwVOryFtqkQaNFbXvhaAxNOVYFtCbe1UN~i1AOGAgAOrK4Zb0D6vJ8G5-uVV1Z8mcLcIbg68eMBOuh7KRB0iTkjG6RIKyp0j7LdBRFf9B-DHREoCbHAfgeMGKHdJ5ZEzuzgYmAX8GP1I9YhjiJuzfnTWEucKKFdzFkD8ntIJbtePxOD7myM6uIRrzqAsW8SXaU1M8xglowzRma9rkzofTVy170u7386aKAuDbHoIMGI44B4x8C2cr6PueVzpGeFP2O3WxADEXSxtmb1MoEqA__',
+          name: 'Rina Karina',
+          points: 100,
+        }}
+        containerGap={35}
+      />
       {/* header part  end */}
       {/* body part start */}
       <ScrollView
@@ -169,10 +186,17 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
         <HeaderOption
           isOp={isCompeted}
           setIsOp={setIsCompeted}
+          fillButton
+          gap={24}
+          marginTop={5}
+          marginBottom={15}
+          // marginHorizontal={10}
+          
           op1="New Task"
           op2="Completed Task"
-          // borderColor={GStyles.primaryOrange}
+          borderColor={GStyles.orange.lightActive}
           activeBorderColor={GStyles.primaryOrange}
+          filButtonHight={48}
         />
         {isCompeted === 'Completed Task' ? (
           <>
@@ -869,7 +893,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
         <View
           style={{
             padding: 20,
-            gap: 10,
+            gap: 20,
             justifyContent: 'center',
             flex: 1,
           }}>

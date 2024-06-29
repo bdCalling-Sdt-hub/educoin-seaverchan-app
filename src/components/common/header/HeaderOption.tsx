@@ -17,6 +17,12 @@ interface HeaderOptionsProps {
   activeBorderColor: string;
   marginBottom?: number;
   marginTop?: number;
+  fillButton?: boolean;
+  gap ?: number;
+  filButtonRadius?: number;
+  filButtonHight?: number; //
+  containerBackgroundColor ?: string;
+  containerPadding?: number;
 }
 // use option with 3 children must use string type for `isOp` prop setIsop as string and pass the string value of the option you want to set as isOp prop.
 
@@ -29,14 +35,110 @@ const HeaderOption = ({
   isOp,
   borderColor,
   borderWidth,
-
+fillButton,
   marginHorizontal,
   activeBorderColor,
   marginBottom,
   marginTop,
+  filButtonRadius,
+  gap,
+  filButtonHight,
+  containerBackgroundColor,
+  containerPadding
 }: HeaderOptionsProps) => {
   return (
-    <View
+    <>
+    {
+      fillButton ? <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    
+        gap:gap ? gap : 10,
+        alignItems: 'center',
+        marginHorizontal: marginHorizontal ? marginHorizontal : 0,
+        marginBottom: marginBottom ? marginBottom : 0,
+        marginTop: marginTop ? marginTop : 0,
+        backgroundColor :containerBackgroundColor ? containerBackgroundColor: "#F8F8F8",
+        padding :containerPadding ? containerPadding : 10,
+        borderRadius : 8
+      }}>
+      {op1 && (
+        <TouchableOpacity onPress={() => setIsOp(op1)} style={{
+          flex : 1,
+          borderRadius : filButtonRadius ?filButtonRadius : 8,
+          backgroundColor: isOp === op1? activeBorderColor? activeBorderColor : GStyles.primaryBlue : "transparent",
+          alignItems : "center",
+          justifyContent : "center",
+          height :filButtonHight ?filButtonHight : 45,
+          borderWidth: isOp === op1? borderWidth? borderWidth : 1 : 1,
+          borderColor:  activeBorderColor? borderColor : GStyles.primaryBlue ,
+        }}>
+          <Text
+            style={{
+           
+              fontSize: 16,
+             
+              fontFamily: GStyles.Poppins,
+              fontWeight: '400',
+             
+              color : isOp === op1 ?"white" : activeBorderColor ? activeBorderColor : GStyles.textColor['#3D3D3D'] ,
+              textAlign: 'center',
+            
+            }}>
+            {op1}
+          </Text>
+        </TouchableOpacity>
+      )}
+
+      {op2 && (
+        <TouchableOpacity onPress={() => setIsOp(op2)} style={{
+          flex : 1,
+          borderRadius : filButtonRadius ?filButtonRadius : 8,
+          backgroundColor: isOp === op2? activeBorderColor? activeBorderColor : GStyles.primaryBlue : "transparent",
+          alignItems : "center",
+          justifyContent : "center",
+          height :filButtonHight ?filButtonHight : 45,
+          borderWidth: isOp === op2? borderWidth? borderWidth : 1 : 1,
+          borderColor:  activeBorderColor? borderColor : GStyles.primaryBlue ,
+          
+        }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: GStyles.Poppins,
+              fontWeight: '400',
+              color : isOp === op2 ?"white" : activeBorderColor ? activeBorderColor : GStyles.textColor['#3D3D3D'] ,
+         
+            }}>
+            {op2}
+          </Text>
+        </TouchableOpacity>
+      )}
+      {op3 && (
+        <TouchableOpacity onPress={() => setIsOp(op3)} style={{
+          flex : 1,
+          borderRadius : filButtonRadius ?filButtonRadius : 8,
+          backgroundColor: isOp === op3? activeBorderColor? activeBorderColor : GStyles.primaryBlue : "transparent",
+          alignItems : "center",
+          justifyContent : "center",
+          height :filButtonHight ?filButtonHight : 45,
+          borderWidth: isOp === op3? borderWidth? borderWidth : 1 : 1,
+          borderColor:  activeBorderColor? borderColor : GStyles.primaryBlue ,
+        }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: GStyles.Poppins,
+              fontWeight: '400',
+              color : isOp === op3 ?"white" : activeBorderColor ? activeBorderColor : GStyles.textColor['#3D3D3D'] ,
+            
+            }}>
+            {op3}
+          </Text>
+        </TouchableOpacity>
+      )}
+    </View> : <View
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -114,6 +216,9 @@ const HeaderOption = ({
         </TouchableOpacity>
       )}
     </View>
+    }
+    </>
+   
   );
 };
 

@@ -12,9 +12,11 @@ import {GStyles} from '../../styles/GStyles';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {FlatList} from 'react-native';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
 
 const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [rewordName, setRewordName] = React.useState('');
@@ -22,6 +24,8 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [rewordPoints, setRewordPoints] = React.useState<number>();
   const [rewordCategory, setRewordCategory] = React.useState('');
   const [rewordImage, setRewordImage] = React.useState<string | undefined>();
+
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
@@ -115,18 +119,26 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             paddingVertical: '5%',
             marginTop: -10,
           }}>
-          <Text
+           <View
             style={{
-              fontSize: 16,
-              fontFamily: GStyles.PoppinsSemiBold,
-              color: '#3D3D3D',
-              lineHeight: 24,
-              fontWeight: '500',
-              letterSpacing: 0.5,
               marginVertical: 15,
+              flexDirection: 'row',
+              gap: 10,
+              alignItems: 'center',
             }}>
-            Points
-          </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                lineHeight: 24,
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              Points
+            </Text>
+            <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
+          </View>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -134,24 +146,24 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               gap: 10,
             }}
             data={[...Array(8)]}
-            // ListHeaderComponent={() => (
-            //   <TouchableOpacity
-            //     onPress={() => {
-            //       // setModalVisible(true);
-            //     }}
-            //     style={{
-            //       width: 45,
-            //       height: 45,
-            //       borderRadius: 10,
-            //       borderWidth: 1,
-            //       borderColor: '#C3C3C3',
-            //       alignItems: 'center',
-            //       justifyContent: 'center',
-            //       backgroundColor: 'white',
-            //     }}>
-            //     <AntDesign name="plus" size={20} color={'gray'} />
-            //   </TouchableOpacity>
-            // )}
+            ListHeaderComponent={() => (
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+                style={{
+                  width: 45,
+                  height: 45,
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  borderColor: '#C3C3C3',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'white',
+                }}>
+                <AntDesign name="plus" size={20} color={'gray'} />
+              </TouchableOpacity>
+            )}
             renderItem={item => (
               <Fragment key={item.index}>
                 <TouchableOpacity
@@ -322,6 +334,65 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           </Text>
         </TouchableOpacity>
       </View>
+      <CustomModal
+        modalVisible={modalVisible}
+        backButton
+        setModalVisible={setModalVisible}
+        height={250}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+            }}>
+            Please Enter The Custom Points
+          </Text>
+          <TextInput
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              fontSize: 16,
+            }}
+            placeholder="number"
+            keyboardType="decimal-pad"
+          />
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+                marginTop: 10,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
     </View>
   );
 };

@@ -6,7 +6,7 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const ProgressScreen = ({navigation}: NavigProps) => {
+const ProgressScreen = ({navigation}: NavigProps<null>) => {
   return (
     <View
       style={{

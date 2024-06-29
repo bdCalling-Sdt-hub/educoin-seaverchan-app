@@ -14,7 +14,7 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const AllStudentsScreen = ({navigation}: NavigProps) => {
+const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
   return (
     <View
       style={{
@@ -73,7 +73,7 @@ const AllStudentsScreen = ({navigation}: NavigProps) => {
                 alignItems: 'center',
               }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('StudentPublicProfile')}
+                onPress={() => navigation?.navigate('StudentPublicProfile')}
                 style={{
                   width: 156,
                   height: 168,

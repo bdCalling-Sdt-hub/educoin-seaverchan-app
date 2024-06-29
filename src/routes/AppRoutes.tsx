@@ -48,6 +48,7 @@ import StudentDrawerRoutes from './StudentDrawerRoutes';
 import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
 import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
 import TastingComponents from '../screens/Testing';
+import EditTeacherProfile from '../screens/teacher/EditTeacherProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -157,6 +158,10 @@ export const Routes = () => {
         <Stack.Screen
           name="ParticularClassStudent"
           component={ParticularClassStudents}
+        />
+        <Stack.Screen
+          name="EditTeacherProfile"
+          component={EditTeacherProfile}
         />
       </Stack.Navigator>
     </NavigationContainer>

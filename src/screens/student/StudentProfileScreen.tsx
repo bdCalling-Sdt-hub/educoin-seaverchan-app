@@ -7,7 +7,7 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {BarChart} from 'react-native-gifted-charts';
 
-const StudentProfileScreen = ({navigation}: NavigProps) => {
+const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
   const barData = [
     {value: 30, label: 'Sun'},
     {value: 50, label: 'Mon'},

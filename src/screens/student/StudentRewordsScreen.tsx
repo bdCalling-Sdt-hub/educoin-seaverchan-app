@@ -23,7 +23,7 @@ interface AdminRoutesProps {
 }
 
 const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
-  const [isEarned, setIsEarned] = React.useState('');
+  const [isEarned, setIsEarned] = React.useState('Achieved');
   const [modalVisible, setModalVisible] = React.useState(false);
   const [selected, setSelected] = React.useState(1);
   return (
@@ -81,14 +81,20 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
         <HeaderOption
           isOp={isEarned}
           setIsOp={setIsEarned}
-          op1="Earned"
-          op2="Achieve"
+          fillButton
+          op1="Achieved"
+          op2="Earn"
           activeBorderColor={GStyles.primaryOrange}
-          marginHorizontal={30}
+          marginHorizontal={20}
+          marginBottom={15}
+          marginTop={5}
+          gap={24}
+          filButtonHight={48}
+          borderColor={GStyles.orange.lightActive}
         />
       </View>
 
-      {isEarned === 'Achieve' ? (
+      {isEarned === 'Earn' ? (
         <>
           {/* card container  */}
           <ScrollView
@@ -112,7 +118,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
                   }
                   onPress={() => setSelected(index)}
                   title="Playing outside with dad"
-                  img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__"
+                  img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
                 />
               </Fragment>
             ))}
@@ -175,7 +181,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
                     disabled
                     achieved
                     title="Playing outside with dad"
-                    img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mEyxuNlq2BjRWUoh1ura~rwrvOx7IMDzwmvqHTfINpJsU5Bp5yFs9oxhzqsd164PqMovGyQre4Lmb5K-rpFHzgPt1d3SOydMj7tkxOhUm5~gWIT7nG1aFZaVMn3-UNl6AiUtnG8opY40XSgigPgWr6QDD3i3acdOrgpjjL7JgjgIaI1cwu3XKI3GoczUnMlKfjXS2ID0a0q1yCrkaNNwtmtMJtYGBKNCXrGbNTM9Dke6lPyVwYhAKeAJhhHuGy5cPr9pv5GAqpYwQmL9xXp85o7VR-~2m0K1F2MVQ-jF6A6TsB7TZTuD3qvbvnHUpLbI0YtMMwl~7DHFX6mGzaAt-w__"
+                    img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
                   />
                 </Fragment>
               </Fragment>
@@ -183,7 +189,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
           </ScrollView>
 
           {/* create new rewards button  */}
-          <View
+          {/* <View
             style={{
               paddingHorizontal: '4%',
               alignItems: 'flex-end',
@@ -222,7 +228,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
                 Add rewords
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </>
       )}
 
