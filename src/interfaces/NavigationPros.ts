@@ -1,6 +1,10 @@
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  RouteProp,
+} from '@react-navigation/native';
 
-export interface NavigProps {
-  navigation: NavigationProp<ParamListBase>;
-  route: any;
+export interface NavigProps<RouteParamsDataType> {
+  navigation?: NavigationProp<ParamListBase>;
+  route?: RouteProp<{params: {data: RouteParamsDataType}}, 'params'>;
 }

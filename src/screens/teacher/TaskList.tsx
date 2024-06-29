@@ -20,7 +20,7 @@ import HeaderOption from '../../components/common/header/HeaderOption';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 
-const TaskList = ({navigation}: NavigProps) => {
+const TaskList = ({navigation}: NavigProps<null>) => {
   const [op, setOp] = React.useState('Task List');
 
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -74,7 +74,7 @@ const TaskList = ({navigation}: NavigProps) => {
                   {
                     title: 'Details',
                     onPress: () => {
-                      navigation.navigate('TaskDetails');
+                      navigation?.navigate('TaskDetails');
                     },
                   },
                   {
@@ -89,6 +89,7 @@ const TaskList = ({navigation}: NavigProps) => {
             ) : (
               <TaskCard
                 isButton
+                button
                 buttonText="Approve"
                 approveOnPress={() => {
                   setModalVisible(true);
@@ -112,7 +113,7 @@ const TaskList = ({navigation}: NavigProps) => {
           justifyContent: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('TeacherCreateTask')}
+          onPress={() => navigation?.navigate('TeacherCreateTask')}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,

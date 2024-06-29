@@ -32,7 +32,7 @@ const StudentHomeScreen = ({navigation}: AdminHOmeProps) => {
     <View
       style={{
         height: '100%',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
       }}>
       {/* header part  start */}
       <View

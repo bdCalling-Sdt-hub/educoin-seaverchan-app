@@ -8,34 +8,50 @@ import {
 } from 'react-native';
 import React, {Fragment} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {GStyles} from '../../styles/GStyles';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {FlatList} from 'react-native';
 
-const TeacherCreateRewords = ({navigation}: NavigProps) => {
+const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [rewordName, setRewordName] = React.useState('');
   const [rewordDescription, setRewordDescription] = React.useState('');
   const [rewordPoints, setRewordPoints] = React.useState<number>();
   const [rewordCategory, setRewordCategory] = React.useState('');
   const [rewordImage, setRewordImage] = React.useState<string | undefined>();
 
-  const handleImagePick = async () => {
+  const handleImagePick = async (option: 'camera' | 'library') => {
     try {
-      const result = await launchCamera({
-        mediaType: 'photo',
-        maxWidth: 500,
-        maxHeight: 500,
-        quality: 0.5,
-        includeBase64: true,
-      });
+      if (option === 'camera') {
+        const result = await launchCamera({
+          mediaType: 'photo',
+          maxWidth: 500,
+          maxHeight: 500,
+          quality: 0.5,
+          includeBase64: true,
+        });
 
-      if (!result.didCancel) {
-        setRewordImage(result?.assets![0].uri);
-        console.log(result);
+        if (!result.didCancel) {
+          setRewordImage(result?.assets![0].uri);
+          console.log(result);
+        }
+      }
+      if (option === 'library') {
+        const result = await launchImageLibrary({
+          mediaType: 'photo',
+          maxWidth: 500,
+          maxHeight: 500,
+          quality: 0.5,
+          includeBase64: true,
+        });
+
+        if (!result.didCancel) {
+          setRewordImage(result?.assets![0].uri);
+          console.log(result);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -189,42 +205,83 @@ const TeacherCreateRewords = ({navigation}: NavigProps) => {
             }}>
             Add Image
           </Text>
-          <TouchableOpacity
-            onPress={() => handleImagePick()}
+          <View
             style={{
-              height: 250,
+              height: 150,
               alignItems: 'center',
               justifyContent: 'center',
+              backgroundColor: GStyles.gray.light,
+              borderRadius: 8,
+              marginVertical: 20,
             }}>
             {rewordImage ? (
-              <Image
-                source={{uri: rewordImage}}
+              <View
                 style={{
-                  width: '90%',
-                  height: '90%',
-                  resizeMode: 'cover',
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  borderColor: '#E2E2E2',
-                  marginBottom: 10,
-                }}
-              />
+                  position: 'relative',
+                  height: '100%',
+                  width: '100%',
+                }}>
+                <Image
+                  source={{uri: rewordImage}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    resizeMode: 'cover',
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: '#E2E2E2',
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={() => setRewordImage(undefined)}
+                  style={{
+                    position: 'absolute',
+                    top: 5,
+                    right: 5,
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                    padding: 5,
+                    borderRadius: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Ionicons name="close" size={20} color={'white'} />
+                </TouchableOpacity>
+              </View>
             ) : (
               <>
-                <Ionicons name="images-outline" size={100} color="#C3C3C3" />
-                <Text
+                <View
                   style={{
-                    fontSize: 12,
-                    fontFamily: GStyles.Poppins,
-                    color: GStyles.primaryPurple,
-                    lineHeight: 24,
-                    fontWeight: '500',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    width: '100%',
                   }}>
-                  Browse image{' '}
-                </Text>
+                  <TouchableOpacity
+                    onPress={() => handleImagePick('camera')}
+                    style={{
+                      padding: 20,
+                    }}>
+                    <Feather
+                      name="camera"
+                      size={80}
+                      color={GStyles.primaryPurple}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => handleImagePick('library')}
+                    style={{
+                      padding: 20,
+                    }}>
+                    <Feather
+                      name="folder"
+                      size={80}
+                      color={GStyles.primaryPurple}
+                    />
+                  </TouchableOpacity>
+                </View>
               </>
             )}
-          </TouchableOpacity>
+          </View>
         </View>
       </View>
       <View
@@ -236,7 +293,7 @@ const TeacherCreateRewords = ({navigation}: NavigProps) => {
           flexDirection: 'row',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation?.goBack()}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,
