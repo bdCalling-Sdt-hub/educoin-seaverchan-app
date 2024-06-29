@@ -47,6 +47,7 @@ import TeacherAddNewClass from '../screens/teacher/TeacherAddNewClass';
 import StudentDrawerRoutes from './StudentDrawerRoutes';
 import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
 import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
+import TastingComponents from '../screens/Testing';
 
 const Stack = createNativeStackNavigator();
 
@@ -61,14 +62,15 @@ export const Routes = () => {
           // statusBarTranslucent: true,
           animation: 'slide_from_right',
         }}>
+        {/* <Stack.Screen name="Testing" component={TastingComponents} /> */}
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="LoginAs" component={LoginAsScreen} />
         <Stack.Screen name="TeacherLogin" component={TeacherLoginScreen} />
         <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
         <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
-        <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         {/* Admins All Screens  */}
+        {/* <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
         <Stack.Screen name="CreateRewords" component={CreateRewords} />
         <Stack.Screen name="EditRewords" component={EditRewordsScreen} />
         <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
@@ -78,7 +80,7 @@ export const Routes = () => {
         <Stack.Screen name="AdminProfile" component={AdminProfileScreen} />
         <Stack.Screen name="AssignTask" component={AssignTaskScreen} />
         <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
-        <Stack.Screen name="AdminNotification" component={AdminNotification} />
+        <Stack.Screen name="AdminNotification" component={AdminNotification} /> */}
         {/*--------------------- student routes----------------  */}
         <Stack.Screen
           name="StudentDrawerRoutes"

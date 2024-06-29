@@ -16,7 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 
-const TeacherAddNewClass = ({navigation}: NavigProps) => {
+const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <View
