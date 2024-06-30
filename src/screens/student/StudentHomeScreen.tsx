@@ -179,6 +179,7 @@ const StudentHomeScreen = ({
       {/* header part  end */}
       {/* body part start */}
       <ScrollView
+       showsVerticalScrollIndicator={false}
         style={{
           paddingHorizontal: '4%',
           paddingVertical: 20,

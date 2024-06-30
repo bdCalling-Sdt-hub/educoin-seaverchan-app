@@ -48,6 +48,7 @@ const data = [
 ]
 
 const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
+  const [selectAvatar,setSelectedAvatar] =React.useState<number>()
   return (
     <View
       style={{
@@ -80,6 +81,9 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
         renderItem={item => (
           <TouchableOpacity
             key={item.index}
+            onPress={()=>{
+              setSelectedAvatar(item.index)
+            }}
             style={{
               height: 110,
               width: 110,
@@ -87,8 +91,8 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
               backgroundColor: '#F1F1F1',
               justifyContent: 'center',
               alignItems: 'center',
-              // borderColor: GStyles.primaryPurple,
-              // borderWidth: 1,
+              borderColor: item.index === selectAvatar ? GStyles.primaryPurple : GStyles.borderColor['#ECECEC'],
+              borderWidth: 2,
             }}>
             <Image
               style={{
