@@ -39,7 +39,22 @@ const TaskList = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-
+ <HeaderOption
+            op1="Task List"
+            op2="Task Request"
+            initialOp="Task List"
+            setIsOp={setOp}
+            isOp={op}
+            borderColor={GStyles.purple.lightHover}
+            borderWidth={0}
+            fillButton
+            filButtonHight={48}
+            marginTop={20}
+            marginBottom={15}
+            activeBorderColor={GStyles.primaryPurple}
+            marginHorizontal={20}
+            gap={25}
+          />
       {/* card container  */}
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -54,18 +69,7 @@ const TaskList = ({navigation}: NavigProps<null>) => {
         ListHeaderComponentStyle={{
           width: '100%',
         }}
-        ListHeaderComponent={item => (
-          <HeaderOption
-            op1="Task List"
-            op2="Task Request"
-            initialOp="Task List"
-            setIsOp={setOp}
-            isOp={op}
-            borderColor="white"
-            borderWidth={0}
-            activeBorderColor={GStyles.primaryPurple}
-          />
-        )}
+      
         renderItem={item => (
           <>
             {op === 'Task List' ? (

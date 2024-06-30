@@ -36,29 +36,30 @@ const SplashScreen = ({navigation}: splashProps) => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginBottom: 30,
+              marginBottom: "10%",
+              gap : -10
             }}>
             <Text
               style={{
-                fontSize: 33,
-
+                fontSize: 32,
+                fontWeight : '600',
                 color: GStyles.primaryPurple,
-                fontFamily: GStyles.SarinaRegular,
+                fontFamily: GStyles.PoppinsBold,
               }}>
               Welcome to
             </Text>
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 32,
 
                 color: GStyles.primaryPurple,
-                fontFamily: GStyles.SarinaRegular,
+                fontFamily: GStyles.PoppinsBold,
               }}>
               Edu coin
             </Text>
           </View>
           <Image
-            source={require('../../assets/images/splash/splashImage.png')}
+            source={require('../../assets/images/splash/quokka.png')}
             style={{
               width: 327,
               height: 327,

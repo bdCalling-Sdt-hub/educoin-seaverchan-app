@@ -7,7 +7,48 @@ import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Image} from 'react-native';
 
-const StudentAllAvatar = ({navigation}: NavigProps) => {
+
+const data = [
+  {
+    id: 1,
+    avatar: require("../../assets/images/studentAvatar/1.png"),
+  },
+  {
+    id: 2,
+    avatar: require("../../assets/images/studentAvatar/2.png"),
+  },
+  {
+    id: 3,
+    avatar: require("../../assets/images/studentAvatar/3.png"),
+  },
+  {
+    id: 4,
+    avatar: require("../../assets/images/studentAvatar/4.png"),
+  },
+  {
+    id: 5,
+    avatar: require("../../assets/images/studentAvatar/5.png"),
+  },
+  {
+    id: 6,
+    avatar: require("../../assets/images/studentAvatar/6.png"),
+  },
+  {
+    id: 7,
+    avatar: require("../../assets/images/studentAvatar/7.png"),
+  },
+  {
+    id: 8,
+    avatar: require("../../assets/images/studentAvatar/8.png"),
+  },
+  {
+    id: 9,
+    avatar: require("../../assets/images/studentAvatar/9.png"),
+  },
+]
+
+const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
+  const [selectAvatar,setSelectedAvatar] =React.useState<number>()
   return (
     <View
       style={{
@@ -23,7 +64,7 @@ const StudentAllAvatar = ({navigation}: NavigProps) => {
       />
       <FlatList
         showsHorizontalScrollIndicator={false}
-        data={[...Array(10)]}
+        data={data}
         numColumns={3}
         contentContainerStyle={{
           marginVertical: 20,
@@ -40,6 +81,9 @@ const StudentAllAvatar = ({navigation}: NavigProps) => {
         renderItem={item => (
           <TouchableOpacity
             key={item.index}
+            onPress={()=>{
+              setSelectedAvatar(item.index)
+            }}
             style={{
               height: 110,
               width: 110,
@@ -47,8 +91,8 @@ const StudentAllAvatar = ({navigation}: NavigProps) => {
               backgroundColor: '#F1F1F1',
               justifyContent: 'center',
               alignItems: 'center',
-              // borderColor: GStyles.primaryPurple,
-              // borderWidth: 1,
+              borderColor: item.index === selectAvatar ? GStyles.primaryPurple : GStyles.borderColor['#ECECEC'],
+              borderWidth: 2,
             }}>
             <Image
               style={{
@@ -56,9 +100,7 @@ const StudentAllAvatar = ({navigation}: NavigProps) => {
                 height: 105,
                 borderRadius: 100,
               }}
-              source={{
-                uri: 'https://img.freepik.com/premium-vector/young-smiling-man-avatar-man-with-brown-beard-mustache-hair-wearing-yellow-sweater-sweatshirt-3d-vector-people-character-illustration-cartoon-minimal-style_365941-860.jpg',
-              }}
+              source={item.item.avatar}
             />
           </TouchableOpacity>
         )}

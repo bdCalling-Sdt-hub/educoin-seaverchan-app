@@ -1,5 +1,6 @@
 import {
   Image,
+  Keyboard,
   Pressable,
   ScrollView,
   StatusBar,
@@ -16,13 +17,32 @@ import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
 const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
-  const [code, setCode] = React.useState('');
+  const [pin, setPin] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
   const handlePress = () => {
     if (textInputRef.current) {
       textInputRef.current.focus();
     }
   };
+  React.useEffect(()=>{
+  textInputRef.current?.focus()
+  },[])
+
+
+
+  const handlePinChange = (input : string) => {
+    // Ensure only numbers are entered and limit to 6 digits
+    const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
+    setPin(filteredInput);
+  };
+
+  const handleGoPress = () => {
+    // Handle the action when the "Go" button is pressed
+    console.log('Entered PIN:', pin);
+    navigation?.navigate('StudentDrawerRoutes')
+    Keyboard.dismiss(); // Dismiss the keyboard
+  };
+
   return (
     <View style={styles.container}>
       <BackButton />
@@ -41,30 +61,31 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
           </View>
           <View style={styles.inputContainer}>
             <Pressable onPress={() => handlePress()} style={styles.codeInput}>
-              <Text style={styles.inputCodeText}>{code[0] ? code[0] : ''}</Text>
+              <Text style={styles.inputCodeText}>{pin[0] ? pin[0] : ''}</Text>
             </Pressable>
             <Pressable onPress={() => handlePress()} style={styles.codeInput}>
-              <Text style={styles.inputCodeText}>{code[1] ? code[1] : ''}</Text>
+              <Text style={styles.inputCodeText}>{pin[1] ? pin[1] : ''}</Text>
             </Pressable>
             <Pressable onPress={() => handlePress()} style={styles.codeInput}>
-              <Text style={styles.inputCodeText}>{code[2] ? code[2] : ''}</Text>
+              <Text style={styles.inputCodeText}>{pin[2] ? pin[2] : ''}</Text>
             </Pressable>
             <Pressable onPress={() => handlePress()} style={styles.codeInput}>
-              <Text style={styles.inputCodeText}>{code[3] ? code[3] : ''}</Text>
+              <Text style={styles.inputCodeText}>{pin[3] ? pin[3] : ''}</Text>
             </Pressable>
             <Pressable onPress={() => handlePress()} style={styles.codeInput}>
-              <Text style={styles.inputCodeText}>{code[4] ? code[4] : ''}</Text>
+              <Text style={styles.inputCodeText}>{pin[4] ? pin[4] : ''}</Text>
             </Pressable>
             <Pressable onPress={() => handlePress()} style={styles.codeInput}>
-              <Text style={styles.inputCodeText}>{code[5] ? code[5] : ''}</Text>
+              <Text style={styles.inputCodeText}>{pin[5] ? pin[5] : ''}</Text>
             </Pressable>
           </View>
         </View>
-        <View style={styles.buttonContain}>
+        <View style={styles.buttonContain} >
           <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation?.navigate('StudentDrawerRoutes')}>
-            <Text style={styles.buttonText}>Go</Text>
+            disabled={pin.length !== 6}
+            style={[styles.button, pin.length === 6 ? {    backgroundColor: GStyles.primaryOrange} : { backgroundColor: GStyles.borderColor['#ECECEC']}]}
+            onPress={handleGoPress}>
+            <Text style={[styles.buttonText, pin.length === 6 ? {    color: GStyles.white} : { color: GStyles.gray.lightHover}]}>Go</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -76,9 +97,11 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
           position: 'absolute',
           top: -500,
         }}
-        onChangeText={text => {
-          code.split('').length > 6 || setCode(text);
-        }}
+     
+        onChangeText={handlePinChange}
+
+        maxLength={6}
+    
       />
       <StatusBar backgroundColor="white" barStyle="dark-content" />
     </View>

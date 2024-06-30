@@ -23,6 +23,7 @@ import SmallSubHeaderCard from '../../components/common/Cards/SmallSubHeaderCard
 import StudentCard from '../../components/common/Cards/StudentCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HomeTopHeader from '../../components/common/header/HomeTopHeader';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -39,144 +40,17 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         position: 'relative',
       }}>
       {/* header part  start */}
-      <View
-        style={{
-          height: 170,
-          backgroundColor: GStyles.primaryPurple,
-          borderBottomLeftRadius: 24,
-          borderBottomRightRadius: 24,
-          position: 'relative',
-          paddingHorizontal: '4%',
-          gap: 26,
-          paddingVertical: 17,
-        }}>
-        <View
-          style={{
-            position: 'absolute',
-            top: -50,
-            left: -20,
-            width: 153,
-            height: 153,
-            borderColor: GStyles.purple.normalActive,
-            borderWidth: 15,
-            borderRadius: 100,
-            opacity: 0.02,
-          }}></View>
-        <View
-          style={{
-            position: 'absolute',
-            top: -142,
-            right: -10,
-            width: 216,
-            height: 216,
-            borderColor: GStyles.purple.normalActive,
-            borderWidth: 24,
-            borderRadius: 100,
-            opacity: 0.02,
-          }}></View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 10,
-            }}>
-            <Image
-              style={{
-                height: 46,
-                width: 46,
-                borderRadius: 100,
-                //   alignSelf: 'center',
-              }}
-              source={{
-                uri: 'https://s3-alpha-sig.figma.com/img/5d7c/a921/417b9cf730eccf53d85b6166da178018?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WH537GxBxSCyr84yo5Umsi7zGYowKN8w1HSsgZyIgeKZAJkL-NF1vDeywWaV6zkVHyXSlYbOkyTsAxHgjHL18v2cOMVpyNLo1EdYt7T4D3Cmw516taRTKOXBMmWulBCFos~E7~c0cRHLC4O2obTqWjDySrmrTMSkqrN6mZcVgVQbVgeDIMHpsGXUQoa343ddL1IMzQ01LVg6QTin8-U8PSLrKgEnRPNpiUTYd3zyXbmJzTS1jpcyrT2pAEXxPvZ1x9Ip49q~-pWHRJB-so6CBYY3xuQkmPaesrthpDWu2E0xZPrMBQWoISQwO6xuVg~dDHBVBvtYIdqzEnp60Lk0yg__',
-              }}
-            />
-            <View>
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: 16,
-                  fontWeight: '800',
-                  fontFamily: GStyles.Poppins,
-                  lineHeight: 22,
-                  letterSpacing: 1.4,
-                }}>
-                Welcome back
-              </Text>
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: 20,
-                  fontFamily: GStyles.Poppins,
-                  fontWeight: '800',
-                  letterSpacing: 0.8,
-                  lineHeight: 27,
-                }}>
-                Maria
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 28,
-            }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('TeacherNotification')}>
-              <View
-                style={{
-                  position: 'relative',
-                }}>
-                <Feather name="bell" color="white" size={24} />
-                <View
-                  style={{
-                    width: 10,
-                    height: 10,
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    backgroundColor: '#B0000B',
-                    borderRadius: 100,
-                    opacity: 0.8,
-                    zIndex: 999,
-                  }}></View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation?.openDrawer()}>
-              <Feather name="menu" color="white" size={24} />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View>
-          <View
-            style={{
-              backgroundColor: 'white',
-              height: 48,
-              width: '100%',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingHorizontal: 20,
-              borderRadius: 100,
-            }}>
-            <TextInput
-              placeholder="Search here...."
-              placeholderTextColor="#858585"
-              style={{
-                flex: 1,
-              }}
-            />
-            <Feather name="search" color="#858585" size={24} />
-          </View>
-        </View>
-      </View>
+     
+      <HomeTopHeader
+      ringColorOpacity={0.1}
+      ringColor={GStyles.purple.normalActive}
+      backgroundColor={GStyles.primaryPurple}
+      profileStyle='teacher' userDetails={{
+        image : "https://s3-alpha-sig.figma.com/img/5d7c/a921/417b9cf730eccf53d85b6166da178018?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WH537GxBxSCyr84yo5Umsi7zGYowKN8w1HSsgZyIgeKZAJkL-NF1vDeywWaV6zkVHyXSlYbOkyTsAxHgjHL18v2cOMVpyNLo1EdYt7T4D3Cmw516taRTKOXBMmWulBCFos~E7~c0cRHLC4O2obTqWjDySrmrTMSkqrN6mZcVgVQbVgeDIMHpsGXUQoa343ddL1IMzQ01LVg6QTin8-U8PSLrKgEnRPNpiUTYd3zyXbmJzTS1jpcyrT2pAEXxPvZ1x9Ip49q~-pWHRJB-so6CBYY3xuQkmPaesrthpDWu2E0xZPrMBQWoISQwO6xuVg~dDHBVBvtYIdqzEnp60Lk0yg__",
+        name: "Maria"
+      }} navigation={navigation} drawerNavigation={navigation} notifyRoute='TeacherNotification'
+      // containerGap={35}
+      />
       {/* header part  end */}
 
       <SmallSubHeaderCard
@@ -209,10 +83,14 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             op1="All Students"
             op2="All Classes"
             initialOp="All Students"
+            fillButton
+            filButtonHight={48}
+            marginHorizontal={20}
+            gap={30}
             setIsOp={setOp}
             isOp={op}
-            borderColor="white"
-            borderWidth={0}
+            borderColor={GStyles.purple.lightHover}
+            // borderWidth={0}
             activeBorderColor={GStyles.primaryPurple}
           />
         )}
@@ -240,7 +118,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('ParticularClassStudent', {
-                    class: item.index + 1,
+                    data: {class : item.index + 1},
                   });
                 }}
                 style={{

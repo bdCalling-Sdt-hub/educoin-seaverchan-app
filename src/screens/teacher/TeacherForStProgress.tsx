@@ -35,7 +35,90 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
+    <ScrollView>
+    <View
+        style={{
+          marginTop: 20,
+          marginBottom: 20,
+          paddingHorizontal: '4%',
 
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <View style={{}}>
+          <Dropdown
+            // maxHeight={150}
+            style={{
+              // flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingHorizontal: 12,
+              paddingVertical: 15,
+              borderWidth: 1,
+              borderColor: '#E2E2E2',
+              borderRadius: 10,
+              width: '100%',
+              gap: 20,
+            }}
+            iconStyle={{
+              marginHorizontal: 10,
+            }}
+            labelField="label"
+            valueField="value"
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setValue(item?.value);
+              setIsFocus(false);
+            }}
+            placeholder="class 1"
+            data={[
+              {label: 'class 1', value: '1'},
+              {label: 'class 2', value: '2'},
+              {label: 'class 3', value: '3'},
+              {label: 'class 4', value: '4'},
+              {label: 'class 5', value: '5'},
+              {label: 'class 6', value: '6'},
+              {label: 'class 7', value: '7'},
+              {label: 'class 8', value: '8'},
+              {label: 'class 9', value: '9'},
+              {label: 'class 10', value: '10'},
+              {label: 'class 11', value: '11'},
+              {label: 'class 12', value: '12'},
+              {label: 'class 13', value: '13'},
+              {label: 'class 14', value: '14'},
+              {label: 'class 15', value: '15'},
+              {label: 'class 16', value: '16'},
+              {label: 'class 17', value: '17'},
+            ]}
+          />
+        </View>
+
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingHorizontal: 15,
+            gap: 15,
+            paddingVertical: 10,
+          }}
+          data={[...Array(10)]}
+          renderItem={item => (
+            <StudentMiniCard
+              borderColor={
+                select === item.index
+                  ? GStyles.primaryOrange
+                  : GStyles.borderColor['#ECECEC']
+              }
+              onPress={() => {
+                setSelect(item.index);
+              }}
+              key={item.index}
+            />
+          )}
+        />
+      </View>
       <View
         style={{
           borderColor: GStyles.borderColor['#ECECEC'],
@@ -199,90 +282,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
           </Text>
         </View>
       </View>
+    </ScrollView>
 
-      <View
-        style={{
-          marginTop: '20%',
-          marginBottom: 20,
-          paddingHorizontal: '4%',
-
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        <View style={{}}>
-          <Dropdown
-            maxHeight={150}
-            style={{
-              // flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              paddingHorizontal: 12,
-              paddingVertical: 15,
-              borderWidth: 1,
-              borderColor: '#E2E2E2',
-              borderRadius: 10,
-              width: '100%',
-              gap: 20,
-            }}
-            iconStyle={{
-              marginHorizontal: 10,
-            }}
-            labelField="label"
-            valueField="value"
-            value={value}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={item => {
-              setValue(item?.value);
-              setIsFocus(false);
-            }}
-            placeholder="class 1"
-            data={[
-              {label: 'class 1', value: '1'},
-              {label: 'class 2', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-              {label: 'class 3', value: '2'},
-            ]}
-          />
-        </View>
-
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingHorizontal: 15,
-            gap: 15,
-            paddingVertical: 10,
-          }}
-          data={[...Array(10)]}
-          renderItem={item => (
-            <StudentMiniCard
-              borderColor={
-                select === item.index
-                  ? GStyles.primaryOrange
-                  : GStyles.borderColor['#ECECEC']
-              }
-              onPress={() => {
-                setSelect(item.index);
-              }}
-              key={item.index}
-            />
-          )}
-        />
-      </View>
+   
     </View>
   );
 };

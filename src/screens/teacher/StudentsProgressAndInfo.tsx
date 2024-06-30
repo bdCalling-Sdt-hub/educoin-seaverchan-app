@@ -72,11 +72,15 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
         op2="Tasks"
         op3="Records"
         setIsOp={setIsOp}
+        fillButton
+        marginBottom={25}
+        marginHorizontal={20}
         isOp={isOp}
-        borderColor="white"
         borderWidth={0}
+        gap={20}
+        borderColor={GStyles.purple.lightHover}
         activeBorderColor={GStyles.primaryPurple}
-        marginTop={10}
+        marginTop={25}
       />
 
       {isOp === 'Profile' && (
@@ -256,18 +260,20 @@ const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
       )}
       {isOp === 'Tasks' && (
         <>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={[...Array(10)]}
-            ListHeaderComponent={item => (
-              <HeaderOption
+           <HeaderOption
                 op1="New Task"
                 op2="Completed Task"
                 setIsOp={setTaskOp}
                 isOp={taskOp}
                 activeBorderColor={GStyles.primaryPurple}
+                marginHorizontal={20}
+                // borderWidth={0}
+                // borderColor='white'
               />
-            )}
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={[...Array(10)]}
+          
             contentContainerStyle={{
               paddingHorizontal: '4%',
 

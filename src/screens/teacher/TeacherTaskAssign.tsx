@@ -18,7 +18,7 @@ import HeaderOption from '../../components/common/header/HeaderOption';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 
-const TeacherTaskAssign = ({navigation}: NavigProps) => {
+const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
   const [assign, setAssign] = React.useState<number[]>([]);
   const [op, setOp] = React.useState<string>('Personal Student');
   const [studentClass, setStudentClass] = React.useState<number>();
@@ -51,6 +51,8 @@ const TeacherTaskAssign = ({navigation}: NavigProps) => {
           marginVertical: 20,
           marginHorizontal: '4%',
           borderRadius: 100,
+          borderColor : GStyles.borderColor['#ECECEC'],
+          borderWidth: 1,
         }}>
         <TextInput
           placeholder="Search here...."

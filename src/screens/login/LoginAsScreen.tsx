@@ -26,7 +26,7 @@ const AsLoginData = [
         end: 'rgba(246, 126, 6, 1)',
       },
     },
-    image: require('../../assets/images/loginAs/child.png'),
+    image: require('../../assets/images/loginAs/student.png'),
   },
   {
     id: 1,
@@ -72,7 +72,7 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
         {/* title on login as  */}
         <View style={styles.loginAsContainer}>
           <Image
-            source={require('../../assets/images/loginAs/loginAsImage.png')}
+            source={require('../../assets/images/splash/quokka.png')}
           />
         </View>
         {/* card container  */}
