@@ -61,7 +61,9 @@ fillButton,
         marginTop: marginTop ? marginTop : 0,
         backgroundColor :containerBackgroundColor ? containerBackgroundColor: "#F8F8F8",
         padding :containerPadding ? containerPadding : 10,
-        borderRadius : 8
+        borderRadius : 8,
+        // elevation : 1
+        
       }}>
       {op1 && (
         <TouchableOpacity onPress={() => setIsOp(op1)} style={{

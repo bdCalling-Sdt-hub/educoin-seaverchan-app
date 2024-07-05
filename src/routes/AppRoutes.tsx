@@ -49,6 +49,8 @@ import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
 import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
 import TastingComponents from '../screens/Testing';
 import EditTeacherProfile from '../screens/teacher/EditTeacherProfileScreen';
+import StudentPassCode from '../screens/student/StudentPassCode';
+import TeacherPassCode from '../screens/teacher/TeacherPassCode';
 
 const Stack = createNativeStackNavigator();
 
@@ -101,6 +103,7 @@ export const Routes = () => {
           component={StudentNotification}
         />
         <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
+        <Stack.Screen name="StudentPassCode" component={StudentPassCode} />
 
         {/*-------------------- Teachers All Screens ----------- */}
         <Stack.Screen
@@ -162,6 +165,10 @@ export const Routes = () => {
         <Stack.Screen
           name="EditTeacherProfile"
           component={EditTeacherProfile}
+        />
+        <Stack.Screen
+          name="TeacherPassCode"
+          component={TeacherPassCode}
         />
       </Stack.Navigator>
     </NavigationContainer>

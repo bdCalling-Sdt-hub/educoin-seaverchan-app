@@ -12,12 +12,16 @@ interface RewordsCardProps extends NavigProps<null> {
   marginHorizontal?: number;
   editOption?: boolean;
   img: string;
-  editRoute? : string;
+  editRoute?: string;
   routeData?: any;
   onPress?: () => void;
   borderColor?: string;
   borderWidth?: number;
   disabled?: boolean;
+  backGroundColor?: string;
+  backGroundColorProgress?: string;
+  backGroundProgressWidth?: string;
+  iconOrTextColor?: string;
 }
 
 const RewordsCard = ({
@@ -33,7 +37,10 @@ const RewordsCard = ({
   onPress,
   borderWidth,
   disabled,
-
+  backGroundColor,
+  backGroundColorProgress,
+  backGroundProgressWidth,
+  iconOrTextColor
 }: RewordsCardProps) => {
   return (
     <TouchableOpacity
@@ -43,15 +50,25 @@ const RewordsCard = ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // paddingVertical: 5,
-        paddingHorizontal: 8,
-        backgroundColor: 'white',
+        backgroundColor: backGroundColor ? backGroundColor : 'white',
         borderRadius: 10,
         marginVertical: 5,
         borderColor: borderColor ? borderColor : GStyles.borderColor['#ECECEC'],
-        borderWidth: borderWidth ? borderWidth : 2,
-        marginHorizontal: marginHorizontal ? marginHorizontal : '5%',
+        // borderWidth: borderWidth ? borderWidth : 2,
+        marginHorizontal: marginHorizontal ? marginHorizontal : 0,
+        elevation: 2,
       }}>
+      <View
+        style={{
+          backgroundColor: backGroundColorProgress
+            ? backGroundColorProgress
+            : 'white',
+          width: backGroundProgressWidth ? backGroundProgressWidth : '5%',
+          paddingHorizontal: 8,
+          borderRadius: 10,
+          position: 'absolute',
+          height : "100%"
+        }}></View>
       <View
         style={{
           flexDirection: 'row',
@@ -115,10 +132,10 @@ const RewordsCard = ({
                 flexDirection: 'row',
                 gap: 3,
               }}>
-              <AntDesign name="staro" size={20} color={'#C3C3C3'} />
+              <AntDesign name="staro" size={20} color={iconOrTextColor ? iconOrTextColor :'#C3C3C3'} />
               <Text
                 style={{
-                  color: '#C3C3C3',
+                  color:iconOrTextColor ? iconOrTextColor : '#C3C3C3',
                   fontFamily: GStyles.Poppins,
                   fontSize: 18,
                   letterSpacing: 0.8,
@@ -128,20 +145,21 @@ const RewordsCard = ({
             </View>
           </View>
         )}
+
+        {editOption && (
+          <TouchableOpacity
+            onPress={() =>
+              editRoute &&
+              editOption &&
+              navigation?.navigate(editRoute, {data: routeData})
+            }
+            style={{
+              padding: 5,
+            }}>
+            <FontAwesome5 name="edit" size={20} color="#3D3D3D" />
+          </TouchableOpacity>
+        )}
       </View>
-      {editOption && (
-        <TouchableOpacity
-          onPress={() =>
-            editRoute &&
-            editOption &&
-            navigation?.navigate(editRoute, {data: routeData})
-          }
-          style={{
-            padding: 5,
-          }}>
-          <FontAwesome5 name="edit" size={20} color="#3D3D3D" />
-        </TouchableOpacity>
-      )}
     </TouchableOpacity>
   );
 };

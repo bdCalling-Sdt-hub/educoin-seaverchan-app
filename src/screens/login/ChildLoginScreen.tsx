@@ -92,12 +92,16 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
 
       <TextInput
         ref={textInputRef}
-        keyboardType="number-pad"
+       keyboardType="numeric"
         style={{
           position: 'absolute',
           top: -500,
         }}
-     
+        onEndEditing={() => {
+          if (pin.length === 6) {
+            navigation?.navigate('StudentDrawerRoutes');
+          }
+        }}
         onChangeText={handlePinChange}
 
         maxLength={6}

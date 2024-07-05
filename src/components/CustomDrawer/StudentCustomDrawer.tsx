@@ -17,6 +17,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
+import { AppName } from '../../styles/AppDetails';
 function StudentCustomDrawer(props: any) {
   const navigation = useNavigation<any>();
   return (
@@ -65,16 +66,44 @@ function StudentCustomDrawer(props: any) {
               color: '#FCFCFC',
               marginTop: 10,
             }}>
-            Edu coin
+           {AppName}
           </Text>
         </View>
       </View>
       <DrawerContentScrollView
         {...props}
         style={{
-          paddingVertical: 10,
+          // paddingVertical: 10,
+     
+
         }}>
         <DrawerItemList {...props} />
+        <DrawerItem
+          label="Get Student Code"
+          icon={() => <AntDesign name="lock" color={GStyles.primaryOrange} size={24} />}
+          
+          labelStyle={{
+            color: GStyles.primaryOrange,
+            fontFamily: GStyles.Poppins,
+            fontSize: 16,
+            fontWeight: '400',
+            letterSpacing: 0.8,
+            
+          }}
+          
+          style={{
+            // height: 100,
+            marginTop: 23,
+            // borderWidth : 1,
+            // borderColor : GStyles.primaryOrange,
+            // borderRadius : 100,
+      
+
+          }}
+          onPress={() => {
+            navigation.navigate('StudentPassCode');
+          }}
+        />
         <DrawerItem
           label="Profile"
           icon={() => <AntDesign name="user" color={'#4A2B6C'} size={24} />}
@@ -87,7 +116,7 @@ function StudentCustomDrawer(props: any) {
           }}
           style={{
             // height: 100,
-            marginTop: 23,
+            // marginTop: 23,
           }}
           onPress={() => {
             navigation.navigate('StudentProfile');

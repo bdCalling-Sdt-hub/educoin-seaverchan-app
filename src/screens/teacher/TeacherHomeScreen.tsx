@@ -46,7 +46,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       ringColor={GStyles.purple.normalActive}
       backgroundColor={GStyles.primaryPurple}
       profileStyle='teacher' userDetails={{
-        image : "https://s3-alpha-sig.figma.com/img/5d7c/a921/417b9cf730eccf53d85b6166da178018?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WH537GxBxSCyr84yo5Umsi7zGYowKN8w1HSsgZyIgeKZAJkL-NF1vDeywWaV6zkVHyXSlYbOkyTsAxHgjHL18v2cOMVpyNLo1EdYt7T4D3Cmw516taRTKOXBMmWulBCFos~E7~c0cRHLC4O2obTqWjDySrmrTMSkqrN6mZcVgVQbVgeDIMHpsGXUQoa343ddL1IMzQ01LVg6QTin8-U8PSLrKgEnRPNpiUTYd3zyXbmJzTS1jpcyrT2pAEXxPvZ1x9Ip49q~-pWHRJB-so6CBYY3xuQkmPaesrthpDWu2E0xZPrMBQWoISQwO6xuVg~dDHBVBvtYIdqzEnp60Lk0yg__",
+        image : "https://s3-alpha-sig.figma.com/img/5d7c/a921/417b9cf730eccf53d85b6166da178018?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RuKcZuiRY1ewKPKRUollcYQmU94ijiou6LpE3y2Ap~vR-7y2esn24kbns7N2sI40kNqa8jc-AhP7sOxtI8-CYwKJT-ZqocsUIxzIpGk-LF3nIOLSUvLi3ziO7XMEAdZR4NX1du7vTi55~ijWaS3WdlshA02O3GyD5Yb~CHIpTr9JKO9kCSzm9bp7F~ptudTRccIwh5vTCSfyV56W2yP~P13I8ZqUI4d6aJCj31q9nQjOZLAQnLad4XrJGbkBKhs4rQv-nVsJrue7Utv3eDZ-6SuSBTy-ZebKBo~fujd6N3tnP6OCuqi83snR0SxOdCWZwUoWBarO4B9~KwayYmmP0w__",
         name: "Maria"
       }} navigation={navigation} drawerNavigation={navigation} notifyRoute='TeacherNotification'
       // containerGap={35}

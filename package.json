@@ -1,6 +1,6 @@
 {
   "name": "educoin",
-  "version": "0.0.1",
+  "version": "4.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -30,7 +30,8 @@
     "react-native-screens": "^3.32.0",
     "react-native-svg": "^15.3.0",
     "react-native-svg-transformer": "^1.4.0",
-    "react-native-vector-icons": "^10.1.0"
+    "react-native-vector-icons": "^10.1.0",
+    "react-native-version": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

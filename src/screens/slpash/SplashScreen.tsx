@@ -11,6 +11,7 @@ import React, {Dispatch, SetStateAction} from 'react';
 import LottieView from 'lottie-react-native';
 import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import { AppName } from '../../styles/AppDetails';
 
 interface splashProps {
   // setLoad: Dispatch<boolean>;
@@ -55,7 +56,7 @@ const SplashScreen = ({navigation}: splashProps) => {
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.PoppinsBold,
               }}>
-              Edu coin
+              {AppName}
             </Text>
           </View>
           <Image
@@ -101,7 +102,7 @@ const SplashScreen = ({navigation}: splashProps) => {
                   fontFamily: GStyles.PoppinsMedium,
                   letterSpacing: 0.8,
                 }}>
-                Get Start
+           Get Started
               </Text>
             </TouchableOpacity>
           </View>

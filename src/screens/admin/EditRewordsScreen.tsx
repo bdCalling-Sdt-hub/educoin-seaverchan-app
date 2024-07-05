@@ -26,7 +26,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
   const [rewordPoints, setRewordPoints] = React.useState<number>(5);
   const [rewordCategory, setRewordCategory] = React.useState('');
   const [rewordImage, setRewordImage] = React.useState<string | undefined>(
-    'file:///data/user/0/com.educoin/cache/rn_image_picker_lib_temp_c6e63f36-7f33-4ae2-a789-a9b05544e5b2.jpg',
+    'file:///data/user/0/com.seaverchan.educoin/cache/rn_image_picker_lib_temp_c6e63f36-7f33-4ae2-a789-a9b05544e5b2.jpg',
   );
 
   const handleImagePick = async () => {
