@@ -186,7 +186,7 @@ function TeacherCustomDrawer(props: any) {
           }}
         />
         <DrawerItem
-          label="Add New Category"
+          label="Categories"
           icon={() => <Entypo name="add-to-list" color={'#4A2B6C'} size={20} />}
           labelStyle={{
             color: '#4A2B6C',
@@ -203,7 +203,7 @@ function TeacherCustomDrawer(props: any) {
             }
           }
           onPress={() => {
-            navigation.navigate('TeacherAddCategory');
+            navigation.navigate('Category');
           }}
         />
         {/* 

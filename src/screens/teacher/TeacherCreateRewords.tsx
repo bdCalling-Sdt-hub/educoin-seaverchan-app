@@ -17,51 +17,21 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import { categoryIcons } from '../../utils/ShearData';
 
 const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [rewordName, setRewordName] = React.useState('');
   const [rewordDescription, setRewordDescription] = React.useState('');
   const [rewordPoints, setRewordPoints] = React.useState<number>();
   const [rewordCategory, setRewordCategory] = React.useState('');
-  const [rewordImage, setRewordImage] = React.useState<string | undefined>();
+  const [isGood, setIsGood] = React.useState<boolean>();
+  const [customCategory, setCustomCategory] = React.useState<number>();
 
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [successModal, setSuccessModal] = React.useState(false);
 
-  const handleImagePick = async (option: 'camera' | 'library') => {
-    try {
-      if (option === 'camera') {
-        const result = await launchCamera({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
-
-        if (!result.didCancel) {
-          setRewordImage(result?.assets![0].uri);
-          console.log(result);
-        }
-      }
-      if (option === 'library') {
-        const result = await launchImageLibrary({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
-
-        if (!result.didCancel) {
-          setRewordImage(result?.assets![0].uri);
-          console.log(result);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+    
+  
   return (
     <View
       style={{
@@ -204,96 +174,165 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
         <View
           style={{
             paddingHorizontal: '4%',
-            paddingVertical: '5%',
           }}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: GStyles.PoppinsSemiBold,
-              color: '#3D3D3D',
-              lineHeight: 24,
-              fontWeight: '500',
-              letterSpacing: 0.5,
-            }}>
-            Add Image
-          </Text>
           <View
             style={{
-              height: 150,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: GStyles.gray.light,
-              borderRadius: 8,
-              marginVertical: 20,
+              gap: 20,
             }}>
-            {rewordImage ? (
-              <View
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                fontWeight: '500',
+                letterSpacing: 0.5,
+                marginVertical: 20,
+              }}>
+              Choose category
+            </Text>
+            {/* <View
+              style={{
+                flexDirection: 'row',
+                gap: 20,
+                marginRight: 10,
+              }}>
+              <TouchableOpacity
+                onPress={() => setIsGood(true)}
                 style={{
-                  position: 'relative',
-                  height: '100%',
-                  width: '100%',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 5,
                 }}>
-                <Image
-                  source={{uri: rewordImage}}
+                <View
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    resizeMode: 'cover',
-                    borderRadius: 10,
+                    width: 15,
+                    height: 15,
+                    borderRadius: 100,
+                    borderColor: GStyles.primaryBlue,
                     borderWidth: 1,
-                    borderColor: '#E2E2E2',
-                  }}
-                />
-                <TouchableOpacity
-                  onPress={() => setRewordImage(undefined)}
-                  style={{
-                    position: 'absolute',
-                    top: 5,
-                    right: 5,
-                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                    padding: 5,
-                    borderRadius: 10,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Ionicons name="close" size={20} color={'white'} />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <>
+                  {isGood && (
+                    <View
+                      style={{
+                        width: 7,
+                        height: 7,
+                        borderRadius: 100,
+                        backgroundColor: GStyles.primaryBlue,
+                      }}></View>
+                  )}
+                </View>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: '#C3C3C3',
+                  }}>
+                  Good
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setIsGood(false)}
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 5,
+                }}>
                 <View
                   style={{
-                    justifyContent: 'space-evenly',
+                    width: 15,
+                    height: 15,
+                    borderRadius: 100,
+                    borderColor: GStyles.primaryBlue,
+                    borderWidth: 1,
+                    justifyContent: 'center',
                     alignItems: 'center',
-                    flexDirection: 'row',
-                    width: '100%',
                   }}>
-                  <TouchableOpacity
-                    onPress={() => handleImagePick('camera')}
-                    style={{
-                      padding: 20,
-                    }}>
-                    <Feather
-                      name="camera"
-                      size={80}
-                      color={GStyles.primaryPurple}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => handleImagePick('library')}
-                    style={{
-                      padding: 20,
-                    }}>
-                    <Feather
-                      name="folder"
-                      size={80}
-                      color={GStyles.primaryPurple}
-                    />
-                  </TouchableOpacity>
+                  {isGood || (
+                    <View
+                      style={{
+                        width: 7,
+                        height: 7,
+                        borderRadius: 100,
+                        backgroundColor: GStyles.primaryBlue,
+                      }}></View>
+                  )}
                 </View>
-              </>
-            )}
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: '#C3C3C3',
+                  }}>
+                  Bad
+                </Text>
+              </TouchableOpacity>
+            </View> */}
           </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              gap: 24,
+            }}
+            data={categoryIcons}
+            keyExtractor={(item)=>item.id + item.title}
+            renderItem={item => (
+              <TouchableOpacity
+                key={item.index}
+                onPress={() => setCustomCategory(item.item.id)}
+                >
+                <View
+                  style={{
+                    gap: 12,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 100,
+                      borderColor:
+                      customCategory === item.item.id
+                        ? GStyles.primaryPurple
+                        : GStyles.gray.light,
+                      borderWidth: 2,
+                      padding: 2,
+                      justifyContent : "center",
+                      alignItems : 'center',
+                      elevation : 2
+
+                    }}>
+                    <Image
+                      source={ item.item.img}
+                      style={{
+                        width: 60,
+                        height: 60,
+                        borderRadius: 100,
+                      }}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontFamily: GStyles.Poppins,
+                      color:
+                        item.item.id === customCategory
+                          ? GStyles.primaryPurple
+                          : '#3D3D3D',
+                      paddingVertical: 5,
+                    }}>
+                    {item.item.title}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
         </View>
       </View>
       <View
@@ -305,7 +344,10 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           flexDirection: 'row',
         }}>
         <TouchableOpacity
-          onPress={() => navigation?.goBack()}
+          onPress={() => {
+            // navigation?.goBack()
+            setSuccessModal(true)
+          }}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,
@@ -388,6 +430,64 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                   fontWeight: '400',
                 }}>
                 Done
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
+      <CustomModal
+        modalVisible={successModal}
+        backButton
+        setModalVisible={setSuccessModal}
+        height={'30%'}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+              marginTop: 10,
+            }}>
+            Reword Added Successfully
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              textAlign: 'center',
+            }}>
+            simply dummy text of the printing and typesetting industry
+          </Text>
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setSuccessModal(false)}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Exit
               </Text>
             </TouchableOpacity>
           </View>

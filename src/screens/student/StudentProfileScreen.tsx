@@ -123,14 +123,23 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
           </View>
           
         </View>
-        <View style={{
+        <TouchableOpacity 
+        onPress={()=>navigation?.navigate('StudentProfileEdit')}
+        style={{
             position : "absolute",
             top : 15,
             right : 15,
+            backgroundColor : GStyles.primaryOrange,
+            padding : 5,
+          borderRadius : 100,
+          height : 30,
+          width : 30,
+          justifyContent : 'center',
+          alignItems : 'center',
           }}>
 
-            <AntDesign name="edit" size={20} color={GStyles.textColor['#3D3D3D']} />
-          </View>
+            <AntDesign name="edit" size={16} color={"white"} />
+          </TouchableOpacity>
       </View>
       <View
         style={{

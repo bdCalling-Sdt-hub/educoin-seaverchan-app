@@ -162,7 +162,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             placeholder="dd/mm/yy"
           />
         </View>
-        <View>
+        {/* <View>
           <Text
             style={{
               fontSize: 16,
@@ -183,8 +183,8 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             }}
             placeholder="16435"
           />
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             marginBottom: 20,
           }}>
@@ -208,7 +208,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             }}
             placeholder="2024"
           />
-        </View>
+        </View> */}
         <View>
           <View
             style={{

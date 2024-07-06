@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {PieChart} from 'react-native-gifted-charts';
 import {GStyles} from '../styles/GStyles';
 
-const DonutChart = () => {
+const PieChartWithLabels  = () => {
   const data = [
     {value: 60, color: '#42A5F5', text: '70%'},
     {value: 60, color: '#FFA726', text: '60%'},
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DonutChart;
+export default PieChartWithLabels ;

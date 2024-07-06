@@ -23,10 +23,12 @@ import {HomeNavigProps} from '../../interfaces/NavigationPros';
 import RewordsCard from '../../components/common/Cards/RewordsCard';
 import StudentCard from '../../components/common/Cards/StudentCard';
 import TaskCard from '../../components/common/Cards/TaskCard';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 
 const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
   const [isCompeted, setIsCompeted] = React.useState('Task');
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [yesNoModal, setYesNoModal] = React.useState(false);
 
   return (
     <View
@@ -80,25 +82,18 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               style={{
                 marginBottom: 25,
               }}>
-              {[...Array(10)].map((_, index) => (
-              <TaskCard
-              approveBTColor={GStyles.primaryOrange}
-              completedTextColor={GStyles.primaryOrange}
-              isButton
-              button
-              buttonText="Approved"
-              imageUrl='https://s3-alpha-sig.figma.com/img/f3cd/d3da/ea5781defc325eb8f2fdcbd118ec50c1?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ITHLb4tfHnER3RnFnToFhbJ4Rs7dV8XHzKWdoFom4yKb9AT3UFDVajL7tRVtnjHGCd51e3cFo1vQ74EQ7CzpQn0tEL-mdoXFfLgqX34lnNqJIuz0Bd-9LCCXkKBgZSEFT3RAoZO1aRUoylUy66YjkM1jh2qAG~VJM~TwvhoLIja-C3Z9DprFl~WIrg09bPD1Sve~FHdfQ8RKZDLsNlq1sRPQDMbZv2kL1DZ74~61kQkCmnWFwb5hN-iDzSkEe1BDERwobnGaham2U-nv0oMXKkeojiSICFZqIrijYnmelZ2ov6NJKDv8jL0XXRMde~MWrOEbBuzenl1UKtya989dMg__'
-              category='Home Errands'
-              completed
-              // description=''
-              title='Make Your Bed'
-              points='50'
-              time='Anytime'
-              approveOnPress={() => {
-                setModalVisible(true);
-              }}
-              key={index}
-            />
+              {[...Array(2)].map((_, index) => (
+                <RewordsCard
+                  removePress={() => {
+                    setYesNoModal(!yesNoModal);
+                  }}
+                  removeBtn
+                  iconOrTextColor={GStyles.primaryOrange}
+                  imgAssets={require('../../assets/images/rewordCategory/15.png')}
+                  marginHorizontal={10}
+                  points={10}
+                  title='play game'
+                />
               ))}
             </View>
 
@@ -111,55 +106,78 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               }}></View>
           </>
         ) : isCompeted === 'Rewords' ? (
-        <View style={{
-          gap : 10
-        }}>
-          <RewordsCard
-            navigation={navigation}
-            // route="EditRewords"
-            // routeData={'demo'}
-            // editOption={true}
-            // achieved
-            iconOrTextColor={GStyles.orange.normal}
-            backGroundColor={"#FFF3E7"}
-            backGroundColorProgress={"#FFDAB5"}
-            backGroundProgressWidth='20%'
-            borderColor={GStyles.borderColor['#ECECEC']}
-            // onPress={() => setSelected(index)}
-            title="Playing outside with dad"
-            img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
-          />
+          <View
+            style={{
+              gap: 10,
+            }}>
             <RewordsCard
-            navigation={navigation}
-            // route="EditRewords"
-            // routeData={'demo'}
-            // editOption={true}
-            // achieved
-            iconOrTextColor={GStyles.orange.normal}
-            backGroundColor={"#FFF3E7"}
-            backGroundColorProgress={"#FFDAB5"}
-            backGroundProgressWidth='80%'
-            borderColor={GStyles.borderColor['#ECECEC']}
-            // onPress={() => setSelected(index)}
-            title="Playing outside with dad"
-            img="https://s3-alpha-sig.figma.com/img/3e3a/22a0/4816ca9d807840b97b4a80c39cdd400c?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=oBQLe1S7gXJpTJTSExd7Zb8PL3dpBBtp8PSxLoLXKgTcL4NkKdElruZsCL5af73Vp5CmC~qVij5-m~N0dAvIejyebFhNLitlAJO92r00Sqm040prQzfzZaS3G1Wc30T3F4zo7kzpoSpcvPQbKFVp8nhnzxZINshRx2WiJwbCXx0I1nlzHuvzOkfgnCaZRh44qD0Wm-fzns8ReVFsXiuPh3YtOlvO436DJBsiF8e-fYNbjbfkyAQlntKHBBM-jx7EAiDOPaDoKVsqYPDMltEMS-04IQk9m7MQE1S2UuALtkuq3zdlmm8mDpZRlU6COsGfEC7QrK5EwrujrMfNHiuCMw__"
-          />
+              navigation={navigation}
+              // route="EditRewords"
+              // routeData={'demo'}
+              // editOption={true}
+              // achieved
+              iconOrTextColor={GStyles.orange.normal}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="20%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              // onPress={() => setSelected(index)}
+              points={140}
+              title="Playing outside with dad"
+              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+            />
             <RewordsCard
-            navigation={navigation}
-            // route="EditRewords"
-            // routeData={'demo'}
-            // editOption={true}
-            // achieved
-            iconOrTextColor={GStyles.orange.normal}
-            backGroundColor={"#FFF3E7"}
-            backGroundColorProgress={"#FFDAB5"}
-            backGroundProgressWidth='40%'
-            borderColor={GStyles.borderColor['#ECECEC']}
-            // onPress={() => setSelected(index)}
-            title="Playing outside with dad"
-            img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
-          />
-        </View>
+              navigation={navigation}
+              // route="EditRewords"
+              // routeData={'demo'}
+              // editOption={true}
+              // achieved
+              iconOrTextColor={GStyles.orange.normal}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="80%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              // onPress={() => setSelected(index)}
+            points={60}
+              title="Playing outside with dad"
+              img="https://s3-alpha-sig.figma.com/img/3e3a/22a0/4816ca9d807840b97b4a80c39cdd400c?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=oBQLe1S7gXJpTJTSExd7Zb8PL3dpBBtp8PSxLoLXKgTcL4NkKdElruZsCL5af73Vp5CmC~qVij5-m~N0dAvIejyebFhNLitlAJO92r00Sqm040prQzfzZaS3G1Wc30T3F4zo7kzpoSpcvPQbKFVp8nhnzxZINshRx2WiJwbCXx0I1nlzHuvzOkfgnCaZRh44qD0Wm-fzns8ReVFsXiuPh3YtOlvO436DJBsiF8e-fYNbjbfkyAQlntKHBBM-jx7EAiDOPaDoKVsqYPDMltEMS-04IQk9m7MQE1S2UuALtkuq3zdlmm8mDpZRlU6COsGfEC7QrK5EwrujrMfNHiuCMw__"
+            />
+            <RewordsCard
+              navigation={navigation}
+              // route="EditRewords"
+              // routeData={'demo'}
+              // editOption={true}
+              // achieved
+              iconOrTextColor={GStyles.orange.normal}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="40%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              // onPress={() => setSelected(index)}
+              title="Playing outside with dad"
+              points={90}
+              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+            />
+            <RewordsCard
+              navigation={navigation}
+              // route="EditRewords"
+              // routeData={'demo'}
+              // editOption={true}
+              // achieved
+               points={50}
+              iconOrTextColor={GStyles.orange.normal}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="100%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              // onPress={() => setSelected(index)}
+
+              title="Playing outside with dad"
+              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+              disabled
+              claimBtn
+            />
+          </View>
         ) : (
           <View>
             <View
@@ -168,23 +186,23 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               }}>
               {[...Array(10)].map((_, index) => (
                 <TaskCard
-                approveBTColor={GStyles.primaryOrange}
-                completedTextColor={GStyles.primaryOrange}
-                isButton
-                button
-                buttonText="Approved"
-                imageUrl='https://s3-alpha-sig.figma.com/img/f3cd/d3da/ea5781defc325eb8f2fdcbd118ec50c1?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ITHLb4tfHnER3RnFnToFhbJ4Rs7dV8XHzKWdoFom4yKb9AT3UFDVajL7tRVtnjHGCd51e3cFo1vQ74EQ7CzpQn0tEL-mdoXFfLgqX34lnNqJIuz0Bd-9LCCXkKBgZSEFT3RAoZO1aRUoylUy66YjkM1jh2qAG~VJM~TwvhoLIja-C3Z9DprFl~WIrg09bPD1Sve~FHdfQ8RKZDLsNlq1sRPQDMbZv2kL1DZ74~61kQkCmnWFwb5hN-iDzSkEe1BDERwobnGaham2U-nv0oMXKkeojiSICFZqIrijYnmelZ2ov6NJKDv8jL0XXRMde~MWrOEbBuzenl1UKtya989dMg__'
-                category='Home Errands'
-                // completed
-                // description=''
-                title='Make Your Bed'
-                points='50'
-                time='Anytime'
-                approveOnPress={() => {
-                  setModalVisible(true);
-                }}
-                key={index}
-              />
+                  approveBTColor={GStyles.primaryOrange}
+                  completedTextColor={GStyles.primaryOrange}
+                  isButton
+                  button
+                  buttonText="Approved"
+                  imageUrl="https://s3-alpha-sig.figma.com/img/f3cd/d3da/ea5781defc325eb8f2fdcbd118ec50c1?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ITHLb4tfHnER3RnFnToFhbJ4Rs7dV8XHzKWdoFom4yKb9AT3UFDVajL7tRVtnjHGCd51e3cFo1vQ74EQ7CzpQn0tEL-mdoXFfLgqX34lnNqJIuz0Bd-9LCCXkKBgZSEFT3RAoZO1aRUoylUy66YjkM1jh2qAG~VJM~TwvhoLIja-C3Z9DprFl~WIrg09bPD1Sve~FHdfQ8RKZDLsNlq1sRPQDMbZv2kL1DZ74~61kQkCmnWFwb5hN-iDzSkEe1BDERwobnGaham2U-nv0oMXKkeojiSICFZqIrijYnmelZ2ov6NJKDv8jL0XXRMde~MWrOEbBuzenl1UKtya989dMg__"
+                  category="Home Errands"
+                  // completed
+                  // description=''
+                  title="Make Your Bed"
+                  points="50"
+                  time="Anytime"
+                  approveOnPress={() => {
+                    setModalVisible(true);
+                  }}
+                  key={index}
+                />
               ))}
             </View>
           </View>
@@ -257,6 +275,11 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
+      <YesNoModal
+        backButton
+        modalVisible={yesNoModal}
+        setModalVisible={setYesNoModal}
+      />
     </View>
   );
 };

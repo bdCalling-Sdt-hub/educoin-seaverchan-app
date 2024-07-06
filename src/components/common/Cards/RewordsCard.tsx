@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ImageProps, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {GStyles} from '../../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -7,11 +7,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {NavigProps} from '../../../interfaces/NavigationPros';
 
 interface RewordsCardProps extends NavigProps<null> {
-  title: string;
+  title ?: string;
   achieved?: boolean;
   marginHorizontal?: number;
   editOption?: boolean;
-  img: string;
+  img?: string;
   editRoute?: string;
   routeData?: any;
   onPress?: () => void;
@@ -22,6 +22,12 @@ interface RewordsCardProps extends NavigProps<null> {
   backGroundColorProgress?: string;
   backGroundProgressWidth?: string;
   iconOrTextColor?: string;
+  imgAssets?: any ;
+  claimBtn?: boolean;
+  claimPress?: ()=>void;
+  removeBtn?: boolean;
+  removePress?: ()=>void;
+  points ?: number;
 }
 
 const RewordsCard = ({
@@ -40,8 +46,16 @@ const RewordsCard = ({
   backGroundColor,
   backGroundColorProgress,
   backGroundProgressWidth,
-  iconOrTextColor
+  iconOrTextColor,
+  imgAssets,
+  claimBtn,
+  claimPress,
+  removeBtn,
+  removePress,
+  points
+  
 }: RewordsCardProps) => {
+  // console.log(points);
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -76,16 +90,25 @@ const RewordsCard = ({
           gap: 15,
           padding: 14,
         }}>
-        <Image
-          source={{
-            uri: img,
-          }}
+        {
+          imgAssets ? <Image
+          source={imgAssets}
           style={{
-            width: 30,
-            height: 30,
+            width: 40,
+            height: 40,
             // borderRadius: 100,
           }}
-        />
+        /> :<Image
+        source={{
+          uri: img,
+        }}
+        style={{
+          width: 30,
+          height: 30,
+          // borderRadius: 100,
+        }}
+      />
+        }
         {achieved ? (
           <View style={{gap: 5}}>
             <Text
@@ -95,6 +118,8 @@ const RewordsCard = ({
                 color: '#3D3D3D',
                 fontFamily: GStyles.PoppinsSemiBold,
                 letterSpacing: 0.8,
+          
+              width: 200,
               }}>
               {title}
             </Text>
@@ -111,12 +136,12 @@ const RewordsCard = ({
                   fontSize: 18,
                   letterSpacing: 0.8,
                 }}>
-                100
+                {points ? points : 0}
               </Text>
             </View>
           </View>
         ) : (
-          <View style={{gap: 5}}>
+          <View style={{gap: 5,width : '100%'}}>
             <Text
               style={{
                 fontSize: 16,
@@ -124,8 +149,9 @@ const RewordsCard = ({
                 color: '#3D3D3D',
                 fontFamily: GStyles.PoppinsSemiBold,
                 letterSpacing: 0.8,
+                width: "70%",
               }}>
-              30 min play a video game
+             {title}
             </Text>
             <View
               style={{
@@ -140,26 +166,79 @@ const RewordsCard = ({
                   fontSize: 18,
                   letterSpacing: 0.8,
                 }}>
-                100
+                {points ? points : 0}
               </Text>
             </View>
           </View>
         )}
 
-        {editOption && (
+       
+      </View>
+      {editOption && (
           <TouchableOpacity
             onPress={() =>
               editRoute &&
               editOption &&
               navigation?.navigate(editRoute, {data: routeData})
+              
             }
             style={{
               padding: 5,
+              position : "absolute",
+              right : 15,
             }}>
             <FontAwesome5 name="edit" size={20} color="#3D3D3D" />
           </TouchableOpacity>
         )}
-      </View>
+        {claimBtn && (
+          <TouchableOpacity
+          
+            onPress={claimPress
+              
+            }
+            style={{
+              paddingVertical : 8,
+              paddingHorizontal : 20,
+    
+              backgroundColor : GStyles.primaryOrange,
+              borderRadius : 10,
+              justifyContent : 'center',
+              alignItems : 'center',
+              position : "absolute",
+              right : 15,
+            }}>
+            <Text style={{
+              fontSize : 12,
+              fontFamily : GStyles.PoppinsBold,
+              color : 'white'
+            }}>Claim</Text>
+          </TouchableOpacity>
+        )}
+        {removeBtn && (
+          <TouchableOpacity
+          
+            onPress={removePress
+              
+            }
+            style={{
+              paddingVertical : 8,
+              paddingHorizontal : 15,
+    
+              backgroundColor : GStyles.gray.lightHover,
+              borderRadius : 10,
+              justifyContent : 'center',
+              alignItems : 'center',
+              position : "absolute",
+              right : 15,
+            }}>
+            <Text style={{
+              fontSize : 12,
+              fontFamily : GStyles.PoppinsBold,
+              color : 'white'
+            }}>remove</Text>
+          </TouchableOpacity>
+        )}
+        
     </TouchableOpacity>
   );
 };

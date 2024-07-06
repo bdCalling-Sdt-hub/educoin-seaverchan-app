@@ -53,12 +53,28 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       />
       {/* header part  end */}
 
-      <SmallSubHeaderCard
+      {/* <SmallSubHeaderCard
         marginTop={10}
         title="Teacher Name"
         count={20}
         subTitle="Students Counts"
-      />
+      /> */}
+       <HeaderOption
+            op1="All Students"
+            op2="All Classes"
+            initialOp="All Students"
+            fillButton
+            filButtonHight={48}
+            marginHorizontal={20}
+            gap={30}
+            setIsOp={setOp}
+            isOp={op}
+            borderColor={GStyles.purple.lightHover}
+            // borderWidth={0}
+            activeBorderColor={GStyles.primaryPurple}
+            marginTop={10}
+            marginBottom={5}
+          />
 
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -78,22 +94,9 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         ListHeaderComponentStyle={{
           width: '100%',
         }}
-        ListHeaderComponent={item => (
-          <HeaderOption
-            op1="All Students"
-            op2="All Classes"
-            initialOp="All Students"
-            fillButton
-            filButtonHight={48}
-            marginHorizontal={20}
-            gap={30}
-            setIsOp={setOp}
-            isOp={op}
-            borderColor={GStyles.purple.lightHover}
-            // borderWidth={0}
-            activeBorderColor={GStyles.primaryPurple}
-          />
-        )}
+        // ListHeaderComponent={item => (
+         
+        // )}
         renderItem={item => (
           <Fragment key={item.index}>
             {op === 'All Students' ? (
@@ -102,7 +105,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 width={'45%'}
                 student={{
                   image:
-                    'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
+                    'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OxWsgjKEa3NnH-zJWMr8gPXPf9Rgnlv7pwh9nzjI-dvWGWGVAQn1jrDCebj6ejzLKHWO-~YhDZV5QhFpY~jOh179XrLr593eyyHjthSWta1-RxuKlyoGX5kp7rXPRcOgjr4Ug6r4uZcyjDd1te7il-yhAR-jMdPKKDj8Rx2hAikKsDFnLsClLs3DW737aiYGWGWAcHrLwMFHxVklaPqD1ykf9OM~T2d9~cZhFEVT4hjCwkjhU~HOFJ~9yq82a6ODATfK55G3NJAmruTvQ~-PtUX0lPTWkps8dM9OaoI5SS5uPYHLL6iHLqLdR~Ick23KdbVMtuz-ykaiuWn~587v7Q__',
                   class: 1,
                   level: 9,
                   name: 'John Doe',

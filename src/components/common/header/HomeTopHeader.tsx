@@ -30,7 +30,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
   return (
     <View
     style={{
-      height: 170,
+      height: 90,
       backgroundColor: backgroundColor ?backgroundColor : GStyles.primaryBlue,
       borderBottomLeftRadius: 24,
       borderBottomRightRadius: 24,
@@ -46,7 +46,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         top: -30,
         left: -20,
         width: 153,
-        height: 153,
+        height: 90,
         borderColor: ringColor ? ringColor :'#349EE6',
         borderWidth: 15,
         borderRadius: 100,
@@ -199,7 +199,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         </TouchableOpacity>
       </View>
     </View>
-    <View>
+    {/* <View>
       <View
         style={{
           backgroundColor: 'white',
@@ -222,7 +222,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         />
         <Feather name="search" color="#858585" size={24} />
       </View>
-    </View>
+    </View> */}
   </View>
   )
 }

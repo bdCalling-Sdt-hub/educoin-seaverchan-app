@@ -17,57 +17,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ModalOfBottom from '../../components/common/CustomModal/ModalOfButtom';
-
-const categories = [
-  {
-    id: 1,
-    title: 'Education',
-    img: 'https://s3-alpha-sig.figma.com/img/4777/e823/f2073e01b6413fb39cbb25157f8234bb?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UKpyveKfIOK1nBuKnCAZqVvdhB7h0k-QjCj~u1xHAmwmroqyzZdyXWAFc935ohZN1LXuDjIbmgRMtHn5EYYAr~W4tmWpGE-MRIULrIlE-neTBkH8tEmRtHWSR~RD2u-PQ68izM3pYJ2zGVD~05EcuGJvNv8HYuFBtj1ncDjjcZL6ZRXNYNF8LK4AraXipm8rPsjUd5WE52e5fo4Hx2OmJRwuaEJzqtrpZnw0hiqVUdk6e1sheYYPumUkG5umsvGOztOJjvQatYYjZP1xEDuTnZYwEDh5sZUOJs~clRmIz~c0huYCLajvR3-A3c9LkRLRto01LtnCuCUic7xb12Zsog__',
-  },
-  {
-    id: 2,
-    title: 'Home Errands',
-    img: 'https://s3-alpha-sig.figma.com/img/a65f/9958/64bddfadea534455e97f5abcaa27e6f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=aXbeeFYQgRdEtjZlTWWaqQfh2BZcrEWj7KLb5-ko9MDhA2m1iLwIBFWtbrOpS6mVn2zBu07yEX9civ3jfWuMlZHgFkjRmdnq5tmhVsx-eXhX2RijYWJjnxE1xEYpLJBvhUY3I-Eqm1NkyB30KfMgjm1A61WOYPiPzoYHIgqJ16gFdSQ1onYpeYJtD2I0bfb7JGpabLj2nFB0xSEmRIF776KopQ2yiawn0IWf52DRy8oIs79jSh47D-J46UfZ8Rq-wm6UywV7UjB7t2DzWGyz5AhR2dEfHdWEqlMHaWU3oj~clleNF3Xyfurvf-e1rd3z8EMuEjMV-E~3El0nhoO-Eg__',
-  },
-  {
-    id: 3,
-    title: 'Hygiene',
-    img: 'https://s3-alpha-sig.figma.com/img/7ea3/7b0a/140c497d8570975110f2963ecc61b456?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lVfzCOTa-T4fdXGRAG6KbLm3bDpaFxQd~DZMEPehOHcOrFD0QobUcDheetOQ~6HuCzQXrAfGuAQjyHG9eEBBMwwuCTsYMN7Gv2UchStdRBfDKogJlpCNC~wxA6Ti75QkqMCdp816bfsHvVSH1JHW5P9~UJTwL7SO1fTGJzYLDMPtPb7fhUKr08ED73mz~u4iJeCsbB2LPKKn14DQeWBfgUQ-UhGzV9xFP1vxYA3f0CuD9Xnc3DeXXXzLlT3AnWZhWNiuJ6xKkMUUh1BCMfYvIyM1lZkGSKYsSogn7W8dG55Z7QSEoGy-Tpjib8KtzB5i1f5yL5bRGroegdE1bJbNeQ__',
-  },
-  {
-    id: 4,
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-  {
-    id: 5,
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-  {
-    id: 7,
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-  {
-    id: 8,
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-  {
-    id: 9,
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-];
+import { categories } from './EditCategory';
+import { categoryIcons } from '../../utils/ShearData';
 
 const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [launchCameraModal, setLaunchCameraModal] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
-  const [rewordImage, setRewordImage] = React.useState<string | undefined>('');
+  const [categoryImage, setCategoryImage] = React.useState<string | undefined>('');
 
   const [customCategory, setCustomCategory] = React.useState<number>();
+
+  console.log(categoryImage);
 
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
@@ -81,8 +42,8 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
-          setRewordImage(result?.assets![0].uri);
-          console.log(result);
+          setCategoryImage(result?.assets![0].uri);
+          // console.log(result);
         }
       }
       if (option === 'library') {
@@ -95,8 +56,8 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
-          setRewordImage(result?.assets![0].uri);
-          console.log(result);
+          setCategoryImage(result?.assets![0].uri);
+          // console.log(result);
         }
       }
     } catch (error) {
@@ -111,7 +72,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title="Add New Category"
+        title="Add Category"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
@@ -146,90 +107,8 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           />
         </View>
 
-        <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              fontFamily: GStyles.Poppins,
-              color: GStyles.textColor['#3D3D3D'],
-            }}>
-            Category Types
-          </Text>
-
-          <TouchableOpacity
-            onPress={() => setIsGood(true)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 5,
-              marginVertical: 18,
-            }}>
-            <View
-              style={{
-                width: 26,
-                height: 26,
-                borderRadius: 100,
-                borderColor: GStyles.primaryBlue,
-                borderWidth: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {isGood && (
-                <View
-                  style={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: 100,
-                    backgroundColor: GStyles.primaryBlue,
-                  }}></View>
-              )}
-            </View>
-            <Text
-              style={{
-                fontSize: 18,
-                color: '#C3C3C3',
-              }}>
-              Good
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setIsGood(false)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 5,
-            }}>
-            <View
-              style={{
-                width: 26,
-                height: 26,
-                borderRadius: 100,
-                borderColor: GStyles.primaryBlue,
-                borderWidth: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {isGood || (
-                <View
-                  style={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: 100,
-                    backgroundColor: GStyles.primaryBlue,
-                  }}></View>
-              )}
-            </View>
-            <Text
-              style={{
-                fontSize: 18,
-                color: '#C3C3C3',
-              }}>
-              Bad
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View>
+      
+        {/* <View>
           <Text
             style={{
               fontSize: 16,
@@ -316,7 +195,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
               </>
             )}
           </View>
-        </View>
+        </View> */}
         <View
           style={{
             marginBottom: 20,
@@ -337,6 +216,54 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
               gap: 24,
             }}
             data={categories}
+
+            ListHeaderComponent={()=>
+            <View>
+               <TouchableOpacity
+             onPress={()=>handleImagePick("library")}
+          >
+                <View
+                  style={{
+                    gap: 12,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginVertical: 15,
+                    borderColor: GStyles.gray.light,
+                    // padding: 5,
+                    borderWidth: 2,
+                    borderRadius: 100,
+                    elevation : 2
+                  }}>
+                  <View
+                    style={{
+                      width: 65,
+                      height: 65,
+                      // backgroundColor: GStyles.purple.light,
+                      borderRadius: 50,
+                      padding: 3,
+                      justifyContent : "center",
+                      alignItems : 'center'
+                    }}>
+                      {
+                        categoryImage  ? <Image
+                        source={{
+                          uri : categoryImage
+                        } }
+                        style={{
+                          width: 60,
+                          height: 60,
+                          borderRadius: 50,
+                        }}
+                        resizeMode='cover'
+                      />
+                      : <Feather name='plus' color={GStyles.gray.lightHover} size={25}/>
+                      }
+                    
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>}
+
             renderItem={item => (
               <TouchableOpacity
                 onPress={() => {
@@ -353,27 +280,27 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                       customCategory === item.item.id
                         ? GStyles.primaryPurple
                         : GStyles.gray.light,
-                    padding: 5,
-                    borderWidth: 1,
+                    // padding: 5,
+                    borderWidth: 2,
                     borderRadius: 100,
+                    elevation : 2
                   }}>
                   <View
                     style={{
                       width: 65,
                       height: 65,
-                      backgroundColor: GStyles.blue.light,
-                      borderRadius: 100,
-                      padding: 2,
+                      // backgroundColor: GStyles.purple.light,
+                      borderRadius: 50,
+                      padding: 3,
                     }}>
                     <Image
-                      source={{
-                        uri: item.item.img,
-                      }}
+                      source={item.item.img}
                       style={{
                         width: 60,
                         height: 60,
-                        borderRadius: 100,
+                        borderRadius: 50,
                       }}
+                      resizeMode='cover'
                     />
                   </View>
                 </View>

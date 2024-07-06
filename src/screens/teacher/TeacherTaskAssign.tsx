@@ -39,7 +39,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
         navigation={navigation}
       />
 
-      <View
+      {/* <View
         style={{
           backgroundColor: 'white',
           height: 48,
@@ -63,14 +63,17 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
           }}
         />
         <Feather name="search" color="#858585" size={24} />
-      </View>
+      </View> */}
       <HeaderOption
         isOp={op}
         setIsOp={setOp}
         activeBorderColor={GStyles.primaryPurple}
+        borderColor={GStyles.primaryPurple}
         op1="Personal Student"
         op2="Class"
         marginHorizontal={10}
+        fillButton
+        marginTop={10}
       />
       {op === 'Personal Student' ? (
         <>
@@ -126,12 +129,12 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderWidth: 1,
-                    borderColor: GStyles.primaryBlue,
+                    borderColor: GStyles.primaryPurple,
                     borderRadius: 100,
                   }}>
                   <Image
                     source={{
-                      uri: 'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K~gmlW1G6g5XRSx36O1Frt5zyupXRqxCUz4lJFTg1sC92Wij9xKlXrGfrqjpOszO74yM-8qMQVXvtj03PtQpYwwm29OkuZdsGHhNTq97CPSjQab8IPyIvpSJIfcD814JsuPBE8Y7p~dJaR7ntiFamBpNKLxuJ3f36DYf8-wmZP8iv4vtHfm55Q26s3gjKT~2NEL7ss8iSDL282wxCC7woBNemG9gjMmA7Qxa96-PvXQRsGTKqX9aMDBJ7AI2qKYpmvjP9w4d1pM7IR7JtEdhFAf3jcnptld-3EYZGrcr9ITpjbBGb0GZKguL11wwH07SxkzyB5if8wZt44qA3Ee5tA__',
+                      uri: 'https://s3-alpha-sig.figma.com/img/0bbb/5c12/ef548f2921b5e394e68b3ed81107e962?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ILNPAoL6oz-LsRBKOBDzdtNpDDSd9aM7U3MoiKvw3~bAL4O-ZXkQiwfSgeUpZlLmQAf8mK7C~hVnJwjOAYXwfb4nsQvNwnccoflGZLcWOAdgNOu6xIY3bZZZ38biJl8Fy2q91oaDR2QctCZp8s769BUblI2frXgmlTpPzHcf-7g4rIObo8KpMWwjedn9pCqCcRQ~Y6HEJnvZiojuiPfm41i1QJkPK-5pharM6b1xafW1GoejVuQrV4~jhGcwMEH9H5Lk-y4bzvIsWQ7AIjFdQ4Z67BevXLfpShOWTI9jXVBFE35x-EUc3a~9slEDz-UmcePhHv34zhw3jA~bTLEMUg__',
                     }}
                     style={{
                       width: 46,
@@ -165,8 +168,8 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                   <TouchableOpacity
                     // onPress={() => navigation.navigate('EditCustomTask')}
                     style={{
-                      backgroundColor: GStyles.primaryBlue,
-                      paddingVertical: 10,
+                      backgroundColor: GStyles.primaryPurple,
+                      // paddingVertical: 10,
                       paddingHorizontal: 15,
                       borderRadius: 100,
                       width: 90,
@@ -180,7 +183,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                         fontSize: 16,
                         fontFamily: GStyles.Poppins,
                       }}>
-                      Submit
+                      Assign
                     </Text>
                   </TouchableOpacity>
                 ) : (
@@ -189,8 +192,8 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                       setAssign([...assign, i]);
                     }}
                     style={{
-                      borderColor: GStyles.primaryBlue,
-                      paddingVertical: 10,
+                      borderColor: GStyles.primaryPurple,
+                     
                       paddingHorizontal: 15,
                       borderRadius: 100,
                       width: 90,
@@ -201,11 +204,11 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                     }}>
                     <Text
                       style={{
-                        color: GStyles.primaryBlue,
+                        color: GStyles.primaryPurple,
                         fontSize: 16,
                         fontFamily: GStyles.Poppins,
                       }}>
-                      Submit
+                      Assign
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -292,7 +295,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         borderWidth: 1,
-                        borderColor: GStyles.primaryBlue,
+                        borderColor: GStyles.primaryPurple,
                         borderRadius: 100,
                       }}>
                       <Image
@@ -331,8 +334,8 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                       <TouchableOpacity
                         // onPress={() => navigation.navigate('EditCustomTask')}
                         style={{
-                          backgroundColor: GStyles.primaryBlue,
-                          paddingVertical: 10,
+                          backgroundColor: GStyles.primaryPurple,
+                          // paddingVertical: 10,
                           paddingHorizontal: 15,
                           borderRadius: 100,
                           width: 90,
@@ -346,7 +349,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                             fontSize: 16,
                             fontFamily: GStyles.Poppins,
                           }}>
-                          Submit
+                          Assign
                         </Text>
                       </TouchableOpacity>
                     ) : (
@@ -355,8 +358,8 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                           setAssign([...assign, i]);
                         }}
                         style={{
-                          borderColor: GStyles.primaryBlue,
-                          paddingVertical: 10,
+                          borderColor: GStyles.primaryPurple,
+                          // paddingVertical: 10,
                           paddingHorizontal: 15,
                           borderRadius: 100,
                           width: 90,
@@ -367,11 +370,11 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                         }}>
                         <Text
                           style={{
-                            color: GStyles.primaryBlue,
+                            color: GStyles.primaryPurple,
                             fontSize: 16,
                             fontFamily: GStyles.Poppins,
                           }}>
-                          Submit
+                          Assign
                         </Text>
                       </TouchableOpacity>
                     )}
@@ -454,7 +457,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
             }
           }}
           style={{
-            backgroundColor: GStyles.primaryBlue,
+            backgroundColor: GStyles.primaryPurple,
             padding: 10,
             borderRadius: 100,
 
@@ -471,9 +474,9 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
               marginTop: 5,
             }}>
             {op === 'Personal Student'
-              ? 'Send'
+              ? 'Confirm'
               : op === 'Class' && studentClass && isClassOk
-              ? 'Send'
+              ? 'Confirm'
               : 'Next'}
           </Text>
         </TouchableOpacity>

@@ -49,7 +49,7 @@ const ParticularClassStudents = ({navigation, route}: NavigProps<ParamsData>) =>
               width={'45%'}
               student={{
                 image:
-                  'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
+                  'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=afixL5pE~IsaQw65jxMkzseJItxix97TkD~rbrgD-m2ZvD6625T~S~qc1EmHgAqM0FK-rPxSkffSVBr65cWbKC~5LRopTzHlnJKSBZl62DNtTNfUhNBSzznBnHDzTs-08EF2-XWNaGDkutf4N4nnUKNQq6XBfYf81yQEmsmGCN9kNdNsbF1pIDMBlOauet~gbJsNqcr1-xEf~WUeIGHnKDXcMO4hmKX7URkswKuQI-aoSNkVsHNsXacbM9FRMuXWMJr45pUdEkTRVUT6KgUB-rcpvBIEconh1gHFfSYiQhTO83LWKyDcrOd5OKS2GC7OC9nmJim41o1De7u4RdQADw__',
                 class: 1,
                 level: 9,
                 name: 'John Doe',
