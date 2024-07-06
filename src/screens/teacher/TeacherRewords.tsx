@@ -58,7 +58,7 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
             // routeData={'demo'}
             editOption={true}
             // achieved
-            title={`Playing outside with dad ${item.item.title} `}
+            title={`Playing outside with dad  `}
             imgAssets={item.item.img}
           />
         </Fragment>

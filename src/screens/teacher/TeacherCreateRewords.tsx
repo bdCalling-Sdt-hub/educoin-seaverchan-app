@@ -17,7 +17,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-import { categoryIcons } from '../../utils/ShearData';
+import { categoryIcons, SherAvatar } from '../../utils/ShearData';
 
 const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [rewordName, setRewordName] = React.useState('');
@@ -30,7 +30,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [successModal, setSuccessModal] = React.useState(false);
 
-    
+  const [assignUser, setAssignUser] = React.useState([]);
   
   return (
     <View
@@ -193,85 +193,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               }}>
               Choose category
             </Text>
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                gap: 20,
-                marginRight: 10,
-              }}>
-              <TouchableOpacity
-                onPress={() => setIsGood(true)}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 5,
-                }}>
-                <View
-                  style={{
-                    width: 15,
-                    height: 15,
-                    borderRadius: 100,
-                    borderColor: GStyles.primaryBlue,
-                    borderWidth: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  {isGood && (
-                    <View
-                      style={{
-                        width: 7,
-                        height: 7,
-                        borderRadius: 100,
-                        backgroundColor: GStyles.primaryBlue,
-                      }}></View>
-                  )}
-                </View>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: '#C3C3C3',
-                  }}>
-                  Good
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setIsGood(false)}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 5,
-                }}>
-                <View
-                  style={{
-                    width: 15,
-                    height: 15,
-                    borderRadius: 100,
-                    borderColor: GStyles.primaryBlue,
-                    borderWidth: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  {isGood || (
-                    <View
-                      style={{
-                        width: 7,
-                        height: 7,
-                        borderRadius: 100,
-                        backgroundColor: GStyles.primaryBlue,
-                      }}></View>
-                  )}
-                </View>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: '#C3C3C3',
-                  }}>
-                  Bad
-                </Text>
-              </TouchableOpacity>
-            </View> */}
+          
           </View>
           <FlatList
             horizontal
@@ -328,6 +250,107 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                       paddingVertical: 5,
                     }}>
                     {item.item.title}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+
+        <View
+          style={{
+            paddingHorizontal: '4%',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                fontWeight: '500',
+                letterSpacing: 0.5,
+                marginVertical: 20,
+              }}>
+             Assign to
+            </Text>
+            
+          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              gap: 20,
+              paddingVertical : 5
+            }}
+            data={SherAvatar}
+            keyExtractor={(item)=>item.id + item.img}
+
+           
+
+            renderItem={item => (
+              <TouchableOpacity
+                key={item.index}
+                onPress={() => {
+                  // setCustomCategory(item.item.id)
+                
+                  if(assignUser.includes(item.item.id)){
+                   
+                  }
+                  else{
+                    setAssignUser([...assignUser, item.item.id])
+                  }
+                 
+                }}
+                >
+                <View
+                  style={{
+                    gap: 12,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      width: 85,
+                      height: 85,
+                      borderRadius: 100,
+                      borderColor:
+                        assignUser.includes(item.item.id)
+                        ? GStyles.primaryPurple
+                        : GStyles.gray.light,
+                      borderWidth: 2,
+                      padding: 2,
+                      justifyContent : "center",
+                      alignItems : 'center',
+                      elevation : 2
+
+                    }}>
+                    <Image
+                      source={ item.item.img}
+                      style={{
+                        width: 70,
+                        height: 70,
+                        borderRadius: 100,
+                      }}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontFamily: GStyles.Poppins,
+                      color:
+                      assignUser.includes(item.item.id)
+                          ? GStyles.primaryPurple
+                          : '#3D3D3D',
+                      paddingVertical: 5,
+                    }}>
+                    {/* {item.item.title} */}
+                    Student Name
                   </Text>
                 </View>
               </TouchableOpacity>
