@@ -48,7 +48,7 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
           gap : 5
         }}
         showsVerticalScrollIndicator={false}
-        data={categories}
+        data={[1]}
 
         renderItem={(item)=>
           <Fragment key={item.index}>
@@ -58,8 +58,9 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
             // routeData={'demo'}
             editOption={true}
             // achieved
-            title={`Playing outside with dad  `}
-            imgAssets={item.item.img}
+            points={30}
+            title={`Get 10 Dollar`}
+            imgAssets={require("../../assets/images/categoryIcons/14.png")}
           />
         </Fragment>
 

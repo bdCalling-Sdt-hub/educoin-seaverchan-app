@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useEffect} from 'react';
 import {GStyles} from '../../../styles/GStyles';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -22,7 +22,7 @@ interface TaskCardProps {
   completed?: boolean;
   onPress?: () => void;
   isButton?: boolean;
-  onPressOption?: () => void;
+  onPressOption?: React.Dispatch<React.SetStateAction<number | undefined>>; 
   approveOnPress?: () => void;
   optionList?: OptionList[];
   buttonText?: string;
@@ -33,6 +33,9 @@ interface TaskCardProps {
   imageUrl ?: string;
   completedTextColor ?: string;
   imgAssets ?: any;
+  indexNumber ?: number;
+  selectIndex ?: number;
+  completedText ? : string;
 }
 
 interface OptionList {
@@ -60,30 +63,37 @@ const TaskCard = ({
   description,
   points,
   completedTextColor,
-  imgAssets
+  completedText,
+  imgAssets,
+  indexNumber,
+  selectIndex
 }: TaskCardProps) => {
   const [open, setOpen] = React.useState(false);
-  useEffect(() => {
-    return () => setOpen(false);
-  }, []);
+
+
+  console.log(indexNumber,selectIndex);
+
   return (
-    <Pressable
+    <View>
+      <Pressable 
       onPress={onPress}
       onPressIn={() => {
         setOpen(false);
       }}
+    
       style={{
         padding: 12,
-        borderWidth: 1,
-        borderColor: '#ECECEC',
+       
         borderRadius: 8,
         marginVertical: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
 
-        zIndex: 0,
+        zIndex: -1,
         // elevation : 1
+        borderWidth: 1,
+        borderColor: '#ECECEC',
       }}>
       <View
         style={{
@@ -91,6 +101,7 @@ const TaskCard = ({
           gap: 14,
           // alignItems: 'center',
           justifyContent: 'center',
+          
         }}>
         <View
           style={{
@@ -187,7 +198,7 @@ const TaskCard = ({
                   fontSize: 14,
                   fontFamily: GStyles.Poppins,
                 }}>
-                Completed
+               {completedText ?completedText : "Completed"}
               </Text>
             </View>
           ) : isButton ? (
@@ -195,9 +206,9 @@ const TaskCard = ({
               disabled={approveDisabled}
               onPress={approveOnPress}
               style={{
-                backgroundColor: approveBTColor
-                  ? approveBTColor
-                  : GStyles.primaryBlue,
+                backgroundColor: approveBTColor && approveDisabled
+                  ?GStyles.borderColor['#ECECEC'] 
+                  : approveBTColor ? approveBTColor : GStyles.primaryBlue,
                 borderRadius: 100,
                 width: 100,
                 height: 40,
@@ -219,36 +230,48 @@ const TaskCard = ({
                 position: 'absolute',
                 top: 15,
                 right: 0,
+                zIndex : -1,
+           
               }}>
               <TouchableOpacity
+              onPressIn={()=>{
+                onPressOption(indexNumber);
+              }}
                 onPress={() => {
-                  setOpen(!open);
+                  setOpen(true);
                 }}
                 style={{
                   paddingHorizontal: 10,
                 }}>
                 <Entypo name="dots-three-vertical" size={20} />
               </TouchableOpacity>
-              {open && (
+             
+            </View>
+          )}
+        </>
+      )}
+
+{open && selectIndex === indexNumber && (
                 <View
                   style={{
                     position: 'absolute',
                     top: 25,
                     right: 10,
-                    backgroundColor: GStyles.white,
+                    backgroundColor: "white",
                     height: optionContainerHight ? optionContainerHight : 68,
                     width: 85,
                     borderRadius: 6,
                     borderColor: GStyles.borderColor['#ECECEC'],
                     borderWidth: 1,
-                    shadowColor: GStyles.gray.dark,
-                    shadowOffset: {width: 1, height: 2},
-                    shadowRadius: 4,
-                    shadowOpacity: 1,
-                    zIndex: 9999,
+                    // shadowColor: GStyles.gray.dark,
+                    // shadowOffset: {width: 1, height: 2},
+                    // shadowRadius: 4,
+                    // shadowOpacity: 1,
+                    // zIndex: 9999,
                     gap: 2,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    elevation : 1
                   }}>
                   {optionList?.map((item, index) => (
                     <TouchableOpacity
@@ -264,17 +287,16 @@ const TaskCard = ({
                         borderColor: GStyles.borderColor['#ECECEC'],
                         // borderWidth: 1,
                         // shadowColor: GStyles.gray.dark,
+                        // elevation : 1,
+                        width :"100%"
                       }}>
                       <Text>{item.title}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
               )}
-            </View>
-          )}
-        </>
-      )}
     </Pressable>
+    </View>
   );
 };
 

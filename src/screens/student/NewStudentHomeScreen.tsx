@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -24,11 +24,14 @@ import RewordsCard from '../../components/common/Cards/RewordsCard';
 import StudentCard from '../../components/common/Cards/StudentCard';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
+import LottieView from 'lottie-react-native';
 
 const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
-  const [isCompeted, setIsCompeted] = React.useState('Task');
+  const [isCompeted, setIsCompeted] = React.useState('Tasks');
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [claimModal, setClaimModal] = React.useState(false);
   const [yesNoModal, setYesNoModal] = React.useState(false);
+  const [selected,setSelected] = useState([])
 
   return (
     <View
@@ -62,7 +65,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         marginTop={15}
         marginBottom={5}
         marginHorizontal={15}
-        op1="Task"
+        op1="Tasks"
         op2="Rewords"
         op3="Earned"
         borderColor={GStyles.orange.lightActive}
@@ -82,17 +85,19 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               style={{
                 marginBottom: 25,
               }}>
+                
               {[...Array(2)].map((_, index) => (
                 <RewordsCard
+                key={index}
                   removePress={() => {
                     setYesNoModal(!yesNoModal);
                   }}
                   removeBtn
                   iconOrTextColor={GStyles.primaryOrange}
-                  imgAssets={require('../../assets/images/rewordCategory/15.png')}
+                  imgAssets={require('../../assets/images/categoryIcons/12.png')}
                   marginHorizontal={10}
                   points={10}
-                  title='play game'
+                  title='play music'
                 />
               ))}
             </View>
@@ -123,8 +128,8 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
               points={140}
-              title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+              title="Get Iphone ..."
+              imgAssets={require("../../assets/images/categoryIcons/20.png")}
             />
             <RewordsCard
               navigation={navigation}
@@ -139,8 +144,8 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
             points={60}
-              title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/3e3a/22a0/4816ca9d807840b97b4a80c39cdd400c?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=oBQLe1S7gXJpTJTSExd7Zb8PL3dpBBtp8PSxLoLXKgTcL4NkKdElruZsCL5af73Vp5CmC~qVij5-m~N0dAvIejyebFhNLitlAJO92r00Sqm040prQzfzZaS3G1Wc30T3F4zo7kzpoSpcvPQbKFVp8nhnzxZINshRx2WiJwbCXx0I1nlzHuvzOkfgnCaZRh44qD0Wm-fzns8ReVFsXiuPh3YtOlvO436DJBsiF8e-fYNbjbfkyAQlntKHBBM-jx7EAiDOPaDoKVsqYPDMltEMS-04IQk9m7MQE1S2UuALtkuq3zdlmm8mDpZRlU6COsGfEC7QrK5EwrujrMfNHiuCMw__"
+              title="Get Bike ..."
+              imgAssets={require("../../assets/images/categoryIcons/18.png")}
             />
             <RewordsCard
               navigation={navigation}
@@ -154,9 +159,9 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               backGroundProgressWidth="40%"
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
-              title="Playing outside with dad"
+              title="Get a car ..."
               points={90}
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+              imgAssets={require("../../assets/images/categoryIcons/26.png")}
             />
             <RewordsCard
               navigation={navigation}
@@ -172,37 +177,72 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
 
-              title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
-              disabled
+              
+               claimPress={()=>{
+                setClaimModal(true)
+               }}
+              title="Get a chocolate ..."
+              imgAssets={require("../../assets/images/categoryIcons/17.png")}
+              // disabled
               claimBtn
             />
           </View>
         ) : (
           <View>
+         
             <View
               style={{
                 marginBottom: 25,
               }}>
-              {[...Array(10)].map((_, index) => (
-                <TaskCard
+                 <TaskCard
                   approveBTColor={GStyles.primaryOrange}
                   completedTextColor={GStyles.primaryOrange}
                   isButton
                   button
-                  buttonText="Approved"
-                  imageUrl="https://s3-alpha-sig.figma.com/img/f3cd/d3da/ea5781defc325eb8f2fdcbd118ec50c1?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ITHLb4tfHnER3RnFnToFhbJ4Rs7dV8XHzKWdoFom4yKb9AT3UFDVajL7tRVtnjHGCd51e3cFo1vQ74EQ7CzpQn0tEL-mdoXFfLgqX34lnNqJIuz0Bd-9LCCXkKBgZSEFT3RAoZO1aRUoylUy66YjkM1jh2qAG~VJM~TwvhoLIja-C3Z9DprFl~WIrg09bPD1Sve~FHdfQ8RKZDLsNlq1sRPQDMbZv2kL1DZ74~61kQkCmnWFwb5hN-iDzSkEe1BDERwobnGaham2U-nv0oMXKkeojiSICFZqIrijYnmelZ2ov6NJKDv8jL0XXRMde~MWrOEbBuzenl1UKtya989dMg__"
+                  // buttonText={"Completed"}
+                  
+                  imgAssets={require("../../assets/images/categoryIcons/18.png")}
                   category="Home Errands"
-                  // completed
+                  completed
+                  completedText='Achieved'
+                  approveDisabled
                   // description=''
-                  title="Make Your Bed"
+                  title={"Help 2 people"}
                   points="50"
                   time="Anytime"
                   approveOnPress={() => {
-                    setModalVisible(true);
+                    // setModalVisible(true);
+                   
                   }}
-                  key={index}
+                 
                 />
+              {[...Array(2)].map((_, index) => (
+                <>
+                <TaskCard
+                   key={index}
+                  approveBTColor={GStyles.primaryOrange}
+                  completedTextColor={GStyles.primaryOrange}
+                  isButton
+                  button
+                  buttonText={selected.includes(index) ? "Waiting..." :"Achieve"}
+                  
+                  imgAssets={require("../../assets/images/categoryIcons/18.png")}
+                  category="Home Errands"
+                  // completed
+                  approveDisabled={selected.includes(index)}
+                  // description=''
+                  title={"Help 5 people"}
+                  points="50"
+                  time="Anytime"
+                  approveOnPress={() => {
+                    // setModalVisible(true);
+                    setSelected([...selected,index])
+                  }}
+               
+                />
+                  
+                </>
+                
               ))}
             </View>
           </View>
@@ -280,6 +320,56 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         modalVisible={yesNoModal}
         setModalVisible={setYesNoModal}
       />
+
+<CustomModal
+        modalVisible={claimModal}
+        backButton
+        setModalVisible={setClaimModal}
+        height={289}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+            alignItems: 'center',
+          }}>
+          <LottieView
+            source={require('../../assets/lottie/goal-completed.json')}
+            style={{width: 200, height: 200, marginBottom: -70, marginTop: -50}}
+            autoPlay
+            loop
+          />
+
+         
+          <View>
+            <TouchableOpacity
+              onPress={() => setClaimModal(false)}
+              style={{
+                backgroundColor: GStyles.primaryOrange,
+                width: 100,
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                OK
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
+
+
     </View>
   );
 };

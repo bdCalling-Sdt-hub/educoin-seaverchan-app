@@ -96,7 +96,7 @@ const RewordsCard = ({
           style={{
             width: 40,
             height: 40,
-            // borderRadius: 100,
+            borderRadius: 100,
           }}
         /> :<Image
         source={{
@@ -198,10 +198,10 @@ const RewordsCard = ({
             }
             style={{
               paddingVertical : 8,
-              paddingHorizontal : 20,
+              paddingHorizontal : 26,
     
               backgroundColor : GStyles.primaryOrange,
-              borderRadius : 10,
+              borderRadius : 6,
               justifyContent : 'center',
               alignItems : 'center',
               position : "absolute",

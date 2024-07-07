@@ -78,7 +78,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
 
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={[...Array(20)]}
+        data={[...Array(2)]}
         numColumns={2}
         contentContainerStyle={{
           gap: 10,
@@ -103,9 +103,9 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
               <StudentCard
                 imgBorderColor={GStyles.primaryPurple}
                 width={'45%'}
+                imgAssets={require("../../assets/images/avatar/1.png")}
                 student={{
-                  image:
-                    'https://s3-alpha-sig.figma.com/img/5ed6/a25e/30d0b09b0411b981dafc20d45811f98b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OxWsgjKEa3NnH-zJWMr8gPXPf9Rgnlv7pwh9nzjI-dvWGWGVAQn1jrDCebj6ejzLKHWO-~YhDZV5QhFpY~jOh179XrLr593eyyHjthSWta1-RxuKlyoGX5kp7rXPRcOgjr4Ug6r4uZcyjDd1te7il-yhAR-jMdPKKDj8Rx2hAikKsDFnLsClLs3DW737aiYGWGWAcHrLwMFHxVklaPqD1ykf9OM~T2d9~cZhFEVT4hjCwkjhU~HOFJ~9yq82a6ODATfK55G3NJAmruTvQ~-PtUX0lPTWkps8dM9OaoI5SS5uPYHLL6iHLqLdR~Ick23KdbVMtuz-ykaiuWn~587v7Q__',
+            
                   class: 1,
                   level: 9,
                   name: 'John Doe',

@@ -54,6 +54,7 @@ import StudentProfileEdit from '../screens/student/StudentProfileEdit';
 import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
 import EditCategory from '../screens/teacher/EditCategory';
 import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTeacher';
+import AllStudentAvatar from '../screens/student/AllStudentAvatar';
 
 const Stack = createNativeStackNavigator();
 
@@ -108,6 +109,7 @@ export const Routes = () => {
         <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
         <Stack.Screen name="StudentPassCode" component={StudentPassCode} />
         <Stack.Screen name="StudentProfileEdit" component={StudentProfileEdit} />
+        <Stack.Screen name="AllStudentAvatar" component={AllStudentAvatar} />
 
         {/*-------------------- Teachers All Screens ----------- */}
         <Stack.Screen

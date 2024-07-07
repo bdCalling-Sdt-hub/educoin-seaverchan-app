@@ -13,6 +13,7 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { SherAvatar } from '../../utils/ShearData';
 
 const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
   return (
@@ -29,7 +30,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
       />
 
       <FlatList
-        data={[...Array(20)]}
+        data={SherAvatar}
         showsVerticalScrollIndicator={false}
         numColumns={2}
         contentContainerStyle={{
@@ -104,9 +105,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
                       height: 52,
                       borderRadius: 100,
                     }}
-                    source={{
-                      uri: 'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
-                    }}
+                    source={item.item.img}
                   />
                 </View>
                 <Text

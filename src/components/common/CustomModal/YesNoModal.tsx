@@ -40,6 +40,8 @@ const YesNoModal = ({
   backGroundColor,
   transparent,
   containerColor,
+  noPress,
+  yesPress
 }: CustomModalProps) => {
   return (
     <Modal
@@ -102,38 +104,41 @@ const YesNoModal = ({
           <View style={{
             height : "100%",
             justifyContent:'center',
-            alignItems : "center"
-      
+            alignItems : "center",
+            marginTop : 10,
           }}>
           <View style={{
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop : 20
+          
+            gap : 5
           }}>
-            <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>
+            <Text style={{fontSize: 18, fontWeight: 'bold', color : GStyles.textColor['#3D3D3D'], marginBottom: 10}}>
               Are you sure?
             </Text>
-            <Text style={{fontSize: 16, marginBottom: 20}}>
-              This action cannot be undone.
+            <Text style={{fontSize: 16, marginBottom: 20 ,color : GStyles.textColor['#3D3D3D']}}>
+              This action cannot be undue.
             </Text>
           </View>
          <View style={{
             flexDirection: 'row',
             justifyContent:'space-between',
             marginBottom: 20,
-            marginTop: 30,
+            marginTop: 20,
             width: '80%',
             
         
          }}>
-                <TouchableOpacity style={{
+                <TouchableOpacity 
+                onPress={noPress}
+                style={{
                 paddingVertical: 10,
                 paddingHorizontal: 20,
                 // backgroundColor: "red",
                 borderWidth : 1,
-                borderColor : "gray",
-                borderRadius: 5,
+                borderColor : GStyles.primaryOrange,
+                borderRadius: 100,
                 width: '45%',
                 marginHorizontal: 10,
                 justifyContent: 'center',
@@ -141,16 +146,18 @@ const YesNoModal = ({
   
             }}>
                 <Text style={{
-           color :   "gray",
+           color :   GStyles.primaryOrange,
                     fontSize: 16,
-                    fontWeight: 'bold',
+                   fontFamily : GStyles.Poppins
                 }}>No</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{
+            <TouchableOpacity
+            onPress={yesPress}
+            style={{
                 paddingVertical: 10,
                 paddingHorizontal: 20,
-                backgroundColor: "rgba(200,0,0,1)",
-                borderRadius: 5,
+                backgroundColor: GStyles.primaryOrange,
+                borderRadius: 100,
                 width: '45%',
                 marginHorizontal: 10,
                 justifyContent: 'center',
@@ -160,7 +167,7 @@ const YesNoModal = ({
                 <Text style={{
                     color: 'white',
                     fontSize: 16,
-                    fontWeight: 'bold',
+                    fontFamily : GStyles.Poppins
                 }}>Yes</Text>
             </TouchableOpacity>
         

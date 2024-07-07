@@ -18,6 +18,7 @@ interface StudentCardProps {
   width?: any;
   height?: any;
   imgBorderColor?: string;
+  imgAssets?: any;
 }
 
 const StudentCard = ({
@@ -25,6 +26,7 @@ const StudentCard = ({
   student,
   width,
   imgBorderColor,
+  imgAssets
 }: StudentCardProps) => {
   return (
     <TouchableOpacity
@@ -50,6 +52,16 @@ const StudentCard = ({
           padding: 3,
           borderRadius: 100,
         }}>
+        {imgAssets && (
+          <Image
+            style={{
+              width: 53,
+              height: 53,
+              borderRadius: 100,
+            }}
+            source={imgAssets}
+          />
+        )}
         {student?.image && (
           <Image
             style={{

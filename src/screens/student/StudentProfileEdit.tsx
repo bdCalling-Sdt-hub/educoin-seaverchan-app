@@ -16,6 +16,7 @@ import {
   import {FlatList} from 'react-native';
   import CustomModal from '../../components/common/CustomModal/CustomModal';
   import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { SherAvatar } from '../../utils/ShearData';
   
   
   const data = [
@@ -229,7 +230,7 @@ import {
               <TouchableOpacity
                 style={{}}
                 onPress={() => {
-                  navigation?.navigate('StudentAllAvatar');
+                  navigation?.navigate('AllStudentAvatar');
                   
                 }}>
                 <Text
@@ -245,7 +246,7 @@ import {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={data}
+              data={SherAvatar}
               contentContainerStyle={{
                 flexDirection: 'row',
                 justifyContent: 'flex-start',
@@ -327,9 +328,7 @@ import {
                       height: 80,
                       borderRadius: 100,
                     }}
-                    source={item.item.avatar ? item.item.avatar :{
-                      uri:  'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
-                    }}
+                    source={item.item.img}
                   />
                 </TouchableOpacity>
               )}

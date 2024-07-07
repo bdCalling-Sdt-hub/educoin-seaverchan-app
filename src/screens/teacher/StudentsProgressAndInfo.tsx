@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -25,12 +25,15 @@ import StudentCard from '../../components/common/Cards/StudentCard';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
+import LottieView from 'lottie-react-native';
 
 const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
   const [isCompeted, setIsCompeted] = React.useState('Task');
   const [modalVisible, setModalVisible] = React.useState(false);
   const [yesNoModal, setYesNoModal] = React.useState(false);
-
+  const [claimModal, setClaimModal] = React.useState(false);
+  const [select,setSelected] = useState([])
+  
   return (
     <View
       style={{
@@ -80,9 +83,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                 borderRadius: 100,
                 //   alignSelf: 'center',
               }}
-              source={{
-                uri: 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-              }}
+              source={require("../../assets/images/avatar/2.png")}
             />
 
             <View
@@ -241,7 +242,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               style={{
                 marginBottom: 25,
               }}>
-              {[...Array(4)].map((_, index) => (
+              {[...Array(1)].map((_, index) => (
                 <RewordsCard
                   key={"agun" + index}
                   points={50}
@@ -251,7 +252,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                   removeBtn
                   title="play game"
                   iconOrTextColor={GStyles.primaryOrange}
-                  imgAssets={require('../../assets/images/rewordCategory/15.png')}
+                  imgAssets={require('../../assets/images/categoryIcons/11.png')}
                   marginHorizontal={10}
                 />
               ))}
@@ -279,7 +280,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               borderColor={GStyles.borderColor['#ECECEC']}
               points={20}
               title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+              imgAssets={require('../../assets/images/categoryIcons/11.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -295,7 +296,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               // onPress={() => setSelected(index)}
               points={50}
               title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/3e3a/22a0/4816ca9d807840b97b4a80c39cdd400c?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=oBQLe1S7gXJpTJTSExd7Zb8PL3dpBBtp8PSxLoLXKgTcL4NkKdElruZsCL5af73Vp5CmC~qVij5-m~N0dAvIejyebFhNLitlAJO92r00Sqm040prQzfzZaS3G1Wc30T3F4zo7kzpoSpcvPQbKFVp8nhnzxZINshRx2WiJwbCXx0I1nlzHuvzOkfgnCaZRh44qD0Wm-fzns8ReVFsXiuPh3YtOlvO436DJBsiF8e-fYNbjbfkyAQlntKHBBM-jx7EAiDOPaDoKVsqYPDMltEMS-04IQk9m7MQE1S2UuALtkuq3zdlmm8mDpZRlU6COsGfEC7QrK5EwrujrMfNHiuCMw__"
+              imgAssets={require('../../assets/images/categoryIcons/11.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -311,7 +312,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               // onPress={() => setSelected(index)}
               points={50}
               title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+              imgAssets={require('../../assets/images/categoryIcons/11.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -325,9 +326,12 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               backGroundProgressWidth="100%"
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
-
-              title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
+              claimPress={()=>{
+                setClaimModal(true)
+              }}
+              iconOrTextColor={GStyles.primaryOrange}
+              title="Playing outside ..."
+              imgAssets={require('../../assets/images/categoryIcons/2.png')}
               disabled
               claimBtn
             />
@@ -344,17 +348,19 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                   completedTextColor={GStyles.primaryOrange}
                   isButton
                   button
-                  buttonText="Accept"
-                  imageUrl="https://s3-alpha-sig.figma.com/img/f3cd/d3da/ea5781defc325eb8f2fdcbd118ec50c1?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ITHLb4tfHnER3RnFnToFhbJ4Rs7dV8XHzKWdoFom4yKb9AT3UFDVajL7tRVtnjHGCd51e3cFo1vQ74EQ7CzpQn0tEL-mdoXFfLgqX34lnNqJIuz0Bd-9LCCXkKBgZSEFT3RAoZO1aRUoylUy66YjkM1jh2qAG~VJM~TwvhoLIja-C3Z9DprFl~WIrg09bPD1Sve~FHdfQ8RKZDLsNlq1sRPQDMbZv2kL1DZ74~61kQkCmnWFwb5hN-iDzSkEe1BDERwobnGaham2U-nv0oMXKkeojiSICFZqIrijYnmelZ2ov6NJKDv8jL0XXRMde~MWrOEbBuzenl1UKtya989dMg__"
+                  
+                  buttonText={select.includes(index) ? "Accepted" : "Accept"}
+                  imgAssets={require('../../assets/images/categoryIcons/13.png')}
                   category="Home Errands"
                   // completed
                   // description=''
                   title="Make Your Bed"
                   points="50"
                   time="Anytime"
-                  
+                  approveDisabled={select.includes(index)}
                   approveOnPress={() => {
                     setModalVisible(true);
+                    setSelected([...select,index])
                   }}
                   key={index}
                 />
@@ -435,6 +441,55 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
         modalVisible={yesNoModal}
         setModalVisible={setYesNoModal}
       />
+
+<CustomModal
+        modalVisible={claimModal}
+        backButton
+        setModalVisible={setClaimModal}
+        height={289}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+            alignItems: 'center',
+          }}>
+          <LottieView
+            source={require('../../assets/lottie/goal-completed.json')}
+            style={{width: 200, height: 200, marginBottom: -70, marginTop: -50}}
+            autoPlay
+            loop
+          />
+
+         
+          <View>
+            <TouchableOpacity
+              onPress={() => setClaimModal(false)}
+              style={{
+                backgroundColor: GStyles.primaryOrange,
+                width: 100,
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                OK
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
+
     </View>
   );
 };

@@ -9,46 +9,8 @@ import {Image} from 'react-native';
 import { SherAvatar } from '../../utils/ShearData';
 
 
-const data = [
-  {
-    id: 1,
-    avatar: require("../../assets/images/studentAvatar/1.png"),
-  },
-  {
-    id: 2,
-    avatar: require("../../assets/images/studentAvatar/2.png"),
-  },
-  {
-    id: 3,
-    avatar: require("../../assets/images/studentAvatar/3.png"),
-  },
-  {
-    id: 4,
-    avatar: require("../../assets/images/studentAvatar/4.png"),
-  },
-  {
-    id: 5,
-    avatar: require("../../assets/images/studentAvatar/5.png"),
-  },
-  {
-    id: 6,
-    avatar: require("../../assets/images/studentAvatar/6.png"),
-  },
-  {
-    id: 7,
-    avatar: require("../../assets/images/studentAvatar/7.png"),
-  },
-  {
-    id: 8,
-    avatar: require("../../assets/images/studentAvatar/8.png"),
-  },
-  {
-    id: 9,
-    avatar: require("../../assets/images/studentAvatar/9.png"),
-  },
-]
 
-const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
+const AllStudentAvatar = ({navigation}: NavigProps<null>) => {
   const [selectAvatar,setSelectedAvatar] =React.useState<number>()
   return (
     <View
@@ -56,11 +18,10 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
         height: '100%',
         backgroundColor: 'white',
       }}>
-      <HeaderBackground
-        title="All Avatar"
-        ringColor={GStyles.purple.normalHover}
-        opacity={0.02}
-        backgroundColor={GStyles.primaryPurple}
+     <HeaderBackground
+        title="Avatar"
+        backgroundColor={GStyles.primaryOrange}
+        ringColor={GStyles.orange.normalHover}
         navigation={navigation}
       />
       <FlatList
@@ -101,7 +62,7 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
                 height: 105,
                 borderRadius: 100,
               }}
-              source={require("../../assets/images/avatar/19.png")}
+              source={item.item.img}
               resizeMode='center'
             />
           </TouchableOpacity>
@@ -111,6 +72,6 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
   );
 };
 
-export default StudentAllAvatar;
+export default AllStudentAvatar;
 
 const styles = StyleSheet.create({});

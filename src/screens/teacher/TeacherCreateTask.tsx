@@ -47,46 +47,52 @@ const categories = [
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import {Dropdown} from 'react-native-element-dropdown';
-import { ShearTask, SherAvatar, TaskIcons } from '../../utils/ShearData';
-
+import {ShearTask, SherAvatar, TaskIcons} from '../../utils/ShearData';
 
 interface taskData {
   taskName?: string;
   points?: number;
   status?: string;
   icon?: any;
-  days ?: string,
-  hours ?: string,
+  days?: string;
+  hours?: string;
 }
 
-
 const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
-  const [reLoad,setReload] = React.useState(false)
+  const [reLoad, setReload] = React.useState(false);
   const [value, setValue] = React.useState<string>();
 
   const [customPoints, setCustomPoints] = React.useState<number>(1);
   const [customCategory, setCustomCategory] = React.useState(1);
   const [customImage, setCustomImage] = React.useState<string | undefined>();
+  const [studentClass, setStudentClass] = React.useState<string | undefined>();
 
-  const [taskData,setTaskData] = React.useState<taskData>()
+  const [taskData, setTaskData] = React.useState<taskData>();
 
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
   const [modalVisible, setModalVisible] = React.useState(false);
-
+  const [classModal, setClassModal] = React.useState(false);
 
   const [assignUser, setAssignUser] = React.useState([]);
+  const [assignState,setAssignState] = React.useState("");
 
 
-  const handleOnDataFlow = React.useCallback(()=>{
-  //  console.log(taskData);
-   taskData.id = ShearTask.length + 1
-   ShearTask.push(taskData);
-   console.log(ShearTask);
-  navigation.goBack()
-  },[taskData])
+  const [assign, setAssign] = React.useState<number[]>([]);
+  const [op, setOp] = React.useState<string>('Personal Student');
 
+  const [isClassOk, setIsClassOk] = React.useState(false);
+
+
+
+  const handleOnDataFlow = React.useCallback(() => {
+    //  console.log(taskData);
+    taskData.id = ShearTask.length + 1;
+    ShearTask.push(taskData);
+    console.log(ShearTask);
+    navigation.goBack();
+  }, [taskData]);
 
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
@@ -122,7 +128,6 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
       console.log(error);
     }
   };
-
 
   return (
     <View
@@ -168,12 +173,11 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            onChangeText={text => setTaskData({...taskData,taskName : text})}
+            onChangeText={text => setTaskData({...taskData, taskName: text})}
             value={taskData?.taskName}
             placeholderTextColor="gray"
             multiline
             placeholder="Rewords Name"
-
           />
         </View>
         <View
@@ -208,15 +212,11 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             contentContainerStyle={{
               gap: 10,
             }}
-
-          
-
             data={[...Array(8)]}
             ListHeaderComponent={() => (
               <TouchableOpacity
                 onPress={() => {
                   setModalVisible(true);
-                 
                 }}
                 style={{
                   width: 45,
@@ -234,9 +234,9 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             renderItem={item => (
               <Fragment key={item.index}>
                 <TouchableOpacity
-                  onPress={() => { 
-                    setCustomPoints(item.index)
-                    setTaskData({...taskData,points : item.index * 5 })
+                  onPress={() => {
+                    setCustomPoints(item.index);
+                    setTaskData({...taskData, points: item.index * 5});
                   }}
                   key={item.index}
                   style={{
@@ -271,8 +271,8 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             )}
           />
         </View>
-       {/* have reword = true  */}
-       <View
+        {/* have reword = true  */}
+        <View
           style={{
             paddingHorizontal: '4%',
           }}>
@@ -302,49 +302,47 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  setIsGood(true)
-                  setTaskData({...taskData,status : "good" })
+                  setIsGood(true);
+                  setTaskData({...taskData, status: 'good'});
                 }}
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center',
                   gap: 5,
-                  backgroundColor : isGood ?  GStyles.primaryPurple : "white",
-                  borderColor : isGood ?   "white" :GStyles.primaryPurple,
-                  borderWidth :  1, 
+                  backgroundColor: isGood ? GStyles.primaryPurple : 'white',
+                  borderColor: isGood ? 'white' : GStyles.primaryPurple,
+                  borderWidth: 1,
                   paddingVertical: 5,
-                  paddingHorizontal : 15,
-                  borderRadius : 3
+                  paddingHorizontal: 15,
+                  borderRadius: 3,
                 }}>
-             
                 <Text
                   style={{
                     fontSize: 14,
-                    color:  isGood  ?  "white" :GStyles.primaryPurple,
+                    color: isGood ? 'white' : GStyles.primaryPurple,
                     fontWeight: 'bold',
                   }}>
                   Good
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => { 
-                  setIsGood(false)
-                  setTaskData({...taskData,status : "bad" })
+                onPress={() => {
+                  setIsGood(false);
+                  setTaskData({...taskData, status: 'bad'});
                 }}
                 style={{
-                  backgroundColor : isGood ?  "white" : GStyles.primaryPurple,
-                  borderColor : isGood ? GStyles.primaryPurple : "white" ,
-                  borderWidth :  1, 
+                  backgroundColor: isGood ? 'white' : GStyles.primaryPurple,
+                  borderColor: isGood ? GStyles.primaryPurple : 'white',
+                  borderWidth: 1,
                   paddingVertical: 5,
-                  paddingHorizontal : 15,
-                  borderRadius : 3
+                  paddingHorizontal: 15,
+                  borderRadius: 3,
                 }}>
-               
                 <Text
                   style={{
                     fontSize: 14,
-                    color:  isGood  ? GStyles.primaryPurple : "white",
+                    color: isGood ? GStyles.primaryPurple : 'white',
                     fontWeight: 'bold',
                   }}>
                   Bad
@@ -359,15 +357,14 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               gap: 24,
             }}
             data={TaskIcons}
-            keyExtractor={(item)=>item.id + item.title}
+            keyExtractor={item => item.id + item.title}
             renderItem={item => (
               <TouchableOpacity
                 key={item.index}
                 onPress={() => {
-                  setCustomCategory(item.item.id)
-                  setTaskData({...taskData,icon : item.item.id })
-                }}
-                >
+                  setCustomCategory(item.item.id);
+                  setTaskData({...taskData, icon: item.item.id});
+                }}>
                 <View
                   style={{
                     gap: 12,
@@ -380,18 +377,17 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                       height: 70,
                       borderRadius: 100,
                       borderColor:
-                      customCategory === item.item.id
-                        ? GStyles.primaryPurple
-                        : GStyles.gray.light,
+                        customCategory === item.item.id
+                          ? GStyles.primaryPurple
+                          : GStyles.gray.light,
                       borderWidth: 2,
                       padding: 2,
-                      justifyContent : "center",
-                      alignItems : 'center',
-                      elevation : 2
-
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      elevation: 2,
                     }}>
                     <Image
-                      source={ item.item.img}
+                      source={item.item.img}
                       style={{
                         width: 60,
                         height: 60,
@@ -450,11 +446,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             labelField="label"
             valueField="value"
             value={value}
-     
             onChange={item => {
               setValue(item?.value);
-           
-              setTaskData({...taskData,icon : item?.value })
+
+              setTaskData({...taskData, icon: item?.value});
             }}
             placeholder="Repeat everyday"
             data={[
@@ -508,12 +503,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             labelField="label"
             valueField="value"
             value={value}
-        
-          
             onChange={item => {
               setValue(item?.value);
-    
-              setTaskData({...taskData,hours : item?.value })
+
+              setTaskData({...taskData, hours: item?.value});
             }}
             placeholder="Any Time"
             data={[{label: 'Any Time', value: '1'}]}
@@ -529,9 +522,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             )}
           />
         </View>
-        <View
+        {/* <View
           style={{
             paddingHorizontal: '4%',
+            marginTop : 5
           }}>
           <View
             style={{
@@ -549,82 +543,117 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                 letterSpacing: 0.5,
                 marginVertical: 20,
               }}>
-             Pre-Assign
+              Pre-Assign
             </Text>
-            
+
+            <View style={{
+              flexDirection : "row",
+              gap : 10,
+          
+            }}>
+
+            <View
+              style={{
+                // paddingHorizontal: 10,
+              }}>
+              <TouchableOpacity
+              onPress={()=>{
+                setClassModal(true)
+              setAssignState("allStudents")
+              }}
+                style={{
+                  backgroundColor: GStyles.primaryPurple,
+                  paddingHorizontal: 12,
+                  paddingVertical : 8,
+                  borderRadius: 5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  gap: 5,
+                  elevation : 2
+                }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: 'white',
+                    fontWeight: '500',
+                    fontFamily : GStyles.Poppins
+                  }}>
+                 All Student 
+                </Text>
+                <AntDesign
+                  name="down"
+                  style={{
+                    fontSize: 14,
+                    color: 'white',
+                    fontWeight: '500',
+                    fontFamily : GStyles.Poppins
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                // paddingHorizontal: 10,
+              }}>
+              <TouchableOpacity
+              onPress={()=>{
+                setClassModal(true)
+                setAssignState("allClasses")  
+              }}
+                style={{
+                  backgroundColor: GStyles.primaryPurple,
+                  paddingHorizontal: 12,
+                  paddingVertical : 8,
+                  borderRadius: 5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  gap: 3,
+                  elevation : 2
+                }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: 'white',
+                    fontWeight: '500',
+                    fontFamily : GStyles.Poppins
+                  }}>
+                 All Class 
+                </Text>
+                <AntDesign
+                  name="down"
+                  style={{
+                    fontSize: 14,
+                    color: 'white',
+                    fontWeight: '500',
+                    fontFamily : GStyles.Poppins
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            </View>
           </View>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
               gap: 20,
-              paddingVertical : 5
+              paddingVertical: 5,
             }}
             data={SherAvatar}
-            keyExtractor={(item)=>item.id + item.img}
-
-            // ListHeaderComponent={()=>
-            //   <View>
-            //      <TouchableOpacity
-            //    onPress={()=>handleImagePick("library")}
-            // >
-            //       <View
-            //         style={{
-            //           gap: 12,
-            //           justifyContent: 'center',
-            //           alignItems: 'center',
-            //           // marginVertical: 15,
-            //           borderColor: GStyles.gray.light,
-            //           // padding: 5,
-            //           borderWidth: 2,
-            //           borderRadius: 100,
-            //           // elevation : 2
-            //         }}>
-            //         <View
-            //           style={{
-            //             width: 80,
-            //             height: 80,
-            //             // backgroundColor: GStyles.purple.light,
-            //             borderRadius: 50,
-            //             // padding: 3,
-            //             justifyContent : "center",
-            //             alignItems : 'center'
-            //           }}>
-            //             {
-            //               customImage  ? <Image
-            //               source={{
-            //                 uri : customImage
-            //               } }
-            //               style={{
-            //                 width: 75,
-            //                 height: 75,
-            //                 borderRadius: 50,
-            //               }}
-            //               resizeMode='cover'
-            //             />
-            //             : <Feather name='plus' color={GStyles.gray.lightHover} size={25}/>
-            //             }
-                      
-            //         </View>
-            //       </View>
-            //     </TouchableOpacity>
-            //   </View>}
-
+            keyExtractor={item => item.id + item.img}
             renderItem={item => (
               <TouchableOpacity
                 key={item.index}
                 onPress={() => {
                   // setCustomCategory(item.item.id)
-                
-                  if(assignUser.includes(item.item.id)){
-                   
+
+                  if (assignUser.includes(item.item.id)) {
+                  } else {
+                    setAssignUser([...assignUser, item.item.id]);
                   }
-                  else{
-                    setAssignUser([...assignUser, item.item.id])
-                  }
-                 
-                }}
-                >
+                }}>
                 <View
                   style={{
                     gap: 12,
@@ -636,19 +665,17 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                       width: 85,
                       height: 85,
                       borderRadius: 100,
-                      borderColor:
-                        assignUser.includes(item.item.id)
+                      borderColor: assignUser.includes(item.item.id)
                         ? GStyles.primaryPurple
                         : GStyles.gray.light,
                       borderWidth: 2,
                       padding: 2,
-                      justifyContent : "center",
-                      alignItems : 'center',
-                      elevation : 2
-
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      elevation: 2,
                     }}>
                     <Image
-                      source={ item.item.img}
+                      source={item.item.img}
                       style={{
                         width: 70,
                         height: 70,
@@ -660,20 +687,19 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
-                      color:
-                      assignUser.includes(item.item.id)
-                          ? GStyles.primaryPurple
-                          : '#3D3D3D',
+                      color: assignUser.includes(item.item.id)
+                        ? GStyles.primaryPurple
+                        : '#3D3D3D',
                       paddingVertical: 5,
                     }}>
-                    {/* {item.item.title} */}
+               
                     Student Name
                   </Text>
                 </View>
               </TouchableOpacity>
             )}
           />
-        </View>
+        </View> */}
       </ScrollView>
       <View
         style={{
@@ -686,7 +712,11 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate('TeacherTaskAssign')
-            handleOnDataFlow()
+            // handleOnDataFlow();
+                        navigation.navigate('TeacherTaskAssign', {
+              taskData: taskData,
+              assignUser: assignUser,
+            });
           }}
           style={{
             backgroundColor: GStyles.primaryPurple,
@@ -788,6 +818,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
           </View>
         </View>
       </CustomModal>
+      
     </View>
   );
 };

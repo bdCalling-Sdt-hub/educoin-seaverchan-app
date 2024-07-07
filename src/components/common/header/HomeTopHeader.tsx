@@ -24,13 +24,14 @@ interface HomeTopHeaderProps extends NavigProps<null> {
     setSearchValue?: () => void,
     searchValue? : string,
     containerGap ?: number,
+    imgAssets? : any,
 }
 
-const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap} : HomeTopHeaderProps) => {
+const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,imgAssets} : HomeTopHeaderProps) => {
   return (
     <View
     style={{
-      height: 90,
+      height: 170,
       backgroundColor: backgroundColor ?backgroundColor : GStyles.primaryBlue,
       borderBottomLeftRadius: 24,
       borderBottomRightRadius: 24,
@@ -65,6 +66,20 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
           justifyContent: 'center',
           gap: 10,
         }}>
+
+        {
+          imgAssets &&   <Image
+          style={{
+            height: 46,
+            width: 46,
+            borderRadius: 100,
+            //   alignSelf: 'center',
+          }}
+          source={{
+            uri:userDetails?.image ? userDetails?.image : 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
+          }}
+        />
+        }
         <Image
           style={{
             height: 46,
@@ -199,7 +214,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         </TouchableOpacity>
       </View>
     </View>
-    {/* <View>
+    <View>
       <View
         style={{
           backgroundColor: 'white',
@@ -222,7 +237,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         />
         <Feather name="search" color="#858585" size={24} />
       </View>
-    </View> */}
+    </View>
   </View>
   )
 }
