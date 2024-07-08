@@ -44,7 +44,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
 
       <HeaderBackground
         title="Student Activity"
-        ringColor={GStyles.purple.normalHover}
+        ringColor={GStyles.purple.lightActive}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
@@ -52,9 +52,9 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
 
       <View
         style={{
-          height: 70,
+          height: 80,
           backgroundColor: GStyles.primaryOrange,
-          borderRadius: 24,
+          borderRadius: 8,
           position: 'relative',
 
           gap: 30,
@@ -63,32 +63,36 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
           marginHorizontal: '5%',
           paddingHorizontal: 10,
           marginTop: 10,
+          // alignItems : "center",
+          justifyContent: 'center',
         }}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
+            alignItems : "center",
+            
           }}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 10,
+              gap: 15,
             }}>
             <Image
               style={{
-                height: 46,
-                width: 46,
+                height: 55,
+                width: 55,
                 borderRadius: 100,
                 //   alignSelf: 'center',
               }}
-              source={require("../../assets/images/avatar/2.png")}
+              source={require("../../assets/images/avatar/6.png")}
             />
 
             <View
               style={{
-                gap: 5,
+                gap: 6,
               }}>
               <Text
                 style={{
@@ -103,28 +107,32 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               </Text>
               <View
                 style={{
-                  backgroundColor: GStyles.gray.light,
-                  height: 30,
-                  borderRadius: 8,
+                  backgroundColor: GStyles.white,
+                  height: 35,
+                  borderRadius: 4,
                   flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: 5,
+             
+                  padding: 5,
                   gap: 10,
-                  // marginTop : 5
+              
                 }}>
                 <View
                   style={{
                     flexDirection: 'row',
                     gap: 5,
+                    alignItems : "center",
+                    justifyContent : "center",
+                    
                   }}>
                   <AntDesign
                     name="star"
-                    size={15}
+                    size={20}
                     color={GStyles.primaryOrange}
                   />
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: 15,
+                      textAlign : "center",
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.primaryOrange,
                     }}>
@@ -135,15 +143,17 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                   style={{
                     flexDirection: 'row',
                     gap: 5,
+                    alignItems : "center",
+                    justifyContent : "center",
                   }}>
                   <AntDesign
                     name="staro"
-                    size={15}
+                    size={20}
                     color={GStyles.primaryOrange}
                   />
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: 15,
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.primaryOrange,
                     }}>
@@ -154,15 +164,17 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                   style={{
                     flexDirection: 'row',
                     gap: 5,
+                    alignItems : "center",
+                    justifyContent : "center",
                   }}>
                   <AntDesign
                     name="staro"
-                    size={15}
+                    size={20}
                     color={GStyles.gray.lightActive}
                   />
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: 15,
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.gray.lightActive,
                     }}>
@@ -252,7 +264,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                   removeBtn
                   title="play game"
                   iconOrTextColor={GStyles.primaryOrange}
-                  imgAssets={require('../../assets/images/categoryIcons/11.png')}
+                  imgAssets={require('../../assets/icons/icon16.png')}
                   marginHorizontal={10}
                 />
               ))}
@@ -279,8 +291,8 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               backGroundProgressWidth="20%"
               borderColor={GStyles.borderColor['#ECECEC']}
               points={20}
-              title="Playing outside with dad"
-              imgAssets={require('../../assets/images/categoryIcons/11.png')}
+                title="Rewords name"
+                imgAssets={require('../../assets/icons/icon18.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -295,8 +307,8 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
               points={50}
-              title="Playing outside with dad"
-              imgAssets={require('../../assets/images/categoryIcons/11.png')}
+             title="Rewords name"
+              imgAssets={require('../../assets/icons/icon6.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -311,10 +323,10 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
               points={50}
-              title="Playing outside with dad"
-              imgAssets={require('../../assets/images/categoryIcons/11.png')}
+              title="Rewords name"
+              imgAssets={require('../../assets/icons/icon13.png')}
             />
-            <RewordsCard
+            {/* <RewordsCard
               navigation={navigation}
               // route="EditRewords"
               // routeData={'demo'}
@@ -333,8 +345,8 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               title="Playing outside ..."
               imgAssets={require('../../assets/images/categoryIcons/2.png')}
               disabled
-              claimBtn
-            />
+              // claimBtn
+            /> */}
           </View>
         ) : (
           <View>
@@ -349,12 +361,12 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                   isButton
                   button
                   
-                  buttonText={select.includes(index) ? "Accepted" : "Accept"}
-                  imgAssets={require('../../assets/images/categoryIcons/13.png')}
-                  category="Home Errands"
+                  buttonText={select.includes(index) ? "Approved" : "Approve"}
+                  imgAssets={require('../../assets/icons/icon24.png')}
+                  category="task category"
                   // completed
                   // description=''
-                  title="Make Your Bed"
+                  title="Task name"
                   points="50"
                   time="Anytime"
                   approveDisabled={select.includes(index)}

@@ -2,6 +2,7 @@ import {
   Button,
   FlatList,
   Image,
+  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -10,7 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -24,6 +25,7 @@ import StudentCard from '../../components/common/Cards/StudentCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -32,8 +34,12 @@ interface AdminHOmeProps {
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const [op, setOp] = React.useState<string>('All Students');
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [isYes, setIsYes] = React.useState(false);
+  const [selectNumber,setSelectNumber] = useState<number>()
   return (
-    <View
+    <Pressable onPress={()=>{
+      setSelectNumber()
+    }}
       style={{
         height: '100%',
         backgroundColor: GStyles.white,
@@ -145,6 +151,70 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                   }}>
                   Class : {item.index + 1}
                 </Text>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: GStyles.textColor['#3D3D3D'],
+                      textAlign: 'center',
+                    }}>
+                    2 Students
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={()=>{
+                  setSelectNumber(item.index)
+             
+                }} style={{
+               
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  padding : 10,
+                  zIndex: +1,
+                }}>
+                  <Entypo name="dots-three-vertical" size={24} color={GStyles.primaryPurple} />
+                </TouchableOpacity>
+               {
+                item.index === selectNumber &&  <View style={{
+                  position: 'absolute',
+                  top: 15,
+                  right: 30,
+                  padding: 10,
+                  zIndex: +1,
+                  backgroundColor : "white",
+                  elevation : 1,
+                  width : 70,
+                  borderRadius : 8,
+                  gap : 8
+                }}>
+                 <TouchableOpacity style={{}} onPress={()=>{
+                  navigation.navigate('TeacherAddNewClass', {
+                  
+                  });
+                 }}>
+                 <Text
+                    style={{
+                      fontSize: 13,
+                      color: GStyles.textColor['#3D3D3D'],
+                      textAlign: 'center',
+                    }}>
+                    edit
+                  </Text>
+                 </TouchableOpacity>
+                 <TouchableOpacity onPress={()=>setIsYes(!isYes)}>
+                 <Text
+                    style={{
+                      fontSize: 13,
+                      color: GStyles.textColor['#3D3D3D'],
+                      textAlign: 'center',
+                    }}>
+                    deleted
+                  </Text>
+                 </TouchableOpacity>
+                </View>
+               }
               </TouchableOpacity>
             )}
           </Fragment>
@@ -246,7 +316,10 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           </TouchableOpacity>
         </View>
       </CustomModal>
-    </View>
+      <YesNoModal modalVisible={isYes} setModalVisible={setIsYes} yesPress={()=>{
+        setIsYes(false)
+      }} />
+    </Pressable>
   );
 };
 

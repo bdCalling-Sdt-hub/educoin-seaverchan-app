@@ -20,12 +20,14 @@ import HeaderOption from '../../components/common/header/HeaderOption';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import { ShearTask, TaskIcons } from '../../utils/ShearData';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 
 const TaskList = ({navigation}: NavigProps<null>) => {
   const [op, setOp] = React.useState('Task List');
   const [optionIndex,setOptionIndex] = useState<number>()
   const [reLoad,setReload] = React.useState(false)
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [isYes, setIsYes] = React.useState(false);
    useEffect(()=>{
     ShearTask
     setReload(false)
@@ -69,10 +71,10 @@ const TaskList = ({navigation}: NavigProps<null>) => {
       
               <TaskCard
               // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
-              imgAssets={  require("../../assets/images/taskIcons/9.png") }
+              imgAssets={  require("../../assets/icons/icon18.png") }
               approveBTColor={GStyles.primaryPurple}
-              title={"Help 5 people"}
-              category='Hygiene'
+              title={"Tasks name"}
+              category='category name'
               points={`${item.item.points}`}
               time={item.item.hours}
                indexNumber={item.index}
@@ -83,7 +85,7 @@ const TaskList = ({navigation}: NavigProps<null>) => {
                   {
                     title: 'Edit',
                     onPress: () => {
-                      navigation?.navigate('EditTeacherCustomTask');
+                      navigation?.navigate('EditTeacherTask');
                     },
                   },
                   {
@@ -94,9 +96,9 @@ const TaskList = ({navigation}: NavigProps<null>) => {
                     },
                   },
                   {
-                    title: 'Clear',
+                    title: 'Deleted',
                     onPress: () => {
-                      console.log('Cleared');
+                      setIsYes(true)
                       
                     },
                   },
@@ -217,6 +219,9 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
+      <YesNoModal modalVisible={isYes} setModalVisible={setIsYes} yesPress={()=>{
+        setIsYes(false)
+      }} />
     </View>
   );
 };

@@ -17,12 +17,14 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-import { categoryIcons, SherAvatar } from '../../utils/ShearData';
+import { categoryIcons, ShearIcons, SherAvatar } from '../../utils/ShearData';
+import { Slider } from 'react-native-awesome-slider';
+import { useSharedValue } from 'react-native-reanimated';
 
 const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [rewordName, setRewordName] = React.useState('');
   const [rewordDescription, setRewordDescription] = React.useState('');
-  const [rewordPoints, setRewordPoints] = React.useState<number>();
+  const [rewordPoints, setRewordPoints] = React.useState<number>(50);
   const [rewordCategory, setRewordCategory] = React.useState('');
   const [isGood, setIsGood] = React.useState<boolean>();
   const [customCategory, setCustomCategory] = React.useState<number>();
@@ -31,7 +33,9 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const [successModal, setSuccessModal] = React.useState(false);
 
   const [assignUser, setAssignUser] = React.useState([]);
-  
+  const progress = useSharedValue(rewordPoints);
+  const min = useSharedValue(0);
+  const max = useSharedValue(200);
   return (
     <View
       style={{
@@ -39,7 +43,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title="Create Rewards"
+        title="Create Reward"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
@@ -50,18 +54,38 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           style={{
             paddingHorizontal: '4%',
           }}>
-          <Text
+           <View
             style={{
-              fontSize: 16,
-              fontFamily: GStyles.PoppinsSemiBold,
-              color: '#3D3D3D',
-              lineHeight: 24,
-              fontWeight: '500',
-              letterSpacing: 0.5,
               marginTop: 25,
+              flexDirection: 'row',
+              gap: 8,
+              alignItems: 'center',
             }}>
-            Rewords Name
-          </Text>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
+
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                lineHeight: 24,
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              Reword Name
+            </Text>
+          </View>
           <TextInput
             style={{
               borderBottomColor: '#E2E2E2',
@@ -79,7 +103,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             onChangeText={text => setRewordName(text)}
             placeholderTextColor="gray"
             multiline
-            placeholder="Rewords Name"
+            placeholder=" Name"
             value={rewordName}
           />
         </View>
@@ -95,7 +119,34 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               flexDirection: 'row',
               gap: 10,
               alignItems: 'center',
+              justifyContent: 'space-between',
             }}>
+           <View style={{
+            flexDirection : "row",
+            alignItems : "center",
+            gap : 5,
+            justifyContent : "center"
+           }}>
+            <View
+            style={{
+            
+              flexDirection: 'row',
+              gap: 8,
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
+
             <Text
               style={{
                 fontSize: 16,
@@ -105,71 +156,50 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
-              Points
+             Points
             </Text>
-            <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
           </View>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              gap: 10,
-            }}
-            data={[...Array(8)]}
-            ListHeaderComponent={() => (
-              <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(true);
-                }}
+            <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
+           </View>
+            <View
+              style={{
+                height: 30,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
                 style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.primaryPurple,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  color: 'white',
                   width: 45,
-                  height: 45,
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  borderColor: '#C3C3C3',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'white',
+                  textAlign: 'center',
                 }}>
-                <AntDesign name="plus" size={20} color={'gray'} />
-              </TouchableOpacity>
-            )}
-            renderItem={item => (
-              <Fragment key={item.index}>
-                <TouchableOpacity
-                  onPress={() => setRewordPoints(item.index)}
-                  key={item.index}
-                  style={{
-                    width: 45,
-                    height: 45,
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    borderColor:
-                      rewordPoints === item.index
-                        ? GStyles.primaryOrange
-                        : '#C3C3C3',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor:
-                      rewordPoints === item.index
-                        ? GStyles.primaryOrange
-                        : 'white',
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontFamily: GStyles.PoppinsSemiBold,
-                      color: rewordPoints === item.index ? 'white' : '#3D3D3D',
-                      fontWeight: '500',
-                      letterSpacing: 0.5,
-                      // padding: 1,
-                    }}>
-                    {item.index === 0 ? 1 : item.index * 5}
-                  </Text>
-                </TouchableOpacity>
-              </Fragment>
-            )}
-          />
+                +{parseInt(rewordPoints)}
+              </Text>
+            </View>
+          </View>
+          <Slider
+      theme={{
+        disableMinTrackTintColor:  GStyles.primaryOrange,
+        // maximumTrackTintColor:  GStyles.primaryOrange,
+        minimumTrackTintColor: GStyles.primaryOrange,
+        cacheTrackTintColor:  GStyles.primaryOrange,
+        bubbleBackgroundColor:  GStyles.primaryOrange,
+        heartbeatColor:  GStyles.primaryOrange,
+      }}
+      progress={progress}
+      minimumValue={min}
+      maximumValue={max}
+
+      onSlidingComplete={(value: number) =>{
+        setRewordPoints(value);
+      }}
+    />
+   
         </View>
         <View
           style={{
@@ -201,7 +231,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             contentContainerStyle={{
               gap: 24,
             }}
-            data={categoryIcons}
+            data={ShearIcons}
             keyExtractor={(item)=>item.id + item.title}
             renderItem={item => (
               <TouchableOpacity
@@ -214,28 +244,27 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <View
+                   <View
                     style={{
                       width: 70,
                       height: 70,
-                      borderRadius: 100,
+                      borderRadius: 15,
                       borderColor:
-                      customCategory === item.item.id
-                        ? GStyles.primaryPurple
-                        : GStyles.gray.light,
+                        customCategory === item.item.id
+                          ? GStyles.primaryPurple
+                          : GStyles.gray.light,
                       borderWidth: 2,
                       padding: 2,
-                      justifyContent : "center",
-                      alignItems : 'center',
-                      elevation : 2
-
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      elevation: 2,
                     }}>
                     <Image
-                      source={ item.item.img}
+                      source={item.item.img}
                       style={{
-                        width: 60,
-                        height: 60,
-                        borderRadius: 100,
+                        width: 65,
+                        height: 65,
+                        borderRadius: 8,
                       }}
                     />
                   </View>
@@ -257,106 +286,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           />
         </View>
 
-        <View
-          style={{
-            paddingHorizontal: '4%',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 20,
-            }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: GStyles.PoppinsSemiBold,
-                color: '#3D3D3D',
-                fontWeight: '500',
-                letterSpacing: 0.5,
-                marginVertical: 20,
-              }}>
-             Assign to
-            </Text>
-            
-          </View>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              gap: 20,
-              paddingVertical : 5
-            }}
-            data={SherAvatar}
-            keyExtractor={(item)=>item.id + item.img}
-
-           
-
-            renderItem={item => (
-              <TouchableOpacity
-                key={item.index}
-                onPress={() => {
-                  // setCustomCategory(item.item.id)
-                
-                  if(assignUser.includes(item.item.id)){
-                   
-                  }
-                  else{
-                    setAssignUser([...assignUser, item.item.id])
-                  }
-                 
-                }}
-                >
-                <View
-                  style={{
-                    gap: 12,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      width: 85,
-                      height: 85,
-                      borderRadius: 100,
-                      borderColor:
-                        assignUser.includes(item.item.id)
-                        ? GStyles.primaryPurple
-                        : GStyles.gray.light,
-                      borderWidth: 2,
-                      padding: 2,
-                      justifyContent : "center",
-                      alignItems : 'center',
-                      elevation : 2
-
-                    }}>
-                    <Image
-                      source={ item.item.img}
-                      style={{
-                        width: 70,
-                        height: 70,
-                        borderRadius: 100,
-                      }}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontFamily: GStyles.Poppins,
-                      color:
-                      assignUser.includes(item.item.id)
-                          ? GStyles.primaryPurple
-                          : '#3D3D3D',
-                      paddingVertical: 5,
-                    }}>
-                    {/* {item.item.title} */}
-                    Student Name
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
+       
       </View>
       <View
         style={{
@@ -370,6 +300,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           onPress={() => {
             // navigation?.goBack()
             setSuccessModal(true)
+           
           }}
           style={{
             backgroundColor: GStyles.primaryPurple,
@@ -491,9 +422,17 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             simply dummy text of the printing and typesetting industry
           </Text>
 
-          <View>
+          <View style={{
+            flexDirection : "row",
+            alignItems : "center",
+            justifyContent: "center",
+            gap : 20
+          }}>
             <TouchableOpacity
-              onPress={() => setSuccessModal(false)}
+              onPress={() => {
+                navigation?.navigate("TeacherTaskAssign")
+                setSuccessModal(false)
+              }}
               style={{
                 backgroundColor: GStyles.primaryPurple,
                 width: '30%',
@@ -512,6 +451,35 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 }}>
                 Exit
               </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation?.navigate("TeacherTaskAssign")
+                setSuccessModal(false)
+              }}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '50%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+                flexDirection : "row",
+                justifyContent: "center",
+                alignItems : "center",
+                gap : 10
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Assign to
+              </Text>
+              <AntDesign name='arrowright' size={15} color={"white"} />
             </TouchableOpacity>
           </View>
         </View>

@@ -273,3 +273,114 @@ export const SherAvatar = [
   },
  
 ]
+
+
+export const ShearIcons = [
+  { 
+    id : 1,
+    img : require('../assets/icons/icon2.png'),
+    title : "ICO"
+  },
+  {
+    id : 2,
+    img : require('../assets/icons/icon3.png'),
+    title : "ICO"
+  },
+  {
+    id : 3,
+    img : require('../assets/icons/icon4.png'),
+    title : "On Board"
+  },
+  {
+    id : 4,
+    img : require('../assets/icons/icon5.png'),
+    title : "Mobile Phone"
+  },
+  {
+    id : 5,
+    img : require('../assets/icons/icon6.png'),
+    title : "Moneybag"
+  },
+  {
+    id : 6,
+    img : require('../assets/icons/icon7.png'),
+    title : "Locker"
+  },
+  {
+    id : 7,
+    img : require('../assets/icons/icon8.png'),
+    title : "Dead"
+  },
+  {
+    id : 8,
+    img : require('../assets/icons/icon9.png'),
+    title : "Locker"
+  },
+  {
+    id : 9,
+    img : require('../assets/icons/icon10.png'),
+    title : "Coin"
+  },
+  {
+    id : 10,
+    img : require('../assets/icons/icon11.png'),
+    title : "Users"
+  },
+  {
+    id : 11,
+    img : require('../assets/icons/icon12.png'),
+    title : "Coin Location"
+  },
+  {
+    id : 12,
+    img : require('../assets/icons/icon13.png'),
+    title : "Automatic"
+  },
+  {
+    id : 13,
+    img : require('../assets/icons/icon14.png'),
+    title : "Lnk"
+  },
+  {
+    id : 14,
+    img : require('../assets/icons/icon15.png'),
+    title : "Rocket"
+  },
+  {
+    id : 15,
+    img : require('../assets/icons/icon16.png'),
+    title : "Find"
+  },
+  {
+    id : 16,
+    img : require('../assets/icons/icon17.png'),
+    title : "Browse"
+  },
+  {
+    id : 17,
+    img : require('../assets/icons/icon18.png'),
+    title : "Likes"
+  },
+  {
+    id : 18,
+    img : require('../assets/icons/icon19.png'),
+    title : "Pige Bank"
+  },
+  {
+    id : 19,
+    img : require('../assets/icons/icon20.png'),
+    title : "Guard"
+  },
+  {
+    id : 20,
+    img : require('../assets/icons/icon21.png'),
+    title : "Money Eya"
+  },
+  
+  {
+    id : 21,
+    img : require('../assets/icons/icon23.png'),
+    title : "Files"
+  },
+  
+]

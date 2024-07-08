@@ -21,10 +21,12 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 import { categoryIcons } from '../../utils/ShearData';
 import { categories } from './EditCategory';
+import { useSharedValue } from 'react-native-reanimated';
 
 const TeacherRewords = ({navigation}: NavigProps<null>) => {
   const [isEarned, setIsEarned] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+
   return (
     <View
       style={{
@@ -59,8 +61,8 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
             editOption={true}
             // achieved
             points={30}
-            title={`Get 10 Dollar`}
-            imgAssets={require("../../assets/images/categoryIcons/14.png")}
+            title={`Rewords name`}
+            imgAssets={require("../../assets/icons/icon2.png")}
           />
         </Fragment>
 

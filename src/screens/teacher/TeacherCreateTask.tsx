@@ -45,9 +45,17 @@ const categories = [
 ];
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import {Dropdown} from 'react-native-element-dropdown';
-import {ShearTask, SherAvatar, TaskIcons} from '../../utils/ShearData';
+import {
+  ShearIcons,
+  ShearTask,
+  SherAvatar,
+  TaskIcons,
+} from '../../utils/ShearData';
+import {useSharedValue} from 'react-native-reanimated';
+import {Slider} from 'react-native-awesome-slider';
 
 interface taskData {
   taskName?: string;
@@ -59,13 +67,9 @@ interface taskData {
 }
 
 const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
-  const [reLoad, setReload] = React.useState(false);
   const [value, setValue] = React.useState<string>();
 
-  const [customPoints, setCustomPoints] = React.useState<number>(1);
   const [customCategory, setCustomCategory] = React.useState(1);
-  const [customImage, setCustomImage] = React.useState<string | undefined>();
-  const [studentClass, setStudentClass] = React.useState<string | undefined>();
 
   const [taskData, setTaskData] = React.useState<taskData>();
 
@@ -73,18 +77,8 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
   const [open, setOpen] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [classModal, setClassModal] = React.useState(false);
 
-  const [assignUser, setAssignUser] = React.useState([]);
-  const [assignState,setAssignState] = React.useState("");
-
-
-  const [assign, setAssign] = React.useState<number[]>([]);
-  const [op, setOp] = React.useState<string>('Personal Student');
-
-  const [isClassOk, setIsClassOk] = React.useState(false);
-
-
+  const [customPoints, setCustomPoints] = React.useState<number>(50);
 
   const handleOnDataFlow = React.useCallback(() => {
     //  console.log(taskData);
@@ -129,6 +123,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
     }
   };
 
+  const progress = useSharedValue(customPoints);
+  const min = useSharedValue(0);
+  const max = useSharedValue(200);
+
   return (
     <View
       style={{
@@ -147,18 +145,38 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
           style={{
             paddingHorizontal: '4%',
           }}>
-          <Text
+          <View
             style={{
-              fontSize: 16,
-              fontFamily: GStyles.PoppinsSemiBold,
-              color: '#3D3D3D',
-              lineHeight: 24,
-              fontWeight: '500',
-              letterSpacing: 0.5,
-              marginTop: 25,
+              marginTop: 20,
+              flexDirection: 'row',
+              gap: 8,
+              alignItems: 'center',
             }}>
-            Task Name
-          </Text>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
+
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                lineHeight: 24,
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              Task Name
+            </Text>
+          </View>
           <TextInput
             style={{
               borderBottomColor: '#E2E2E2',
@@ -193,6 +211,18 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               gap: 10,
               alignItems: 'center',
             }}>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
             <Text
               style={{
                 fontSize: 16,
@@ -206,70 +236,69 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             </Text>
             <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
           </View>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              gap: 10,
+
+          <Slider
+            theme={{
+              disableMinTrackTintColor: GStyles.primaryOrange,
+              // maximumTrackTintColor:  GStyles.primaryOrange,
+              minimumTrackTintColor: GStyles.primaryOrange,
+              cacheTrackTintColor: GStyles.primaryOrange,
+              bubbleBackgroundColor: GStyles.primaryOrange,
+              heartbeatColor: GStyles.primaryOrange,
             }}
-            data={[...Array(8)]}
-            ListHeaderComponent={() => (
-              <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(true);
-                }}
-                style={{
-                  width: 45,
-                  height: 45,
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  borderColor: '#C3C3C3',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'white',
-                }}>
-                <AntDesign name="plus" size={20} color={'gray'} />
-              </TouchableOpacity>
-            )}
-            renderItem={item => (
-              <Fragment key={item.index}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setCustomPoints(item.index);
-                    setTaskData({...taskData, points: item.index * 5});
-                  }}
-                  key={item.index}
-                  style={{
-                    width: 45,
-                    height: 45,
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    borderColor:
-                      customPoints === item.index
-                        ? GStyles.primaryOrange
-                        : '#C3C3C3',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor:
-                      customPoints === item.index
-                        ? GStyles.primaryOrange
-                        : 'white',
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontFamily: GStyles.PoppinsSemiBold,
-                      color: customPoints === item.index ? 'white' : '#3D3D3D',
-                      fontWeight: '500',
-                      letterSpacing: 0.5,
-                      // padding: 1,
-                    }}>
-                    {item.index === 0 ? 1 : item.index * 5}
-                  </Text>
-                </TouchableOpacity>
-              </Fragment>
-            )}
+            progress={progress}
+            minimumValue={min}
+            maximumValue={max}
+            onSlidingComplete={(value: number) => {
+              setCustomPoints(value);
+            }}
           />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 10,
+            }}>
+            <View
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.gray.lightActive,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  textAlign: 'center',
+                  width: 45,
+                }}>
+                -{parseInt(customPoints)}
+              </Text>
+            </View>
+            <View
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.primaryPurple,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  color: 'white',
+                  width: 45,
+                  textAlign: 'center',
+                }}>
+                +{parseInt(customPoints)}
+              </Text>
+            </View>
+          </View>
         </View>
         {/* have reword = true  */}
         <View
@@ -283,17 +312,36 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               alignItems: 'center',
               gap: 20,
             }}>
-            <Text
+            <View
               style={{
-                fontSize: 16,
-                fontFamily: GStyles.PoppinsSemiBold,
-                color: '#3D3D3D',
-                fontWeight: '500',
-                letterSpacing: 0.5,
                 marginVertical: 20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 8,
               }}>
-              Choose Icon
-            </Text>
+              <View
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  borderColor: GStyles.primaryOrange,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: GStyles.primaryOrange,
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: GStyles.PoppinsSemiBold,
+                  color: '#3D3D3D',
+                  fontWeight: '500',
+                  letterSpacing: 0.5,
+                }}>
+                Choose Icon
+              </Text>
+            </View>
             <View
               style={{
                 flexDirection: 'row',
@@ -356,7 +404,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             contentContainerStyle={{
               gap: 24,
             }}
-            data={TaskIcons}
+            data={ShearIcons}
             keyExtractor={item => item.id + item.title}
             renderItem={item => (
               <TouchableOpacity
@@ -375,7 +423,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                     style={{
                       width: 70,
                       height: 70,
-                      borderRadius: 100,
+                      borderRadius: 15,
                       borderColor:
                         customCategory === item.item.id
                           ? GStyles.primaryPurple
@@ -389,13 +437,13 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                     <Image
                       source={item.item.img}
                       style={{
-                        width: 60,
-                        height: 60,
-                        borderRadius: 100,
+                        width: 65,
+                        height: 65,
+                        borderRadius: 8,
                       }}
                     />
                   </View>
-                  <Text
+                  {/* <Text
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
@@ -406,7 +454,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                       paddingVertical: 5,
                     }}>
                     {item.item.title}
-                  </Text>
+                  </Text> */}
                 </View>
               </TouchableOpacity>
             )}
@@ -416,17 +464,38 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
           style={{
             paddingHorizontal: '4%',
           }}>
-          <Text
+          <View
             style={{
-              fontSize: 16,
-              fontFamily: GStyles.PoppinsSemiBold,
-              color: '#3D3D3D',
-              fontWeight: '500',
-              letterSpacing: 0.5,
-              marginVertical: 20,
+              marginVertical: 21,
+              flexDirection: 'row',
+              gap: 8,
+              alignItems: 'center',
             }}>
-            Days
-          </Text>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
+
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                lineHeight: 24,
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              Days
+            </Text>
+          </View>
           <Dropdown
             style={{
               // flexDirection: 'row',
@@ -473,17 +542,38 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
           style={{
             paddingHorizontal: '4%',
           }}>
-          <Text
+          <View
             style={{
-              fontSize: 16,
-              fontFamily: GStyles.PoppinsSemiBold,
-              color: '#3D3D3D',
-              fontWeight: '500',
-              letterSpacing: 0.5,
-              marginVertical: 20,
+              marginVertical: 21,
+              flexDirection: 'row',
+              gap: 8,
+              alignItems: 'center',
             }}>
-            Hours
-          </Text>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
+
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+                lineHeight: 24,
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              Hours
+            </Text>
+          </View>
           <Dropdown
             style={{
               // flexDirection: 'row',
@@ -713,9 +803,8 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
           onPress={() => {
             // navigation.navigate('TeacherTaskAssign')
             // handleOnDataFlow();
-                        navigation.navigate('TeacherTaskAssign', {
+            navigation.navigate('TeacherTaskAssign', {
               taskData: taskData,
-              assignUser: assignUser,
             });
           }}
           style={{
@@ -818,7 +907,6 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
           </View>
         </View>
       </CustomModal>
-      
     </View>
   );
 };

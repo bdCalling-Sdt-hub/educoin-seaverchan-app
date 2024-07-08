@@ -75,12 +75,11 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             borderRadius: 100,
             //   alignSelf: 'center',
           }}
-          source={{
-            uri:userDetails?.image ? userDetails?.image : 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
-          }}
+          source={imgAssets}
         />
         }
-        <Image
+        {
+          userDetails?.image && <Image
           style={{
             height: 46,
             width: 46,
@@ -91,6 +90,8 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             uri:userDetails?.image ? userDetails?.image : 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
           }}
         />
+        }
+        
         {
             profileStyle === "teacher" &&  <View>
             <Text

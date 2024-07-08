@@ -94,17 +94,17 @@ const RewordsCard = ({
           imgAssets ? <Image
           source={imgAssets}
           style={{
-            width: 40,
-            height: 40,
-            borderRadius: 100,
+            width: 60,
+            height: 60,
+            borderRadius: 8,
           }}
         /> :<Image
         source={{
           uri: img,
         }}
         style={{
-          width: 30,
-          height: 30,
+          width: 60,
+          height: 60,
           // borderRadius: 100,
         }}
       />

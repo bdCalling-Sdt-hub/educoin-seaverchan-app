@@ -17,6 +17,7 @@ import {GStyles} from '../../styles/GStyles';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import {Dropdown} from 'react-native-element-dropdown';
 
 const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
   const [assign, setAssign] = React.useState<number[]>([]);
@@ -25,6 +26,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
   const [selection, setSelection] = React.useState(false);
   const [isClassOk, setIsClassOk] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [value, setValue] = React.useState();
 
   return (
     <View
@@ -70,13 +72,13 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
         setIsOp={setOp}
         activeBorderColor={GStyles.primaryPurple}
         borderColor={GStyles.primaryPurple}
-        op1="Personal Student"
+        op1="All Students"
         op2="Class"
         marginHorizontal={10}
         fillButton
         // marginTop={10}
       />
-      {op === 'Personal Student' ? (
+      {op === 'All Students' && (
         <>
           <TouchableOpacity
             onPress={() => {
@@ -85,9 +87,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                 setSelection(false);
               } else {
                 setSelection(true);
-                setAssign([
-                  0, 1, 2, 3,
-                ]);
+                setAssign([0, 1, 2, 3]);
               }
             }}
             style={{
@@ -136,7 +136,7 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
                     borderRadius: 100,
                   }}>
                   <Image
-                    source={require("../../assets/images/avatar/11.png")}
+                    source={require('../../assets/images/avatar/11.png')}
                     style={{
                       width: 46,
                       height: 46,
@@ -217,226 +217,195 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
             ))}
           </ScrollView>
         </>
-      ) : (
+      )}
+
+      {op === 'Class' && (
         <>
-          {isClassOk ? (
-            <>
-              <View
-                style={{
-                  paddingHorizontal: '4%',
-                  marginVertical: 10,
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      if (assign?.length > 0) {
-                        setAssign([]);
-                        setSelection(false);
-                      } else {
-                        setAssign([
-                          0, 1, 2, 
-                        ]);
-                        setSelection(true);
-                      }
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontFamily: GStyles.PoppinsMedium,
-                      }}>
-                      {/* {assign.length > 0
-                        ? 'Deselect All' + `(${assign?.length})`
-                        : 'Select All'} */}
-                      Select All
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    onPress={() => {
-                      setIsClassOk(false);
-                      setStudentClass(0);
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: GStyles.PoppinsMedium,
-                      }}>
-                      Select Class {studentClass ? studentClass : ''}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                  paddingHorizontal: '4%',
-                  paddingBottom: 10,
-                }}>
-                {[...Array(2)].map((item, i: number) => (
-                  <View
-                    key={i}
+        <View style={{marginHorizontal: '4%', marginVertical: 5}}>
+                  <Dropdown
+                    // maxHeight={150}
                     style={{
-                      height: 80,
-                      borderWidth: 1,
-                      borderColor: '#ECECEC',
-                      borderRadius: 8,
-                      marginVertical: 10,
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      // flexDirection: 'row',
                       justifyContent: 'space-between',
-                      paddingHorizontal: 10,
-                    }}>
-                    <View
-                      style={{
-                        width: 56,
-                        height: 56,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderWidth: 1,
-                        borderColor: GStyles.primaryPurple,
-                        borderRadius: 100,
-                      }}>
-                      <Image
-                            source={require("../../assets/images/avatar/6.png")}
-                        style={{
-                          width: 46,
-                          height: 46,
-                          borderRadius: 100,
-                        }}
-                      />
-                    </View>
-                    <View>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontFamily: GStyles.PoppinsMedium,
-                          color: '#3D3D3D',
-                          marginTop: 10,
-                        }}>
-                        Hari Danang
-                      </Text>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                        }}>
-                        <Text>Points:</Text>
-                        <Text>50</Text>
-                        <AntDesign name="star" color={GStyles.primaryYellow} />
-                      </View>
-                    </View>
-                    {assign.includes(i) ? (
-                      <TouchableOpacity
-                        // onPress={() => navigation.navigate('EditCustomTask')}
-                        style={{
-                          backgroundColor: GStyles.primaryPurple,
-                          // paddingVertical: 10,
-                          paddingHorizontal: 15,
-                          borderRadius: 100,
-                          width: 130,
-                          height: 40,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}>
-                        <Text
-                          style={{
-                            color: 'white',
-                            fontSize: 16,
-                            fontFamily: GStyles.Poppins,
-                          }}>
-                          {selection ? 'Assign' : 'Assigned'}
-                        </Text>
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity
-                        onPress={() => {
-                          setAssign([...assign, i]);
-                        }}
-                        style={{
-                          borderColor: GStyles.primaryPurple,
-
-                          paddingHorizontal: 15,
-                          borderRadius: 100,
-                          width: 130,
-                          height: 40,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          borderWidth: 1,
-                        }}>
-                        <Text
-                          style={{
-                            color: GStyles.primaryPurple,
-                            fontSize: 16,
-                            fontFamily: GStyles.Poppins,
-                          }}>
-                          Assign
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                ))}
-              </ScrollView>
-            </>
-          ) : (
-            <>
+                      alignItems: 'center',
+                      paddingHorizontal: 12,
+                      paddingVertical: 15,
+                      borderWidth: 1,
+                      borderColor: '#E2E2E2',
+                      borderRadius: 10,
+                      width: '100%',
+                      gap: 20,
+                    }}
+                    iconStyle={{
+                      marginHorizontal: 10,
+                    }}
+                    labelField="label"
+                    valueField="value"
+                    value={value}
+                    onChange={item => {
+                      setValue(item?.value);
+                    }}
+                    placeholder="class 1"
+                    data={[
+                      {label: 'class All', value: 'Class All'},
+                      {label: 'class 1', value: '1'},
+                      {label: 'class 2', value: '2'},
+                      {label: 'class 3', value: '3'},
+                      {label: 'class 4', value: '4'},
+                    
+                    ]}
+                  />
+                </View>
+          <View
+            style={{
+              paddingHorizontal: '4%',
+              marginVertical: 10,
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
               <TouchableOpacity
-                style={{
-                  paddingHorizontal: '4%',
-                  marginVertical: 10,
+                onPress={() => {
+                  if (assign?.length > 0) {
+                    setAssign([]);
+                    setSelection(false);
+                  } else {
+                    setAssign([0, 1, 2]);
+                    setSelection(true);
+                  }
                 }}>
                 <Text
                   style={{
                     fontSize: 16,
                     fontFamily: GStyles.PoppinsMedium,
                   }}>
-                  Select All Class
+                  {/* {assign.length > 0
+                        ? 'Deselect All' + `(${assign?.length})`
+                        : 'Select All'} */}
+                  Select All
                 </Text>
               </TouchableOpacity>
-              <ScrollView
-                contentContainerStyle={{
-                  paddingBottom: 100,
-                  gap: 10,
-                }}>
-                {[...Array(2)].map((item, i: number) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setStudentClass(i + 1);
-                      setIsClassOk(true);
-                    }}
-                    key={i}
-                    style={{
-                      paddingVertical: 10,
-                      marginHorizontal: 10,
 
-                      borderWidth: 1,
-                      borderColor:
-                        studentClass === i + 1
-                          ? GStyles.primaryPurple
-                          : '#ECECEC',
-                      borderRadius: 8,
-                      flexDirection: 'row',
+            
+            </View>
+          </View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingHorizontal: '4%',
+              paddingBottom: 10,
+            }}>
+            {[...Array(2)].map((item, i: number) => (
+              <>
+                
+                <View
+                  key={i}
+                  style={{
+                    height: 80,
+                    borderWidth: 1,
+                    borderColor: '#ECECEC',
+                    borderRadius: 8,
+                    marginVertical: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 10,
+                  }}>
+                  <View
+                    style={{
+                      width: 56,
+                      height: 56,
                       justifyContent: 'center',
                       alignItems: 'center',
+                      borderWidth: 1,
+                      borderColor: GStyles.primaryPurple,
+                      borderRadius: 100,
                     }}>
+                    <Image
+                      source={require('../../assets/images/avatar/6.png')}
+                      style={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: 100,
+                      }}
+                    />
+                  </View>
+                  <View>
                     <Text
                       style={{
-                        fontFamily: GStyles.PoppinsMedium,
                         fontSize: 16,
+                        fontFamily: GStyles.PoppinsMedium,
                         color: '#3D3D3D',
+                        marginTop: 10,
                       }}>
-                      Class {i + 1}{' '}
+                      Hari Danang
                     </Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-            </>
-          )}
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}>
+                      <Text>Points:</Text>
+                      <Text>50</Text>
+                      <AntDesign name="star" color={GStyles.primaryYellow} />
+                    </View>
+                  </View>
+                  {assign.includes(i) ? (
+                    <TouchableOpacity
+                      // onPress={() => navigation.navigate('EditCustomTask')}
+                      style={{
+                        backgroundColor: GStyles.primaryPurple,
+                        // paddingVertical: 10,
+                        paddingHorizontal: 15,
+                        borderRadius: 100,
+                        width: 130,
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontSize: 16,
+                          fontFamily: GStyles.Poppins,
+                        }}>
+                        {selection ? 'Assign' : 'Assigned'}
+                      </Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => {
+                        setAssign([...assign, i]);
+                      }}
+                      style={{
+                        borderColor: GStyles.primaryPurple,
+
+                        paddingHorizontal: 15,
+                        borderRadius: 100,
+                        width: 130,
+                        height: 40,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderWidth: 1,
+                      }}>
+                      <Text
+                        style={{
+                          color: GStyles.primaryPurple,
+                          fontSize: 16,
+                          fontFamily: GStyles.Poppins,
+                        }}>
+                        Assign
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </>
+            ))}
+          </ScrollView>
         </>
       )}
 
@@ -455,15 +424,9 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
           }}>
           <TouchableOpacity
             onPress={() => {
-          
-              if (op === 'Class' && studentClass) {
-                setIsClassOk(true);
-                setAssign([]);
-                setSelection(false)
-              }
-              if (op === 'Class' && isClassOk && studentClass) {
+           
                 setModalVisible(true);
-              }
+        
             }}
             style={{
               backgroundColor: GStyles.primaryPurple,
@@ -523,7 +486,10 @@ const TeacherTaskAssign = ({navigation}: NavigProps<null>) => {
 
           <View>
             <TouchableOpacity
-              onPress={() => setModalVisible(false)}
+              onPress={() =>{
+                setAssign([]);
+                setSelection(false);
+                setModalVisible(false)}}
               style={{
                 backgroundColor: GStyles.primaryPurple,
                 width: '30%',

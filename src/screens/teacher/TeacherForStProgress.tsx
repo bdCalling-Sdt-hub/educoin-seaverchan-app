@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
@@ -17,12 +17,48 @@ import HeaderOption from '../../components/common/header/HeaderOption';
 import StudentMiniCard from '../../components/common/Cards/StudentMiniCard';
 import {Dropdown} from 'react-native-element-dropdown';
 import PieChartWithLabels from '../../utils/PieChart';
+import Animated, { Easing, ReduceMotion, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import { PieChart } from 'react-native-gifted-charts';
 
 const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
+
+  const [data, setData] = useState([
+    { value: 10, color: '#42A5F5', text: '10%' },
+    { value: 70, color: '#AB47BC', text: '70%' },
+  ]);
   const [isOp, setIsOp] = React.useState('Profile');
   const [value, setValue] = React.useState<string>();
   const [isFocus, setIsFocus] = React.useState(false);
   const [select, setSelect] = React.useState<number | null>(null);
+  const completedTask = useSharedValue(0);
+  const uncompletedTask = useSharedValue(0);
+  const animationOpacity = useSharedValue(0);
+
+   const progressBar = useSharedValue("0%")
+  
+
+   useEffect(()=>{
+    progressBar.value =  withSpring("50%");
+
+    completedTask.value = withSpring(50);
+    uncompletedTask.value = withSpring(50);
+
+
+    // setData([
+    //   { value: 50, color:'#42A5F5', text: "50%" },
+    //   { value: 50, color: '#AB47BC', text: "50%" },
+    // ])
+
+    
+   
+    animationOpacity.value = withSpring(1);
+    return () =>{
+      progressBar.value =  "1%";
+      animationOpacity.value = 0;
+  
+    }
+   },[value])
+
   return (
     <View
       style={{
@@ -135,6 +171,8 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
           marginTop: 10,
           paddingHorizontal: '8%',
         }}>
+
+          {/* progress bar started */}
         <View
           style={{
             flexDirection: 'row',
@@ -143,15 +181,16 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             height: 65,
             borderRadius: 8,
           }}>
-          <View
+          <Animated.View
             style={{
               backgroundColor: GStyles.primaryOrange,
               height: 65,
-              width: '40%',
+              width: progressBar,
               borderRadius: 8,
             }}
-          />
+            />
         </View>
+            {/* progress bar ended */}
         <View
           style={{
             flexDirection: 'row',
@@ -205,7 +244,26 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
    
   }}>
    
-    <PieChartWithLabels />
+   <Animated.View style={[styles.container,{opacity : animationOpacity}]}>
+      <PieChart
+        data={data}
+        showText
+        textColor="white"
+        textSize={16}
+        showValuesAsLabels
+        // animationDuration={2000}
+        textBackgroundColor="black"
+        textBackgroundRadius={15}
+        donut
+        innerRadius={60}
+        centerLabelComponent={() => (
+          <View style={styles.centerText}>
+            <Text style={styles.levelText}>Level 1</Text>
+            <Text style={styles.scoreText}>45 ★</Text>
+          </View>
+        )}
+      />
+    </Animated.View>
   </View>
   <View
     style={{
@@ -306,4 +364,28 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
 export default TeacherForStProgress;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    height: 260,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centerText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  levelText: {
+    fontSize: 24,
+    color: '#FFA726', // Replace with your GStyles.primaryOrange
+    fontFamily: 'Poppins-Bold', // Replace with your GStyles.PoppinsBold
+    fontWeight: '600',
+    letterSpacing: 0.5,
+  },
+  scoreText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Regular', // Replace with your GStyles.Poppins
+    color: '#797979',
+    fontWeight: '400',
+    letterSpacing: 0.5,
+  },
+});

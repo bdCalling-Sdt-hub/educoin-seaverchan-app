@@ -14,7 +14,7 @@ import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import { categoryIcons } from '../../utils/ShearData';
+import { categoryIcons, ShearIcons } from '../../utils/ShearData';
 
 
 const CategoryScreen = ({navigation}: NavigProps<null>) => {
@@ -41,7 +41,7 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
           paddingBottom: 30,
           gap: 20,
         }}
-        data={categoryIcons}
+        data={ShearIcons}
         // numColumns={2}
 
         ListHeaderComponent={() => (
@@ -121,8 +121,8 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
                 source={item.item.img}
                 resizeMode="center"
                 style={{
-                  width: 55,
-                  height: 55,
+                  width: 70,
+                  height: 70,
                 }}
               />
 

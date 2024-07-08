@@ -18,7 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ModalOfBottom from '../../components/common/CustomModal/ModalOfButtom';
 import { categories } from './EditCategory';
-import { categoryIcons } from '../../utils/ShearData';
+import { categoryIcons, ShearIcons } from '../../utils/ShearData';
 
 const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -215,7 +215,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
             contentContainerStyle={{
               gap: 24,
             }}
-            data={categories}
+            data={ShearIcons}
 
             ListHeaderComponent={()=>
             <View>
@@ -231,7 +231,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                     borderColor: GStyles.gray.light,
                     // padding: 5,
                     borderWidth: 2,
-                    borderRadius: 100,
+                    borderRadius: 8,
                     elevation : 2
                   }}>
                   <View
@@ -239,7 +239,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                       width: 65,
                       height: 65,
                       // backgroundColor: GStyles.purple.light,
-                      borderRadius: 50,
+                      borderRadius: 8,
                       padding: 3,
                       justifyContent : "center",
                       alignItems : 'center'
@@ -252,7 +252,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                         style={{
                           width: 60,
                           height: 60,
-                          borderRadius: 50,
+                          borderRadius: 8,
                         }}
                         resizeMode='cover'
                       />
@@ -280,29 +280,22 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                       customCategory === item.item.id
                         ? GStyles.primaryPurple
                         : GStyles.gray.light,
-                    // padding: 5,
+                    padding: 1,
                     borderWidth: 2,
-                    borderRadius: 100,
-                    elevation : 2
+                    borderRadius: 15,
+                    // elevation : 2
                   }}>
-                  <View
-                    style={{
-                      width: 65,
-                      height: 65,
-                      // backgroundColor: GStyles.purple.light,
-                      borderRadius: 50,
-                      padding: 3,
-                    }}>
+                
                     <Image
                       source={item.item.img}
                       style={{
-                        width: 60,
-                        height: 60,
-                        borderRadius: 50,
+                        width: 70,
+                        height: 70,
+                        borderRadius: 5,
                       }}
                       resizeMode='cover'
                     />
-                  </View>
+                 
                 </View>
               </TouchableOpacity>
             )}

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -25,13 +25,36 @@ import StudentCard from '../../components/common/Cards/StudentCard';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import LottieView from 'lottie-react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
   const [isCompeted, setIsCompeted] = React.useState('Tasks');
   const [modalVisible, setModalVisible] = React.useState(false);
   const [claimModal, setClaimModal] = React.useState(false);
   const [yesNoModal, setYesNoModal] = React.useState(false);
-  const [selected,setSelected] = useState([])
+  const [selected, setSelected] = useState([]);
+  const bottom = useSharedValue(0)
+  
+  const animationStyle = useAnimatedStyle(()=>{
+    return {
+      
+        position : "absolute",
+        width : 200,
+        height : 200,
+        zIndex : +1,
+        bottom :  bottom.value
+    
+    }
+  })
+
+  useEffect(()=>{
+   if(claimModal){
+    bottom.value =  withSpring(60)
+   }
+   else{
+    bottom.value = withSpring(0)
+   }
+  },[claimModal])
 
   return (
     <View
@@ -48,9 +71,8 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         ringColor={GStyles.orange.normalHover}
         notifyRoute="StudentNotification"
         profileStyle="student"
+        imgAssets={require('../../assets/images/avatar/1.png')}
         userDetails={{
-          image:
-            'https://s3-alpha-sig.figma.com/img/7e25/5623/4294ee5c7b1b9f58586be6b07d5af09b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoYP6qbNyHMaDp7G~F0LsLi4D0Zb2zJK9~MoCQh-nBo13nilsaprRhhB~jZ3NESLlm45D6~LJzohohDlrx1PyVFJhC1c6SYzNiZemEYD9S5WofLU-5StHzQuuoU6dPwZJHLeX9AX9EdHNV-u3xX9jlMTspEKEb2cXbH0QH54QsEbsKi0ILq7RQvW~PBB251NBenJtxcsXGiDmjHaRyEcKjS8L56erB11TsgtmpBgpeQvRnY5rrLgBzX1H-hD769AETCEgNj7T9ZbUwJq1-YuI9j13kTEuTtjv9cuwWlkaOLGYSnJTxfrjoMU36e3zvQDAi6O~Gm00Uiwa0J7HtQAlQ__',
           name: 'Rina Karina',
           points: 100,
         }}
@@ -85,19 +107,18 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               style={{
                 marginBottom: 25,
               }}>
-                
               {[...Array(2)].map((_, index) => (
                 <RewordsCard
-                key={index}
+                  key={index}
                   removePress={() => {
                     setYesNoModal(!yesNoModal);
                   }}
                   removeBtn
                   iconOrTextColor={GStyles.primaryOrange}
-                  imgAssets={require('../../assets/images/categoryIcons/12.png')}
+                  imgAssets={require('../../assets/icons/icon12.png')}
                   marginHorizontal={10}
                   points={10}
-                  title='play music'
+                  title="play music"
                 />
               ))}
             </View>
@@ -129,7 +150,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               // onPress={() => setSelected(index)}
               points={140}
               title="Get Iphone ..."
-              imgAssets={require("../../assets/images/categoryIcons/20.png")}
+              imgAssets={require('../../assets/icons/icon17.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -143,9 +164,9 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               backGroundProgressWidth="80%"
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
-            points={60}
+              points={60}
               title="Get Bike ..."
-              imgAssets={require("../../assets/images/categoryIcons/18.png")}
+              imgAssets={require('../../assets/icons/icon44.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -161,7 +182,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               // onPress={() => setSelected(index)}
               title="Get a car ..."
               points={90}
-              imgAssets={require("../../assets/images/categoryIcons/26.png")}
+              imgAssets={require('../../assets/icons/icon15.png')}
             />
             <RewordsCard
               navigation={navigation}
@@ -169,7 +190,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               // routeData={'demo'}
               // editOption={true}
               // achieved
-               points={50}
+              points={50}
               iconOrTextColor={GStyles.orange.normal}
               backGroundColor={'#FFF3E7'}
               backGroundColorProgress={'#FFDAB5'}
@@ -177,72 +198,66 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               borderColor={GStyles.borderColor['#ECECEC']}
               // onPress={() => setSelected(index)}
 
-              
-               claimPress={()=>{
-                setClaimModal(true)
-               }}
+              claimPress={() => {
+                setClaimModal(true);
+              }}
               title="Get a chocolate ..."
-              imgAssets={require("../../assets/images/categoryIcons/17.png")}
+              imgAssets={require('../../assets/icons/icon7.png')}
               // disabled
               claimBtn
             />
           </View>
         ) : (
           <View>
-         
             <View
               style={{
                 marginBottom: 25,
               }}>
-                 <TaskCard
-                  approveBTColor={GStyles.primaryOrange}
-                  completedTextColor={GStyles.primaryOrange}
-                  isButton
-                  button
-                  // buttonText={"Completed"}
-                  
-                  imgAssets={require("../../assets/images/categoryIcons/18.png")}
-                  category="Home Errands"
-                  completed
-                  completedText='Achieved'
-                  approveDisabled
-                  // description=''
-                  title={"Help 2 people"}
-                  points="50"
-                  time="Anytime"
-                  approveOnPress={() => {
-                    // setModalVisible(true);
-                   
-                  }}
-                 
-                />
+              <TaskCard
+                approveBTColor={GStyles.primaryOrange}
+                completedTextColor={GStyles.primaryOrange}
+                isButton
+                button
+                // buttonText={"Completed"}
+
+                imgAssets={require('../../assets/icons/icon5.png')}
+                category="Home Errands"
+                completed
+                completedText="Achieved"
+                approveDisabled
+                // description=''
+                title={'Help 2 people'}
+                points="50"
+                time="Anytime"
+                approveOnPress={() => {
+                  // setModalVisible(true);
+                }}
+              />
               {[...Array(2)].map((_, index) => (
                 <>
-                <TaskCard
-                   key={index}
-                  approveBTColor={GStyles.primaryOrange}
-                  completedTextColor={GStyles.primaryOrange}
-                  isButton
-                  button
-                  buttonText={selected.includes(index) ? "Waiting..." :"Achieve"}
-                  
-                  imgAssets={require("../../assets/images/categoryIcons/18.png")}
-                  category="Home Errands"
-                  // completed
-                  approveDisabled={selected.includes(index)}
-                  // description=''
-                  title={"Help 5 people"}
-                  points="50"
-                  time="Anytime"
-                  approveOnPress={() => {
-                    // setModalVisible(true);
-                    setSelected([...selected,index])
-                  }}
-               
-                />
-                  
+                  <TaskCard
+                    key={index}
+                    approveBTColor={GStyles.primaryOrange}
+                    completedTextColor={GStyles.primaryOrange}
+                    isButton
+                    button
+                    buttonText={
+                      selected.includes(index) ? 'Waiting...' : 'Achieve'
+                    }
+                    imgAssets={require('../../assets/icons/icon33.png')}
+                    category="Home Errands"
+                    // completed
+                    approveDisabled={selected.includes(index)}
+                    // description=''
+                    title={'Help 5 people'}
+                    points="50"
+                    time="Anytime"
+                    approveOnPress={() => {
+                      // setModalVisible(true);
+                      setSelected([...selected, index]);
+                    }}
+                  />
                 </>
-                
               ))}
             </View>
           </View>
@@ -321,11 +336,12 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         setModalVisible={setYesNoModal}
       />
 
-<CustomModal
+      <CustomModal
         modalVisible={claimModal}
         backButton
         setModalVisible={setClaimModal}
         height={289}
+        width={"80%"}
         Radius={10}>
         <View
           style={{
@@ -334,15 +350,32 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
             justifyContent: 'center',
             flex: 1,
             alignItems: 'center',
+            position : "relative"
           }}>
-          <LottieView
-            source={require('../../assets/lottie/goal-completed.json')}
-            style={{width: 200, height: 200, marginBottom: -70, marginTop: -50}}
+         <Animated.View style={animationStyle}>
+         <Image style={{
+              position : "absolute",
+              width : 200,
+              height : 200,
+              zIndex : +1,
+              
+            }} source={require("../../assets/images/quakka/happyQuakka.png")}/>
+         </Animated.View>
+          {/* <LottieView
+            source={require('../../assets/lottie/effect.json')}
+            style={{width: 1000, height: "100%"}}
             autoPlay
-            loop
+            loop={false}
+            resizeMode='cover'
+          /> */}
+          <LottieView
+            source={require('../../assets/lottie/effect.json')}
+            style={{width: 500, height: "100%"}}
+            autoPlay
+            loop={false}
+            resizeMode='cover'
           />
 
-         
           <View>
             <TouchableOpacity
               onPress={() => setClaimModal(false)}
@@ -353,6 +386,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
                 paddingHorizontal: 15,
                 borderRadius: 100,
                 alignSelf: 'center',
+                marginBottom: 20,
               }}>
               <Text
                 style={{
@@ -368,8 +402,6 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
-
-
     </View>
   );
 };

@@ -98,27 +98,27 @@ const TaskCard = ({
       <View
         style={{
           flexDirection: 'row',
-          gap: 14,
+          gap: 15,
           // alignItems: 'center',
           justifyContent: 'center',
           
         }}>
-        <View
+        {/* <View
           style={{
-            width: 56,
-            height: 56,
+            width: 60,
+            height: 60,
             justifyContent: 'center',
             alignItems: 'center',
-            borderWidth: 1,
-            borderColor: GStyles.primaryBlue,
+            // borderWidth: 1,
+            // borderColor: GStyles.primaryBlue,
             borderRadius: 100,
-          }}>
+          }}> */}
             {
               imgAssets ? <Image
               source={imgAssets}
               style={{
-                width: 46,
-                height: 46,
+                width: 60,
+                height: 60,
                 borderRadius: 100,
               }}
             /> : <Image
@@ -133,7 +133,7 @@ const TaskCard = ({
           />
             }
          
-        </View>
+        {/* </View> */}
         <View
           style={{
             // gap: 5,

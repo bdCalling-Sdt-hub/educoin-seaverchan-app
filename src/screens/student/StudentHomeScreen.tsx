@@ -168,9 +168,9 @@ const StudentHomeScreen = ({
         ringColor={GStyles.orange.normalHover}
         notifyRoute="StudentNotification"
         profileStyle="student"
+        imgAssets={require("../../assets/icons/icon (10).png")}
         userDetails={{
-          image:
-            'https://s3-alpha-sig.figma.com/img/7e25/5623/4294ee5c7b1b9f58586be6b07d5af09b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoYP6qbNyHMaDp7G~F0LsLi4D0Zb2zJK9~MoCQh-nBo13nilsaprRhhB~jZ3NESLlm45D6~LJzohohDlrx1PyVFJhC1c6SYzNiZemEYD9S5WofLU-5StHzQuuoU6dPwZJHLeX9AX9EdHNV-u3xX9jlMTspEKEb2cXbH0QH54QsEbsKi0ILq7RQvW~PBB251NBenJtxcsXGiDmjHaRyEcKjS8L56erB11TsgtmpBgpeQvRnY5rrLgBzX1H-hD769AETCEgNj7T9ZbUwJq1-YuI9j13kTEuTtjv9cuwWlkaOLGYSnJTxfrjoMU36e3zvQDAi6O~Gm00Uiwa0J7HtQAlQ__',
+     
           name: 'Rina Karina',
           points: 100,
         }}
