@@ -86,7 +86,7 @@ const StudentCard = ({
             fontSize: 16,
             fontWeight: '500',
             fontFamily: GStyles.PoppinsSemiBold,
-            lineHeight: 24,
+           
             textAlign: 'center',
             letterSpacing: 0.4,
             marginVertical: 1,

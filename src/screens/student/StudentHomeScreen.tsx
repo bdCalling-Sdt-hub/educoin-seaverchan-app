@@ -365,7 +365,7 @@ const StudentHomeScreen = ({
                     fontSize: 16,
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
+                   
                     letterSpacing: 0.8,
                   }}>
                   Aadi T
@@ -487,7 +487,7 @@ const StudentHomeScreen = ({
                     fontSize: 16,
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
+                   
                     letterSpacing: 0.8,
                   }}>
                   Aadi T
@@ -698,7 +698,7 @@ const StudentHomeScreen = ({
                     fontSize: 16,
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
+                   
                     letterSpacing: 0.8,
                   }}>
                   Aadi T
@@ -818,7 +818,7 @@ const StudentHomeScreen = ({
                     fontSize: 16,
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
-                    lineHeight: 24,
+                   
                     letterSpacing: 0.8,
                   }}>
                   Aadi T

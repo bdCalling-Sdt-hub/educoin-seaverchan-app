@@ -79,7 +79,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
-                lineHeight: 24,
+               
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
@@ -152,7 +152,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
-                lineHeight: 24,
+               
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
@@ -212,17 +212,47 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               alignItems: 'center',
               gap: 20,
             }}>
+           <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 20,
+            }}>
+            <View
+            style={{
+              marginVertical: 20,
+              flexDirection: 'row',
+              gap: 8,
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
+
             <Text
               style={{
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
+            
                 fontWeight: '500',
                 letterSpacing: 0.5,
-                marginVertical: 20,
               }}>
-              Choose category
+             Choose ategory
             </Text>
+          </View>
+          
+          </View>
           
           </View>
           <FlatList
