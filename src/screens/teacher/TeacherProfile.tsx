@@ -6,8 +6,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
+import { useGetUserQuery } from '../../App/services/students';
 
 const TeacherProfile = ({navigation}: NavigProps<null>) => {
+  const {data} = useGetUserQuery("")
+  console.log(data);
   return (
     <View
       style={{

@@ -15,8 +15,12 @@ import BackButton from '../../components/BackButton';
 import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
+import { useLoginMutation } from '../../App/services/students';
+import { Storage } from '../../utils/Storage';
 
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
+  const [loginUser,{data}] = useLoginMutation()
+
   const [pin, setPin] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
   const handlePress = () => {
@@ -32,15 +36,27 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     // Ensure only numbers are entered and limit to 6 digits
     const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
     setPin(filteredInput);
+   
   };
 
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
     console.log('Entered PIN:', pin);
-    navigation?.navigate('TeacherDrawerRoutes');
+    if(Number(pin) > 7){
+      loginUser(pin).then(res=>{
+        // console.log(res);
+       if(res?.data?.success){
+        Storage.set("token",res?.data?.data)
+        navigation?.navigate("TeacherDrawerRoutes")
+       }
+
+      })
+    }
+    // navigation?.navigate('TeacherDrawerRoutes');
     Keyboard.dismiss(); // Dismiss the keyboard
   };
-
+  
+  
   return (
     <View style={styles.container}>
       <BackButton />
@@ -108,11 +124,11 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
           position: 'absolute',
           top: -500,
         }}
-        onEndEditing={() => {
-          if (pin.length === 6) {
-            navigation?.navigate('TeacherDrawerRoutes');
-          }
-        }}
+        // onEndEditing={() => {
+        //   if (pin.length === 6) {
+        //     navigation?.navigate('TeacherDrawerRoutes');
+        //   }
+        // }}
         onChangeText={handlePinChange}
         maxLength={6}
       />
