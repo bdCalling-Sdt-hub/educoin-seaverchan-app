@@ -61,7 +61,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               borderRadius: 100,
             }}
             source={{
-              uri: 'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
+              uri: 'https://s3-alpha-sig.figma.com/img/7e25/5623/4294ee5c7b1b9f58586be6b07d5af09b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoYP6qbNyHMaDp7G~F0LsLi4D0Zb2zJK9~MoCQh-nBo13nilsaprRhhB~jZ3NESLlm45D6~LJzohohDlrx1PyVFJhC1c6SYzNiZemEYD9S5WofLU-5StHzQuuoU6dPwZJHLeX9AX9EdHNV-u3xX9jlMTspEKEb2cXbH0QH54QsEbsKi0ILq7RQvW~PBB251NBenJtxcsXGiDmjHaRyEcKjS8L56erB11TsgtmpBgpeQvRnY5rrLgBzX1H-hD769AETCEgNj7T9ZbUwJq1-YuI9j13kTEuTtjv9cuwWlkaOLGYSnJTxfrjoMU36e3zvQDAi6O~Gm00Uiwa0J7HtQAlQ__',
             }}
           />
         </View>
@@ -121,7 +121,25 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
             </Text>
             <AntDesign name="star" size={15} color={GStyles.primaryYellow} />
           </View>
+          
         </View>
+        <TouchableOpacity 
+        onPress={()=>navigation?.navigate('StudentProfileEdit')}
+        style={{
+            position : "absolute",
+            top : 15,
+            right : 15,
+            backgroundColor : GStyles.primaryOrange,
+            padding : 5,
+          borderRadius : 100,
+          height : 30,
+          width : 30,
+          justifyContent : 'center',
+          alignItems : 'center',
+          }}>
+
+            <AntDesign name="edit" size={16} color={"white"} />
+          </TouchableOpacity>
       </View>
       <View
         style={{

@@ -1,440 +1,507 @@
 import {
-  Dimensions,
-  FlatList,
   Image,
+  ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
+  TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment} from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import React, { useState } from 'react';
 import {GStyles} from '../../styles/GStyles';
-import {NavigProps} from '../../interfaces/NavigationPros';
-
+import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import HeaderOption from '../../components/common/header/HeaderOption';
-import TaskCard from '../../components/common/Cards/TaskCard';
-import {PieChart} from 'react-native-chart-kit';
-import PieChartWithLabels from '../../utils/PieChart';
-const screenWidth = Dimensions.get('window').width;
-const StudentsProgressAndInfo = ({navigation}: NavigProps<null>) => {
-  const [isOp, setIsOp] = React.useState('Profile');
-  const [taskOp, setTaskOp] = React.useState('New Task');
 
-  const data = [
-    {
-      name: 'Assigned',
-      population: 50,
-      color: '#FF8811',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Completed',
-      population: 50,
-      color: '#3AAFFF',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Uncompleted',
-      population: 50,
-      color: '#A55FEF',
-      legendFontColor: '#A55FEF',
-      legendFontSize: 15,
-    },
-  ];
-  const chartConfig = {
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: '#08130D',
-    backgroundGradientToOpacity: 0.5,
-    backgroundColor: 'white',
-    color: (opacity = 1) => `#A55FEF`,
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
-  };
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import HomeTopHeader from '../../components/common/header/HomeTopHeader';
+import {HomeNavigProps} from '../../interfaces/NavigationPros';
+import RewordsCard from '../../components/common/Cards/RewordsCard';
+import StudentCard from '../../components/common/Cards/StudentCard';
+import TaskCard from '../../components/common/Cards/TaskCard';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
+import LottieView from 'lottie-react-native';
+
+const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
+  const [isCompeted, setIsCompeted] = React.useState('Task');
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [yesNoModal, setYesNoModal] = React.useState(false);
+  const [claimModal, setClaimModal] = React.useState(false);
+  const [select,setSelected] = useState([])
+  
   return (
     <View
       style={{
         height: '100%',
         backgroundColor: 'white',
       }}>
+      {/* header part  start */}
+
       <HeaderBackground
-        title="Progress"
-        ringColor={GStyles.purple.normalHover}
+        title="Student Activity"
+        ringColor={GStyles.purple.lightActive}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <HeaderOption
-        op1="Profile"
-        op2="Tasks"
-        op3="Records"
-        setIsOp={setIsOp}
-        fillButton
-        marginBottom={25}
-        marginHorizontal={20}
-        isOp={isOp}
-        borderWidth={0}
-        gap={20}
-        borderColor={GStyles.purple.lightHover}
-        activeBorderColor={GStyles.primaryPurple}
-        marginTop={25}
-      />
 
-      {isOp === 'Profile' && (
-        <Fragment>
+      <View
+        style={{
+          height: 80,
+          backgroundColor: GStyles.primaryOrange,
+          borderRadius: 8,
+          position: 'relative',
+
+          gap: 30,
+          paddingVertical: 5,
+          //  elevation : 2
+          marginHorizontal: '5%',
+          paddingHorizontal: 10,
+          marginTop: 10,
+          // alignItems : "center",
+          justifyContent: 'center',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems : "center",
+            
+          }}>
           <View
             style={{
-              //   borderColor: GStyles.borderColor['#ECECEC'],
-              //   borderWidth: 1,
-              padding: 15,
-              marginVertical: 10,
-              justifyContent: 'center',
+              flexDirection: 'row',
               alignItems: 'center',
-              borderRadius: 10,
-              marginHorizontal: '5%',
-              marginTop: 15,
+              justifyContent: 'center',
+              gap: 15,
+            }}>
+            <Image
+              style={{
+                height: 55,
+                width: 55,
+                borderRadius: 100,
+                //   alignSelf: 'center',
+              }}
+              source={require("../../assets/images/avatar/6.png")}
+            />
+
+            <View
+              style={{
+                gap: 6,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 16,
+                  fontWeight: '800',
+                  fontFamily: GStyles.Poppins,
+                  lineHeight: 22,
+                  letterSpacing: 1.4,
+                }}>
+                Esther Karina
+              </Text>
+              <View
+                style={{
+                  backgroundColor: GStyles.white,
+                  height: 35,
+                  borderRadius: 4,
+                  flexDirection: 'row',
+             
+                  padding: 5,
+                  gap: 10,
+              
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    gap: 5,
+                    alignItems : "center",
+                    justifyContent : "center",
+                    
+                  }}>
+                  <AntDesign
+                    name="star"
+                    size={20}
+                    color={GStyles.primaryOrange}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      textAlign : "center",
+                      fontFamily: GStyles.PoppinsSemiBold,
+                      color: GStyles.primaryOrange,
+                    }}>
+                    51
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    gap: 5,
+                    alignItems : "center",
+                    justifyContent : "center",
+                  }}>
+                  <AntDesign
+                    name="staro"
+                    size={20}
+                    color={GStyles.primaryOrange}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontFamily: GStyles.PoppinsSemiBold,
+                      color: GStyles.primaryOrange,
+                    }}>
+                    5
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    gap: 5,
+                    alignItems : "center",
+                    justifyContent : "center",
+                  }}>
+                  <AntDesign
+                    name="staro"
+                    size={20}
+                    color={GStyles.gray.lightActive}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontFamily: GStyles.PoppinsSemiBold,
+                      color: GStyles.gray.lightActive,
+                    }}>
+                    1
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: 10,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                // drawerNavigation?.openDrawer()
+                navigation?.navigate('StudentPassCodeWithTeacher');
+              }}>
+              <Feather name="lock" color="white" size={24} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        {/* <View>
+      <View
+        style={{
+          backgroundColor: 'white',
+          height: 48,
+          width: '100%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingHorizontal: 20,
+          borderRadius: 100,
+        }}>
+        <TextInput
+          placeholder="Search here...."
+          placeholderTextColor="#858585" style={{
+            flex: 1,
+            // paddingHorizontal: 10,
+          }}
+          onChangeText={setSearchValue}
+          value={searchValue}
+        />
+        <Feather name="search" color="#858585" size={24} />
+      </View>
+    </View> */}
+      </View>
+
+      {/* header part  end */}
+      <HeaderOption
+        isOp={isCompeted}
+        setIsOp={setIsCompeted}
+        fillButton
+        gap={24}
+        marginTop={15}
+        marginBottom={5}
+        marginHorizontal={15}
+        op1="Task"
+        op2="Rewords"
+        op3="Earned"
+        borderColor={GStyles.orange.lightActive}
+        activeBorderColor={GStyles.primaryOrange}
+        filButtonHight={48}
+      />
+      {/* body part start */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          paddingHorizontal: '4%',
+          paddingVertical: 20,
+        }}>
+        {isCompeted === 'Earned' ? (
+          <>
+            <View
+              style={{
+                marginBottom: 25,
+              }}>
+              {[...Array(1)].map((_, index) => (
+                <RewordsCard
+                  key={"agun" + index}
+                  points={50}
+                  removePress={() => {
+                    setYesNoModal(!yesNoModal);
+                  }}
+                  removeBtn
+                  title="play game"
+                  iconOrTextColor={GStyles.primaryOrange}
+                  imgAssets={require('../../assets/icons/icon16.png')}
+                  marginHorizontal={10}
+                />
+              ))}
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                // paddingHorizontal: 10,
+                alignItems: 'center',
+              }}></View>
+          </>
+        ) : isCompeted === 'Rewords' ? (
+          <View
+            style={{
               gap: 10,
             }}>
+            <RewordsCard
+              navigation={navigation}
+              iconOrTextColor={GStyles.orange.normal}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="20%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              points={20}
+                title="Rewords name"
+                imgAssets={require('../../assets/icons/icon18.png')}
+            />
+            <RewordsCard
+              navigation={navigation}
+              // route="EditRewords"
+              // routeData={'demo'}
+              // editOption={true}
+              // achieved
+              iconOrTextColor={GStyles.orange.normal}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="80%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              // onPress={() => setSelected(index)}
+              points={50}
+             title="Rewords name"
+              imgAssets={require('../../assets/icons/icon6.png')}
+            />
+            <RewordsCard
+              navigation={navigation}
+              // route="EditRewords"
+              // routeData={'demo'}
+              // editOption={true}
+              // achieved
+              iconOrTextColor={GStyles.orange.normal}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="40%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              // onPress={() => setSelected(index)}
+              points={50}
+              title="Rewords name"
+              imgAssets={require('../../assets/icons/icon13.png')}
+            />
+            {/* <RewordsCard
+              navigation={navigation}
+              // route="EditRewords"
+              // routeData={'demo'}
+              // editOption={true}
+              // achieved
+              points={50}
+              backGroundColor={'#FFF3E7'}
+              backGroundColorProgress={'#FFDAB5'}
+              backGroundProgressWidth="100%"
+              borderColor={GStyles.borderColor['#ECECEC']}
+              // onPress={() => setSelected(index)}
+              claimPress={()=>{
+                setClaimModal(true)
+              }}
+              iconOrTextColor={GStyles.primaryOrange}
+              title="Playing outside ..."
+              imgAssets={require('../../assets/images/categoryIcons/2.png')}
+              disabled
+              // claimBtn
+            /> */}
+          </View>
+        ) : (
+          <View>
             <View
               style={{
-                width: 70,
-                height: 70,
+                marginBottom: 25,
+              }}>
+              {[...Array(2)].map((_, index) => (
+                <TaskCard
+                  approveBTColor={GStyles.primaryOrange}
+                  completedTextColor={GStyles.primaryOrange}
+                  isButton
+                  button
+                  
+                  buttonText={select.includes(index) ? "Approved" : "Approve"}
+                  imgAssets={require('../../assets/icons/icon24.png')}
+                  category="task category"
+                  // completed
+                  // description=''
+                  title="Task name"
+                  points="50"
+                  time="Anytime"
+                  approveDisabled={select.includes(index)}
+                  approveOnPress={() => {
+                    setModalVisible(true);
+                    setSelected([...select,index])
+                  }}
+                  key={index}
+                />
+              ))}
+            </View>
+          </View>
+        )}
+      </ScrollView>
+      {/* body part end */}
+
+      <StatusBar
+        backgroundColor={GStyles.primaryPurple}
+        barStyle="light-content"
+        animated
+        showHideTransition="slide"
+      />
+      <CustomModal
+        modalVisible={modalVisible}
+        backButton
+        setModalVisible={setModalVisible}
+        height={'30%'}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+              marginTop: 10,
+            }}>
+            Accepted Successfully
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              textAlign: 'center',
+            }}>
+            You will go to class and show your performance and then the teacher
+            will give you a star on your work
+          </Text>
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                backgroundColor: GStyles.primaryOrange,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
                 borderRadius: 100,
-                borderColor: GStyles.primaryOrange,
-                borderWidth: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginBottom: 5,
                 alignSelf: 'center',
               }}>
-              <Image
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 100,
-                }}
-                source={{
-                  uri: 'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
-                }}
-              />
-            </View>
-            <View
-              style={{
-                gap: 4,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
               <Text
                 style={{
+                  color: 'white',
                   fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
                   fontSize: 16,
-                  color: GStyles.textColor['#3D3D3D'],
-                  fontWeight: '600',
-                  letterSpacing: 0.5,
-                }}>
-                Aadi T
-              </Text>
-
-              <Text
-                style={{
-                  fontFamily: GStyles.Poppins,
-                  fontSize: 12,
-                  color: GStyles.textColor['#3D3D3D'],
                   fontWeight: '400',
-                  letterSpacing: 0.5,
                 }}>
-                Class : 01
+                OK
               </Text>
-              <Text
-                style={{
-                  fontFamily: GStyles.PoppinsSemiBold,
-                  fontSize: 20,
-                  color: GStyles.primaryOrange,
-                  fontWeight: '500',
-                  letterSpacing: 0.5,
-                }}>
-                Level 1
-              </Text>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-
-                  gap: 5,
-                }}>
-                <Text
-                  style={{
-                    fontFamily: GStyles.Poppins,
-                    fontSize: 12,
-                    color: '#797979',
-                    fontWeight: '400',
-                    letterSpacing: 0.5,
-                  }}>
-                  45{' '}
-                </Text>
-                <AntDesign
-                  name="star"
-                  size={15}
-                  color={GStyles.primaryYellow}
-                />
-              </View>
-            </View>
+            </TouchableOpacity>
           </View>
-          <View
-            style={{
-              marginTop: 17,
-              paddingHorizontal: '8%',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                backgroundColor: '#FFF3E7',
-                height: 65,
-                borderRadius: 8,
-              }}>
-              <View
-                style={{
-                  backgroundColor: GStyles.primaryOrange,
-                  height: 65,
-                  width: '40%',
-                  borderRadius: 8,
-                }}
-              />
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginVertical: 17,
-              }}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: GStyles.textColor['#3D3D3D'],
-                  fontFamily: GStyles.Poppins,
-                  fontWeight: '400',
-                  letterSpacing: 0.8,
-                }}>
-                level 1
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  gap: 5,
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: '#000000',
-                    fontFamily: GStyles.Poppins,
-                    fontWeight: '400',
-                    letterSpacing: 0.8,
-                  }}>
-                  45\200
-                </Text>
-                <AntDesign
-                  name="star"
-                  size={15}
-                  color={GStyles.primaryYellow}
-                />
-              </View>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: GStyles.textColor['#3D3D3D'],
-                  fontFamily: GStyles.Poppins,
-                  fontWeight: '400',
-                  letterSpacing: 0.8,
-                }}>
-                level 2
-              </Text>
-            </View>
-          </View>
-        </Fragment>
-      )}
-      {isOp === 'Tasks' && (
-        <>
-           <HeaderOption
-                op1="New Task"
-                op2="Completed Task"
-                setIsOp={setTaskOp}
-                isOp={taskOp}
-                activeBorderColor={GStyles.primaryPurple}
-                marginHorizontal={20}
-                // borderWidth={0}
-                // borderColor='white'
-              />
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={[...Array(10)]}
-          
-            contentContainerStyle={{
-              paddingHorizontal: '4%',
+        </View>
+      </CustomModal>
+      <YesNoModal
+        backButton
+        modalVisible={yesNoModal}
+        setModalVisible={setYesNoModal}
+      />
 
-              paddingVertical: 10,
-              marginBottom: 20,
-            }}
-            renderItem={item => (
-              <Fragment>
-                {taskOp === 'New Task' ? (
-                  <TaskCard time="ss" key={item.index} />
-                ) : (
-                  taskOp === 'Completed Task' && (
-                    <TaskCard
-                      button
-                      isButton
-                      key={item.index}
-                      time="as"
-                      completed
-                    />
-                  )
-                )}
-              </Fragment>
-            )}
+<CustomModal
+        modalVisible={claimModal}
+        backButton
+        setModalVisible={setClaimModal}
+        height={289}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+            alignItems: 'center',
+          }}>
+          <LottieView
+            source={require('../../assets/lottie/goal-completed.json')}
+            style={{width: 200, height: 200, marginBottom: -70, marginTop: -50}}
+            autoPlay
+            loop
           />
-        </>
-      )}
-      {isOp === 'Records' && (
-        <Fragment>
+
+         
           <View>
-            {/* <PieChart
-              data={data}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              accessor={'population'}
-              avoidFalseZero
-              fromNumber={10}
-              hidePointsAtIndex={[10, 20, 4]}
-              backgroundColor={'transparent'}
-              paddingLeft={'15'}
-              hasLegend={false}
-              center={[(screenWidth / 100) * 20, 0]}
-              // absolute
-            /> */}
-            <PieChartWithLabels />
-          </View>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            {/* <Text
+            <TouchableOpacity
+              onPress={() => setClaimModal(false)}
               style={{
-                fontSize: 20,
-                color: GStyles.primaryOrange,
-                fontFamily: GStyles.PoppinsBold,
-                fontWeight: '600',
-                letterSpacing: 0.5,
-              }}>
-              Level 1
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                gap: 5,
+                backgroundColor: GStyles.primaryOrange,
+                width: 100,
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
               }}>
               <Text
                 style={{
-                  fontSize: 14,
+                  color: 'white',
                   fontFamily: GStyles.Poppins,
-                  color: '#797979',
+                  textAlign: 'center',
+                  fontSize: 16,
                   fontWeight: '400',
-                  letterSpacing: 0.5,
                 }}>
-                45{' '}
+                OK
               </Text>
-              <AntDesign name="star" size={20} color={GStyles.primaryYellow} />
-            </View> */}
-            <View
-              style={{
-                justifyContent: 'center',
-                // alignItems: 'center',
-                marginTop: 20,
-                gap: 8,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 10,
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    backgroundColor: GStyles.primaryOrange,
-                    height: 20,
-                    width: 20,
-                    borderRadius: 100,
-                  }}></View>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: GStyles.textColor['#3D3D3D'],
-                    fontFamily: GStyles.Poppins,
-                    fontWeight: '500',
-                    letterSpacing: 0.5,
-                  }}>
-                  Total Assigned Work: 10
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 10,
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    backgroundColor: GStyles.primaryBlue,
-                    height: 20,
-                    width: 20,
-                    borderRadius: 100,
-                  }}></View>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: GStyles.textColor['#3D3D3D'],
-                    fontFamily: GStyles.Poppins,
-                    fontWeight: '500',
-                    letterSpacing: 0.5,
-                  }}>
-                  Total Completed Work: 15
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 10,
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    backgroundColor: GStyles.primaryPurple,
-                    height: 20,
-                    width: 20,
-                    borderRadius: 100,
-                  }}></View>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: GStyles.textColor['#3D3D3D'],
-                    fontFamily: GStyles.Poppins,
-                    fontWeight: '500',
-                    letterSpacing: 0.5,
-                  }}>
-                  Total Uncompleted Work: 08
-                </Text>
-              </View>
-            </View>
+            </TouchableOpacity>
           </View>
-        </Fragment>
-      )}
+        </View>
+      </CustomModal>
+
     </View>
   );
 };

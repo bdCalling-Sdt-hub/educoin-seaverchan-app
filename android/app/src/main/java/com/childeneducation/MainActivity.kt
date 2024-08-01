@@ -1,4 +1,4 @@
-package com.educoin
+package com.seaverchan.educoin
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

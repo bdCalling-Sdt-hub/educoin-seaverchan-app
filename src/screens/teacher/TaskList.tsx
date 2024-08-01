@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -19,12 +19,19 @@ import StudentCard from '../../components/common/Cards/StudentCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import { ShearTask, TaskIcons } from '../../utils/ShearData';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 
 const TaskList = ({navigation}: NavigProps<null>) => {
   const [op, setOp] = React.useState('Task List');
-
+  const [optionIndex,setOptionIndex] = useState<number>()
+  const [reLoad,setReload] = React.useState(false)
   const [modalVisible, setModalVisible] = React.useState(false);
-
+  const [isYes, setIsYes] = React.useState(false);
+   useEffect(()=>{
+    ShearTask
+    setReload(false)
+   },[reLoad])
   return (
     <View
       style={{
@@ -33,32 +40,17 @@ const TaskList = ({navigation}: NavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title="Task List"
+        title="Tasks"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
- <HeaderOption
-            op1="Task List"
-            op2="Task Request"
-            initialOp="Task List"
-            setIsOp={setOp}
-            isOp={op}
-            borderColor={GStyles.purple.lightHover}
-            borderWidth={0}
-            fillButton
-            filButtonHight={48}
-            marginTop={20}
-            marginBottom={15}
-            activeBorderColor={GStyles.primaryPurple}
-            marginHorizontal={20}
-            gap={25}
-          />
+
       {/* card container  */}
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={[...Array(20)]}
+        data={ShearTask}
         contentContainerStyle={{
           gap: 10,
           paddingHorizontal: '4%',
@@ -69,38 +61,57 @@ const TaskList = ({navigation}: NavigProps<null>) => {
         ListHeaderComponentStyle={{
           width: '100%',
         }}
+        onRefresh={()=>setReload(true)}
+
+        refreshing={reLoad}
+        keyExtractor={(item)=>item.id + item.taskName}
       
         renderItem={item => (
           <>
-            {op === 'Task List' ? (
+      
               <TaskCard
+              // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
+              imgAssets={  require("../../assets/icons/icon18.png") }
+              approveBTColor={GStyles.primaryPurple}
+              title={"Tasks name"}
+              category='category name'
+              points={`${item.item.points}`}
+              time={item.item.hours}
+               indexNumber={item.index}
+               selectIndex={optionIndex}
+               optionContainerHight={100}
+               onPressOption={setOptionIndex}
                 optionList={[
                   {
-                    title: 'Details',
+                    title: 'Edit',
                     onPress: () => {
-                      navigation?.navigate('TaskDetails');
+                      navigation?.navigate('EditTeacherTask');
                     },
                   },
                   {
-                    title: 'Clear',
+                    title: 'Reassign',
                     onPress: () => {
                       console.log('Cleared');
+                      navigation?.navigate("TeacherTaskAssign")
                     },
                   },
+                  {
+                    title: 'Deleted',
+                    onPress: () => {
+                      setIsYes(true)
+                      
+                    },
+                  },
+             
                 ]}
-                key={item.index}
-              />
-            ) : (
-              <TaskCard
-                isButton
                 button
-                buttonText="Approve"
-                approveOnPress={() => {
-                  setModalVisible(true);
-                }}
+                
+                // isButton
+                // buttonText="Assign"
+                approveOnPress={() => navigation?.navigate('TeacherTaskAssign')}
                 key={item.index}
               />
-            )}
+           
           </>
         )}
       />
@@ -145,6 +156,10 @@ const TaskList = ({navigation}: NavigProps<null>) => {
             Add new task
           </Text>
         </TouchableOpacity>
+
+
+            
+
       </View>
       <CustomModal
         modalVisible={modalVisible}
@@ -204,6 +219,9 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
+      <YesNoModal modalVisible={isYes} setModalVisible={setIsYes} yesPress={()=>{
+        setIsYes(false)
+      }} />
     </View>
   );
 };

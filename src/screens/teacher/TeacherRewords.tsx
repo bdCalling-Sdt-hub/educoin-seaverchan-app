@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -18,9 +19,14 @@ import LottieView from 'lottie-react-native';
 import RewordsCard from '../../components/common/Cards/RewordsCard';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
+import { categoryIcons } from '../../utils/ShearData';
+import { categories } from './EditCategory';
+import { useSharedValue } from 'react-native-reanimated';
+
 const TeacherRewords = ({navigation}: NavigProps<null>) => {
   const [isEarned, setIsEarned] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+
   return (
     <View
       style={{
@@ -36,26 +42,34 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
         navigation={navigation}
       />
 
-      <ScrollView
+      <FlatList
         contentContainerStyle={{
           paddingBottom: 80,
           paddingTop: 15,
+          paddingHorizontal: '5%',
+          gap : 5
         }}
-        showsVerticalScrollIndicator={false}>
-        {[...Array(10)].map((item, index) => (
-          <Fragment key={index}>
-            <RewordsCard
-              navigation={navigation}
-              editRoute="TeacherEditRewords"
-              // routeData={'demo'}
-              editOption={true}
-              // achieved
-              title="Playing outside with dad"
-              img="https://s3-alpha-sig.figma.com/img/2e1f/4337/9d26722aa7a8aec491c98ad18a957a69?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TiCi0v2BRlAAn~1nPvl-VpaiwdAUpRXH5ORl-XJmPKTayEuaXm~bQm1Lt7oW21WDmKWQjT99Nb5cd4tTx2orvSLafBwwn55sHyyL1xTNqxh1WFhqF1PoZWdU78zYZkgfaGRGyczqXon5btqHQIiTS0qf7jbFoqf8LcYp~WuBvMbew-3WOSspow2dD4E-hqVWHvtSLaf3XmsoHIBIRDTePh~mHQe3-YvjjscFHAXIMP5S~MtBvwEbwxVrSEHCC8ZcddYi8BnIcJlHOnIz~UfEvFgfs6DhdRwQ0omRrf-f2j1u1Ow-ntUDNTVbEso191iRCNJG1MB8Wz~o-pwrjjhJpw__"
-            />
-          </Fragment>
-        ))}
-      </ScrollView>
+        showsVerticalScrollIndicator={false}
+        data={[1]}
+
+        renderItem={(item)=>
+          <Fragment key={item.index}>
+          <RewordsCard
+            navigation={navigation}
+            editRoute="TeacherEditRewords"
+            // routeData={'demo'}
+            editOption={true}
+            // achieved
+            points={30}
+            title={`Rewords name`}
+            imgAssets={require("../../assets/icons/icon2.png")}
+          />
+        </Fragment>
+
+        }
+        />
+       
+    
       <View
         style={{
           paddingHorizontal: '4%',

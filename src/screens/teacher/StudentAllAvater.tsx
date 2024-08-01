@@ -6,6 +6,7 @@ import {GStyles} from '../../styles/GStyles';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Image} from 'react-native';
+import { SherAvatar } from '../../utils/ShearData';
 
 
 const data = [
@@ -64,10 +65,10 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
       />
       <FlatList
         showsHorizontalScrollIndicator={false}
-        data={data}
+        data={SherAvatar}
         numColumns={3}
         contentContainerStyle={{
-          marginVertical: 20,
+          paddingVertical: 20,
           justifyContent: 'center',
           alignItems: 'center',
           gap: 20,
@@ -100,7 +101,8 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
                 height: 105,
                 borderRadius: 100,
               }}
-              source={item.item.avatar}
+              source={require("../../assets/images/avatar/19.png")}
+              resizeMode='center'
             />
           </TouchableOpacity>
         )}

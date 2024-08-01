@@ -2,6 +2,7 @@ import {
   Button,
   FlatList,
   Image,
+  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -10,7 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {GStyles} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -24,6 +25,7 @@ import StudentCard from '../../components/common/Cards/StudentCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -32,8 +34,12 @@ interface AdminHOmeProps {
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const [op, setOp] = React.useState<string>('All Students');
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [isYes, setIsYes] = React.useState(false);
+  const [selectNumber,setSelectNumber] = useState<number>()
   return (
-    <View
+    <Pressable onPress={()=>{
+      setSelectNumber()
+    }}
       style={{
         height: '100%',
         backgroundColor: GStyles.white,
@@ -46,23 +52,39 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       ringColor={GStyles.purple.normalActive}
       backgroundColor={GStyles.primaryPurple}
       profileStyle='teacher' userDetails={{
-        image : "https://s3-alpha-sig.figma.com/img/5d7c/a921/417b9cf730eccf53d85b6166da178018?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WH537GxBxSCyr84yo5Umsi7zGYowKN8w1HSsgZyIgeKZAJkL-NF1vDeywWaV6zkVHyXSlYbOkyTsAxHgjHL18v2cOMVpyNLo1EdYt7T4D3Cmw516taRTKOXBMmWulBCFos~E7~c0cRHLC4O2obTqWjDySrmrTMSkqrN6mZcVgVQbVgeDIMHpsGXUQoa343ddL1IMzQ01LVg6QTin8-U8PSLrKgEnRPNpiUTYd3zyXbmJzTS1jpcyrT2pAEXxPvZ1x9Ip49q~-pWHRJB-so6CBYY3xuQkmPaesrthpDWu2E0xZPrMBQWoISQwO6xuVg~dDHBVBvtYIdqzEnp60Lk0yg__",
+        image : "https://s3-alpha-sig.figma.com/img/5d7c/a921/417b9cf730eccf53d85b6166da178018?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RuKcZuiRY1ewKPKRUollcYQmU94ijiou6LpE3y2Ap~vR-7y2esn24kbns7N2sI40kNqa8jc-AhP7sOxtI8-CYwKJT-ZqocsUIxzIpGk-LF3nIOLSUvLi3ziO7XMEAdZR4NX1du7vTi55~ijWaS3WdlshA02O3GyD5Yb~CHIpTr9JKO9kCSzm9bp7F~ptudTRccIwh5vTCSfyV56W2yP~P13I8ZqUI4d6aJCj31q9nQjOZLAQnLad4XrJGbkBKhs4rQv-nVsJrue7Utv3eDZ-6SuSBTy-ZebKBo~fujd6N3tnP6OCuqi83snR0SxOdCWZwUoWBarO4B9~KwayYmmP0w__",
         name: "Maria"
       }} navigation={navigation} drawerNavigation={navigation} notifyRoute='TeacherNotification'
       // containerGap={35}
       />
       {/* header part  end */}
 
-      <SmallSubHeaderCard
+      {/* <SmallSubHeaderCard
         marginTop={10}
         title="Teacher Name"
         count={20}
         subTitle="Students Counts"
-      />
+      /> */}
+       <HeaderOption
+            op1="All Students"
+            op2="All Classes"
+            initialOp="All Students"
+            fillButton
+            filButtonHight={48}
+            marginHorizontal={20}
+            gap={30}
+            setIsOp={setOp}
+            isOp={op}
+            borderColor={GStyles.purple.lightHover}
+            // borderWidth={0}
+            activeBorderColor={GStyles.primaryPurple}
+            marginTop={10}
+            marginBottom={5}
+          />
 
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={[...Array(20)]}
+        data={[...Array(2)]}
         numColumns={2}
         contentContainerStyle={{
           gap: 10,
@@ -78,31 +100,18 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         ListHeaderComponentStyle={{
           width: '100%',
         }}
-        ListHeaderComponent={item => (
-          <HeaderOption
-            op1="All Students"
-            op2="All Classes"
-            initialOp="All Students"
-            fillButton
-            filButtonHight={48}
-            marginHorizontal={20}
-            gap={30}
-            setIsOp={setOp}
-            isOp={op}
-            borderColor={GStyles.purple.lightHover}
-            // borderWidth={0}
-            activeBorderColor={GStyles.primaryPurple}
-          />
-        )}
+        // ListHeaderComponent={item => (
+         
+        // )}
         renderItem={item => (
           <Fragment key={item.index}>
             {op === 'All Students' ? (
               <StudentCard
                 imgBorderColor={GStyles.primaryPurple}
                 width={'45%'}
+                imgAssets={require("../../assets/images/avatar/1.png")}
                 student={{
-                  image:
-                    'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
+            
                   class: 1,
                   level: 9,
                   name: 'John Doe',
@@ -142,6 +151,70 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                   }}>
                   Class : {item.index + 1}
                 </Text>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: GStyles.textColor['#3D3D3D'],
+                      textAlign: 'center',
+                    }}>
+                    2 Students
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={()=>{
+                  setSelectNumber(item.index)
+             
+                }} style={{
+               
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  padding : 10,
+                  zIndex: +1,
+                }}>
+                  <Entypo name="dots-three-vertical" size={24} color={GStyles.primaryPurple} />
+                </TouchableOpacity>
+               {
+                item.index === selectNumber &&  <View style={{
+                  position: 'absolute',
+                  top: 15,
+                  right: 30,
+                  padding: 10,
+                  zIndex: +1,
+                  backgroundColor : "white",
+                  elevation : 1,
+                  width : 70,
+                  borderRadius : 8,
+                  gap : 8
+                }}>
+                 <TouchableOpacity style={{}} onPress={()=>{
+                  navigation.navigate('TeacherAddNewClass', {
+                  
+                  });
+                 }}>
+                 <Text
+                    style={{
+                      fontSize: 13,
+                      color: GStyles.textColor['#3D3D3D'],
+                      textAlign: 'center',
+                    }}>
+                    edit
+                  </Text>
+                 </TouchableOpacity>
+                 <TouchableOpacity onPress={()=>setIsYes(!isYes)}>
+                 <Text
+                    style={{
+                      fontSize: 13,
+                      color: GStyles.textColor['#3D3D3D'],
+                      textAlign: 'center',
+                    }}>
+                    deleted
+                  </Text>
+                 </TouchableOpacity>
+                </View>
+               }
               </TouchableOpacity>
             )}
           </Fragment>
@@ -243,7 +316,10 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           </TouchableOpacity>
         </View>
       </CustomModal>
-    </View>
+      <YesNoModal modalVisible={isYes} setModalVisible={setIsYes} yesPress={()=>{
+        setIsYes(false)
+      }} />
+    </Pressable>
   );
 };
 

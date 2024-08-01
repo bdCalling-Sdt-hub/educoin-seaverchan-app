@@ -16,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { SherAvatar } from '../../utils/ShearData';
 
 
 const data = [
@@ -162,7 +163,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             placeholder="dd/mm/yy"
           />
         </View>
-        <View>
+        {/* <View>
           <Text
             style={{
               fontSize: 16,
@@ -183,8 +184,8 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             }}
             placeholder="16435"
           />
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             marginBottom: 20,
           }}>
@@ -208,7 +209,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             }}
             placeholder="2024"
           />
-        </View>
+        </View> */}
         <View>
           <View
             style={{
@@ -246,7 +247,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={data}
+            data={SherAvatar}
             contentContainerStyle={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
@@ -328,7 +329,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                     height: 80,
                     borderRadius: 100,
                   }}
-                  source={item.item.avatar ? item.item.avatar :{
+                  source={item.item.img ? item.item.img :{
                     uri:  'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
                   }}
                 />

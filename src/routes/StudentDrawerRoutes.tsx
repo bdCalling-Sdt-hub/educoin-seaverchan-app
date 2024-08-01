@@ -6,6 +6,7 @@ import StudentHomeScreen from '../screens/student/StudentHomeScreen';
 
 import StudentCustomDrawer from '../components/CustomDrawer/StudentCustomDrawer';
 import StudentRoutes from './StudentRoutes';
+import NewStudentHomeScreen from '../screens/student/NewStudentHomeScreen';
 const Drawer = createDrawerNavigator();
 
 function StudentDrawerRoutes() {
@@ -16,7 +17,7 @@ function StudentDrawerRoutes() {
         headerShown: false,
       }}>
       <Drawer.Screen
-        name="StudentRoutes"
+        name="NewStudentHome"
         options={{
           drawerStyle: {
             // display: 'none',
@@ -28,7 +29,7 @@ function StudentDrawerRoutes() {
             display: 'none',
           },
         }}
-        component={StudentRoutes}
+        component={NewStudentHomeScreen}
       />
     </Drawer.Navigator>
   );

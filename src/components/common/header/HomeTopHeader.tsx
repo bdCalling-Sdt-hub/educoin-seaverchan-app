@@ -4,6 +4,7 @@ import { GStyles } from '../../../styles/GStyles'
 import { Image } from 'react-native'
 
 import Feather from "react-native-vector-icons/Feather"
+import AntDesign from "react-native-vector-icons/AntDesign"
 import { NavigProps } from '../../../interfaces/NavigationPros'
 
 interface HomeTopHeaderProps extends NavigProps<null> {
@@ -23,9 +24,10 @@ interface HomeTopHeaderProps extends NavigProps<null> {
     setSearchValue?: () => void,
     searchValue? : string,
     containerGap ?: number,
+    imgAssets? : any,
 }
 
-const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap} : HomeTopHeaderProps) => {
+const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,imgAssets} : HomeTopHeaderProps) => {
   return (
     <View
     style={{
@@ -37,6 +39,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
       paddingHorizontal: '4%',
       gap:containerGap? containerGap: 30,
       paddingVertical: 17,
+       elevation : 2
     }}>
     <View
       style={{
@@ -44,7 +47,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         top: -30,
         left: -20,
         width: 153,
-        height: 153,
+        height: 90,
         borderColor: ringColor ? ringColor :'#349EE6',
         borderWidth: 15,
         borderRadius: 100,
@@ -54,6 +57,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
+     
       }}>
       <View
         style={{
@@ -62,7 +66,20 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
           justifyContent: 'center',
           gap: 10,
         }}>
-        <Image
+
+        {
+          imgAssets &&   <Image
+          style={{
+            height: 46,
+            width: 46,
+            borderRadius: 100,
+            //   alignSelf: 'center',
+          }}
+          source={imgAssets}
+        />
+        }
+        {
+          userDetails?.image && <Image
           style={{
             height: 46,
             width: 46,
@@ -73,6 +90,8 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             uri:userDetails?.image ? userDetails?.image : 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
           }}
         />
+        }
+        
         {
             profileStyle === "teacher" &&  <View>
             <Text
@@ -101,7 +120,9 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         }
         
        {
-        profileStyle === "student" &&<View>
+        profileStyle === "student" &&<View style={{
+          gap : 5
+        }}>
         <Text
           style={{
             color: 'white',
@@ -113,16 +134,51 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
           }}>
    {userDetails?.name ? userDetails.name : ""} 
         </Text>
-        <Text
+        <View 
           style={{
-            color: 'white',
-            fontSize: 14,
-            fontFamily: GStyles.Poppins,
-            fontWeight: '400',
-            letterSpacing: 0.8,
+            backgroundColor : "white",
+            height : 30,
+            borderRadius : 8,
+            flexDirection : "row",
+            alignItems : "center",
+            paddingHorizontal : 5,
+            gap :10,
+            // marginTop : 5
           }}>
-          Your Points: {userDetails?.points ? userDetails.points : ""}
-        </Text>
+         <View style={{
+          flexDirection : "row",
+          gap : 5
+         }}> 
+          <AntDesign name='star' size={15} color={GStyles.primaryOrange}/>
+          <Text style={{
+            fontSize : 12,
+            fontFamily : GStyles.PoppinsSemiBold,
+            color : GStyles.primaryOrange
+          }}>51</Text>
+         </View>
+         <View style={{
+          flexDirection : "row",
+          gap : 5
+         }}> 
+          <AntDesign name='staro' size={15} color={GStyles.primaryOrange}/>
+          <Text style={{
+            fontSize : 12,
+            fontFamily : GStyles.PoppinsSemiBold,
+            color : GStyles.primaryOrange
+          }}>5</Text>
+         </View>
+         <View style={{
+          flexDirection : "row",
+          gap : 5
+         }}> 
+          <AntDesign name='staro' size={15} color={GStyles.gray.lightActive}/>
+          <Text style={{
+            fontSize : 12,
+            fontFamily : GStyles.PoppinsSemiBold,
+            color : GStyles.gray.lightActive
+          }}>1</Text>
+         </View>
+        </View>
       </View>
        }
         

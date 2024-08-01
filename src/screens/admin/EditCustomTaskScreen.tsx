@@ -82,7 +82,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
               fontFamily: GStyles.PoppinsSemiBold,
               fontSize: 16,
               color: '#3D3D3D',
-              lineHeight: 24,
+             
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
@@ -103,7 +103,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
               fontSize: 16,
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
-              lineHeight: 24,
+             
               fontWeight: '500',
               letterSpacing: 0.5,
               marginVertical: 15,

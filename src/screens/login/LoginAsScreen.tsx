@@ -16,7 +16,7 @@ import {NavigationProp, ParamListBase} from '@react-navigation/native';
 const AsLoginData = [
   {
     id: 3,
-    name: 'Login as a Student',
+    name: 'Student Login',
     route: 'ChildLogin',
     style: {
       algin: 'left',
@@ -30,7 +30,7 @@ const AsLoginData = [
   },
   {
     id: 1,
-    name: 'Login As Teacher',
+    name: 'Teacher Login',
     route: 'TeacherLogin',
     image: require('../../assets/images/loginAs/teacher.png'),
     style: {
@@ -72,7 +72,12 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
         {/* title on login as  */}
         <View style={styles.loginAsContainer}>
           <Image
-            source={require('../../assets/images/splash/quokka.png')}
+          resizeMode='center'
+          style={{
+            height: deviceFontSize * 300,
+            width: deviceFontSize * 300,
+          }}
+            source={require('../../assets/images/loginAs/normalQuokka.png')}
           />
         </View>
         {/* card container  */}
@@ -167,9 +172,10 @@ const styles = StyleSheet.create({
     height: 58,
   },
   cardTitle: {
-    fontFamily: GStyles.RussoOne,
+    fontFamily: GStyles.PoppinsBold,
     fontSize: 24,
     // fontWeight: 'bold',
+    flex : 1,
     color: GStyles.white,
     textAlign: 'center',
     paddingHorizontal: 10,

@@ -26,7 +26,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -45,7 +45,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -59,7 +59,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -74,7 +74,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -94,7 +94,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -106,7 +106,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -120,7 +120,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -136,7 +136,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,
@@ -149,7 +149,7 @@ const TermsAndConditionScreen = ({navigation}: NavigProps) => {
         <Text
           style={{
             fontSize: 14,
-            lineHeight: 24,
+           
             color: '#6E6E6F',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.4,

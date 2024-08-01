@@ -26,7 +26,7 @@ const ParticularClassStudents = ({navigation, route}: NavigProps<ParamsData>) =>
       />
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={[...Array(20)]}
+        data={[...Array(2)]}
         numColumns={2}
         contentContainerStyle={{
           gap: 10,
@@ -47,9 +47,9 @@ const ParticularClassStudents = ({navigation, route}: NavigProps<ParamsData>) =>
             <StudentCard
               imgBorderColor={GStyles.primaryPurple}
               width={'45%'}
+              imgAssets={require(`../../assets/images/avatar/15.png`)}
               student={{
-                image:
-                  'https://s3-alpha-sig.figma.com/img/2652/6f15/5ad196b4d3c078ebf800d82c4ec359f6?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=An1Bb5hoDgmVyZ2Wtwe~3RLi6Ca2wXdhWhbGJE7QyXHGolr5Rl8OYCwq1usqimBxjV9dPVR~rFYqG5H888vtHvzBHUiii5cSLc0u~325UIpagwwYrRiMWRUi9MvqricdrY5~mWC8jg4wGirH4HJDMUHjRAd8qwOUP7I9CmY~D3P4l9~ERZzOEJSAPQSqlThyOUlEBK9AyN1GEu7LeBP0cSCnYk-F4MxlkyMefEPqV9fQj~jkirqlO0RWE6ZIrQN8QafqXtIbw-DKaDq-iK-JM3ikaW7RYl0aHIc0Y-LmVCeDwJZu~ZkFy6xV7~sd19Q8Pe7LD50QvNW6Qa0rnCKEcg__',
+               
                 class: 1,
                 level: 9,
                 name: 'John Doe',

@@ -26,7 +26,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
   const [rewordPoints, setRewordPoints] = React.useState<number>(5);
   const [rewordCategory, setRewordCategory] = React.useState('');
   const [rewordImage, setRewordImage] = React.useState<string | undefined>(
-    'file:///data/user/0/com.educoin/cache/rn_image_picker_lib_temp_c6e63f36-7f33-4ae2-a789-a9b05544e5b2.jpg',
+    'file:///data/user/0/com.seaverchan.educoin/cache/rn_image_picker_lib_temp_c6e63f36-7f33-4ae2-a789-a9b05544e5b2.jpg',
   );
 
   const handleImagePick = async () => {
@@ -67,7 +67,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
               fontFamily: GStyles.PoppinsSemiBold,
               fontSize: 16,
               color: '#3D3D3D',
-              lineHeight: 24,
+             
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
@@ -88,7 +88,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
               fontSize: 16,
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
-              lineHeight: 24,
+             
               fontWeight: '500',
               letterSpacing: 0.5,
               marginVertical: 15,
@@ -144,7 +144,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
               fontSize: 16,
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
-              lineHeight: 24,
+             
               fontWeight: '500',
               letterSpacing: 0.5,
             }}>
@@ -178,7 +178,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
                     fontSize: 12,
                     fontFamily: GStyles.Poppins,
                     color: '#236999',
-                    lineHeight: 24,
+                   
                     fontWeight: '500',
                   }}>
                   Browse image{' '}

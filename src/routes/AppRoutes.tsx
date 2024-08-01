@@ -31,9 +31,8 @@ import TermsAndConditionScreen from '../screens/teacher/TermsAndConditionScreen'
 import TeacherDrawerRoutes from './TeacherDrawerRoutes';
 import StudentsProgressAndInfo from '../screens/teacher/StudentsProgressAndInfo';
 import TeacherNotification from '../screens/teacher/TeacherNotification';
-import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
-import TeacherCustomTask from '../screens/teacher/TeacherCustomTask';
-import EditTeacherCustomTask from '../screens/teacher/EditTeacherCustomTask';
+import CategoryScreen from '../screens/teacher/CategoryScreen';
+import EditTeacherTask from '../screens/teacher/EditTeacherTask';
 import TeacherTaskAssign from '../screens/teacher/TeacherTaskAssign';
 import TeacherRewords from '../screens/teacher/TeacherRewords';
 import TeacherCreateRewords from '../screens/teacher/TeacherCreateRewords';
@@ -49,11 +48,22 @@ import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
 import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
 import TastingComponents from '../screens/Testing';
 import EditTeacherProfile from '../screens/teacher/EditTeacherProfileScreen';
+import StudentPassCode from '../screens/student/StudentPassCode';
+import TeacherPassCode from '../screens/teacher/TeacherPassCode';
+import StudentProfileEdit from '../screens/student/StudentProfileEdit';
+import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
+import EditCategory from '../screens/teacher/EditCategory';
+import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTeacher';
+import AllStudentAvatar from '../screens/student/AllStudentAvatar';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
 export const Routes = () => {
   return (
+    <GestureHandlerRootView>
+
+   
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -101,6 +111,9 @@ export const Routes = () => {
           component={StudentNotification}
         />
         <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
+        <Stack.Screen name="StudentPassCode" component={StudentPassCode} />
+        <Stack.Screen name="StudentProfileEdit" component={StudentProfileEdit} />
+        <Stack.Screen name="AllStudentAvatar" component={AllStudentAvatar} />
 
         {/*-------------------- Teachers All Screens ----------- */}
         <Stack.Screen
@@ -123,11 +136,11 @@ export const Routes = () => {
           name="TeacherNotification"
           component={TeacherNotification}
         />
+        <Stack.Screen name="Category" component={CategoryScreen} />
         <Stack.Screen name="TeacherCreateTask" component={TeacherCreateTask} />
-        <Stack.Screen name="TeacherCustomTask" component={TeacherCustomTask} />
         <Stack.Screen
-          name="EditTeacherCustomTask"
-          component={EditTeacherCustomTask}
+          name="EditTeacherTask"
+          component={EditTeacherTask}
         />
         <Stack.Screen name="TeacherTaskAssign" component={TeacherTaskAssign} />
         <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
@@ -163,8 +176,21 @@ export const Routes = () => {
           name="EditTeacherProfile"
           component={EditTeacherProfile}
         />
+        <Stack.Screen
+          name="TeacherPassCode"
+          component={TeacherPassCode}
+        />
+        <Stack.Screen
+          name="EditCategory"
+          component={EditCategory}
+        />
+        <Stack.Screen
+          name="StudentPassCodeWithTeacher"
+          component={StudentPassCodeWithTeacher}
+        />
       </Stack.Navigator>
     </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
 

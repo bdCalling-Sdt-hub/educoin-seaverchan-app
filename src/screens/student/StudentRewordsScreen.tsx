@@ -83,7 +83,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
           setIsOp={setIsEarned}
           fillButton
           op1="Achieved"
-          op2="Earn"
+          op2="Earned"
           activeBorderColor={GStyles.primaryOrange}
           marginHorizontal={20}
           marginBottom={15}
@@ -94,7 +94,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
         />
       </View>
 
-      {isEarned === 'Earn' ? (
+      {isEarned === 'Earned' ? (
         <>
           {/* card container  */}
           <ScrollView

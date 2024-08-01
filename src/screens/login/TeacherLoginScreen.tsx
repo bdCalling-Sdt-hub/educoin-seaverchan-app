@@ -24,13 +24,11 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
       textInputRef.current.focus();
     }
   };
-  React.useEffect(()=>{
-  textInputRef.current?.focus()
-  },[])
+  React.useEffect(() => {
+    textInputRef.current?.focus();
+  }, []);
 
-
-
-  const handlePinChange = (input : string) => {
+  const handlePinChange = (input: string) => {
     // Ensure only numbers are entered and limit to 6 digits
     const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
     setPin(filteredInput);
@@ -39,7 +37,7 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
     console.log('Entered PIN:', pin);
-    navigation?.navigate('TeacherDrawerRoutes')
+    navigation?.navigate('TeacherDrawerRoutes');
     Keyboard.dismiss(); // Dismiss the keyboard
   };
 
@@ -80,28 +78,43 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
             </Pressable>
           </View>
         </View>
-        <View style={styles.buttonContain} >
+        <View style={styles.buttonContain}>
           <TouchableOpacity
             disabled={pin.length !== 6}
-            style={[styles.button, pin.length === 6 ? {    backgroundColor: GStyles.primaryPurple} : { backgroundColor: GStyles.borderColor['#ECECEC']}]}
+            style={[
+              styles.button,
+              pin.length === 6
+                ? {backgroundColor: GStyles.primaryPurple}
+                : {backgroundColor: GStyles.borderColor['#ECECEC']},
+            ]}
             onPress={handleGoPress}>
-            <Text style={[styles.buttonText, pin.length === 6 ? {    color: GStyles.white} : { color: GStyles.gray.lightHover}]}>Go</Text>
+            <Text
+              style={[
+                styles.buttonText,
+                pin.length === 6
+                  ? {color: GStyles.white}
+                  : {color: GStyles.gray.lightHover},
+              ]}>
+              Go
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
 
       <TextInput
         ref={textInputRef}
-        keyboardType="number-pad"
+        keyboardType="numeric"
         style={{
           position: 'absolute',
           top: -500,
         }}
-     
+        onEndEditing={() => {
+          if (pin.length === 6) {
+            navigation?.navigate('TeacherDrawerRoutes');
+          }
+        }}
         onChangeText={handlePinChange}
-
         maxLength={6}
-    
       />
       <StatusBar backgroundColor="white" barStyle="dark-content" />
     </View>

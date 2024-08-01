@@ -45,7 +45,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
               fontFamily: GStyles.Poppins,
               color: GStyles.textColor['#3D3D3D'],
             }}>
-            Class Name
+            Class 
           </Text>
           <TextInput
             style={{
@@ -56,11 +56,11 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
               fontFamily: GStyles.Poppins,
               paddingVertical: 10,
             }}
-            placeholder="Class name"
+            placeholder="number"
           />
         </View>
 
-        <View>
+        {/* <View>
           <Text
             style={{
               fontSize: 16,
@@ -81,7 +81,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
             }}
             placeholder="Instructor Name"
           />
-        </View>
+        </View> */}
         <View>
           <Text
             style={{
