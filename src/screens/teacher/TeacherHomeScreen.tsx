@@ -26,6 +26,9 @@ import HeaderOption from '../../components/common/header/HeaderOption';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
+import { useSelector } from 'react-redux';
+
+
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -36,6 +39,8 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
   const [selectNumber,setSelectNumber] = useState<number>()
+  // const token = useSelector((state) => state?.token?.token)
+// console.log(token);
   return (
     <Pressable onPress={()=>{
       setSelectNumber()

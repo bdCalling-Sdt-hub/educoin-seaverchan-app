@@ -15,11 +15,19 @@ import BackButton from '../../components/BackButton';
 import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import { useLoginMutation } from '../../App/services/students';
-import { Storage } from '../../utils/Storage';
+
+import { useLoginMutation } from '../../redux/apiSlices/authSlice';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../redux/apiSlices/tokenSlice';
+
+
 
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
   const [loginUser,{data}] = useLoginMutation()
+const  dispatch = useDispatch() 
+
+
 
   const [pin, setPin] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
@@ -29,6 +37,7 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     }
   };
   React.useEffect(() => {
+
     textInputRef.current?.focus();
   }, []);
 
@@ -39,6 +48,8 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
    
   };
 
+  // console.log();
+
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
     console.log('Entered PIN:', pin);
@@ -46,7 +57,9 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
       loginUser(pin).then(res=>{
         // console.log(res);
        if(res?.data?.success){
-        Storage.set("token",res?.data?.data)
+        // SetItem("token",res.data?.data)
+        // setToken(res?.data?.data)
+        dispatch(setToken(res?.data?.data))
         navigation?.navigate("TeacherDrawerRoutes")
        }
 

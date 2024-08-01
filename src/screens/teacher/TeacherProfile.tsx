@@ -6,11 +6,21 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import { useGetUserQuery } from '../../App/services/students';
+
+import FastImage from 'react-native-fast-image';
+
+import { useEffect } from 'react';
+import { GetItem } from '../../utils/Storage';
+import { useGetUserQuery } from '../../redux/apiSlices/authSlice';
+
 
 const TeacherProfile = ({navigation}: NavigProps<null>) => {
   const {data} = useGetUserQuery("")
-  console.log(data);
+
+
+
+
+
   return (
     <View
       style={{
@@ -49,14 +59,15 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             }}>
             <Image
               source={{
-                uri: 'https://s3-alpha-sig.figma.com/img/e749/33af/2767d328dbea347076cc7dd98f4ed84b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JMTubCUtivnjBMxJT2UqNVjarXUq4lrApvnRgjSp4vsJOlaOplm7uX5BWv5UJhJTXRP3iGB0e3hpOeEFd~Puw5RPCVUmtE8~yLiVrJBDf8N72C2eegKhCtt0y9H5en8o5U3TLgMjSJGQBWcGOGwK8rcJDSBmb6lYJTAg5ROjNREhUsFiiKYBTnwAq36t-lc3cN11pQ8NeGG5-RnzEWOnyNsvt1q3LKNQK5A80RP4yS6ODjiAiKYEexMkXgqbyiyBckasxGQJokP~C4RQaEBujaJ-RODc~VQ8WJCdn3lPxrB2iNwBE2Iw1ITl1KVO0Pxkyqrh~gBWgXQAkn3tbwH3bg__',
+                uri: data?.data?.profile,
               }}
               style={{
                 height: 86,
                 width: 86,
-                resizeMode: 'cover',
+        
                 borderRadius: 100,
               }}
+              resizeMode="cover"
             />
             <TouchableOpacity
               style={{
@@ -91,7 +102,9 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
-              Alan Marcus
+              {
+                data?.data?.name
+              }
             </Text>
             <Text
               style={{
@@ -100,7 +113,9 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
-              tranthuy.nute@gmail.com
+            {
+              data?.data?.email
+            }
             </Text>
           </View>
         </View>
@@ -127,7 +142,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 color: '#3D3D3D',
                 marginVertical: 3,
               }}>
-              Personal Information:
+              Personal Information: 
             </Text>
             <TouchableOpacity 
             onPress={()=>navigation?.navigate("EditTeacherProfile")}
@@ -152,14 +167,16 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 fontSize: 16,
                 color: '#3D3D3D',
               }}>
-              Name :{' '}
+              Name :
             </Text>
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
               }}>
-              Alan Marcus
+              {
+                data?.data?.name
+              }
             </Text>
           </View>
           <View
@@ -172,14 +189,16 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 fontSize: 16,
                 color: '#3D3D3D',
               }}>
-              Email :
+              Email : 
             </Text>
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
               }}>
-              deanna.curtis@example.com
+              {
+                data?.data?.email
+              }
             </Text>
           </View>
           <View
@@ -199,7 +218,9 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
               }}>
-              +1 145528 455265
+            {
+              data?.data?.contact
+            }
             </Text>
           </View>
           <View
@@ -219,7 +240,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
               }}>
-              Bushwick Brooklyn, NY, USA
+             {data?.data?.location}
             </Text>
           </View>
         </View>

@@ -14,6 +14,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import { FontSize } from '../../utils/utils';
 
+
+
 const AsLoginData = [
   {
     id: 3,
@@ -67,6 +69,8 @@ const {scale,fontScale,height,width} = Dimensions.get('window');
 
 
 const LoginAsScreen = ({navigation}: LoginAsProps) => {
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.bgImage}>

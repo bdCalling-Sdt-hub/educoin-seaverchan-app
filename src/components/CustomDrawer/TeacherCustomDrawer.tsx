@@ -18,6 +18,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import { AppName } from '../../styles/AppDetails';
+import { Storage } from '../../utils/Storage';
 function TeacherCustomDrawer(props: any) {
   const navigation = useNavigation<any>();
   return (
@@ -31,6 +32,7 @@ function TeacherCustomDrawer(props: any) {
           alignItems: 'center',
           position: 'relative',
         }}>
+         
         <Image
           source={require('../../assets/images/loginAs/bearFace.png')}
           style={{
@@ -257,7 +259,11 @@ function TeacherCustomDrawer(props: any) {
       <View>
         <TouchableHighlight
           underlayColor={'rgba(0, 0, 0, 0.25)'}
-          onPress={() => navigation.navigate('LoginAs')}
+          onPress={() => {
+            
+        
+            navigation.navigate('LoginAs')
+          }}
           style={{
             flexDirection: 'row',
             gap: 15,
