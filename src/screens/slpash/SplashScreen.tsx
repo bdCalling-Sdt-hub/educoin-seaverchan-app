@@ -13,6 +13,8 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import { AppName } from '../../styles/AppDetails';
 
+
+
 interface splashProps {
   // setLoad: Dispatch<boolean>;
   navigation: NavigationProp<ParamListBase>;
@@ -23,10 +25,11 @@ const SplashScreen = ({navigation}: splashProps) => {
   const [appLoad, setAppLoad] = React.useState(false);
 
   setTimeout(() => {
-    setAppLoad(true);
+    // Storage.getString("token") ? navigation?.navigate( Storage.getString("role") === "teacher" ? "TeacherDrawerRoutes" : Storage.getString("role") === "student" ? "StudentDrawerRoutes" : "LoginAs"  ) : setAppLoad(true);
     // setTimeout(()=>{
     //   navigation.navigate('Login');
     // },2000)
+    setAppLoad(true)
   }, 2000);
 
   return (

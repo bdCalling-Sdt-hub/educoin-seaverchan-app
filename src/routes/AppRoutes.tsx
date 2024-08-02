@@ -55,15 +55,13 @@ import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
 import EditCategory from '../screens/teacher/EditCategory';
 import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTeacher';
 import AllStudentAvatar from '../screens/student/AllStudentAvatar';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Provider} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
-export const Routes = () => {
+export const NavigationRoutes = () => {
   return (
-    <GestureHandlerRootView>
-
-   
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -82,16 +80,16 @@ export const Routes = () => {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         {/* Admins All Screens  */}
         {/* <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
-        <Stack.Screen name="CreateRewords" component={CreateRewords} />
-        <Stack.Screen name="EditRewords" component={EditRewordsScreen} />
-        <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
-        <Stack.Screen name="CustomTask" component={CustomTaskScreen} />
-        <Stack.Screen name="EditCustomTask" component={EditCustomTaskScreen} />
-        <Stack.Screen name="FeedBack" component={FeedBackScreen} />
-        <Stack.Screen name="AdminProfile" component={AdminProfileScreen} />
-        <Stack.Screen name="AssignTask" component={AssignTaskScreen} />
-        <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
-        <Stack.Screen name="AdminNotification" component={AdminNotification} /> */}
+      <Stack.Screen name="CreateRewords" component={CreateRewords} />
+      <Stack.Screen name="EditRewords" component={EditRewordsScreen} />
+      <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
+      <Stack.Screen name="CustomTask" component={CustomTaskScreen} />
+      <Stack.Screen name="EditCustomTask" component={EditCustomTaskScreen} />
+      <Stack.Screen name="FeedBack" component={FeedBackScreen} />
+      <Stack.Screen name="AdminProfile" component={AdminProfileScreen} />
+      <Stack.Screen name="AssignTask" component={AssignTaskScreen} />
+      <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
+      <Stack.Screen name="AdminNotification" component={AdminNotification} /> */}
         {/*--------------------- student routes----------------  */}
         <Stack.Screen
           name="StudentDrawerRoutes"
@@ -112,7 +110,10 @@ export const Routes = () => {
         />
         <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
         <Stack.Screen name="StudentPassCode" component={StudentPassCode} />
-        <Stack.Screen name="StudentProfileEdit" component={StudentProfileEdit} />
+        <Stack.Screen
+          name="StudentProfileEdit"
+          component={StudentProfileEdit}
+        />
         <Stack.Screen name="AllStudentAvatar" component={AllStudentAvatar} />
 
         {/*-------------------- Teachers All Screens ----------- */}
@@ -138,10 +139,7 @@ export const Routes = () => {
         />
         <Stack.Screen name="Category" component={CategoryScreen} />
         <Stack.Screen name="TeacherCreateTask" component={TeacherCreateTask} />
-        <Stack.Screen
-          name="EditTeacherTask"
-          component={EditTeacherTask}
-        />
+        <Stack.Screen name="EditTeacherTask" component={EditTeacherTask} />
         <Stack.Screen name="TeacherTaskAssign" component={TeacherTaskAssign} />
         <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
         <Stack.Screen
@@ -176,20 +174,36 @@ export const Routes = () => {
           name="EditTeacherProfile"
           component={EditTeacherProfile}
         />
-        <Stack.Screen
-          name="TeacherPassCode"
-          component={TeacherPassCode}
-        />
-        <Stack.Screen
-          name="EditCategory"
-          component={EditCategory}
-        />
+        <Stack.Screen name="TeacherPassCode" component={TeacherPassCode} />
+        <Stack.Screen name="EditCategory" component={EditCategory} />
         <Stack.Screen
           name="StudentPassCodeWithTeacher"
           component={StudentPassCodeWithTeacher}
         />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+};
+
+import {useNetInfoInstance} from '@react-native-community/netinfo';
+import store from '../redux/store';
+
+
+export const Routes = () => {
+  const {
+    netInfo: {type, isConnected},
+    refresh,
+  } = useNetInfoInstance();
+
+  console.log(isConnected);
+
+  return (
+    <GestureHandlerRootView>
+
+        <Provider store={store}>
+          <NavigationRoutes />
+        </Provider>
+     
     </GestureHandlerRootView>
   );
 };

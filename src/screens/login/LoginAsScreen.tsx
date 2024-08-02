@@ -12,6 +12,9 @@ import React from 'react';
 import {GStyles} from '../../styles/GStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import { FontSize } from '../../utils/utils';
+
+
 
 const AsLoginData = [
   {
@@ -62,10 +65,12 @@ interface LoginAsProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const deviceFontSize = Dimensions.get('window').fontScale;
-console.log(deviceFontSize);
+const {scale,fontScale,height,width} = Dimensions.get('window');
+
 
 const LoginAsScreen = ({navigation}: LoginAsProps) => {
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.bgImage}>
@@ -74,8 +79,9 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
           <Image
           resizeMode='center'
           style={{
-            height: deviceFontSize * 300,
-            width: deviceFontSize * 300,
+            height:  height * .42,
+            width:  width * .9,
+            marginRight :  width * .05
           }}
             source={require('../../assets/images/loginAs/normalQuokka.png')}
           />
@@ -99,15 +105,15 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
                   style={{
                     backgroundColor: 'white',
                     borderRadius: 100,
-                    width: 70,
-                    height: 70,
+                    width: "21%",
+                    height: "100%",
                     overflow: 'hidden',
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
                   <Image style={styles.cardImage} source={data.image} />
                 </View>
-                <Text style={styles.cardTitle}>{data.name}</Text>
+                <Text adjustsFontSizeToFit style={styles.cardTitle}>{data.name}</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -134,6 +140,8 @@ const styles = StyleSheet.create({
   loginAsContainer: {
     paddingVertical: '20%',
     alignItems: 'center',
+    justifyContent : "center",
+    width : width
     // gap: 20,
   },
 
@@ -141,6 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 24,
     // height: 74,
+    width : width
   },
   card: {
     width: '85%',
@@ -173,9 +182,11 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: GStyles.PoppinsBold,
-    fontSize: 24,
+    fontSize: FontSize(25),
     // fontWeight: 'bold',
     flex : 1,
+    // width : "100%",
+
     color: GStyles.white,
     textAlign: 'center',
     paddingHorizontal: 10,

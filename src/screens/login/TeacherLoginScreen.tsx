@@ -16,7 +16,19 @@ import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
+import { useLoginMutation } from '../../redux/apiSlices/authSlice';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../redux/apiSlices/tokenSlice';
+
+
+
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
+  const [loginUser,{data}] = useLoginMutation()
+const  dispatch = useDispatch() 
+
+
+
   const [pin, setPin] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
   const handlePress = () => {
@@ -25,6 +37,7 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     }
   };
   React.useEffect(() => {
+
     textInputRef.current?.focus();
   }, []);
 
@@ -32,15 +45,31 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     // Ensure only numbers are entered and limit to 6 digits
     const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
     setPin(filteredInput);
+   
   };
+
+  // console.log();
 
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
     console.log('Entered PIN:', pin);
-    navigation?.navigate('TeacherDrawerRoutes');
+    if(Number(pin) > 7){
+      loginUser(pin).then(res=>{
+        // console.log(res);
+       if(res?.data?.success){
+        // SetItem("token",res.data?.data)
+        // setToken(res?.data?.data)
+        dispatch(setToken(res?.data?.data))
+        navigation?.navigate("TeacherDrawerRoutes")
+       }
+
+      })
+    }
+    // navigation?.navigate('TeacherDrawerRoutes');
     Keyboard.dismiss(); // Dismiss the keyboard
   };
-
+  
+  
   return (
     <View style={styles.container}>
       <BackButton />
@@ -108,11 +137,11 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
           position: 'absolute',
           top: -500,
         }}
-        onEndEditing={() => {
-          if (pin.length === 6) {
-            navigation?.navigate('TeacherDrawerRoutes');
-          }
-        }}
+        // onEndEditing={() => {
+        //   if (pin.length === 6) {
+        //     navigation?.navigate('TeacherDrawerRoutes');
+        //   }
+        // }}
         onChangeText={handlePinChange}
         maxLength={6}
       />

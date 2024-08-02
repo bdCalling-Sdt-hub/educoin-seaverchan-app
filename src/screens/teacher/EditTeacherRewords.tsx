@@ -24,7 +24,7 @@ import { useSharedValue } from 'react-native-reanimated';
 const EditTeacherRewords = ({navigation, route}: NavigProps<null>) => {
   const [rewordName, setRewordName] = React.useState('');
   const [rewordDescription, setRewordDescription] = React.useState('');
-  const [rewordPoints, setRewordPoints] = React.useState<number>(50);
+  const [rewordPoints, setRewordPoints] = React.useState<any>(50);
   const [rewordCategory, setRewordCategory] = React.useState('');
   const [isGood, setIsGood] = React.useState<boolean>();
   const [customCategory, setCustomCategory] = React.useState<number>();
