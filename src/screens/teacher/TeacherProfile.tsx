@@ -10,14 +10,15 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import FastImage from 'react-native-fast-image';
 
 import { useEffect } from 'react';
-import { GetItem } from '../../utils/Storage';
+
 import { useGetUserQuery } from '../../redux/apiSlices/authSlice';
+import { imageUrl } from '../../redux/api/baseApi';
 
 
 const TeacherProfile = ({navigation}: NavigProps<null>) => {
-  const {data} = useGetUserQuery("")
+  const {data,error} = useGetUserQuery("")
 
-
+// console.log(error);
 
 
 
@@ -59,7 +60,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             }}>
             <Image
               source={{
-                uri: data?.data?.profile,
+                uri: imageUrl + data?.data?.profile,
               }}
               style={{
                 height: 86,
@@ -69,7 +70,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}
               resizeMode="cover"
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{
                 width: 32,
                 height: 32,
@@ -89,7 +90,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                   fontWeight: 'bold',
                 }}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View
             style={{

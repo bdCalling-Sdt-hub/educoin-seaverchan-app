@@ -6,6 +6,9 @@ const authSlice = api.injectEndpoints({
         getUser: builder.query<IUser , unknown>({
             query: (token) => ({
                 url : `/teacher/profile/`,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
             }),
             providesTags : ["user"]
           }),
@@ -20,19 +23,10 @@ const authSlice = api.injectEndpoints({
             }),
             invalidatesTags : ["user"]
           }),
-          updateUser: builder.mutation({
-            query: pass_code => ({
-              url: `/user`,
-              method: 'PATCH',
-              body: {
-                password: pass_code,
-              },
-            }),
-            invalidatesTags : ["user"]
-          }),
+        
     })
 });
 
 export const {
-   useGetUserQuery,useLoginMutation,useUpdateUserMutation
+   useGetUserQuery,useLoginMutation
 } = authSlice;

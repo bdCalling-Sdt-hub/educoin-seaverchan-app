@@ -1,14 +1,137 @@
-import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Feather from 'react-native-vector-icons/Feather';
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, WIDTH} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import { ScrollView } from 'react-native';
+import {ScrollView} from 'react-native';
+import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
+import {imageUrl} from '../../redux/api/baseApi';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import React, {useCallback, useState} from 'react';
+import {useUpdateTeacherMutation} from '../../redux/apiSlices/teacherSlices';
+import {useContextApi} from '../../context/ContextApi';
+import {Dialog} from 'react-native-ui-lib';
+import Toast from 'react-native-toast-message';
+import NormalButtons from '../../components/common/Buttons/NormalButtons';
 
 const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
+  const {data, error} = useGetUserQuery('');
+  const {user} = useContextApi();
+  const [imgModal, setImageModal] = useState(false);
+  const [updateUser, results] = useUpdateTeacherMutation();
+  const [userInfo, setUserInfo] = React.useState({
+    name: data?.data?.name,
+    contact: data?.data?.contact,
+    location: data?.data?.location,
+    image: {},
+  });
+  const [categoryImage, setCategoryImage] = React.useState<string | undefined>(
+    '',
+  );
+  // console.log(categoryImage);
+
+  const handleImagePick = async (option: 'camera' | 'library') => {
+    try {
+      if (option === 'camera') {
+        const result = await launchCamera({
+          mediaType: 'photo',
+          // includeBase64: true,
+        });
+
+        if (!result.didCancel) {
+          setCategoryImage(result?.assets![0].uri);
+          // console.log(result?.assets![0]);
+          setUserInfo({
+            ...userInfo,
+            image: {
+              uri: result?.assets![0].uri,
+              type: result?.assets![0].type,
+              name: result?.assets![0].fileName,
+              size: result?.assets![0].fileSize,
+              lastModified: new Date().getTime(), // Assuming current time as last modified
+              lastModifiedDate: new Date(),
+              webkitRelativePath: '',
+            },
+          });
+          setImageModal(false);
+        }
+      }
+      if (option === 'library') {
+        const result = await launchImageLibrary({
+          mediaType: 'photo',
+  
+        });
+
+        if (!result.didCancel) {
+          setCategoryImage(result?.assets![0].uri);
+          // console.log(result);
+       
+          setUserInfo({
+            ...userInfo,
+            image: {
+              uri: result?.assets![0].uri,
+              type: result?.assets![0].type,
+              name: result?.assets![0].fileName,
+              size: result?.assets![0].fileSize,
+              lastModified: new Date().getTime(), // Assuming current time as last modified
+              lastModifiedDate: new Date(),
+              webkitRelativePath: '',
+            },
+          });
+          setImageModal(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setImageModal(false);
+    }
+  };
+
+  const handleSubmit = useCallback(
+   ( UData : {
+      name: string;
+      contact: string;
+      location: string;
+      image?: {
+        uri: string;
+        type: string;
+        name: string;
+        size: number;
+        lastModified: Date // Assuming current time as last modified
+        lastModifiedDate: Date,
+        webkitRelativePath: string,
+      }
+    }) => {
+      // console.log(UData);
+      const formData = new FormData();
+      if(UData?.image?.uri){
+        formData.append('image',
+          UData?.image);
+      }
+      UData?.name && formData.append('name', UData?.name);
+      UData?.contact && formData.append('contact', UData?.contact);
+      UData?.location && formData.append('location', UData?.location);
+      console.log(UData);
+      updateUser({token: user?.token, data: formData}).then(result => {
+        console.log(result);
+      });
+    },
+    [userInfo],
+  );
+
+  // console.log(results?.isLoading);
+
   return (
     <View
       style={{
@@ -47,7 +170,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
             }}>
             <Image
               source={{
-                uri: 'https://s3-alpha-sig.figma.com/img/e749/33af/2767d328dbea347076cc7dd98f4ed84b?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JMTubCUtivnjBMxJT2UqNVjarXUq4lrApvnRgjSp4vsJOlaOplm7uX5BWv5UJhJTXRP3iGB0e3hpOeEFd~Puw5RPCVUmtE8~yLiVrJBDf8N72C2eegKhCtt0y9H5en8o5U3TLgMjSJGQBWcGOGwK8rcJDSBmb6lYJTAg5ROjNREhUsFiiKYBTnwAq36t-lc3cN11pQ8NeGG5-RnzEWOnyNsvt1q3LKNQK5A80RP4yS6ODjiAiKYEexMkXgqbyiyBckasxGQJokP~C4RQaEBujaJ-RODc~VQ8WJCdn3lPxrB2iNwBE2Iw1ITl1KVO0Pxkyqrh~gBWgXQAkn3tbwH3bg__',
+                uri: categoryImage || imageUrl + data?.data?.profile,
               }}
               style={{
                 height: 86,
@@ -57,6 +180,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               }}
             />
             <TouchableOpacity
+              onPress={() => setImageModal(true)}
               style={{
                 width: 32,
                 height: 32,
@@ -89,7 +213,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
-              Alan Marcus
+              {data?.data?.name}
             </Text>
             <Text
               style={{
@@ -98,7 +222,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
-              tranthuy.nute@gmail.com
+              {data?.data?.email}
             </Text>
           </View>
         </View>
@@ -154,30 +278,18 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
-              }} placeholder='Alan Marcus' />
-       
-           
+              }}
+              placeholder="type name"
+              value={userInfo?.name}
+              onChangeText={text =>
+                setUserInfo({
+                  ...userInfo,
+                  name: text,
+                })
+              }
+            />
           </View>
-          <View
-            style={{
-              gap: 4,
-            }}>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                color: '#3D3D3D',
-              }}>
-              Email :
-            </Text>
-            <TextInput
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 14,
-              }} placeholder='deanna.curtis@example.com' />
-           
-           
-          </View>
+
           <View
             style={{
               gap: 4,
@@ -194,8 +306,16 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
-              }} placeholder='+1 145528 455265' />
-           
+              }}
+              placeholder="type contact"
+              value={userInfo?.contact}
+              onChangeText={text =>
+                setUserInfo({
+                  ...userInfo,
+                  contact: text,
+                })
+              }
+            />
           </View>
           <View
             style={{
@@ -213,42 +333,79 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
-              }} placeholder='Bushwack Brooklyn, NY, USA' />
-             
-          
+              }}
+              placeholder="type location"
+              value={userInfo?.location}
+              onChangeText={text =>
+                setUserInfo({
+                  ...userInfo,
+                  location: text,
+                })
+              }
+            />
           </View>
         </View>
       </ScrollView>
-      <TouchableOpacity
-          onPress={() => navigation?.goBack()}
+   
+      <NormalButtons loading={results?.isLoading} onPress={()=>{
+          handleSubmit(userInfo);
+      }} title='Save' />
+
+      <Dialog
+        width={WIDTH}
+        visible={imgModal}
+        bottom
+        onDismiss={() => setImageModal(false)}
+        panDirection={Dialog.directions.DOWN}>
+        <View
           style={{
-            backgroundColor: GStyles.primaryPurple,
-            padding: 10,
-            borderRadius: 100,
-            marginVertical: 10,
-            alignItems: 'center',
+            backgroundColor: 'white',
+
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
             justifyContent: 'center',
-            alignSelf : "center",
-            flexDirection: 'row',
-            width: '90%',
+            // alignItems: 'center',
+            paddingHorizontal: '4%',
+            paddingVertical: '5%',
+            gap: 5,
           }}>
-          <Text
+          <TouchableOpacity
+            onPress={() => {
+              handleImagePick('camera');
+            }}
             style={{
-              fontWeight: 'bold',
+              paddingVertical: '2%',
             }}>
-            {/* <AntDesign name="plus" size={20} color="white" /> */}
-          </Text>
-          <Text
+            <Text
+              style={{
+                fontFamily: GStyles.Poppins,
+                fontSize: 16,
+
+                color: '#3D3D3D',
+              }}>
+              Camera
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              handleImagePick('library');
+            }}
             style={{
-              color: 'white',
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              letterSpacing: 0.8,
-              marginTop: 5,
+              paddingVertical: '2%',
             }}>
-            Save
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                fontFamily: GStyles.Poppins,
+                fontSize: 16,
+
+                color: '#3D3D3D',
+              }}>
+                
+              Library
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Dialog>
     </View>
   );
 };

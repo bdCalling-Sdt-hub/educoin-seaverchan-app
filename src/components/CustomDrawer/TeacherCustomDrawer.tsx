@@ -10,6 +10,7 @@ import {
   Text,
   TouchableOpacity,
   TouchableHighlight,
+  StatusBar,
 } from 'react-native';
 import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -18,8 +19,13 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import { AppName } from '../../styles/AppDetails';
-import { Storage } from '../../utils/Storage';
+import { useDispatch } from 'react-redux';
+import { clearToken, clearUserRole } from '../../redux/apiSlices/userSlice';
+import { removeStorageRole, removeStorageToken } from '../../utils/utils';
+import { useContextApi } from '../../context/ContextApi';
+
 function TeacherCustomDrawer(props: any) {
+   const {setUser} = useContextApi()
   const navigation = useNavigation<any>();
   return (
     <>
@@ -260,9 +266,13 @@ function TeacherCustomDrawer(props: any) {
         <TouchableHighlight
           underlayColor={'rgba(0, 0, 0, 0.25)'}
           onPress={() => {
-            
-        
-            navigation.navigate('LoginAs')
+            removeStorageRole();
+            removeStorageToken();
+             setUser({
+              token: null,
+              role: null,
+             })
+            // navigation.navigate('LoginAs')
           }}
           style={{
             flexDirection: 'row',
@@ -301,6 +311,12 @@ function TeacherCustomDrawer(props: any) {
             </Text>
           </View>
         </TouchableHighlight>
+        <StatusBar
+        backgroundColor={GStyles.primaryPurple}
+        barStyle="light-content"
+        animated
+        showHideTransition="slide"
+      />
       </View>
     </>
   );

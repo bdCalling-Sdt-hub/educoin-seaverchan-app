@@ -69,6 +69,8 @@ const {scale,fontScale,height,width} = Dimensions.get('window');
 
 
 const LoginAsScreen = ({navigation}: LoginAsProps) => {
+
+  
   
 
   return (

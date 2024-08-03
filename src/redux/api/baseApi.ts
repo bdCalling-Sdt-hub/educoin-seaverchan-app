@@ -9,8 +9,9 @@ export const api = createApi({
         baseUrl: "http://192.168.10.16:5001/api/v1",
         prepareHeaders: (headers,{getState}) => {
             const state = getState()
-            console.log(state?.token?.token);
-              headers.set('Authorization', `Bearer ${state?.token?.token}`);
+            // console.log(state?.user?.token);
+            
+              headers.set('Authorization', `Bearer ${state?.user?.token}`);
             return headers;
           },
     }),
@@ -20,4 +21,4 @@ export const api = createApi({
 
 
 
-// export const imageUrl = "http://192.168.10.16:5000";
+export const imageUrl = "http://192.168.10.16:5001";

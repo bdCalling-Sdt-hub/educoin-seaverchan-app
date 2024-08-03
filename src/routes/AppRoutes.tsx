@@ -56,15 +56,19 @@ import EditCategory from '../screens/teacher/EditCategory';
 import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTeacher';
 import AllStudentAvatar from '../screens/student/AllStudentAvatar';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch, useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 export const NavigationRoutes = () => {
+  // console.log( "token" + token);
+   const {user} = useContextApi()
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
+      //  initialRouteName={user?.token ? user?.role === "teacher" ? "TeacherDrawerRoutes" : "StudentDrawerRoutes" : "Splash"}
+      initialRouteName='Splash'  
+      screenOptions={{
           headerShown: false,
           // statusBarColor: 'transparent',
           // statusBarStyle: 'auto',
@@ -73,11 +77,21 @@ export const NavigationRoutes = () => {
         }}>
         {/* <Stack.Screen name="Testing" component={TastingComponents} /> */}
         <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="LoginAs" component={LoginAsScreen} />
+     
+              {
+                !user?.token && (
+                  <>
+                    <Stack.Screen name="LoginAs" component={LoginAsScreen} />
         <Stack.Screen name="TeacherLogin" component={TeacherLoginScreen} />
         <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
         <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+                  </>
+
+                ) 
+              }
+       
+
         {/* Admins All Screens  */}
         {/* <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
       <Stack.Screen name="CreateRewords" component={CreateRewords} />
@@ -91,7 +105,9 @@ export const NavigationRoutes = () => {
       <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
       <Stack.Screen name="AdminNotification" component={AdminNotification} /> */}
         {/*--------------------- student routes----------------  */}
-        <Stack.Screen
+        {
+          user?.role === "student" && <>
+           <Stack.Screen
           name="StudentDrawerRoutes"
           component={StudentDrawerRoutes}
         />
@@ -115,9 +131,15 @@ export const NavigationRoutes = () => {
           component={StudentProfileEdit}
         />
         <Stack.Screen name="AllStudentAvatar" component={AllStudentAvatar} />
+          </>
+        }
+       
 
         {/*-------------------- Teachers All Screens ----------- */}
-        <Stack.Screen
+       {
+        user?.role === "teacher" && (
+          <>
+           <Stack.Screen
           name="TeacherDrawerRoutes"
           component={TeacherDrawerRoutes}
         />
@@ -180,6 +202,10 @@ export const NavigationRoutes = () => {
           name="StudentPassCodeWithTeacher"
           component={StudentPassCodeWithTeacher}
         />
+          
+          </>
+        )
+       }
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -187,6 +213,13 @@ export const NavigationRoutes = () => {
 
 import {useNetInfoInstance} from '@react-native-community/netinfo';
 import store from '../redux/store';
+import ContextApi, { useContextApi } from '../context/ContextApi';
+import Toast from 'react-native-toast-message';
+
+import ToasTConfig from '../components/common/toaster/ToasTConfig';
+
+
+
 
 
 export const Routes = () => {
@@ -199,11 +232,12 @@ export const Routes = () => {
 
   return (
     <GestureHandlerRootView>
-
-        <Provider store={store}>
+      <Provider store={store}>
+        <ContextApi>
           <NavigationRoutes />
-        </Provider>
-     
+        </ContextApi>
+      </Provider>
+      <Toast config={ToasTConfig} />
     </GestureHandlerRootView>
   );
 };

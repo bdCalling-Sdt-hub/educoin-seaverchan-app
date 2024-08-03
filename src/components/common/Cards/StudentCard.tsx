@@ -10,7 +10,7 @@ interface StudentCardProps {
   student?: {
     name?: string;
     image?: string;
-    class?: number;
+    class?: string;
     level?: number;
     points?: number;
   };
