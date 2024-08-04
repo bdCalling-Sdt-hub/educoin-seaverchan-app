@@ -26,7 +26,7 @@ const StudentCard = ({
   student,
   width,
   imgBorderColor,
-  imgAssets
+  imgAssets,
 }: StudentCardProps) => {
   return (
     <TouchableOpacity
@@ -35,6 +35,7 @@ const StudentCard = ({
         borderRadius: 13,
         justifyContent: 'center',
         alignItems: 'center',
+
         gap: 8,
         padding: 15,
         position: 'relative',
@@ -52,28 +53,14 @@ const StudentCard = ({
           padding: 3,
           borderRadius: 100,
         }}>
-        {imgAssets && (
-          <Image
-            style={{
-              width: 53,
-              height: 53,
-              borderRadius: 100,
-            }}
-            source={imgAssets}
-          />
-        )}
-        {student?.image && (
-          <Image
-            style={{
-              width: 53,
-              height: 53,
-              borderRadius: 100,
-            }}
-            source={{
-              uri: student.image,
-            }}
-          />
-        )}
+        <Image
+          style={{
+            width: 53,
+            height: 53,
+            borderRadius: 100,
+          }}
+          source={imgAssets}
+        />
       </View>
       <View
         style={{
@@ -86,7 +73,7 @@ const StudentCard = ({
             fontSize: 16,
             fontWeight: '500',
             fontFamily: GStyles.PoppinsSemiBold,
-           
+
             textAlign: 'center',
             letterSpacing: 0.4,
             marginVertical: 1,

@@ -62,13 +62,19 @@ const Stack = createNativeStackNavigator();
 
 export const NavigationRoutes = () => {
   // console.log( "token" + token);
-   const {user} = useContextApi()
+  const {user} = useContextApi();
+  const {
+    netInfo: {type, isConnected},
+    refresh,
+  } = useNetInfoInstance();
+
+  console.log(isConnected);
   return (
     <NavigationContainer>
       <Stack.Navigator
-      //  initialRouteName={user?.token ? user?.role === "teacher" ? "TeacherDrawerRoutes" : "StudentDrawerRoutes" : "Splash"}
-      initialRouteName='Splash'  
-      screenOptions={{
+        //  initialRouteName={user?.token ? user?.role === "teacher" ? "TeacherDrawerRoutes" : "StudentDrawerRoutes" : "Splash"}
+        initialRouteName={true ? 'Splash' : 'InternetStatus'}
+        screenOptions={{
           headerShown: false,
           // statusBarColor: 'transparent',
           // statusBarStyle: 'auto',
@@ -76,21 +82,18 @@ export const NavigationRoutes = () => {
           animation: 'slide_from_right',
         }}>
         {/* <Stack.Screen name="Testing" component={TastingComponents} /> */}
+        <Stack.Screen name="InternetStatus" component={InternetStatusScreen} />
         <Stack.Screen name="Splash" component={SplashScreen} />
-     
-              {
-                !user?.token && (
-                  <>
-                    <Stack.Screen name="LoginAs" component={LoginAsScreen} />
-        <Stack.Screen name="TeacherLogin" component={TeacherLoginScreen} />
-        <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
-        <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-                  </>
 
-                ) 
-              }
-       
+        {!user?.token && (
+          <>
+            <Stack.Screen name="LoginAs" component={LoginAsScreen} />
+            <Stack.Screen name="TeacherLogin" component={TeacherLoginScreen} />
+            <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
+            <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+          </>
+        )}
 
         {/* Admins All Screens  */}
         {/* <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
@@ -105,107 +108,122 @@ export const NavigationRoutes = () => {
       <Stack.Screen name="AllTeacher" component={AllTeacherScreen} />
       <Stack.Screen name="AdminNotification" component={AdminNotification} /> */}
         {/*--------------------- student routes----------------  */}
-        {
-          user?.role === "student" && <>
-           <Stack.Screen
-          name="StudentDrawerRoutes"
-          component={StudentDrawerRoutes}
-        />
-        <Stack.Screen
-          name="StudentPublicProfile"
-          component={StudentPublicProfileScreen}
-        />
-        <Stack.Screen
-          name="StudentFeedBack"
-          component={StudentFeedbackScreen}
-        />
-        <Stack.Screen name="StudentProfile" component={StudentProfileScreen} />
-        <Stack.Screen
-          name="StudentNotification"
-          component={StudentNotification}
-        />
-        <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
-        <Stack.Screen name="StudentPassCode" component={StudentPassCode} />
-        <Stack.Screen
-          name="StudentProfileEdit"
-          component={StudentProfileEdit}
-        />
-        <Stack.Screen name="AllStudentAvatar" component={AllStudentAvatar} />
+        {user?.role === 'student' && (
+          <>
+            <Stack.Screen
+              name="StudentDrawerRoutes"
+              component={StudentDrawerRoutes}
+            />
+            <Stack.Screen
+              name="StudentPublicProfile"
+              component={StudentPublicProfileScreen}
+            />
+            <Stack.Screen
+              name="StudentFeedBack"
+              component={StudentFeedbackScreen}
+            />
+            <Stack.Screen
+              name="StudentProfile"
+              component={StudentProfileScreen}
+            />
+            <Stack.Screen
+              name="StudentNotification"
+              component={StudentNotification}
+            />
+            <Stack.Screen name="AllStudents" component={AllStudentsScreen} />
+            <Stack.Screen name="StudentPassCode" component={StudentPassCode} />
+            <Stack.Screen
+              name="StudentProfileEdit"
+              component={StudentProfileEdit}
+            />
+            <Stack.Screen
+              name="AllStudentAvatar"
+              component={AllStudentAvatar}
+            />
           </>
-        }
-       
+        )}
 
         {/*-------------------- Teachers All Screens ----------- */}
-       {
-        user?.role === "teacher" && (
+        {user?.role === 'teacher' && (
           <>
-           <Stack.Screen
-          name="TeacherDrawerRoutes"
-          component={TeacherDrawerRoutes}
-        />
-        <Stack.Screen
-          name="PrivacyAndPolicy"
-          component={PrivacyAndPolicyScreen}
-        />
-        <Stack.Screen
-          name="TermsAndCondition"
-          component={TermsAndConditionScreen}
-        />
-        <Stack.Screen
-          name="StudentsProgressAndInfo"
-          component={StudentsProgressAndInfo}
-        />
-        <Stack.Screen
-          name="TeacherNotification"
-          component={TeacherNotification}
-        />
-        <Stack.Screen name="Category" component={CategoryScreen} />
-        <Stack.Screen name="TeacherCreateTask" component={TeacherCreateTask} />
-        <Stack.Screen name="EditTeacherTask" component={EditTeacherTask} />
-        <Stack.Screen name="TeacherTaskAssign" component={TeacherTaskAssign} />
-        <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
-        <Stack.Screen
-          name="TeacherCreateRewords"
-          component={TeacherCreateRewords}
-        />
-        <Stack.Screen
-          name="TeacherEditRewords"
-          component={TeacherEditRewords}
-        />
-        <Stack.Screen
-          name="TeacherAddCategory"
-          component={TeacherAddCategory}
-        />
-        <Stack.Screen
-          name="TeacherAddNewClass"
-          component={TeacherAddNewClass}
-        />
-        <Stack.Screen
-          name="TeacherAddNewStudent"
-          component={TeacherAddNewStudent}
-        />
-        <Stack.Screen name="TeacherFeedBack" component={TeacherFeedback} />
-        <Stack.Screen name="TeacherProfile" component={TeacherProfile} />
-        <Stack.Screen name="StudentAllAvatar" component={StudentAllAvatar} />
-        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
-        <Stack.Screen
-          name="ParticularClassStudent"
-          component={ParticularClassStudents}
-        />
-        <Stack.Screen
-          name="EditTeacherProfile"
-          component={EditTeacherProfile}
-        />
-        <Stack.Screen name="TeacherPassCode" component={TeacherPassCode} />
-        <Stack.Screen name="EditCategory" component={EditCategory} />
-        <Stack.Screen
-          name="StudentPassCodeWithTeacher"
-          component={StudentPassCodeWithTeacher}
-        />
-          
+            <Stack.Screen
+              name="TeacherDrawerRoutes"
+              component={TeacherDrawerRoutes}
+            />
+            <Stack.Screen
+              name="PrivacyAndPolicy"
+              component={PrivacyAndPolicyScreen}
+            />
+            <Stack.Screen
+              name="TermsAndCondition"
+              component={TermsAndConditionScreen}
+            />
+            <Stack.Screen
+              name="StudentsProgressAndInfo"
+              component={StudentsProgressAndInfo}
+            />
+            <Stack.Screen
+              name="TeacherNotification"
+              component={TeacherNotification}
+            />
+            <Stack.Screen name="Category" component={CategoryScreen} />
+            <Stack.Screen
+              name="TeacherCreateTask"
+              component={TeacherCreateTask}
+            />
+            <Stack.Screen name="EditTeacherTask" component={EditTeacherTask} />
+            <Stack.Screen
+              name="TeacherTaskAssign"
+              component={TeacherTaskAssign}
+            />
+            <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
+            <Stack.Screen
+              name="TeacherCreateRewords"
+              component={TeacherCreateRewords}
+            />
+            <Stack.Screen
+              name="TeacherEditRewords"
+              component={TeacherEditRewords}
+            />
+            <Stack.Screen
+              name="TeacherAddCategory"
+              component={TeacherAddCategory}
+            />
+            <Stack.Screen
+              name="TeacherAddNewClass"
+              component={TeacherAddNewClass}
+            />
+            <Stack.Screen
+              name="TeacherEditClass"
+              component={TeacherEditClass}
+            />
+            <Stack.Screen
+              name="TeacherAddNewStudent"
+              component={TeacherAddNewStudent}
+            />
+            <Stack.Screen name="TeacherFeedBack" component={TeacherFeedback} />
+            <Stack.Screen name="TeacherProfile" component={TeacherProfile} />
+            <Stack.Screen
+              name="StudentAllAvatar"
+              component={StudentAllAvatar}
+            />
+            <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+            <Stack.Screen
+              name="ParticularClassStudent"
+              component={ParticularClassStudents}
+            />
+            <Stack.Screen
+              name="EditTeacherProfile"
+              component={EditTeacherProfile}
+            />
+            <Stack.Screen name="TeacherPassCode" component={TeacherPassCode} />
+            <Stack.Screen name="EditCategory" component={EditCategory} />
+            <Stack.Screen
+              name="StudentPassCodeWithTeacher"
+              component={StudentPassCodeWithTeacher}
+            />
           </>
-        )
-       }
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -213,23 +231,14 @@ export const NavigationRoutes = () => {
 
 import {useNetInfoInstance} from '@react-native-community/netinfo';
 import store from '../redux/store';
-import ContextApi, { useContextApi } from '../context/ContextApi';
+import ContextApi, {useContextApi} from '../context/ContextApi';
 import Toast from 'react-native-toast-message';
 
 import ToasTConfig from '../components/common/toaster/ToasTConfig';
-
-
-
-
+import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
+import TeacherEditClass from '../screens/teacher/TeacherEditClass';
 
 export const Routes = () => {
-  const {
-    netInfo: {type, isConnected},
-    refresh,
-  } = useNetInfoInstance();
-
-  console.log(isConnected);
-
   return (
     <GestureHandlerRootView>
       <Provider store={store}>

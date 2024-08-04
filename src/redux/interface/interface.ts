@@ -21,7 +21,7 @@ export interface IUser extends IFetchStatus {
   };
 }
 
-interface IStudent {
+export interface IStudent {
   _id: string;
   name: string;
   password: string;
@@ -41,7 +41,7 @@ interface IStudent {
 export interface IStudents extends IFetchStatus {
   data: Array<IStudent>;
 }
-interface IClass {
+export interface IClass {
   _id: string;
   className: string;
   startDate: Date;

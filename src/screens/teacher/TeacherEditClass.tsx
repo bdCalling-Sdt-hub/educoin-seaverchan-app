@@ -15,20 +15,22 @@ import DateTimePicker from 'react-native-ui-datepicker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-import {useCreateClassMutation} from '../../redux/apiSlices/teacher/tacherClassSlices';
+import {useUpdateClassMutation} from '../../redux/apiSlices/teacher/tacherClassSlices';
 import {useContextApi} from '../../context/ContextApi';
 import Toast from 'react-native-toast-message';
-import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import {IClass} from '../../redux/interface/interface';
 import Require from '../../components/common/require/Require';
+import NormalButtons from '../../components/common/Buttons/NormalButtons';
 
-const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
+const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
   const {user} = useContextApi();
-  const [createClass, results] = useCreateClassMutation();
+  const [updateClass, results] = useUpdateClassMutation();
   const [classInfo, setClassInfo] = React.useState<{
     className: string | undefined;
     startDate: Date | null | undefined;
     endDate: Date | null | undefined;
-  } | null>(null);
+  } | null>(route?.params?.data);
+  //   console.log(classInfo);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [startDate, setStartDate] = React.useState(false);
   const [selectDate, setSelectDate] = React.useState({
@@ -38,8 +40,13 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
   const [dateModal, setDateModal] = React.useState(false);
   const handleClassInfoSubmit = useCallback(
     data => {
-      console.log(data);
-      createClass({token: user?.token, data}).then(res => {
+      // console.log(route?.params?.data?._id);
+      delete data._id;
+      updateClass({
+        token: user?.token,
+        id: route?.params?.data?._id,
+        data,
+      }).then(res => {
         // console.log(res);
         if (res?.error) {
           console.log(res.error?.data?.message);
@@ -64,7 +71,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title="Add New Class"
+        title="Edit Class"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
@@ -79,7 +86,6 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
         }}>
         <View>
           <Require title="Class Name" />
-
           <TextInput
             onChangeText={text => setClassInfo({...classInfo, className: text})}
             style={{
@@ -91,34 +97,34 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
               paddingVertical: 10,
             }}
             placeholder="name"
+            value={classInfo?.className}
           />
         </View>
 
         {/* <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              fontFamily: GStyles.Poppins,
-              color: GStyles.textColor['#3D3D3D'],
-            }}>
-            Instructor Name
-          </Text>
-          <TextInput
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-              borderRadius: 2,
-              paddingHorizontal: 10,
-              fontFamily: GStyles.Poppins,
-              paddingVertical: 10,
-            }}
-            placeholder="Instructor Name"
-          />
-        </View> */}
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '500',
+                fontFamily: GStyles.Poppins,
+                color: GStyles.textColor['#3D3D3D'],
+              }}>
+              Instructor Name
+            </Text>
+            <TextInput
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+                borderRadius: 2,
+                paddingHorizontal: 10,
+                fontFamily: GStyles.Poppins,
+                paddingVertical: 10,
+              }}
+              placeholder="Instructor Name"
+            />
+          </View> */}
         <View>
           <Require title="Start date" />
-
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => {
@@ -134,55 +140,30 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
               paddingVertical: 10,
             }}>
             {classInfo?.startDate ? (
-              <View
+              <Text
                 style={{
-                  flexDirection: 'row',
-                  gap: 10,
+                  fontSize: 14,
+                  fontFamily: GStyles.Poppins,
+                  color: GStyles.gray.normal,
                 }}>
-                <AntDesign
-                  name="calendar"
-                  color={GStyles?.gray.normal}
-                  size={16}
-                />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: GStyles.Poppins,
-                    color: GStyles.gray.normal,
-                  }}>
-                  {classInfo?.startDate
-                    ? new Date(classInfo?.startDate)?.toLocaleDateString()
-                    : new Date().toLocaleDateString()}
-                </Text>
-              </View>
+                {classInfo?.startDate
+                  ? new Date(classInfo?.startDate)?.toLocaleDateString()
+                  : new Date().toLocaleDateString()}
+              </Text>
             ) : (
-              <View
+              <Text
                 style={{
-                  flexDirection: 'row',
-                  gap: 10,
+                  fontSize: 14,
+                  fontFamily: GStyles.Poppins,
+                  color: GStyles.gray.lightActive,
                 }}>
-                <AntDesign
-                  name="calendar"
-                  color={GStyles.gray.lightHover}
-                  size={16}
-                />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: GStyles.Poppins,
-                    color: GStyles.gray.lightHover,
-                  }}>
-                  {classInfo?.startDate
-                    ? new Date(classInfo?.startDate)?.toLocaleDateString()
-                    : new Date().toLocaleDateString()}
-                </Text>
-              </View>
+                {new Date().toLocaleDateString()}
+              </Text>
             )}
           </TouchableOpacity>
         </View>
         <View>
           <Require title="End date" />
-
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => {
@@ -198,49 +179,25 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
               paddingVertical: 10,
             }}>
             {classInfo?.endDate ? (
-              <View
+              <Text
                 style={{
-                  flexDirection: 'row',
-                  gap: 10,
+                  fontSize: 14,
+                  fontFamily: GStyles.Poppins,
+                  color: GStyles.gray.normal,
                 }}>
-                <AntDesign
-                  name="calendar"
-                  color={GStyles?.gray.normal}
-                  size={16}
-                />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: GStyles.Poppins,
-                    color: GStyles.gray.normal,
-                  }}>
-                  {classInfo?.endDate
-                    ? new Date(classInfo?.endDate)?.toLocaleDateString()
-                    : new Date().toLocaleDateString()}
-                </Text>
-              </View>
+                {classInfo?.endDate
+                  ? new Date(classInfo?.endDate)?.toLocaleDateString()
+                  : new Date().toLocaleDateString()}
+              </Text>
             ) : (
-              <View
+              <Text
                 style={{
-                  flexDirection: 'row',
-                  gap: 10,
+                  fontSize: 14,
+                  fontFamily: GStyles.Poppins,
+                  color: GStyles.gray.lightActive,
                 }}>
-                <AntDesign
-                  name="calendar"
-                  color={GStyles.gray.lightHover}
-                  size={16}
-                />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontFamily: GStyles.Poppins,
-                    color: GStyles.gray.lightHover,
-                  }}>
-                  {classInfo?.endDate
-                    ? new Date(classInfo?.endDate)?.toLocaleDateString()
-                    : new Date().toLocaleDateString()}
-                </Text>
-              </View>
+                {new Date().toLocaleDateString()}
+              </Text>
             )}
           </TouchableOpacity>
         </View>
@@ -371,6 +328,6 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
   );
 };
 
-export default TeacherAddNewClass;
+export default TeacherEditClass;
 
 const styles = StyleSheet.create({});

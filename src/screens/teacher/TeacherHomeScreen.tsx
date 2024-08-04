@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment, useState} from 'react';
-import {GStyles} from '../../styles/GStyles';
+import React, {Fragment, useCallback, useState} from 'react';
+import {GStyles, WIDTH} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -27,12 +27,21 @@ import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import {useSelector} from 'react-redux';
-import {useGetClassesQuery, useGetStudentsQuery} from '../../redux/apiSlices/teacherSlices';
+import {useGetStudentsQuery} from '../../redux/apiSlices/teacher/teacherStudentSlices';
 import {useContextApi} from '../../context/ContextApi';
 import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
 import {imageUrl} from '../../redux/api/baseApi';
-import { ActionSheet, ButtonProps } from 'react-native-ui-lib';
-import { FontSize } from '../../utils/utils';
+import {
+  ActionSheet,
+  ButtonProps,
+  GridList,
+  GridView,
+} from 'react-native-ui-lib';
+import {FontSize} from '../../utils/utils';
+import {
+  useDeletedClassMutation,
+  useGetClassesQuery,
+} from '../../redux/apiSlices/teacher/tacherClassSlices';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -42,7 +51,9 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const {user} = useContextApi();
   const {data: userInfo} = useGetUserQuery(user?.token);
   const {data: students} = useGetStudentsQuery(user?.token);
-  const {data : classes} = useGetClassesQuery(user?.token);
+  const {data: classes} = useGetClassesQuery(user?.token);
+  const [deletedClass, results] = useDeletedClassMutation();
+  const [selectedItem, setSelectItem] = React.useState<any>();
   const [op, setOp] = React.useState<string>('All Students');
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
@@ -50,9 +61,26 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   // const token = useSelector((state) => state?.token?.token)
 
   // console.log(students);
+
+  const handleClassAction = useCallback(
+    (action: 'edit' | 'deleted') => {
+      if (action === 'edit') {
+        navigation?.navigate('TeacherEditClass', {data: selectedItem});
+      }
+      if (action === 'deleted') {
+        console.log({token: user.token, id: selectedItem?._id});
+        selectedItem?._id &&
+          deletedClass({token: user.token, id: selectedItem?._id}).then(res => {
+            console.log(res);
+          });
+        console.log('deleted');
+      }
+    },
+    [selectedItem],
+  );
+
   return (
     <View
-   
       style={{
         height: '100%',
         backgroundColor: GStyles.white,
@@ -99,32 +127,26 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         marginBottom={5}
       />
       {op === 'All Students' ? (
-        <FlatList
+        <GridList
           showsVerticalScrollIndicator={false}
           data={students?.data}
           numColumns={2}
+          containerWidth={WIDTH * 0.9}
           contentContainerStyle={{
-            gap: 10,
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingTop: 10,
-            paddingBottom: 50,
+            // alignSelf: 'center',
+            paddingVertical: 10,
+            paddingHorizontal: '5%',
           }}
-          columnWrapperStyle={{
-            gap: 10,
-            alignSelf: 'center',
-          }}
-          ListHeaderComponentStyle={{
-            width: '100%',
-          }}
+          // ListHeaderComponent={item => (
+
           // ListHeaderComponent={item => (
 
           // )}
           renderItem={({item, index}) => (
-            <Fragment key={index}>
+            <View key={index} style={{}}>
               <StudentCard
                 imgBorderColor={GStyles.primaryPurple}
-                width={'45%'}
+                width={'100%'}
                 imgAssets={{
                   uri: imageUrl + item?.image,
                 }}
@@ -133,6 +155,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                   level: item?.level,
                   name: item?.name,
                   points: item?.points,
+                  image: imageUrl + item?.image,
                 }}
                 onPress={() => {
                   // console.log('lol');
@@ -140,27 +163,19 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}
                 key={index}
               />
-            </Fragment>
+            </View>
           )}
         />
       ) : (
-        <FlatList
+        <GridList
           showsVerticalScrollIndicator={false}
           data={classes?.data}
           numColumns={2}
+          containerWidth={WIDTH * 0.9}
           contentContainerStyle={{
-            gap: 10,
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingTop: 10,
-            paddingBottom: 50,
-          }}
-          columnWrapperStyle={{
-            gap: 10,
-            alignSelf: 'center',
-          }}
-          ListHeaderComponentStyle={{
-            width: '100%',
+            // alignSelf: 'center',
+            paddingVertical: 10,
+            paddingHorizontal: '5%',
           }}
           // ListHeaderComponent={item => (
 
@@ -175,13 +190,14 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}
                 style={{
                   height: 168,
-                  width: '45%',
+                  width: WIDTH / 2.5,
                   borderWidth: 1,
                   borderColor: GStyles.borderColor['#ECECEC'],
                   borderRadius: 8,
                   justifyContent: 'center',
                   alignItems: 'center',
                   paddingVertical: 10,
+                  alignSelf: 'center',
                 }}>
                 <Text
                   style={{
@@ -194,38 +210,27 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                   }}>
                   {item?.className}
                 </Text>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: GStyles.textColor['#3D3D3D'],
-                      textAlign: 'center',
-                    }}>
-                  {
-                      new Date(item?.startDate).toLocaleDateString()
-                  }
-                  </Text>
-                </View>
+
                 <TouchableOpacity
                   onPress={() => {
-                   setClassActions(true)
+                    setSelectItem(item);
+                    setClassActions(true);
                   }}
                   style={{
                     justifyContent: 'center',
                     alignItems: 'center',
                     position: 'absolute',
-                    top: 0,
+                    top: 5,
                     right: 0,
                     padding: 10,
                     zIndex: +1,
                   }}>
                   <Entypo
                     name="dots-three-vertical"
-                    size={24}
+                    size={20}
                     color={GStyles.primaryPurple}
                   />
                 </TouchableOpacity>
-          
               </TouchableOpacity>
             </Fragment>
           )}
@@ -336,48 +341,62 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         }}
       />
       <ActionSheet
-      visible={classActions}
-      onDismiss={()=>{
-        setClassActions(false)
-      }}
- title={'Class options'}
- message={'Message goes here'}
- cancelButtonIndex={3}
- destructiveButtonIndex={0}
-//  optionsStyle={}
- showCancelButton
- containerStyle={{
-  paddingBottom : 20,
+        visible={classActions}
+        onDismiss={() => {
+          setClassActions(false);
+        }}
+        title={'Class options'}
+        message={'Message goes here'}
+        cancelButtonIndex={3}
+        destructiveButtonIndex={0}
+        //  optionsStyle={}
+        showCancelButton
+        containerStyle={{
+          paddingBottom: 20,
+        }}
+        options={[
+          {
+            label: 'Edit',
+            onPress: () => {
+              handleClassAction('edit');
+            },
+          },
+          {
+            label: 'Deleted',
+            onPress: () => {
+              handleClassAction('deleted');
+            },
+          },
+        ]}
+        renderAction={(option, index: number, onOptionPress) => {
+          return (
+            <View key={index} style={{}}>
+              <TouchableOpacity
+                onPress={() => onOptionPress(index)}
+                style={{
+                  paddingHorizontal: '4%',
+                  paddingVertical: 10,
 
-
- }}
- options={[
-  {label: 'Edit', onPress: ()=>{} },
-  {label: 'Deleted', style : {
-   backgroundColor : "red"
-  }, onPress:()=>{} },
-
- ]}
-renderAction={(option, index: number, onOptionPress)=>{
-  return<View key={index} >
-     <TouchableOpacity style={{
-      paddingHorizontal : "4%",
-      paddingVertical : 10,
-
-      borderRadius : 8,
-      justifyContent : "center",
-      // alignItems : "center",
-     }}>
-     <Text style={{
-        fontSize : FontSize(16),
-        color : option?.label === "Deleted" ? "rgba(255,20,20,.7)" : "gray",
-        fontFamily : GStyles.Poppins,
-      }}>{option?.label}</Text>
-     </TouchableOpacity>
-  </View>
-}}
-/>
-
+                  borderRadius: 8,
+                  justifyContent: 'center',
+                  // alignItems : "center",
+                }}>
+                <Text
+                  style={{
+                    fontSize: FontSize(14),
+                    color:
+                      option?.label === 'Deleted'
+                        ? 'rgba(255,20,20,.7)'
+                        : 'gray',
+                    fontFamily: GStyles.Poppins,
+                  }}>
+                  {option?.label}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };

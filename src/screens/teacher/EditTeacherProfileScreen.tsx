@@ -19,11 +19,11 @@ import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
 import {imageUrl} from '../../redux/api/baseApi';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import React, {useCallback, useState} from 'react';
-import {useUpdateTeacherMutation} from '../../redux/apiSlices/teacherSlices';
 import {useContextApi} from '../../context/ContextApi';
 import {Dialog} from 'react-native-ui-lib';
 import Toast from 'react-native-toast-message';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import {useUpdateTeacherMutation} from '../../redux/apiSlices/teacher/teacherSlices';
 
 const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   const {data, error} = useGetUserQuery('');
@@ -70,13 +70,12 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
       if (option === 'library') {
         const result = await launchImageLibrary({
           mediaType: 'photo',
-  
         });
 
         if (!result.didCancel) {
           setCategoryImage(result?.assets![0].uri);
           // console.log(result);
-       
+
           setUserInfo({
             ...userInfo,
             image: {
@@ -99,7 +98,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   };
 
   const handleSubmit = useCallback(
-   ( UData : {
+    (UData: {
       name: string;
       contact: string;
       location: string;
@@ -108,23 +107,22 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
         type: string;
         name: string;
         size: number;
-        lastModified: Date // Assuming current time as last modified
-        lastModifiedDate: Date,
-        webkitRelativePath: string,
-      }
+        lastModified: Date; // Assuming current time as last modified
+        lastModifiedDate: Date;
+        webkitRelativePath: string;
+      };
     }) => {
       // console.log(UData);
       const formData = new FormData();
-      if(UData?.image?.uri){
-        formData.append('image',
-          UData?.image);
+      if (UData?.image?.uri) {
+        formData.append('image', UData?.image);
       }
       UData?.name && formData.append('name', UData?.name);
       UData?.contact && formData.append('contact', UData?.contact);
       UData?.location && formData.append('location', UData?.location);
       console.log(UData);
-      updateUser({token: user?.token, data: formData}).then(result => {
-        console.log(result);
+      updateUser({token: user?.token, data: formData}).then(res => {
+        console.log(res);
       });
     },
     [userInfo],
@@ -346,10 +344,14 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </ScrollView>
-   
-      <NormalButtons loading={results?.isLoading} onPress={()=>{
+
+      <NormalButtons
+        loading={results?.isLoading}
+        onPress={() => {
           handleSubmit(userInfo);
-      }} title='Save' />
+        }}
+        title="Save"
+      />
 
       <Dialog
         width={WIDTH}
@@ -400,7 +402,6 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
 
                 color: '#3D3D3D',
               }}>
-                
               Library
             </Text>
           </TouchableOpacity>
