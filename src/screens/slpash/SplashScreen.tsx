@@ -11,25 +11,34 @@ import React, {Dispatch, SetStateAction} from 'react';
 import LottieView from 'lottie-react-native';
 import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import { AppName } from '../../styles/AppDetails';
-
-
+import {AppName} from '../../styles/AppDetails';
+import {useSelector} from 'react-redux';
+import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
+import { useContextApi } from '../../context/ContextApi';
+import { getStorageToken } from '../../utils/utils';
 
 interface splashProps {
   // setLoad: Dispatch<boolean>;
   navigation: NavigationProp<ParamListBase>;
+  // appLoad : boolean;
+  //  setAppLoad : Dispatch<SetStateAction<boolean>>;
 }
 
 // const SplashScreen = ({setLoad}: splashProps) => {
 const SplashScreen = ({navigation}: splashProps) => {
-  const [appLoad, setAppLoad] = React.useState(false);
+  const {user,loading} = useContextApi()
+ 
 
   setTimeout(() => {
-    // Storage.getString("token") ? navigation?.navigate( Storage.getString("role") === "teacher" ? "TeacherDrawerRoutes" : Storage.getString("role") === "student" ? "StudentDrawerRoutes" : "LoginAs"  ) : setAppLoad(true);
-    // setTimeout(()=>{
-    //   navigation.navigate('Login');
-    // },2000)
-    setAppLoad(true)
+     if(!user?.token && !user?.role && !loading){
+       navigation.navigate('LoginAs');
+     }
+     if(user?.role === "teacher"){
+      navigation.navigate("TeacherDrawerRoutes");
+     }
+     if(user?.role === "student"){
+        navigation.navigate("StudentDrawerRoutes");
+     }
   }, 2000);
 
   return (
@@ -40,13 +49,13 @@ const SplashScreen = ({navigation}: splashProps) => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginBottom: "10%",
-              gap : -10
+              marginBottom: '10%',
+              gap: -10,
             }}>
             <Text
               style={{
                 fontSize: 32,
-                fontWeight : '600',
+                fontWeight: '600',
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.PoppinsBold,
               }}>
@@ -80,7 +89,7 @@ const SplashScreen = ({navigation}: splashProps) => {
             }}
           />
         </View>
-        {appLoad && (
+        {/* {appLoad && (
           <View
             style={{
               width: '95%',
@@ -105,11 +114,11 @@ const SplashScreen = ({navigation}: splashProps) => {
                   fontFamily: GStyles.PoppinsMedium,
                   letterSpacing: 0.8,
                 }}>
-           Get Started
+                Get Started
               </Text>
             </TouchableOpacity>
           </View>
-        )}
+        )} */}
       </View>
       <StatusBar backgroundColor={'white'} />
     </View>

@@ -18,3 +18,15 @@ export const getStorageToken = () => {
 export const removeStorageToken = () => {
   storage.delete('token');
 };
+
+export const setStorageRole = (role: string) => {
+  storage.set('role', role);
+};
+
+export const getStorageRole = () => {
+  return storage.getString('role');
+};
+
+export const removeStorageRole = () => {
+  storage.delete('role');
+};

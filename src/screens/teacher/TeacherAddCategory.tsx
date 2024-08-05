@@ -24,10 +24,10 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [launchCameraModal, setLaunchCameraModal] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
-  const [categoryImage, setCategoryImage] = React.useState<string | undefined>('');
-
+  
   const [customCategory, setCustomCategory] = React.useState<number>();
-
+  
+  const [categoryImage, setCategoryImage] = React.useState<string | undefined>('');
   console.log(categoryImage);
 
   const handleImagePick = async (option: 'camera' | 'library') => {

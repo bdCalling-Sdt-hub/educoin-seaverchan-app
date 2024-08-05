@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {GStyles} from '../../styles/GStyles';
@@ -15,53 +15,72 @@ import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { SherAvatar } from '../../utils/ShearData';
-
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {SherAvatar} from '../../utils/ShearData';
+import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import Require from '../../components/common/require/Require';
+import {useCreateStudentMutation} from '../../redux/apiSlices/teacher/teacherStudentSlices';
+import {Dropdown} from 'react-native-element-dropdown';
+import {useContextApi} from '../../context/ContextApi';
+import {useGetClassesQuery} from '../../redux/apiSlices/teacher/tacherClassSlices';
+import DateTimePicker from 'react-native-ui-datepicker';
+import Toast from 'react-native-toast-message';
 
 const data = [
   {
     id: 1,
-    avatar: require("../../assets/images/studentAvatar/1.png"),
+    avatar: require('../../assets/images/studentAvatar/1.png'),
   },
   {
     id: 2,
-    avatar: require("../../assets/images/studentAvatar/2.png"),
+    avatar: require('../../assets/images/studentAvatar/2.png'),
   },
   {
     id: 3,
-    avatar: require("../../assets/images/studentAvatar/3.png"),
+    avatar: require('../../assets/images/studentAvatar/3.png'),
   },
   {
     id: 4,
-    avatar: require("../../assets/images/studentAvatar/4.png"),
+    avatar: require('../../assets/images/studentAvatar/4.png'),
   },
   {
     id: 5,
-    avatar: require("../../assets/images/studentAvatar/5.png"),
+    avatar: require('../../assets/images/studentAvatar/5.png'),
   },
   {
     id: 6,
-    avatar: require("../../assets/images/studentAvatar/6.png"),
+    avatar: require('../../assets/images/studentAvatar/6.png'),
   },
   {
     id: 7,
-    avatar: require("../../assets/images/studentAvatar/7.png"),
+    avatar: require('../../assets/images/studentAvatar/7.png'),
   },
   {
     id: 8,
-    avatar: require("../../assets/images/studentAvatar/8.png"),
+    avatar: require('../../assets/images/studentAvatar/8.png'),
   },
   {
     id: 9,
-    avatar: require("../../assets/images/studentAvatar/9.png"),
+    avatar: require('../../assets/images/studentAvatar/9.png'),
   },
-]
+];
 
 const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
-  const [selectAvatar,setSelectAvatar] = React.useState<number>()
+  const {user} = useContextApi();
+  const {data: classes} = useGetClassesQuery(user?.token);
+  const [createStudent, results] = useCreateStudentMutation();
+  const [selectAvatar, setSelectAvatar] = React.useState<number>();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [image,setImage] = React.useState<string>()
+  const [studentInfo, setStudentInfo] = React.useState<{
+    name: string;
+    password: string;
+    dateOfBirth: string;
+    class: string;
+    image: any;
+  }>();
+
+  const [startDate, setStartDate] = React.useState(false);
+  const [dateModal, setDateModal] = React.useState(false);
 
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
@@ -75,8 +94,18 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
-          setImage(result?.assets![0].uri);
-          console.log(result);
+          setStudentInfo({
+            ...studentInfo,
+            image: {
+              uri: result?.assets![0].uri,
+              type: result?.assets![0].type,
+              name: result?.assets![0].fileName,
+              size: result?.assets![0].fileSize,
+              lastModified: new Date().getTime(), // Assuming current time as last modified
+              lastModifiedDate: new Date(),
+              webkitRelativePath: '',
+            },
+          });
         }
       }
       if (option === 'library') {
@@ -89,8 +118,18 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
-          setImage(result?.assets![0].uri);
-          console.log(result);
+          setStudentInfo({
+            ...studentInfo,
+            image: {
+              uri: result?.assets![0].uri,
+              type: result?.assets![0].type,
+              name: result?.assets![0].fileName,
+              size: result?.assets![0].fileSize,
+              lastModified: new Date().getTime(), // Assuming current time as last modified
+              lastModifiedDate: new Date(),
+              webkitRelativePath: '',
+            },
+          });
         }
       }
     } catch (error) {
@@ -98,7 +137,55 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
     }
   };
 
-  console.log(selectAvatar);
+  // console.log(selectAvatar);
+
+  const handleClassInfoSubmit = useCallback(
+    UData => {
+      console.log(UData);
+      !UData?.name && Toast.show({type: 'info', text1: 'name is empty'});
+      !UData?.class && Toast.show({type: 'info', text1: 'Please select class'});
+      !UData?.dateOfBirth &&
+        Toast.show({type: 'info', text1: 'Date of birth is empty'});
+      !UData?.password &&
+        Toast.show({type: 'info', text1: 'password is empty'});
+      !UData?.image && Toast.show({type: 'info', text1: 'image is empty'});
+      // !UData?.name && Toast.show({type: 'info', text1: 'name is empty'});
+      if (
+        !UData?.image ||
+        !UData?.dateOfBirth ||
+        !UData?.class ||
+        !UData?.name ||
+        !UData?.password
+      ) {
+        return;
+      }
+      const formData = new FormData();
+      if (UData?.image?.uri) {
+        formData.append('image', UData?.image);
+      }
+      UData?.dateOfBirth &&
+        formData.append('dateOfBirth', `${UData?.dateOfBirth}`);
+      UData?.class && formData.append('class', UData?.class);
+      UData?.name && formData.append('name', UData?.name);
+      UData?.password && formData.append('password', UData?.password);
+
+      console.log(formData);
+      createStudent({token: user?.token, data: formData}).then(res => {
+        console.log(res);
+        if (res?.data?.success) {
+          navigation?.goBack();
+        }
+        if (res?.error?.data?.message) {
+          Toast.show({
+            type: 'error',
+            text1: res?.error?.data?.message,
+          });
+        }
+      });
+    },
+    [studentInfo],
+  );
+  // console.log(classes);
   return (
     <View
       style={{
@@ -116,18 +203,13 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
         contentContainerStyle={{
           paddingHorizontal: '4%',
           paddingVertical: 20,
-          gap: 24,
+          gap: 30,
         }}>
-        <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              fontFamily: GStyles.Poppins,
-              color: GStyles.textColor['#3D3D3D'],
-            }}>
-            Student name
-          </Text>
+        <View
+          style={{
+            marginTop: 10,
+          }}>
+          <Require title="Student name" />
           <TextInput
             style={{
               borderBottomColor: 'black',
@@ -138,19 +220,99 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
               paddingVertical: 10,
             }}
             placeholder="Task Name"
+            onChangeText={text => setStudentInfo({...studentInfo, name: text})}
+            placeholderTextColor={GStyles.gray.lightHover}
           />
         </View>
 
         <View>
-          <Text
+          <Require title="Class" />
+          <Dropdown
+            placeholderStyle={{
+              color: GStyles.gray.lightHover,
+            }}
+            keyboardAvoiding
+            placeholder="Select a class"
+            valueField="className"
+            labelField="className"
             style={{
-              fontSize: 16,
-              fontWeight: '500',
-              fontFamily: GStyles.Poppins,
-              color: GStyles.textColor['#3D3D3D'],
+              borderBottomColor: 'gray',
+              borderBottomWidth: 1,
+              borderRadius: 2,
+              paddingHorizontal: 10,
+
+              paddingVertical: 10,
+            }}
+            onChange={item => {
+              // console.log(item);
+              setStudentInfo({...studentInfo, class: item.className});
+            }}
+            data={classes?.data}
+          />
+        </View>
+        <View>
+          <Require title="Date of birth" />
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => {
+              setStartDate(false);
+              setDateModal(true);
+            }}
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              borderRadius: 2,
+              paddingHorizontal: 10,
+
+              paddingVertical: 10,
             }}>
-            Date of birth
-          </Text>
+            {studentInfo?.dateOfBirth ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 10,
+                }}>
+                <AntDesign
+                  name="calendar"
+                  color={GStyles?.gray.normal}
+                  size={16}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontFamily: GStyles.Poppins,
+                    color: GStyles.gray.normal,
+                  }}>
+                  {studentInfo?.dateOfBirth
+                    ? new Date(studentInfo?.dateOfBirth)?.toLocaleDateString()
+                    : new Date().toLocaleDateString()}
+                </Text>
+              </View>
+            ) : (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 10,
+                }}>
+                <AntDesign
+                  name="calendar"
+                  color={GStyles.gray.lightHover}
+                  size={16}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontFamily: GStyles.Poppins,
+                    color: GStyles.gray.lightHover,
+                  }}>
+                  {new Date().toLocaleDateString()}
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Require title="Passcode" />
           <TextInput
             style={{
               borderBottomColor: 'black',
@@ -160,7 +322,12 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
               fontFamily: GStyles.Poppins,
               paddingVertical: 10,
             }}
-            placeholder="dd/mm/yy"
+            maxLength={6}
+            onChangeText={text =>
+              setStudentInfo({...studentInfo, password: text})
+            }
+            placeholder="123456"
+            placeholderTextColor={GStyles.gray.lightHover}
           />
         </View>
         {/* <View>
@@ -217,22 +384,13 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
               justifyContent: 'space-between',
               alignItems: 'center',
               paddingVertical: 10,
-              paddingHorizontal: 10,
+              // paddingHorizontal: 10,
             }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                fontFamily: GStyles.Poppins,
-                color: GStyles.textColor['#3D3D3D'],
-              }}>
-              Choose Avatar
-            </Text>
+            <Require title="Choose Avatar" />
             <TouchableOpacity
               style={{}}
               onPress={() => {
                 navigation?.navigate('StudentAllAvatar');
-                
               }}>
               <Text
                 style={{
@@ -256,62 +414,65 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             }}
             ListHeaderComponent={item => (
               <>
-               
-               {
-                image ?<TouchableOpacity
-                onPress={()=>{
-                  handleImagePick("camera")
-                  if(selectAvatar){
-                    setSelectAvatar(undefined)
-                  }
-                }}
-                  style={{
-                    width: 90,
-                    height: 90,
-                    borderRadius: 100,
-                    backgroundColor: '#F1F1F1',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderColor: selectAvatar !== 0 && !selectAvatar ?  GStyles.primaryPurple :"white"  ,
-                    borderWidth:  2,
-                  
-                  }}>
-                  <Image
+                {studentInfo?.image ? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleImagePick('camera');
+                      if (selectAvatar) {
+                        setSelectAvatar(undefined);
+                      }
+                    }}
                     style={{
-                      width: 80,
-                      height: 80,
+                      width: 90,
+                      height: 90,
                       borderRadius: 100,
-                    }}
-                    source={{
-                      uri: image ? image : 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
-                    }}
-                  />
-                </TouchableOpacity> :  <TouchableOpacity
-         onPress={()=>handleImagePick("camera")}
-                style={{
-                  width: 90,
-                  height: 90,
-                  borderRadius: 100,
-                  backgroundColor: '#F1F1F1',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderColor: GStyles.borderColor['#ECECEC'],
-                  borderWidth: 1,
-                }}>
-                <AntDesign
-                  name="plus"
-                  size={24}
-                  color={GStyles.textColor['#3D3D3D']}
-                />
-              </TouchableOpacity>
-               }
-              
+                      backgroundColor: '#F1F1F1',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderColor:
+                        selectAvatar !== 0 && !selectAvatar
+                          ? GStyles.primaryPurple
+                          : 'white',
+                      borderWidth: 2,
+                    }}>
+                    <Image
+                      style={{
+                        width: 80,
+                        height: 80,
+                        borderRadius: 100,
+                      }}
+                      source={{
+                        uri: studentInfo?.image
+                          ? studentInfo?.image?.uri
+                          : 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
+                      }}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => handleImagePick('camera')}
+                    style={{
+                      width: 90,
+                      height: 90,
+                      borderRadius: 100,
+                      backgroundColor: '#F1F1F1',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderColor: GStyles.borderColor['#ECECEC'],
+                      borderWidth: 1,
+                    }}>
+                    <AntDesign
+                      name="plus"
+                      size={24}
+                      color={GStyles.textColor['#3D3D3D']}
+                    />
+                  </TouchableOpacity>
+                )}
               </>
-             
             )}
             renderItem={item => (
               <TouchableOpacity
-              onPress={()=>setSelectAvatar(item.item.id)}
+                onPress={() => setSelectAvatar(item.item.id)}
                 style={{
                   width: 90,
                   height: 90,
@@ -319,9 +480,11 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                   backgroundColor: '#F1F1F1',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderColor: selectAvatar === item.item.id ? GStyles.primaryPurple : GStyles.borderColor['#ECECEC'],
-                  borderWidth:  2,
-                
+                  borderColor:
+                    selectAvatar === item.item.id
+                      ? GStyles.primaryPurple
+                      : GStyles.borderColor['#ECECEC'],
+                  borderWidth: 2,
                 }}>
                 <Image
                   style={{
@@ -329,9 +492,13 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                     height: 80,
                     borderRadius: 100,
                   }}
-                  source={item.item.img ? item.item.img :{
-                    uri:  'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
-                  }}
+                  source={
+                    item.item.img
+                      ? item.item.img
+                      : {
+                          uri: 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
+                        }
+                  }
                 />
               </TouchableOpacity>
             )}
@@ -340,44 +507,15 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
       </ScrollView>
       <View
         style={{
-          paddingHorizontal: '4%',
-          paddingVertical: '5%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
+          paddingVertical: 10,
         }}>
-        <TouchableOpacity
+        <NormalButtons
+          loading={results?.isLoading}
+          title="Save"
           onPress={() => {
-            setModalVisible(true);
-            // navigation.goBack()
+            handleClassInfoSubmit(studentInfo);
           }}
-          style={{
-            backgroundColor: GStyles.primaryPurple,
-            padding: 10,
-            borderRadius: 100,
-            marginVertical: 10,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
-            width: '90%',
-          }}>
-          <Text
-            style={{
-              fontWeight: 'bold',
-            }}>
-            {/* <AntDesign name="plus" size={20} color="white" /> */}
-          </Text>
-          <Text
-            style={{
-              color: 'white',
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              letterSpacing: 0.8,
-              marginTop: 5,
-            }}>
-            Save
-          </Text>
-        </TouchableOpacity>
+        />
       </View>
       <CustomModal
         modalVisible={modalVisible}
@@ -436,6 +574,58 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             </TouchableOpacity>
           </View>
         </View>
+      </CustomModal>
+      <CustomModal
+        height={'47%'}
+        Radius={20}
+        paddingHorizontal="4%"
+        modalVisible={dateModal}
+        backButton
+        setModalVisible={setDateModal}>
+        <DateTimePicker
+          headerContainerStyle={{
+            marginTop: '8%',
+          }}
+          // headerButtonColor={colors.redis}
+          // headerTextStyle={{
+          //   color: colors.redis,
+          //   fontFamily: font.Poppins,
+          //   fontSize: 14,
+          // }}
+          // headerButtonSize={14}
+          // headerButtonStyle={{
+          //   backgroundColor: colors.bg,
+          //   elevation: 1,
+          //   borderRadius: 4,
+          // }}
+          // calendarTextStyle={{
+          //   color: colors.textColor.light,
+          // }}
+          // selectedItemColor={colors.blue}
+          // weekDaysTextStyle={{
+          //   color: colors.primaryColor,
+          //   fontFamily: font.Poppins,
+          //   fontSize: 12,
+          // }}
+          // headerTextContainerStyle={{
+          //   backgroundColor: colors.bg,
+          //   elevation: 1,
+          //   marginHorizontal: 5,
+          //   // paddingVertical: 2,
+          //   paddingHorizontal: 10,
+          //   borderRadius: 4,
+          //   alignItems: 'center',
+          //   justifyContent: 'center',
+          // }}
+          mode="single"
+          date={studentInfo?.dateOfBirth ? studentInfo.dateOfBirth : new Date()}
+          onChange={(params: any) => {
+            // console.log(params);
+            setStudentInfo({...studentInfo, dateOfBirth: params?.date});
+
+            setDateModal(false);
+          }}
+        />
       </CustomModal>
     </View>
   );

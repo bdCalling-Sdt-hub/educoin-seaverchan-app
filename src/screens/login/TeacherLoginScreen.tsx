@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Keyboard,
   Pressable,
@@ -19,13 +20,19 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import { useLoginMutation } from '../../redux/apiSlices/authSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setToken } from '../../redux/apiSlices/tokenSlice';
+import { setToken, setUserRole } from '../../redux/apiSlices/userSlice';
+import { setStorageRole, setStorageToken } from '../../utils/utils';
+import { useContextApi } from '../../context/ContextApi';
+import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import Toast from 'react-native-toast-message';
 
 
 
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
-  const [loginUser,{data}] = useLoginMutation()
-const  dispatch = useDispatch() 
+  const [loginUser,results] = useLoginMutation()
+// const  dispatch = useDispatch() 
+// console.log(results?.error);
+ const {setUser,user}  = useContextApi()
 
 
 
@@ -48,19 +55,50 @@ const  dispatch = useDispatch()
    
   };
 
-  // console.log();
+  // console.log(results?.error);
 
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
-    console.log('Entered PIN:', pin);
-    if(Number(pin) > 7){
+    console.log(pin);
+     if(!pin){
+      Toast.show({
+        text1: 'Please enter the passcode !',
+        type: 'error',
+        // swipeable : true
+      })
+     }
+     if( pin.length < 6 ){
+      Toast.show({
+        text1: 'Passcode must be 6 digit!',
+        type: 'error',
+        // swipeable : true
+      })
+     }
+   console.log(pin.length);
+    if(pin.length < 7){
       loginUser(pin).then(res=>{
-        // console.log(res);
+
+        
+        if(res.error){
+          Toast.show({
+            text1: res?.error?.data?.message,
+            type: 'info',
+            // swipeable : true
+          })
+        }
+      
        if(res?.data?.success){
-        // SetItem("token",res.data?.data)
-        // setToken(res?.data?.data)
-        dispatch(setToken(res?.data?.data))
-        navigation?.navigate("TeacherDrawerRoutes")
+         setUser({
+          token: res?.data?.data,
+          role: "teacher",
+         })
+        setStorageRole("teacher")
+        setStorageToken(res?.data?.data)
+        // Toast.show({
+        //   text1: 'Login successful!',
+        //   type:'success',
+        // })
+        // navigation?.navigate("TeacherDrawerRoutes")
        }
 
       })
@@ -108,7 +146,10 @@ const  dispatch = useDispatch()
           </View>
         </View>
         <View style={styles.buttonContain}>
-          <TouchableOpacity
+          <NormalButtons loading={results?.isLoading} title='Go' onPress={()=>{
+            handleGoPress()
+          }} />
+          {/* <TouchableOpacity
             disabled={pin.length !== 6}
             style={[
               styles.button,
@@ -117,6 +158,7 @@ const  dispatch = useDispatch()
                 : {backgroundColor: GStyles.borderColor['#ECECEC']},
             ]}
             onPress={handleGoPress}>
+           
             <Text
               style={[
                 styles.buttonText,
@@ -124,9 +166,10 @@ const  dispatch = useDispatch()
                   ? {color: GStyles.white}
                   : {color: GStyles.gray.lightHover},
               ]}>
+                 
               Go
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
 
