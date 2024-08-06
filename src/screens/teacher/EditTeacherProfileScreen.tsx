@@ -276,7 +276,9 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
+                color: GStyles.textColor['#3D3D3D'],
               }}
+              placeholderTextColor={GStyles.textColor['#929394']}
               placeholder="type name"
               value={userInfo?.name}
               onChangeText={text =>
@@ -304,7 +306,9 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
+                color: GStyles.textColor['#3D3D3D'],
               }}
+              placeholderTextColor={GStyles.textColor['#929394']}
               placeholder="type contact"
               value={userInfo?.contact}
               onChangeText={text =>
@@ -328,9 +332,11 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               Address :
             </Text>
             <TextInput
+              placeholderTextColor={GStyles.textColor['#929394']}
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
+                color: GStyles.textColor['#3D3D3D'],
               }}
               placeholder="type location"
               value={userInfo?.location}

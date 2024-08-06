@@ -63,17 +63,12 @@ const Stack = createNativeStackNavigator();
 export const NavigationRoutes = () => {
   // console.log( "token" + token);
   const {user} = useContextApi();
-  const {
-    netInfo: {type, isConnected},
-    refresh,
-  } = useNetInfoInstance();
 
-  console.log(isConnected);
   return (
     <NavigationContainer>
       <Stack.Navigator
         //  initialRouteName={user?.token ? user?.role === "teacher" ? "TeacherDrawerRoutes" : "StudentDrawerRoutes" : "Splash"}
-        initialRouteName={true ? 'Splash' : 'InternetStatus'}
+        initialRouteName={'Splash'}
         screenOptions={{
           headerShown: false,
           // statusBarColor: 'transparent',
@@ -237,13 +232,18 @@ import Toast from 'react-native-toast-message';
 import ToasTConfig from '../components/common/toaster/ToasTConfig';
 import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
 import TeacherEditClass from '../screens/teacher/TeacherEditClass';
-
 export const Routes = () => {
+  const {
+    netInfo: {type, isConnected},
+    refresh,
+  } = useNetInfoInstance();
+
+  console.log('internet', isConnected);
   return (
     <GestureHandlerRootView>
       <Provider store={store}>
         <ContextApi>
-          <NavigationRoutes />
+          {!isConnected ? <InternetStatusScreen /> : <NavigationRoutes />}
         </ContextApi>
       </Provider>
       <Toast config={ToasTConfig} />

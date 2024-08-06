@@ -13,7 +13,7 @@ export const api = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ['user', 'class', 'student'],
+  tagTypes: ['user', 'class', 'student', 'category', 'task'],
 });
 
 export const imageUrl = 'http://192.168.10.16:5001';

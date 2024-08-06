@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, {Fragment, useCallback} from 'react';
+import React, {Fragment, useCallback, useEffect} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {GStyles} from '../../styles/GStyles';
@@ -54,7 +54,7 @@ import {
   SherAvatar,
   TaskIcons,
 } from '../../utils/ShearData';
-import {useSharedValue} from 'react-native-reanimated';
+import {useSharedValue, withSpring, withTiming} from 'react-native-reanimated';
 import {Slider} from 'react-native-awesome-slider';
 
 interface taskData {
@@ -78,7 +78,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
   const [isGood, setIsGood] = React.useState(true);
   const [modalVisible, setModalVisible] = React.useState(false);
 
-  const [customPoints, setCustomPoints] = React.useState<number>(50);
+  const [customPoints, setCustomPoints] = React.useState<number>(100);
 
   const handleOnDataFlow = React.useCallback(() => {
     //  console.log(taskData);
@@ -127,6 +127,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
   const min = useSharedValue(0);
   const max = useSharedValue(200);
 
+  React.useEffect(() => {
+    progress.value = withTiming(customPoints, {duration: 10});
+  }, [customPoints]);
+
   return (
     <View
       style={{
@@ -170,7 +174,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
-               
+
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
@@ -228,7 +232,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
-               
+
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
@@ -259,7 +263,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               justifyContent: 'space-between',
               marginTop: 10,
             }}>
-            <View
+            <TouchableOpacity
+              onPress={() => {
+                customPoints !== 0 && setCustomPoints(customPoints - 10);
+              }}
               style={{
                 height: 35,
                 justifyContent: 'center',
@@ -275,10 +282,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                   textAlign: 'center',
                   width: 45,
                 }}>
-                -{parseInt(customPoints)}
+                -10
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 height: 35,
                 justifyContent: 'center',
@@ -295,9 +302,9 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                   width: 45,
                   textAlign: 'center',
                 }}>
-                +{parseInt(customPoints)}
+                +10
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         {/* have reword = true  */}
@@ -489,7 +496,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
-               
+
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
@@ -567,7 +574,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
-               
+
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>

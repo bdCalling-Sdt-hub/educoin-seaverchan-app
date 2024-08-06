@@ -14,10 +14,13 @@ import {GStyles} from '../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import { categoryIcons, ShearIcons } from '../../utils/ShearData';
-
+import {categoryIcons, ShearIcons} from '../../utils/ShearData';
+import {useGetCategoriesQuery} from '../../redux/apiSlices/teacher/techerCategorySlices';
+import {imageUrl} from '../../redux/api/baseApi';
 
 const CategoryScreen = ({navigation}: NavigProps<null>) => {
+  const {data: categories} = useGetCategoriesQuery('');
+
   return (
     <View
       style={{
@@ -41,12 +44,11 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
           paddingBottom: 30,
           gap: 20,
         }}
-        data={ShearIcons}
+        data={categories?.data}
         // numColumns={2}
 
         ListHeaderComponent={() => (
           <TouchableOpacity
-      
             onPress={() => {
               navigation?.navigate('TeacherAddCategory');
             }}
@@ -88,7 +90,7 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
                     fontSize: 16,
                     color: '#3D3D3D',
                   }}>
-                  Add new
+                  Add New Category
                 </Text>
               </View>
             </View>
@@ -96,7 +98,7 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
         )}
         renderItem={item => (
           <TouchableOpacity
-          disabled
+            disabled
             onPress={() => {}}
             key={item.index}
             style={{
@@ -116,13 +118,17 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
                 alignItems: 'center',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                borderRadius: 10,
               }}>
               <Image
-                source={item.item.img}
-                resizeMode="center"
+                source={{
+                  uri: imageUrl + item.item.image,
+                }}
+                resizeMode="stretch"
                 style={{
                   width: 70,
                   height: 70,
+                  borderRadius: 10,
                 }}
               />
 
@@ -137,13 +143,13 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
                     fontSize: 16,
                     color: '#3D3D3D',
                   }}>
-                  {item.item.title === 'New Task'
-                    ? 'New Task'
-                    : item.item.title}
+                  {item.item.name === 'New Task' ? 'New Task' : item.item.name}
                 </Text>
               </View>
               <TouchableOpacity
-                onPress={() => navigation?.navigate('EditCategory')}
+                onPress={() =>
+                  navigation?.navigate('EditCategory', {data: item.item})
+                }
                 style={{
                   backgroundColor: GStyles.primaryPurple,
 

@@ -144,18 +144,21 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           // )}
           renderItem={({item, index}) => (
             <View key={index} style={{}}>
+              <Image
+                source={{
+                  uri: imageUrl + item?.image,
+                }}
+              />
+
               <StudentCard
                 imgBorderColor={GStyles.primaryPurple}
                 width={'100%'}
-                imgAssets={{
-                  uri: imageUrl + item?.image,
-                }}
                 student={{
                   class: item?.class,
                   level: item?.level,
                   name: item?.name,
                   points: item?.points,
-                  image: imageUrl + item?.image,
+                  image: item?.profile,
                 }}
                 onPress={() => {
                   // console.log('lol');
@@ -345,14 +348,18 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         onDismiss={() => {
           setClassActions(false);
         }}
-        title={'Class options'}
-        message={'Message goes here'}
-        cancelButtonIndex={3}
+        // title={'Class options'}
+        // message={'Message goes here'}
+        // cancelButtonIndex={3}
         destructiveButtonIndex={0}
         //  optionsStyle={}
-        showCancelButton
+        dialogStyle={{
+          borderTopRightRadius: 10,
+          borderTopStartRadius: 10,
+        }}
         containerStyle={{
           paddingBottom: 20,
+          paddingTop: 15,
         }}
         options={[
           {
@@ -375,7 +382,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 onPress={() => onOptionPress(index)}
                 style={{
                   paddingHorizontal: '4%',
-                  paddingVertical: 10,
+                  paddingVertical: 12,
 
                   borderRadius: 8,
                   justifyContent: 'center',

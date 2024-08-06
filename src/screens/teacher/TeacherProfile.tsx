@@ -9,18 +9,15 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 import FastImage from 'react-native-fast-image';
 
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
-import { useGetUserQuery } from '../../redux/apiSlices/authSlice';
-import { imageUrl } from '../../redux/api/baseApi';
-
+import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
+import {imageUrl} from '../../redux/api/baseApi';
 
 const TeacherProfile = ({navigation}: NavigProps<null>) => {
-  const {data,error} = useGetUserQuery("")
+  const {data, error} = useGetUserQuery('');
 
-// console.log(error);
-
-
+  console.log(data);
 
   return (
     <View
@@ -65,7 +62,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 height: 86,
                 width: 86,
-        
+
                 borderRadius: 100,
               }}
               resizeMode="cover"
@@ -103,9 +100,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
-              {
-                data?.data?.name
-              }
+              {data?.data?.name}
             </Text>
             <Text
               style={{
@@ -114,9 +109,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
-            {
-              data?.data?.email
-            }
+              {data?.data?.email}
             </Text>
           </View>
         </View>
@@ -143,11 +136,10 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 color: '#3D3D3D',
                 marginVertical: 3,
               }}>
-              Personal Information: 
+              Personal Information:
             </Text>
-            <TouchableOpacity 
-            onPress={()=>navigation?.navigate("EditTeacherProfile")}
-            >
+            <TouchableOpacity
+              onPress={() => navigation?.navigate('EditTeacherProfile')}>
               <AntDesign
                 name="edit"
                 style={{
@@ -174,10 +166,9 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
+                color: GStyles.textColor['#929394'],
               }}>
-              {
-                data?.data?.name
-              }
+              {data?.data?.name}
             </Text>
           </View>
           <View
@@ -190,16 +181,15 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
                 fontSize: 16,
                 color: '#3D3D3D',
               }}>
-              Email : 
+              Email :
             </Text>
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
+                color: GStyles.textColor['#929394'],
               }}>
-              {
-                data?.data?.email
-              }
+              {data?.data?.email}
             </Text>
           </View>
           <View
@@ -218,10 +208,9 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
+                color: GStyles.textColor['#929394'],
               }}>
-            {
-              data?.data?.contact
-            }
+              {data?.data?.contact}
             </Text>
           </View>
           <View
@@ -240,8 +229,9 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               style={{
                 fontFamily: GStyles.Poppins,
                 fontSize: 14,
+                color: GStyles.textColor['#929394'],
               }}>
-             {data?.data?.location}
+              {data?.data?.location}
             </Text>
           </View>
         </View>

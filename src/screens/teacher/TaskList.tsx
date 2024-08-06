@@ -19,19 +19,32 @@ import StudentCard from '../../components/common/Cards/StudentCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-import { ShearTask, TaskIcons } from '../../utils/ShearData';
+import {ShearTask, TaskIcons} from '../../utils/ShearData';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
+import {FontSize} from '../../utils/utils';
+import {ActionSheet} from 'react-native-ui-lib';
+import {
+  useGetPendingTaskQuery,
+  useGetTaskQuery,
+} from '../../redux/apiSlices/teacher/teaherTaskSlices';
+import {imageUrl} from '../../redux/api/baseApi';
+import {useContextApi} from '../../context/ContextApi';
 
 const TaskList = ({navigation}: NavigProps<null>) => {
+  const {user} = useContextApi();
+  const {data: tasks} = useGetTaskQuery(user.token);
+  const {data: pendingTasks} = useGetPendingTaskQuery(user.token);
+  // console.log(pendingTasks);
   const [op, setOp] = React.useState('Task List');
-  const [optionIndex,setOptionIndex] = useState<number>()
-  const [reLoad,setReload] = React.useState(false)
+  const [optionIndex, setOptionIndex] = useState<number>();
+  const [reLoad, setReload] = React.useState(false);
+  const [isActionOpen, setIsActions] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
-   useEffect(()=>{
-    ShearTask
-    setReload(false)
-   },[reLoad])
+  useEffect(() => {
+    ShearTask;
+    setReload(false);
+  }, [reLoad]);
   return (
     <View
       style={{
@@ -48,73 +61,128 @@ const TaskList = ({navigation}: NavigProps<null>) => {
       />
 
       {/* card container  */}
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={ShearTask}
-        contentContainerStyle={{
-          gap: 10,
-          paddingHorizontal: '4%',
-          paddingVertical: 20,
-          paddingTop: 10,
-          paddingBottom: 90,
-        }}
-        ListHeaderComponentStyle={{
-          width: '100%',
-        }}
-        onRefresh={()=>setReload(true)}
-
-        refreshing={reLoad}
-        keyExtractor={(item)=>item.id + item.taskName}
-      
-        renderItem={item => (
-          <>
-      
+      <HeaderOption
+        op1="Task List"
+        op2="Tasks Pending"
+        marginHorizontal={'4%'}
+        marginTop={'4%'}
+        fillButton
+        borderColor={GStyles.primaryPurple}
+        activeBorderColor={GStyles.primaryPurple}
+        isOp={op}
+        setIsOp={setOp}
+      />
+      {op === 'Task List' && (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={tasks?.data}
+          contentContainerStyle={{
+            gap: 10,
+            paddingHorizontal: '4%',
+            paddingVertical: 20,
+            paddingTop: 10,
+            paddingBottom: 90,
+          }}
+          ListHeaderComponentStyle={{
+            width: '100%',
+          }}
+          onRefresh={() => setReload(true)}
+          refreshing={reLoad}
+          keyExtractor={item => item._id}
+          renderItem={item => (
+            <>
               <TaskCard
-              // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
-              imgAssets={  require("../../assets/icons/icon18.png") }
-              approveBTColor={GStyles.primaryPurple}
-              title={"Tasks name"}
-              category='category name'
-              points={`${item.item.points}`}
-              time={item.item.hours}
-               indexNumber={item.index}
-               selectIndex={optionIndex}
-               optionContainerHight={100}
-               onPressOption={setOptionIndex}
-                optionList={[
-                  {
-                    title: 'Edit',
-                    onPress: () => {
-                      navigation?.navigate('EditTeacherTask');
-                    },
-                  },
-                  {
-                    title: 'Reassign',
-                    onPress: () => {
-                      console.log('Cleared');
-                      navigation?.navigate("TeacherTaskAssign")
-                    },
-                  },
-                  {
-                    title: 'Deleted',
-                    onPress: () => {
-                      setIsYes(true)
-                      
-                    },
-                  },
-             
-                ]}
+                // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
+                // imgAssets={imageUrl + item?.item?.category?.image}
+                imageUrl={imageUrl + item?.item?.category?.image}
+                approveBTColor={GStyles.primaryPurple}
+                title={item?.item?.name}
+                category={item.item.category?.name}
+                points={item?.item?.points}
+                optionContainerHight={100}
+                onPressOption={() => {
+                  console.log('ok');
+                  setIsActions(true);
+                }}
+                // optionList={[
+                //   {
+                //     title: 'Edit',
+                //     onPress: () => {
+                //       navigation?.navigate('EditTeacherTask');
+                //     },
+                //   },
+                //   {
+                //     title: 'Reassign',
+                //     onPress: () => {
+                //       console.log('Cleared');
+                //       navigation?.navigate('TeacherTaskAssign');
+                //     },
+                //   },
+                //   {
+                //     title: 'Deleted',
+                //     onPress: () => {
+                //       setIsYes(true);
+                //     },
+                //   },
+                // ]}
                 button
-                
                 // isButton
                 // buttonText="Assign"
-                approveOnPress={() => navigation?.navigate('TeacherTaskAssign')}
+                time={item?.item?.repeat}
+                // description="ok"
+                OnButtonPress={() => {
+                  console.log('ok');
+                  setIsActions(true);
+                }}
                 key={item.index}
               />
-           
-          </>
-        )}
-      />
+            </>
+          )}
+        />
+      )}
+      {op === 'Tasks Pending' && (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={pendingTasks?.data}
+          contentContainerStyle={{
+            gap: 10,
+            paddingHorizontal: '4%',
+            paddingVertical: 20,
+            paddingTop: 10,
+            paddingBottom: 90,
+          }}
+          ListHeaderComponentStyle={{
+            width: '100%',
+          }}
+          onRefresh={() => setReload(true)}
+          refreshing={reLoad}
+          keyExtractor={item => item._id}
+          renderItem={item => (
+            <>
+              <TaskCard
+                // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
+                // imgAssets={require('../../assets/icons/icon18.png')}
+                approveBTColor={GStyles.primaryPurple}
+                title={item.item.task.name}
+                category={item.item.task.category.name}
+                imageUrl={imageUrl + item.item.task.category.image}
+                points={item.item.task.points}
+                time={item.item.task.repeat}
+                indexNumber={item.index}
+                selectIndex={optionIndex}
+                optionContainerHight={100}
+                button
+                isButton
+                buttonText="Pending"
+                OnButtonPress={() => {
+                  // navigation?.navigate('TeacherTaskAssign');
+                }}
+                key={item.index}
+              />
+            </>
+          )}
+        />
+      )}
 
       {/* create new Task button  */}
       <View
@@ -156,10 +224,6 @@ const TaskList = ({navigation}: NavigProps<null>) => {
             Add new task
           </Text>
         </TouchableOpacity>
-
-
-            
-
       </View>
       <CustomModal
         modalVisible={modalVisible}
@@ -219,9 +283,72 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
-      <YesNoModal modalVisible={isYes} setModalVisible={setIsYes} yesPress={()=>{
-        setIsYes(false)
-      }} />
+      <YesNoModal
+        modalVisible={isYes}
+        setModalVisible={setIsYes}
+        yesPress={() => {
+          setIsYes(false);
+        }}
+      />
+
+      <ActionSheet
+        visible={isActionOpen}
+        onDismiss={() => {
+          setIsActions(false);
+        }}
+        // title={'Task options'}
+        // message={'Message goes here'}
+        // cancelButtonIndex={3}
+        destructiveButtonIndex={0}
+        optionsStyle={{}}
+        showCancelButton
+        dialogStyle={{
+          borderTopRightRadius: 10,
+          borderTopStartRadius: 10,
+        }}
+        containerStyle={{
+          paddingBottom: 20,
+          paddingTop: 15,
+        }}
+        options={[
+          {
+            label: 'Edit',
+            onPress: () => {},
+          },
+          {
+            label: 'Re-assign',
+            onPress: () => {},
+          },
+        ]}
+        renderAction={(option, index: number, onOptionPress) => {
+          return (
+            <View key={index}>
+              <TouchableOpacity
+                onPress={() => onOptionPress(index)}
+                style={{
+                  paddingHorizontal: '4%',
+                  paddingVertical: 10,
+
+                  borderRadius: 8,
+                  justifyContent: 'center',
+                  // alignItems : "center",
+                }}>
+                <Text
+                  style={{
+                    fontSize: FontSize(14),
+                    color:
+                      option?.label === 'Deleted'
+                        ? 'rgba(255,20,20,.7)'
+                        : 'gray',
+                    fontFamily: GStyles.Poppins,
+                  }}>
+                  {option?.label}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };
