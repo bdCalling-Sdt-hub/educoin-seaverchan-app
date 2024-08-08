@@ -55,7 +55,7 @@ const StudentCard = ({
           borderRadius: 100,
         }}>
         <Image
-          resizeMode="center"
+          resizeMode="cover"
           style={{
             width: 53,
             height: 53,

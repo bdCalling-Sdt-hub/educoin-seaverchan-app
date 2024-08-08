@@ -112,16 +112,7 @@ const TaskCard = ({
             // borderColor: GStyles.primaryBlue,
             borderRadius: 100,
           }}> */}
-          {imgAssets ? (
-            <Image
-              source={imgAssets}
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: 100,
-              }}
-            />
-          ) : (
+      {console.log(imageUrl)}
             <Image
               source={{
                 uri: imageUrl,
@@ -132,7 +123,7 @@ const TaskCard = ({
                 borderRadius: 100,
               }}
             />
-          )}
+  
 
           {/* </View> */}
           <View

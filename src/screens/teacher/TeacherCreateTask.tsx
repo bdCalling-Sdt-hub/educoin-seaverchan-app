@@ -21,29 +21,6 @@ interface HeaderBackgroundProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const categories = [
-  {
-    title: 'Home Work',
-    img: 'https://s3-alpha-sig.figma.com/img/b4b7/69da/3f48ccb089f02a63c21231f6c0aea8ab?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=oXO6kM4EWeIxKwPgh2Dh7WJLaIE6BRnvK-fMUddz9x-xHBqaHYjERe0V4rwcQscl1Z8aOmeam~v0eJCStEUD~0cHT6sMOOdLFjzcrgfofE5vMx-6TaSlbVw6d-QSHWd~W8lSTWOO3t8Qz6bHtVXf3ZfZN8GgfCVAU8dAqRQ3Vs6Svv8LEzwrOovmGaoUlo5TyFyvPGk90SzSclrs8CmjQ56kISB8uHiaBnMsPV~Pw8yx00lX-7o10Bfgi-XNv8xsoFP6AYbnopsJ0NgQ1waMy-1ejFPurEE95wXGHonGPTqI~mhGrlhzUno9bs3nM-iw5fWhn6KA5xkawWVR~zENvQ__',
-  },
-  {
-    title: 'Participant',
-    img: 'https://s3-alpha-sig.figma.com/img/4ffd/f831/b77dbe53f7212ceaffb5cd3f04bcaba9?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kbG-K-AjUjRNQo8Ud84xsIVhEKB08oeLB8h00nFu0t94XKFz7tkL2sfiXWMQyeQqivpisqY2uT~aO060oOlezMyaHcGjEe2HA8cV2VZz3ssmxMGRHY64ptw2tF-nmbDvaauThWSRe9~0gZNXlEgeMNTF88YtNq2gAoFnInDPpe7CEjNeUfIZEy~RGMK30iGUw05NXy8NbNixeBq5hx72vOsW3bIR-VQ14H-o4VQu0k1nG5sxBFov~X11~Yo0yXzYEAva26DP3XxyG8LNRCwzJV7Nvbps3NEf75fNZL5hkGAjz9sJNM2GOFMyU688dN7XxGSyJWygD3VQu4MOBeTrrg__',
-  },
-  {
-    title: 'Test',
-    img: 'https://s3-alpha-sig.figma.com/img/2fae/085f/d303147e3c3431163db769f78d221f8a?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cBuBJO~nvEwAaMzOkmXAN1LSr6ZOrQy~oqf4yqxYbZT53hPbZVuhUo8ZhCqBIdPsgX24tgotPztAPZdHH4t4bqtRZIILqw-wCwjMMBBdFn4O2pqZFtEESccWdKBXAZDRoUCGbnKlDAOtuxsPNeBM0RcIQ0CEsk0mmhpF2X-d8kqiUv~OCBCrbu4YAUt5tNN9dfK1RxbOHtjt0YslsFv2IQNzZXGa8MB2Q6qNd1SIplTSGyKeYizZDZdJOd~9oScS7fSjWULBolLRLd6bNaUKZdlWrW5SkdGG4kZ5xFXgm88GgLYyjzYZMN5AXGdujkn1UtLnQ1BHWy1yG3IU~JAkpw__',
-  },
-  {
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/66a7/f47c/39de512a12b14f3b6836acbb9bfcd244?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IMBUa3XXhDnv551AFnmfkws76dggk7T5RtGYFVXveSO7SVhIDjGFAxDllfvL25gf0wOqFU2OlS2E~Pkuk2rjxzoe4HfDu5fhs2QoIopXzUw2SWBaV3X-jkJkA3EUnDPWMC0-MmdHisnASdxqUiWt2dmX0Um1j1x~mM96D5RbDV8eqiuumxxcViwF79hKXmnp2y9oJWkXKa6uv4X5~MInqnu6ctbUrg3WtOfut9FxppajQHtrUiVSSbu~iuIXGkjcii1SD6eT-MOXhfGBNYdQfZTFIg0We6ldzP2ALpaA1sM8t83~31M0vpOqh9kISFCJENig2KJI9LXe9OaDgigsyQ__',
-  },
-  {
-    title: 'Behaviour',
-    img: 'https://s3-alpha-sig.figma.com/img/2287/705c/bb5aead5ce8bec646bb53978c888e082?Expires=1719792000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VMSMynlhD6qlTPSXPolY-ansNNseL11HmsEzAMqizPi3mSPMOVVTqTPG~QNmeqiWKSCdjBWTUKu5IOa6Xi4IJEAuJ51p2ouSakPWgRZT751gungb-LqmfQoIgfSDhfvEzcYjVYSfBwFE9GCfFxAgcuItef5ZVzNc-ziVu6OuoGX3cCDuJgnHpDhJAsB0lI-Qicjnwabw-esD-N~q4QIIw4bTi8pWEmZ5BhFJavpVrPKfXQDobNPPnS80JsZibu0W~v32HTvsk32BWIMpLOfay1hxh~kteALag5gp5LOhnLRRRqN9pIL837fp1ZO~L1FsdE7o2xRUho0TC1Zuev-E3w__',
-  },
-];
-
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
@@ -56,20 +33,27 @@ import {
 } from '../../utils/ShearData';
 import {useSharedValue, withSpring, withTiming} from 'react-native-reanimated';
 import {Slider} from 'react-native-awesome-slider';
+import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
+import { imageUrl } from '../../redux/api/baseApi';
+import { useCreateTaskMutation } from '../../redux/apiSlices/teacher/teaherTaskSlices';
+import { useContextApi } from '../../context/ContextApi';
 
 interface taskData {
-  taskName?: string;
-  points?: number;
-  status?: string;
-  icon?: any;
-  days?: string;
-  hours?: string;
+  name: string;
+  points: string;
+  category: string;
+  type: 'good' | 'bad'
+  repeat: 'everyday' | 'weekly' | 'monthly';
 }
 
 const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
+  const {user} = useContextApi();
+  const {data : categories} = useGetCategoriesQuery("")
+  const [createTask,results] = useCreateTaskMutation()
   const [value, setValue] = React.useState<string>();
 
-  const [customCategory, setCustomCategory] = React.useState(1);
+  const [customCategory, setCustomCategory] = React.useState<string>();
 
   const [taskData, setTaskData] = React.useState<taskData>();
 
@@ -77,16 +61,8 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
   const [open, setOpen] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
   const [modalVisible, setModalVisible] = React.useState(false);
-
-  const [customPoints, setCustomPoints] = React.useState<number>(100);
-
-  const handleOnDataFlow = React.useCallback(() => {
-    //  console.log(taskData);
-    taskData.id = ShearTask.length + 1;
-    ShearTask.push(taskData);
-    console.log(ShearTask);
-    navigation.goBack();
-  }, [taskData]);
+  const [customImage, setCustomImage] = React.useState<string>();
+  const [customPoints, setCustomPoints] = React.useState<any>(100);
 
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
@@ -130,6 +106,27 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
   React.useEffect(() => {
     progress.value = withTiming(customPoints, {duration: 10});
   }, [customPoints]);
+
+  const handleCreateTask = useCallback((UData : taskData) => {
+    // console.log(UData);
+     if(!UData.points){
+      UData.points = customPoints
+     }
+     if(!UData.repeat){
+      UData.points = "everyday"
+     }
+     if(!UData.type){
+      UData.type = "good"
+     }
+     if(!UData.category){
+      UData.category = categories?.data[0]._id as string
+     }
+     console.log(UData);
+    createTask({id : user.token , data : UData}).then(res=>{
+      console.log(res);
+    })
+
+  }, []);
 
   return (
     <View
@@ -195,8 +192,8 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            onChangeText={text => setTaskData({...taskData, taskName: text})}
-            value={taskData?.taskName}
+            onChangeText={text => setTaskData({...taskData, name: text})}
+            value={taskData?.name}
             placeholderTextColor="gray"
             multiline
             placeholder="Rewords Name"
@@ -238,7 +235,15 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               }}>
               Points
             </Text>
-            <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+              }}>
+              <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
+              <Text>{parseInt(customPoints)}</Text>
+            </View>
           </View>
 
           <Slider
@@ -255,6 +260,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             maximumValue={max}
             onSlidingComplete={(value: number) => {
               setCustomPoints(value);
+              setTaskData({...taskData, points: value})
             }}
           />
           <View
@@ -286,6 +292,9 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() => {
+                customPoints < max.value && setCustomPoints(customPoints + 10);
+              }}
               style={{
                 height: 35,
                 justifyContent: 'center',
@@ -358,7 +367,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               <TouchableOpacity
                 onPress={() => {
                   setIsGood(true);
-                  setTaskData({...taskData, status: 'good'});
+                  setTaskData({...taskData, type: "good"})
                 }}
                 style={{
                   flexDirection: 'row',
@@ -384,7 +393,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               <TouchableOpacity
                 onPress={() => {
                   setIsGood(false);
-                  setTaskData({...taskData, status: 'bad'});
+                  setTaskData({...taskData, type: "bad"})
                 }}
                 style={{
                   backgroundColor: isGood ? 'white' : GStyles.primaryPurple,
@@ -411,14 +420,16 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             contentContainerStyle={{
               gap: 24,
             }}
-            data={ShearIcons}
-            keyExtractor={item => item.id + item.title}
+            data={categories?.data}
+            keyExtractor={item => item._id + item.name}
+          
             renderItem={item => (
               <TouchableOpacity
+              activeOpacity={.8}
                 key={item.index}
                 onPress={() => {
-                  setCustomCategory(item.item.id);
-                  setTaskData({...taskData, icon: item.item.id});
+                  setCustomCategory(item.item._id);
+                  setTaskData({...taskData, category: item.item._id});
                 }}>
                 <View
                   style={{
@@ -431,18 +442,21 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
                       width: 70,
                       height: 70,
                       borderRadius: 15,
-                      borderColor:
-                        customCategory === item.item.id
+                      backgroundColor:
+                        customCategory === item.item._id
                           ? GStyles.primaryPurple
                           : GStyles.gray.light,
-                      borderWidth: 2,
+                      // borderWidth: 2,
                       padding: 2,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      elevation: 2,
+                      // elevation: 2,
                     }}>
                     <Image
-                      source={item.item.img}
+                    resizeMode='cover'
+                      source={{
+                        uri : imageUrl + item.item.image
+                      }}
                       style={{
                         width: 65,
                         height: 65,
@@ -525,13 +539,13 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             onChange={item => {
               setValue(item?.value);
 
-              setTaskData({...taskData, icon: item?.value});
+              setTaskData({...taskData, repeat: item?.value});
             }}
             placeholder="Repeat everyday"
             data={[
-              {label: 'Repeat every day', value: '1'},
-              {label: 'Repeat every weak', value: '2'},
-              {label: 'Repeat every month', value: '2'},
+              {label: 'Repeat every day', value: 'everyday'},
+              {label: 'Repeat every weak', value: 'weekly'},
+              {label: 'Repeat every month', value: 'monthly'},
             ]}
             renderLeftIcon={() => (
               <Feather
@@ -545,7 +559,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             )}
           />
         </View>
-        <View
+        {/* <View
           style={{
             paddingHorizontal: '4%',
           }}>
@@ -618,7 +632,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
               />
             )}
           />
-        </View>
+        </View> */}
         {/* <View
           style={{
             paddingHorizontal: '4%',
@@ -810,9 +824,10 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
           onPress={() => {
             // navigation.navigate('TeacherTaskAssign')
             // handleOnDataFlow();
-            navigation.navigate('TeacherTaskAssign', {
-              taskData: taskData,
-            });
+            handleCreateTask(taskData)
+            // navigation.navigate('TeacherTaskAssign', {
+            //   taskData: taskData,
+            // });
           }}
           style={{
             backgroundColor: GStyles.primaryPurple,

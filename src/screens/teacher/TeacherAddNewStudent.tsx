@@ -71,13 +71,13 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
   const [createStudent, results] = useCreateStudentMutation();
   const [selectAvatar, setSelectAvatar] = React.useState<number>();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [studentInfo, setStudentInfo] = React.useState<{
-    name: string;
-    password: string;
-    dateOfBirth: string;
-    class: string;
-    image: any;
-  }>();
+  const [studentInfo, setStudentInfo] = React.useState({
+    name: "",
+    password: "",
+    dateOfBirth: new Date(),
+    class: "",
+    image: null
+  });
 
   const [startDate, setStartDate] = React.useState(false);
   const [dateModal, setDateModal] = React.useState(false);

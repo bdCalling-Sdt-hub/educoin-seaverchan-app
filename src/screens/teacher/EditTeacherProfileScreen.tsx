@@ -122,7 +122,8 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
       UData?.location && formData.append('location', UData?.location);
       console.log(UData);
       updateUser({token: user?.token, data: formData}).then(res => {
-        console.log(res);
+        // console.log(res);
+        navigation?.goBack();
       });
     },
     [userInfo],

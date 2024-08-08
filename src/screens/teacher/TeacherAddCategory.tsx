@@ -107,6 +107,10 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
       UData?.name && formData.append('name', UData?.name);
 
       createCategory({token: user?.token, data: formData}).then(res => {
+
+        if(res.error){
+          console.log(res.error);
+        }
         console.log(res);
         if (res?.data?.success) {
           setModalVisible(true);

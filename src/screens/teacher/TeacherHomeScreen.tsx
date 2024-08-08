@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   FlatList,
   Image,
@@ -288,8 +289,28 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           </Text>
           <TouchableOpacity
             onPress={() => {
+
+            if(classes?.data?.length !== 0 ){
               setModalVisible(false);
               navigation.navigate('TeacherAddNewStudent');
+            }
+            else{
+              Alert.alert(
+                'Warning',
+                'No classes available. Please add a class first.',
+                [
+                  {
+                    text: 'Cancel',
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => navigation.navigate('TeacherAddNewClass'),
+                  },
+                ],
+                {cancelable: false},
+              );
+            }
             }}
             style={{
               borderColor: GStyles.primaryPurple,

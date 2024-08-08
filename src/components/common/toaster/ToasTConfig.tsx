@@ -10,7 +10,7 @@ const ToasTConfig: ToastConfig = {
   success: (props) => (
     <BaseToast
       {...props}
-      style={{ borderLeftWidth : 0, backgroundColor: "rgba(74,169,72,1)" ,width : "90%",paddingHorizontal : "4%" }}
+      style={{ borderLeftWidth : 0, backgroundColor: "rgba(74,169,72,1)" ,width : "90%",paddingHorizontal : "4%",zIndex: +1000  }}
       contentContainerStyle={{ paddingHorizontal: 10 ,borderWidth : 0}}
       text1Style={{
         fontSize: 15,
@@ -33,7 +33,7 @@ const ToasTConfig: ToastConfig = {
     <InfoToast
     {...props}
       
-    style={{borderLeftWidth : 0, borderWidth : 0, backgroundColor: "rgba(80,184,231,1)" ,width : "90%",paddingHorizontal : "4%" }}
+    style={{borderLeftWidth : 0, borderWidth : 0, backgroundColor: "rgba(80,184,231,1)" ,width : "90%",paddingHorizontal : "4%",zIndex: +1000  }}
     contentContainerStyle={{ paddingHorizontal: 10 ,borderWidth : 0}}
     text1Style={{
       fontSize: 15,
@@ -56,7 +56,7 @@ const ToasTConfig: ToastConfig = {
     <ErrorToast
       {...props}
       
-      style={{borderLeftWidth : 0, borderWidth : 0, backgroundColor: "rgba(230,95,118,1)" ,width : "90%",paddingHorizontal : "4%" }}
+      style={{borderLeftWidth : 0, borderWidth : 0, backgroundColor: "rgba(230,95,118,1)" ,width : "90%",paddingHorizontal : "4%",zIndex: 1000  }}
       contentContainerStyle={{ paddingHorizontal: 10 ,borderWidth : 0}}
       text1Style={{
         fontSize: 15,
