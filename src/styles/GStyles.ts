@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native";
+import {Dimensions} from 'react-native';
 
 export const GStyles = {
   primaryBlue: '#3AAFFF',
@@ -8,6 +8,7 @@ export const GStyles = {
   white: '#ffff',
   textColor: {
     '#3D3D3D': '#3D3D3D',
+    '#929394': '#929394',
   },
   borderColor: {
     '#ECECEC': '#ECECEC',
@@ -65,5 +66,5 @@ export const GStyles = {
   PoppinsExtraLight: 'Poppins-ExtraLight',
 };
 
-export const WIDTH = Dimensions.get("window").width;
-export const HEIGHT = Dimensions.get("window").height;
+export const WIDTH = Dimensions.get('window').width;
+export const HEIGHT = Dimensions.get('window').height;

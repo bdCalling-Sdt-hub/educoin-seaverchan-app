@@ -26,7 +26,7 @@ export interface IStudent {
   name: string;
   password: string;
   dateOfBirth: Date;
-  image: string;
+  profile: string;
   class: string;
   teacher: string;
   points: number;
@@ -54,4 +54,55 @@ export interface IClass {
 
 export interface IClasses extends IFetchStatus {
   data: Array<IClass>;
+}
+export interface ICategory {
+  _id: string;
+  name: string;
+  image: string;
+  teacher: string;
+  createdAt: Date;
+  updatedAt: DataView;
+  __v: 0;
+}
+
+export interface ICategories extends IFetchStatus {
+  data: Array<ICategory>;
+}
+export interface ITask {
+  _id: string;
+  name: string;
+  points: number;
+  category: {
+    _id: string;
+    name: string;
+    image: string;
+    teacher: string;
+    createdAt: Date;
+    updatedAt: Date;
+    __v: 0;
+  };
+  type: string;
+  repeat: string;
+  teacher: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: 0;
+}
+
+export interface ITasks extends IFetchStatus {
+  data: Array<ITask>;
+}
+export interface IPendingTask {
+  _id: string;
+  task: ITask;
+  student: IStudent;
+  teacher: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: 0;
+}
+
+export interface IPendingTasks extends IFetchStatus {
+  data: Array<IPendingTask>;
 }

@@ -17,24 +17,20 @@ import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
-import { useLoginMutation } from '../../redux/apiSlices/authSlice';
+import {useLoginMutation} from '../../redux/apiSlices/authSlice';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setToken, setUserRole } from '../../redux/apiSlices/userSlice';
-import { setStorageRole, setStorageToken } from '../../utils/utils';
-import { useContextApi } from '../../context/ContextApi';
+import {useDispatch, useSelector} from 'react-redux';
+import {setToken, setUserRole} from '../../redux/apiSlices/userSlice';
+import {setStorageRole, setStorageToken} from '../../utils/utils';
+import {useContextApi} from '../../context/ContextApi';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import Toast from 'react-native-toast-message';
 
-
-
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
-  const [loginUser,results] = useLoginMutation()
-// const  dispatch = useDispatch() 
-// console.log(results?.error);
- const {setUser,user}  = useContextApi()
-
-
+  const [loginUser, results] = useLoginMutation();
+  // const  dispatch = useDispatch()
+  // console.log(results?.error);
+  const {setUser, user} = useContextApi();
 
   const [pin, setPin] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
@@ -44,7 +40,6 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     }
   };
   React.useEffect(() => {
-
     textInputRef.current?.focus();
   }, []);
 
@@ -52,62 +47,59 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     // Ensure only numbers are entered and limit to 6 digits
     const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
     setPin(filteredInput);
-   
   };
 
   // console.log(results?.error);
 
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
-    console.log(pin);
-     if(!pin){
+    // console.log(pin);
+    if (!pin) {
       Toast.show({
         text1: 'Please enter the passcode !',
         type: 'error',
         // swipeable : true
-      })
-     }
-     if( pin.length < 6 ){
+      });
+    }
+    if (pin.length < 6) {
       Toast.show({
         text1: 'Passcode must be 6 digit!',
         type: 'error',
         // swipeable : true
-      })
-     }
-   console.log(pin.length);
-    if(pin.length < 7){
-      loginUser(pin).then(res=>{
+      });
+    }
+    console.log(pin.length);
+    if (pin.length < 7) {
+      loginUser(pin).then(res => {
+        // console.log(res);
+        // if (res.error) {
+        //   Toast.show({
+        //     text1: res?.error?.data?.message,
+        //     type: 'info',
+        //     // swipeable : true
+        //   });
+        // }
 
-        
-        if(res.error){
+        if (res?.data?.success) {
+          setUser({
+            token: res?.data?.data,
+            role: 'teacher',
+          });
+          setStorageRole('teacher');
+          setStorageToken(res?.data?.data);
           Toast.show({
-            text1: res?.error?.data?.message,
-            type: 'info',
-            // swipeable : true
-          })
+            text1: 'Login successful!',
+            type: 'success',
+            visibilityTime: 2000,
+          });
         }
-      
-       if(res?.data?.success){
-         setUser({
-          token: res?.data?.data,
-          role: "teacher",
-         })
-        setStorageRole("teacher")
-        setStorageToken(res?.data?.data)
-        // Toast.show({
-        //   text1: 'Login successful!',
-        //   type:'success',
-        // })
-        // navigation?.navigate("TeacherDrawerRoutes")
-       }
-
-      })
+      });
+      // navigation?.navigate("TeacherDrawerRoutes")
     }
     // navigation?.navigate('TeacherDrawerRoutes');
     Keyboard.dismiss(); // Dismiss the keyboard
   };
-  
-  
+
   return (
     <View style={styles.container}>
       <BackButton />
@@ -146,9 +138,13 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
         <View style={styles.buttonContain}>
-          <NormalButtons loading={results?.isLoading} title='Go' onPress={()=>{
-            handleGoPress()
-          }} />
+          <NormalButtons
+            loading={results?.isLoading}
+            title="Go"
+            onPress={() => {
+              handleGoPress();
+            }}
+          />
           {/* <TouchableOpacity
             disabled={pin.length !== 6}
             style={[

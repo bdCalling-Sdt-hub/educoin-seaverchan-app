@@ -5,6 +5,7 @@ import {GStyles} from '../../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigProps} from '../../../interfaces/NavigationPros';
+import {imageUrl} from '../../../redux/api/baseApi';
 
 interface StudentCardProps {
   student?: {
@@ -54,12 +55,13 @@ const StudentCard = ({
           borderRadius: 100,
         }}>
         <Image
+          resizeMode="center"
           style={{
             width: 53,
             height: 53,
             borderRadius: 100,
           }}
-          source={imgAssets}
+          source={{uri: imageUrl + student?.image}}
         />
       </View>
       <View

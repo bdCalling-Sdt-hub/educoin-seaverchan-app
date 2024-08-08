@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
@@ -17,17 +17,27 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ModalOfBottom from '../../components/common/CustomModal/ModalOfButtom';
-import { categories } from './EditCategory';
-import { categoryIcons, ShearIcons } from '../../utils/ShearData';
+import {categories} from './EditCategory';
+import {categoryIcons, ShearIcons} from '../../utils/ShearData';
+import Require from '../../components/common/require/Require';
+import {useCreateCategoryMutation} from '../../redux/apiSlices/teacher/techerCategorySlices';
+import {useContextApi} from '../../context/ContextApi';
 
 const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
+  const {user} = useContextApi();
+  const [createCategory, results] = useCreateCategoryMutation();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [launchCameraModal, setLaunchCameraModal] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
-  
+  const [categoryData, setCategoryData] = React.useState({
+    name: '',
+    image: {},
+  });
   const [customCategory, setCustomCategory] = React.useState<number>();
-  
-  const [categoryImage, setCategoryImage] = React.useState<string | undefined>('');
+
+  const [categoryImage, setCategoryImage] = React.useState<string | undefined>(
+    '',
+  );
   console.log(categoryImage);
 
   const handleImagePick = async (option: 'camera' | 'library') => {
@@ -42,7 +52,18 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
-          setCategoryImage(result?.assets![0].uri);
+          setCategoryData({
+            ...categoryData,
+            image: {
+              uri: result?.assets![0].uri,
+              type: result?.assets![0].type,
+              name: result?.assets![0].fileName,
+              size: result?.assets![0].fileSize,
+              lastModified: new Date().getTime(), // Assuming current time as last modified
+              lastModifiedDate: new Date(),
+              webkitRelativePath: '',
+            },
+          });
           // console.log(result);
         }
       }
@@ -56,7 +77,18 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
-          setCategoryImage(result?.assets![0].uri);
+          setCategoryData({
+            ...categoryData,
+            image: {
+              uri: result?.assets![0].uri,
+              type: result?.assets![0].type,
+              name: result?.assets![0].fileName,
+              size: result?.assets![0].fileSize,
+              lastModified: new Date().getTime(), // Assuming current time as last modified
+              lastModifiedDate: new Date(),
+              webkitRelativePath: '',
+            },
+          });
           // console.log(result);
         }
       }
@@ -65,6 +97,25 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
     }
   };
 
+  const handleCreateCategory = useCallback(
+    (UData: {name: string; image: {}}) => {
+      console.log(UData);
+      const formData = new FormData();
+      if (UData?.image?.uri) {
+        formData.append('image', UData?.image);
+      }
+      UData?.name && formData.append('name', UData?.name);
+
+      createCategory({token: user?.token, data: formData}).then(res => {
+        console.log(res);
+        if (res?.data?.success) {
+          setModalVisible(true);
+        }
+      });
+    },
+    [],
+  );
+
   return (
     <View
       style={{
@@ -72,7 +123,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title="Add Category"
+        title="Add New Category"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
@@ -85,15 +136,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           gap: 24,
         }}>
         <View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              fontFamily: GStyles.Poppins,
-              color: GStyles.textColor['#3D3D3D'],
-            }}>
-            Category Name
-          </Text>
+          <Require title="Category Name" />
           <TextInput
             style={{
               borderBottomColor: 'black',
@@ -102,12 +145,16 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
               paddingHorizontal: 10,
               fontFamily: GStyles.Poppins,
               paddingVertical: 10,
+              color: GStyles.textColor['#3D3D3D'],
             }}
-            placeholder="Class name"
+            placeholderTextColor={GStyles?.gray?.lightHover}
+            onChangeText={text =>
+              setCategoryData({...categoryData, name: text})
+            }
+            placeholder="type name"
           />
         </View>
 
-      
         {/* <View>
           <Text
             style={{
@@ -200,15 +247,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           style={{
             marginBottom: 20,
           }}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              fontFamily: GStyles.Poppins,
-              color: GStyles.textColor['#3D3D3D'],
-            }}>
-            Choose Image
-          </Text>
+          <Require title="Choose Image" />
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -216,54 +255,55 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
               gap: 24,
             }}
             data={ShearIcons}
-
-            ListHeaderComponent={()=>
-            <View>
-               <TouchableOpacity
-             onPress={()=>handleImagePick("library")}
-          >
-                <View
-                  style={{
-                    gap: 12,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginVertical: 15,
-                    borderColor: GStyles.gray.light,
-                    // padding: 5,
-                    borderWidth: 2,
-                    borderRadius: 8,
-                    elevation : 2
-                  }}>
+            ListHeaderComponent={() => (
+              <View>
+                <TouchableOpacity onPress={() => handleImagePick('library')}>
                   <View
                     style={{
-                      width: 65,
-                      height: 65,
-                      // backgroundColor: GStyles.purple.light,
+                      gap: 12,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginVertical: 15,
+                      borderColor: GStyles.gray.light,
+                      // padding: 5,
+                      borderWidth: 2,
                       borderRadius: 8,
-                      padding: 3,
-                      justifyContent : "center",
-                      alignItems : 'center'
+                      // elevation: 2,
                     }}>
-                      {
-                        categoryImage  ? <Image
-                        source={{
-                          uri : categoryImage
-                        } }
-                        style={{
-                          width: 60,
-                          height: 60,
-                          borderRadius: 8,
-                        }}
-                        resizeMode='cover'
-                      />
-                      : <Feather name='plus' color={GStyles.gray.lightHover} size={25}/>
-                      }
-                    
+                    <View
+                      style={{
+                        width: 65,
+                        height: 65,
+                        // backgroundColor: GStyles.purple.light,
+                        borderRadius: 8,
+                        padding: 3,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      {categoryData?.image?.uri ? (
+                        <Image
+                          source={{
+                            uri: categoryData?.image?.uri,
+                          }}
+                          style={{
+                            width: 60,
+                            height: 60,
+                            borderRadius: 8,
+                          }}
+                          resizeMode="cover"
+                        />
+                      ) : (
+                        <Feather
+                          name="plus"
+                          color={GStyles.gray.lightHover}
+                          size={25}
+                        />
+                      )}
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            </View>}
-
+                </TouchableOpacity>
+              </View>
+            )}
             renderItem={item => (
               <TouchableOpacity
                 onPress={() => {
@@ -285,17 +325,15 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                     borderRadius: 15,
                     // elevation : 2
                   }}>
-                
-                    <Image
-                      source={item.item.img}
-                      style={{
-                        width: 70,
-                        height: 70,
-                        borderRadius: 5,
-                      }}
-                      resizeMode='cover'
-                    />
-                 
+                  <Image
+                    source={item.item.img}
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 5,
+                    }}
+                    resizeMode="cover"
+                  />
                 </View>
               </TouchableOpacity>
             )}
@@ -312,7 +350,8 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         }}>
         <TouchableOpacity
           onPress={() => {
-            setModalVisible(true);
+            // setModalVisible(true);
+            handleCreateCategory(categoryData);
             // navigation.goBack()
           }}
           style={{
@@ -372,13 +411,17 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
               fontFamily: GStyles.Poppins,
               fontSize: 16,
               textAlign: 'center',
+              color: GStyles.gray.normal,
             }}>
             simply dummy text of the printing and typesetting industry
           </Text>
 
           <View>
             <TouchableOpacity
-              onPress={() => setModalVisible(false)}
+              onPress={() => {
+                setModalVisible(false);
+                navigation?.goBack();
+              }}
               style={{
                 backgroundColor: GStyles.primaryPurple,
                 width: '30%',

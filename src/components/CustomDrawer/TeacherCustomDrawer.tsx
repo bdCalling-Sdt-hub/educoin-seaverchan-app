@@ -18,14 +18,14 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-import { AppName } from '../../styles/AppDetails';
-import { useDispatch } from 'react-redux';
-import { clearToken, clearUserRole } from '../../redux/apiSlices/userSlice';
-import { removeStorageRole, removeStorageToken } from '../../utils/utils';
-import { useContextApi } from '../../context/ContextApi';
+import {AppName} from '../../styles/AppDetails';
+import {useDispatch} from 'react-redux';
+import {clearToken, clearUserRole} from '../../redux/apiSlices/userSlice';
+import {removeStorageRole, removeStorageToken} from '../../utils/utils';
+import {useContextApi} from '../../context/ContextApi';
 
 function TeacherCustomDrawer(props: any) {
-   const {setUser} = useContextApi()
+  const {setUser} = useContextApi();
   const navigation = useNavigation<any>();
   return (
     <>
@@ -38,7 +38,6 @@ function TeacherCustomDrawer(props: any) {
           alignItems: 'center',
           position: 'relative',
         }}>
-         
         <Image
           source={require('../../assets/images/loginAs/bearFace.png')}
           style={{
@@ -85,26 +84,23 @@ function TeacherCustomDrawer(props: any) {
         }}>
         <DrawerItemList {...props} />
         <DrawerItem
-          label="Get Student Code"
-          icon={() => <AntDesign name="lock" color={GStyles.primaryPurple} size={24} />}
-          
+          label="Get Passcode"
+          icon={() => (
+            <AntDesign name="lock" color={GStyles.primaryPurple} size={24} />
+          )}
           labelStyle={{
             color: GStyles.primaryPurple,
             fontFamily: GStyles.Poppins,
             fontSize: 16,
             fontWeight: '400',
             letterSpacing: 0.8,
-            
           }}
-          
           style={{
             // height: 100,
             marginTop: 23,
             // borderWidth : 1,
             // borderColor : GStyles.primaryOrange,
             // borderRadius : 100,
-      
-
           }}
           onPress={() => {
             navigation.navigate('TeacherPassCode');
@@ -120,10 +116,12 @@ function TeacherCustomDrawer(props: any) {
             fontWeight: '400',
             letterSpacing: 0.8,
           }}
-          style={{
-            // height: 100,
-            // marginTop: 23,
-          }}
+          style={
+            {
+              // height: 100,
+              // marginTop: 23,
+            }
+          }
           onPress={() => {
             navigation.navigate('TeacherProfile');
           }}
@@ -268,10 +266,10 @@ function TeacherCustomDrawer(props: any) {
           onPress={() => {
             removeStorageRole();
             removeStorageToken();
-             setUser({
+            setUser({
               token: null,
               role: null,
-             })
+            });
             // navigation.navigate('LoginAs')
           }}
           style={{
@@ -312,11 +310,11 @@ function TeacherCustomDrawer(props: any) {
           </View>
         </TouchableHighlight>
         <StatusBar
-        backgroundColor={GStyles.primaryPurple}
-        barStyle="light-content"
-        animated
-        showHideTransition="slide"
-      />
+          backgroundColor={GStyles.primaryPurple}
+          barStyle="light-content"
+          animated
+          showHideTransition="slide"
+        />
       </View>
     </>
   );
