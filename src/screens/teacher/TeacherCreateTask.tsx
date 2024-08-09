@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import React, {Fragment, useCallback, useEffect} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
@@ -17,9 +19,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {FlatList} from 'react-native';
 
-interface HeaderBackgroundProps {
-  navigation: NavigationProp<ParamListBase>;
-}
+
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -38,24 +38,32 @@ import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCateg
 import { imageUrl } from '../../redux/api/baseApi';
 import { useCreateTaskMutation } from '../../redux/apiSlices/teacher/teaherTaskSlices';
 import { useContextApi } from '../../context/ContextApi';
+import Toast from 'react-native-toast-message';
+import { NavigProps } from '../../interfaces/NavigationPros';
 
 interface taskData {
   name: string;
-  points: string;
+  points: number;
   category: string;
   type: 'good' | 'bad'
   repeat: 'everyday' | 'weekly' | 'monthly';
 }
 
-const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
+const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
-  const {data : categories} = useGetCategoriesQuery("")
+  const {data : categories,isLoading} = useGetCategoriesQuery("")
   const [createTask,results] = useCreateTaskMutation()
   const [value, setValue] = React.useState<string>();
 
   const [customCategory, setCustomCategory] = React.useState<string>();
 
-  const [taskData, setTaskData] = React.useState<taskData>();
+  const [taskData, setTaskData] = React.useState<taskData>({
+    category : null,
+    name: null,
+    points: null,
+    type: 'good',
+    repeat: 'everyday',
+  });
 
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
@@ -63,6 +71,8 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [customImage, setCustomImage] = React.useState<string>();
   const [customPoints, setCustomPoints] = React.useState<any>(100);
+
+
 
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
@@ -107,26 +117,54 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
     progress.value = withTiming(customPoints, {duration: 10});
   }, [customPoints]);
 
+
+  
+
   const handleCreateTask = useCallback((UData : taskData) => {
     // console.log(UData);
-     if(!UData.points){
-      UData.points = customPoints
+     if(!UData?.points){
+      UData.points = parseInt(customPoints)
      }
-     if(!UData.repeat){
-      UData.points = "everyday"
+     if(!UData?.repeat){
+      UData.repeat = "everyday"
      }
-     if(!UData.type){
+     if(!UData?.type){
       UData.type = "good"
      }
-     if(!UData.category){
-      UData.category = categories?.data[0]._id as string
+     if(!UData?.category){
+      Toast.show({
+        type : "info",
+        text1 : "Please select a category"
+      })
+     }
+     if(!UData?.name){
+      Toast.show({
+        type : "info",
+        text1 : "Please write task name"
+      })
      }
      console.log(UData);
-    createTask({id : user.token , data : UData}).then(res=>{
+  if(UData.category && UData.name && UData.points && UData.repeat && UData.type){
+    createTask({token : user.token , data : UData}).then(res=>{
       console.log(res);
+      if(res?.error){
+        console.log(res?.error);
+      }
+      if(res?.data?.success){
+        Toast.show({
+          type : "success",
+          text1 : "created successfully"
+        })
+        navigation?.navigate('TeacherTaskAssign',{data : res.data})
+      }
     })
+  }
 
   }, []);
+
+ if(isLoading){
+  return <ActivityIndicator />;
+ }
 
   return (
     <View
@@ -141,7 +179,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
         <View
           style={{
             paddingHorizontal: '4%',
@@ -260,7 +298,7 @@ const TeacherCreateTask = ({navigation}: HeaderBackgroundProps) => {
             maximumValue={max}
             onSlidingComplete={(value: number) => {
               setCustomPoints(value);
-              setTaskData({...taskData, points: value})
+              setTaskData({...taskData, points: parseInt(value)})
             }}
           />
           <View

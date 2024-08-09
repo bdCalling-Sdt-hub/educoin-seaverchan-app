@@ -79,6 +79,7 @@ const StudentCard = ({
             textAlign: 'center',
             letterSpacing: 0.4,
             marginVertical: 1,
+            
           }}>
           {student?.name}
         </Text>

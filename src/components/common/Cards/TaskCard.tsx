@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {Dispatch, SetStateAction, useEffect} from 'react';
-import {GStyles} from '../../../styles/GStyles';
+import {GStyles, WIDTH} from '../../../styles/GStyles';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -72,7 +72,7 @@ const TaskCard = ({
 
   // console.log(tasks);
 
-  console.log(indexNumber, selectIndex);
+  
 
   return (
     <View>
@@ -112,7 +112,7 @@ const TaskCard = ({
             // borderColor: GStyles.primaryBlue,
             borderRadius: 100,
           }}> */}
-      {console.log(imageUrl)}
+    
             <Image
               source={{
                 uri: imageUrl,
@@ -142,10 +142,13 @@ const TaskCard = ({
             )}
 
             <Text
+            numberOfLines={isButton ? 1 : 2}
               style={{
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsMedium,
                 color: '#3D3D3D',
+                width : isButton ? WIDTH * .45 : WIDTH * .65,
+
               }}>
               {title ? title : 'Empty Title'}
             </Text>
@@ -221,10 +224,11 @@ const TaskCard = ({
                       ? approveBTColor
                       : GStyles.primaryBlue,
                   borderRadius: 100,
-                  width: 100,
+                  // width: 150,
                   height: 40,
                   alignItems: 'center',
                   justifyContent: 'center',
+                  flex : 1
                 }}>
                 <Text
                   style={{

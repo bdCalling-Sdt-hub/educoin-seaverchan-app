@@ -77,6 +77,8 @@ export const NavigationRoutes = () => {
           animation: 'slide_from_right',
         }}>
         {/* <Stack.Screen name="Testing" component={TastingComponents} /> */}
+        <Stack.Screen name="AddPayment" component={AddPaymentCards} />
+        <Stack.Screen name="Payment" component={PaymentScreen} />
         <Stack.Screen name="InternetStatus" component={InternetStatusScreen} />
         <Stack.Screen name="Splash" component={SplashScreen} />
 
@@ -232,6 +234,8 @@ import Toast from 'react-native-toast-message';
 import ToasTConfig from '../components/common/toaster/ToasTConfig';
 import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
 import TeacherEditClass from '../screens/teacher/TeacherEditClass';
+import AddPaymentCards from '../screens/payments/AddPaymentCards';
+import PaymentScreen from '../screens/payments/PaymentScreen';
 export const Routes = () => {
   const {
     netInfo: {type, isConnected},

@@ -21,7 +21,7 @@ const authSlice = api.injectEndpoints({
         providesTags: ['student'],
       }),
     }),
-    getStudentThrowClass: builder.query<IStudent, unknown>({
+    getStudentThrowClass: builder.query<IStudents, unknown>({
       query: ({token, className}) => ({
         url: `/student/class/${className}`,
         headers: {
