@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, {Fragment} from 'react';
+import React, {Fragment, useCallback} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {GStyles} from '../../styles/GStyles';
 
@@ -17,25 +17,86 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-import { categoryIcons, ShearIcons, SherAvatar } from '../../utils/ShearData';
-import { Slider } from 'react-native-awesome-slider';
-import { useSharedValue } from 'react-native-reanimated';
+import {categoryIcons, ShearIcons, SherAvatar} from '../../utils/ShearData';
+import {Slider} from 'react-native-awesome-slider';
+import {useSharedValue} from 'react-native-reanimated';
+import { useContextApi } from '../../context/ContextApi';
+import { useCreateRewordsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+import Toast from 'react-native-toast-message';
+
+interface IRewordsUProps {
+  name: string;
+  image: any;
+  requiredPoints: string;
+}
 
 const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
-  const [rewordName, setRewordName] = React.useState('');
-  const [rewordDescription, setRewordDescription] = React.useState('');
+  const [rewordsData, setRewordsData] = React.useState<IRewordsUProps | null>();
+
+  const {user} = useContextApi();
+  const [createRewords,results] = useCreateRewordsMutation()
+
   const [rewordPoints, setRewordPoints] = React.useState<number>(50);
-  const [rewordCategory, setRewordCategory] = React.useState('');
-  const [isGood, setIsGood] = React.useState<boolean>();
-  const [customCategory, setCustomCategory] = React.useState<number>();
+
+  const [customImage, setCustomImage] = React.useState({
+    lastModified: 1723207192440,
+    lastModifiedDate: '2024-08-09T12:39:52.440Z',
+    name: '34.png',
+    size: 11916,
+    type: 'image/png',
+    uri: 'file:///data/user/0/com.seaverchan.educoin/cache/rn_image_picker_lib_temp_fb41d3f2-8cc7-425b-8cd3-97a99161d80f.png',
+    webkitRelativePath: '',
+  });
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [successModal, setSuccessModal] = React.useState(false);
 
-  const [assignUser, setAssignUser] = React.useState([]);
   const progress = useSharedValue(rewordPoints);
   const min = useSharedValue(0);
   const max = useSharedValue(200);
+
+  const handleCreateReword = useCallback(
+    (UData :IRewordsUProps) => {
+
+
+
+      console.log(UData);
+      const formData = new FormData();
+      if (!UData?.image) {
+        formData.append('image', customImage);
+      }
+      UData?.name && formData.append('name', UData?.name);
+      UData?.requiredPoints && formData.append('requiredPoints', UData?.requiredPoints);
+
+      if(!UData?.name){
+        Toast.show({
+          type: 'info',
+          text1: 'Name is required',
+        })
+      }
+      if(!UData?.requiredPoints){
+         UData.requiredPoints = parseInt(rewordPoints)
+      }
+
+      createRewords({token : user.token, data : formData}).then(res=>{
+        console.log(res);
+        if(res?.data?.success){
+          // setModalVisible(false);
+          setSuccessModal(true);
+        }
+        if(res?.error?.data?.message){
+          Toast.show({
+            type: 'error',
+            text1: res?.error?.data?.message,
+          })
+        }
+      })
+      // setSuccessModal(true);
+
+    },
+    [rewordsData],
+  );
+
   return (
     <View
       style={{
@@ -54,7 +115,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           style={{
             paddingHorizontal: '4%',
           }}>
-           <View
+          <View
             style={{
               marginTop: 25,
               flexDirection: 'row',
@@ -79,7 +140,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 fontSize: 16,
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
-               
+
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
@@ -100,11 +161,11 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            onChangeText={text => setRewordName(text)}
+            onChangeText={text => setRewordsData({...rewordsData, name: text})}
             placeholderTextColor="gray"
             multiline
             placeholder=" Name"
-            value={rewordName}
+            value={rewordsData?.name}
           />
         </View>
         <View
@@ -113,7 +174,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             paddingVertical: '5%',
             marginTop: -10,
           }}>
-           <View
+          <View
             style={{
               marginVertical: 15,
               flexDirection: 'row',
@@ -121,46 +182,46 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-           <View style={{
-            flexDirection : "row",
-            alignItems : "center",
-            gap : 5,
-            justifyContent : "center"
-           }}>
-            <View
-            style={{
-            
-              flexDirection: 'row',
-              gap: 8,
-              alignItems: 'center',
-            }}>
             <View
               style={{
-                width: 10,
-                height: 10,
-                borderRadius: 10,
-                borderWidth: 1,
-                borderColor: GStyles.primaryOrange,
+                flexDirection: 'row',
                 alignItems: 'center',
+                gap: 5,
                 justifyContent: 'center',
-                backgroundColor: GStyles.primaryOrange,
-              }}
-            />
-
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: GStyles.PoppinsSemiBold,
-                color: '#3D3D3D',
-               
-                fontWeight: '500',
-                letterSpacing: 0.5,
               }}>
-             Points
-            </Text>
-          </View>
-            <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
-           </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 8,
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: GStyles.primaryOrange,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: GStyles.primaryOrange,
+                  }}
+                />
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: GStyles.PoppinsSemiBold,
+                    color: '#3D3D3D',
+
+                    fontWeight: '500',
+                    letterSpacing: 0.5,
+                  }}>
+                  Points
+                </Text>
+              </View>
+              <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
+            </View>
             <View
               style={{
                 height: 30,
@@ -183,23 +244,22 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             </View>
           </View>
           <Slider
-      theme={{
-        disableMinTrackTintColor:  GStyles.primaryOrange,
-        // maximumTrackTintColor:  GStyles.primaryOrange,
-        minimumTrackTintColor: GStyles.primaryOrange,
-        cacheTrackTintColor:  GStyles.primaryOrange,
-        bubbleBackgroundColor:  GStyles.primaryOrange,
-        heartbeatColor:  GStyles.primaryOrange,
-      }}
-      progress={progress}
-      minimumValue={min}
-      maximumValue={max}
-
-      onSlidingComplete={(value: number) =>{
-        setRewordPoints(value);
-      }}
-    />
-   
+            theme={{
+              disableMinTrackTintColor: GStyles.primaryOrange,
+              // maximumTrackTintColor:  GStyles.primaryOrange,
+              minimumTrackTintColor: GStyles.primaryOrange,
+              cacheTrackTintColor: GStyles.primaryOrange,
+              bubbleBackgroundColor: GStyles.primaryOrange,
+              heartbeatColor: GStyles.primaryOrange,
+            }}
+            progress={progress}
+            minimumValue={min}
+            maximumValue={max}
+            onSlidingComplete={(value: number) => {
+              setRewordPoints(value);
+              setRewordsData({...rewordsData, requiredPoints: parseInt(value)});
+            }}
+          />
         </View>
         <View
           style={{
@@ -212,48 +272,46 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               alignItems: 'center',
               gap: 20,
             }}>
-           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 20,
-            }}>
-            <View
-            style={{
-              marginVertical: 20,
-              flexDirection: 'row',
-              gap: 8,
-              alignItems: 'center',
-            }}>
             <View
               style={{
-                width: 10,
-                height: 10,
-                borderRadius: 10,
-                borderWidth: 1,
-                borderColor: GStyles.primaryOrange,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: GStyles.primaryOrange,
-              }}
-            />
-
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: GStyles.PoppinsSemiBold,
-                color: '#3D3D3D',
-            
-                fontWeight: '500',
-                letterSpacing: 0.5,
+                gap: 20,
               }}>
-             Choose ategory
-            </Text>
-          </View>
-          
-          </View>
-          
+              <View
+                style={{
+                  marginVertical: 20,
+                  flexDirection: 'row',
+                  gap: 8,
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: GStyles.primaryOrange,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: GStyles.primaryOrange,
+                  }}
+                />
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: GStyles.PoppinsSemiBold,
+                    color: '#3D3D3D',
+
+                    fontWeight: '500',
+                    letterSpacing: 0.5,
+                  }}>
+                  Choose icon
+                </Text>
+              </View>
+            </View>
           </View>
           <FlatList
             horizontal
@@ -262,27 +320,26 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               gap: 24,
             }}
             data={ShearIcons}
-            keyExtractor={(item)=>item.id + item.title}
+            keyExtractor={item => item.id + item.title}
             renderItem={item => (
               <TouchableOpacity
                 key={item.index}
-                onPress={() => setCustomCategory(item.item.id)}
-                >
+                onPress={() => {}}>
                 <View
                   style={{
                     gap: 12,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                   <View
+                  <View
                     style={{
                       width: 70,
                       height: 70,
                       borderRadius: 15,
-                      borderColor:
-                        customCategory === item.item.id
-                          ? GStyles.primaryPurple
-                          : GStyles.gray.light,
+                      // borderColor:
+                      //   customCategory === item.item.id
+                      //     ? GStyles.primaryPurple
+                      //     : GStyles.gray.light,
                       borderWidth: 2,
                       padding: 2,
                       justifyContent: 'center',
@@ -302,10 +359,10 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
-                      color:
-                        item.item.id === customCategory
-                          ? GStyles.primaryPurple
-                          : '#3D3D3D',
+                      // color:
+                      //   item.item.id === customCategory
+                      //     ? GStyles.primaryPurple
+                      //     : '#3D3D3D',
                       paddingVertical: 5,
                     }}>
                     {item.item.title}
@@ -315,8 +372,6 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             )}
           />
         </View>
-
-       
       </View>
       <View
         style={{
@@ -329,8 +384,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
         <TouchableOpacity
           onPress={() => {
             // navigation?.goBack()
-            setSuccessModal(true)
-           
+          handleCreateReword(rewordsData)
           }}
           style={{
             backgroundColor: GStyles.primaryPurple,
@@ -360,65 +414,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <CustomModal
-        modalVisible={modalVisible}
-        backButton
-        setModalVisible={setModalVisible}
-        height={250}
-        width={'85%'}
-        Radius={10}>
-        <View
-          style={{
-            padding: 20,
-            gap: 20,
-            justifyContent: 'center',
-            flex: 1,
-          }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontFamily: GStyles.PoppinsMedium,
-              textAlign: 'center',
-              color: GStyles.textColor['#3D3D3D'],
-            }}>
-            Please Enter The Custom Points
-          </Text>
-          <TextInput
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-              fontSize: 16,
-            }}
-            placeholder="number"
-            keyboardType="decimal-pad"
-          />
-
-          <View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(false)}
-              style={{
-                backgroundColor: GStyles.primaryPurple,
-                width: '30%',
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 100,
-                alignSelf: 'center',
-                marginTop: 10,
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: GStyles.Poppins,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '400',
-                }}>
-                Done
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </CustomModal>
+    
       <CustomModal
         modalVisible={successModal}
         backButton
@@ -449,19 +445,22 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
               fontSize: 16,
               textAlign: 'center',
             }}>
-            simply dummy text of the printing and typesetting industry
+            New Reword is added successfully ,You can assign the reword your students
           </Text>
 
-          <View style={{
-            flexDirection : "row",
-            alignItems : "center",
-            justifyContent: "center",
-            gap : 20
-          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 20,
+            }}>
             <TouchableOpacity
               onPress={() => {
-                navigation?.navigate("TeacherTaskAssign")
-                setSuccessModal(false)
+              // navigation?.navigate('TeacherTaskAssign', results.data)
+              // console.log(results.data);
+              navigation?.goBack()
+                setSuccessModal(false);
               }}
               style={{
                 backgroundColor: GStyles.primaryPurple,
@@ -484,8 +483,9 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation?.navigate("TeacherTaskAssign")
-                setSuccessModal(false)
+              
+           navigation?.navigate('TeacherRewordsAssign', {data : results?.data?.data})
+                setSuccessModal(false);
               }}
               style={{
                 backgroundColor: GStyles.primaryPurple,
@@ -494,10 +494,10 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 paddingHorizontal: 15,
                 borderRadius: 100,
                 alignSelf: 'center',
-                flexDirection : "row",
-                justifyContent: "center",
-                alignItems : "center",
-                gap : 10
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 10,
               }}>
               <Text
                 style={{
@@ -509,7 +509,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 }}>
                 Assign to
               </Text>
-              <AntDesign name='arrowright' size={15} color={"white"} />
+              <AntDesign name="arrowright" size={15} color={'white'} />
             </TouchableOpacity>
           </View>
         </View>

@@ -58,17 +58,21 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   const [customCategory, setCustomCategory] = React.useState<string>();
 
   const [taskData, setTaskData] = React.useState<taskData>({
-    category : null,
+    category : categories?.data[0]._id,
     name: null,
     points: null,
     type: 'good',
     repeat: 'everyday',
   });
 
+
+  // console.log("p", results.data);
+
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [successModal, setSuccessModal] = React.useState(false);
   const [customImage, setCustomImage] = React.useState<string>();
   const [customPoints, setCustomPoints] = React.useState<any>(100);
 
@@ -118,6 +122,8 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   }, [customPoints]);
 
 
+
+  // console.log("o", results.data);
   
 
   const handleCreateTask = useCallback((UData : taskData) => {
@@ -146,21 +152,21 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
      console.log(UData);
   if(UData.category && UData.name && UData.points && UData.repeat && UData.type){
     createTask({token : user.token , data : UData}).then(res=>{
-      console.log(res);
+      // console.log(res);
+      if(res?.data?.success){
+        setSuccessModal(true)
+      }
       if(res?.error){
         console.log(res?.error);
       }
       if(res?.data?.success){
-        Toast.show({
-          type : "success",
-          text1 : "created successfully"
-        })
-        navigation?.navigate('TeacherTaskAssign',{data : res.data})
+        setSuccessModal(true);
+        
       }
     })
   }
 
-  }, []);
+  }, [taskData]);
 
  if(isLoading){
   return <ActivityIndicator />;
@@ -393,7 +399,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                   fontWeight: '500',
                   letterSpacing: 0.5,
                 }}>
-                Choose Icon
+          Choose Category
               </Text>
             </View>
             <View
@@ -404,7 +410,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  setIsGood(true);
+            
                   setTaskData({...taskData, type: "good"})
                 }}
                 style={{
@@ -412,8 +418,8 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   gap: 5,
-                  backgroundColor: isGood ? GStyles.primaryPurple : 'white',
-                  borderColor: isGood ? 'white' : GStyles.primaryPurple,
+                  backgroundColor: taskData?.type === "good" ? GStyles.primaryPurple : 'white',
+                  borderColor:  GStyles.primaryPurple,
                   borderWidth: 1,
                   paddingVertical: 5,
                   paddingHorizontal: 15,
@@ -422,7 +428,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                 <Text
                   style={{
                     fontSize: 14,
-                    color: isGood ? 'white' : GStyles.primaryPurple,
+                    color:  taskData?.type === "good"  ? 'white' : GStyles.primaryPurple,
                     fontWeight: 'bold',
                   }}>
                   Good
@@ -430,12 +436,12 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setIsGood(false);
+             
                   setTaskData({...taskData, type: "bad"})
                 }}
                 style={{
-                  backgroundColor: isGood ? 'white' : GStyles.primaryPurple,
-                  borderColor: isGood ? GStyles.primaryPurple : 'white',
+                  backgroundColor: taskData?.type === "bad" ?   GStyles.primaryPurple : 'white',
+                  borderColor:  GStyles.primaryPurple ,
                   borderWidth: 1,
                   paddingVertical: 5,
                   paddingHorizontal: 15,
@@ -444,7 +450,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                 <Text
                   style={{
                     fontSize: 14,
-                    color: isGood ? GStyles.primaryPurple : 'white',
+                    color: taskData?.type === "bad" ?  'white' : GStyles.primaryPurple ,
                     fontWeight: 'bold',
                   }}>
                   Bad
@@ -466,7 +472,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
               activeOpacity={.8}
                 key={item.index}
                 onPress={() => {
-                  setCustomCategory(item.item._id);
+               
                   setTaskData({...taskData, category: item.item._id});
                 }}>
                 <View
@@ -481,11 +487,11 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                       height: 70,
                       borderRadius: 15,
                       backgroundColor:
-                        customCategory === item.item._id
+                        taskData.category === item.item._id
                           ? GStyles.primaryPurple
                           : GStyles.gray.light,
                       // borderWidth: 2,
-                      padding: 2,
+                
                       justifyContent: 'center',
                       alignItems: 'center',
                       // elevation: 2,
@@ -498,22 +504,22 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                       style={{
                         width: 65,
                         height: 65,
-                        borderRadius: 8,
+                        borderRadius: 15,
                       }}
                     />
                   </View>
-                  {/* <Text
+                  <Text
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
                       color:
-                        item.item.id === customCategory
+                      taskData.category === item.item._id
                           ? GStyles.primaryPurple
                           : '#3D3D3D',
                       paddingVertical: 5,
                     }}>
-                    {item.item.title}
-                  </Text> */}
+                    {item.item.name}
+                  </Text>
                 </View>
               </TouchableOpacity>
             )}
@@ -963,6 +969,106 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                 }}>
                 Done
               </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </CustomModal>
+
+      <CustomModal
+        modalVisible={successModal}
+        backButton
+        setModalVisible={setSuccessModal}
+        height={'30%'}
+        width={'85%'}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+              marginTop: 10,
+            }}>
+            Task Added Successfully
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              textAlign: 'center',
+            }}>
+            New task is added successfully ,You can assign the task your students
+          </Text>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 20,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+              // navigation?.navigate('TeacherTaskAssign', results.data)
+              // console.log(results.data);
+              navigation?.goBack()
+                setSuccessModal(false);
+              }}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Exit
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+              
+           navigation?.navigate('TeacherTaskAssign', {data : results?.data?.data})
+                setSuccessModal(false);
+              }}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: '50%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 10,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                Assign to
+              </Text>
+              <AntDesign name="arrowright" size={15} color={'white'} />
             </TouchableOpacity>
           </View>
         </View>

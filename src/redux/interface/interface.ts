@@ -92,6 +92,20 @@ export interface ITask {
 export interface ITasks extends IFetchStatus {
   data: Array<ITask>;
 }
+export interface IReword {
+  _id: string;
+  name: string;
+  requiredPoints: number;
+  image: string;
+  teacher: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: 0;
+}
+
+export interface IRewords extends IFetchStatus {
+  data: Array<IReword>;
+}
 export interface IPendingTask {
   _id: string;
   task: ITask;
@@ -105,4 +119,32 @@ export interface IPendingTask {
 
 export interface IPendingTasks extends IFetchStatus {
   data: Array<IPendingTask>;
+}
+export interface IAssignTask {
+  _id: string;
+  task: ITask;
+  student: string;
+  teacher: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: 0;
+}
+
+export interface IAssignTasks extends IFetchStatus {
+  data: Array<IAssignTask>;
+}
+export interface IAssignReword {
+  _id: string;
+  reward: IReword;
+  student: IStudent;
+  teacher: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: 0;
+}
+
+export interface IAssignRewords extends IFetchStatus {
+  data: Array<IAssignReword>;
 }

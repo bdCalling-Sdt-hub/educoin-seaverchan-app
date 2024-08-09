@@ -38,7 +38,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const [categoryImage, setCategoryImage] = React.useState<string | undefined>(
     '',
   );
-  console.log(categoryImage);
+  console.log(categoryData.image);
 
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
@@ -48,10 +48,12 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           maxWidth: 500,
           maxHeight: 500,
           quality: 0.5,
-          includeBase64: true,
+       
         });
 
         if (!result.didCancel) {
+
+       
           setCategoryData({
             ...categoryData,
             image: {
@@ -77,6 +79,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
+        
           setCategoryData({
             ...categoryData,
             image: {

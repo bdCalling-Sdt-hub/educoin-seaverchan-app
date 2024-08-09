@@ -22,8 +22,14 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import { categoryIcons } from '../../utils/ShearData';
 import { categories } from './EditCategory';
 import { useSharedValue } from 'react-native-reanimated';
+import { useGetRewordsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
+import { useContextApi } from '../../context/ContextApi';
+import { imageUrl } from '../../redux/api/baseApi';
 
 const TeacherRewords = ({navigation}: NavigProps<null>) => {
+  const {user} = useContextApi();
+  const {data : rewords} = useGetRewordsQuery(user.token)
+  console.log(rewords);
   const [isEarned, setIsEarned] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -50,19 +56,19 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
           gap : 5
         }}
         showsVerticalScrollIndicator={false}
-        data={[1]}
+        data={rewords?.data}
 
         renderItem={(item)=>
           <Fragment key={item.index}>
           <RewordsCard
             navigation={navigation}
-            editRoute="TeacherEditRewords"
-            // routeData={'demo'}
+            editRoute={"TeacherEditRewords"}
+            routeData={item?.item}
             editOption={true}
             // achieved
-            points={30}
-            title={`Rewords name`}
-            imgAssets={require("../../assets/icons/icon2.png")}
+            points={item?.item?.requiredPoints}
+            title={item?.item?.name}
+            imgAssets={{ uri : imageUrl + item?.item.image}}
           />
         </Fragment>
 

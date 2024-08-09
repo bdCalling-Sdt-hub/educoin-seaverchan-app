@@ -5,6 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {NavigProps} from '../../../interfaces/NavigationPros';
+import { IReword } from '../../../redux/interface/interface';
 
 interface RewordsCardProps extends NavigProps<null> {
   title ?: string;
@@ -13,7 +14,7 @@ interface RewordsCardProps extends NavigProps<null> {
   editOption?: boolean;
   img?: string;
   editRoute?: string;
-  routeData?: any;
+  routeData?: IReword;
   onPress?: () => void;
   borderColor?: string;
   borderWidth?: number;

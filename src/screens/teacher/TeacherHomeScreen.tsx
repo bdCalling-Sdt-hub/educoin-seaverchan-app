@@ -147,7 +147,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             <View key={index} style={{}}>
               <Image
                 source={{
-                  uri: imageUrl + item?.image,
+                  uri: imageUrl + item?.profile,
                 }}
               />
 

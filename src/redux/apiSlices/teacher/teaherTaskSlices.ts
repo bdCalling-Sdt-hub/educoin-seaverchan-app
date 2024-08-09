@@ -1,5 +1,5 @@
 import {api} from '../../api/baseApi';
-import {IPendingTasks, ITasks} from '../../interface/interface';
+import {IAssignTasks, IPendingTasks, ITasks} from '../../interface/interface';
 
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -21,10 +21,30 @@ const authSlice = api.injectEndpoints({
       }),
       providesTags: ['task'],
     }),
+    getAssignTask: builder.query<IAssignTasks, unknown>({
+      query: token => ({
+        url: `/assign-task`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ['task'],
+    }),
 
     createTask: builder.mutation({
       query: ({token, data}) => ({
         url: `/task/create-task`,
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ['task'],
+    }),
+    createAssignTask: builder.mutation({
+      query: ({token, data}) => ({
+        url: `/assign-task`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,4 +82,6 @@ export const {
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useGetPendingTaskQuery,
+  useGetAssignTaskQuery,
+  useCreateAssignTaskMutation
 } = authSlice;

@@ -59,8 +59,14 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
   const [customCategory, setCustomCategory] = React.useState<string>();
 
-  const [taskData, setTaskData] = React.useState<taskData>(Item);
-
+  const [taskData, setTaskData] = React.useState<taskData>({
+    category : Item?.category._id ? Item.category._id : "" ,
+    name : Item?.name ? Item?.name : "",
+    points : Item?.points ? Item?.points : 0,
+    type : Item?.type ? Item?.type : "good" ,
+    repeat : Item?.repeat ? Item.repeat : "everyday",
+  });
+  console.log(taskData);
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -158,9 +164,11 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
   }, []);
 
- if(isLoading){
-  return <ActivityIndicator />;
- }
+
+
+//  if(isLoading){
+//   return <ActivityIndicator />;
+//  }
 
   return (
     <View
@@ -382,6 +390,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 }}
               />
               <Text
+              numberOfLines={1}
                 style={{
                   fontSize: 16,
                   fontFamily: GStyles.PoppinsSemiBold,
@@ -389,7 +398,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                   fontWeight: '500',
                   letterSpacing: 0.5,
                 }}>
-                Choose Icon
+                Choose category
               </Text>
             </View>
             <View
@@ -408,8 +417,8 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   gap: 5,
-                  backgroundColor: taskData.type === "good" ? GStyles.primaryPurple : 'white',
-                  borderColor: taskData.type == "good" ? 'white' : GStyles.primaryPurple,
+                  backgroundColor: taskData?.type === "good" ? GStyles.primaryPurple : 'white',
+                  borderColor:  GStyles.primaryPurple,
                   borderWidth: 1,
                   paddingVertical: 5,
                   paddingHorizontal: 15,
@@ -418,7 +427,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 <Text
                   style={{
                     fontSize: 14,
-                    color:  taskData.type === "good"  ? 'white' : GStyles.primaryPurple,
+                    color:  taskData?.type === "good"  ? 'white' : GStyles.primaryPurple,
                     fontWeight: 'bold',
                   }}>
                   Good
@@ -430,8 +439,8 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                   setTaskData({...taskData, type: "bad"})
                 }}
                 style={{
-                  backgroundColor: taskData.type === "bad" ?   GStyles.primaryPurple : 'white',
-                  borderColor: taskData.type === "bad" ? GStyles.primaryPurple : 'white',
+                  backgroundColor: taskData?.type === "bad" ?   GStyles.primaryPurple : 'white',
+                  borderColor:  GStyles.primaryPurple ,
                   borderWidth: 1,
                   paddingVertical: 5,
                   paddingHorizontal: 15,
@@ -440,7 +449,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 <Text
                   style={{
                     fontSize: 14,
-                    color: taskData.type === "bad" ?  'white' : GStyles.primaryPurple ,
+                    color: taskData?.type === "bad" ?  'white' : GStyles.primaryPurple ,
                     fontWeight: 'bold',
                   }}>
                   Bad
@@ -477,11 +486,11 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                       height: 70,
                       borderRadius: 15,
                       backgroundColor:
-                        Item?._id === item.item._id
+                        taskData.category === item.item._id
                           ? GStyles.primaryPurple
                           : GStyles.gray.light,
                       // borderWidth: 2,
-                      padding: 2,
+                
                       justifyContent: 'center',
                       alignItems: 'center',
                       // elevation: 2,
@@ -494,22 +503,22 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                       style={{
                         width: 65,
                         height: 65,
-                        borderRadius: 8,
+                        borderRadius: 15,
                       }}
                     />
                   </View>
-                  {/* <Text
+                  <Text
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
                       color:
-                        item.item.id === customCategory
+                      taskData.category === item.item._id
                           ? GStyles.primaryPurple
                           : '#3D3D3D',
                       paddingVertical: 5,
                     }}>
-                    {item.item.title}
-                  </Text> */}
+                    {item.item.name}
+                  </Text>
                 </View>
               </TouchableOpacity>
             )}

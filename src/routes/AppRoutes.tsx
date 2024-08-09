@@ -173,6 +173,10 @@ export const NavigationRoutes = () => {
               name="TeacherTaskAssign"
               component={TeacherTaskAssign}
             />
+            <Stack.Screen
+              name="TeacherRewordsAssign"
+              component={TeacherRewordsAssign}
+            />
             <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
             <Stack.Screen
               name="TeacherCreateRewords"
@@ -236,6 +240,7 @@ import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
 import TeacherEditClass from '../screens/teacher/TeacherEditClass';
 import AddPaymentCards from '../screens/payments/AddPaymentCards';
 import PaymentScreen from '../screens/payments/PaymentScreen';
+import TeacherRewordsAssign from '../screens/teacher/TeacherRewordsAssign';
 export const Routes = () => {
   const {
     netInfo: {type, isConnected},

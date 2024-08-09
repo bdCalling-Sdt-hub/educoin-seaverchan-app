@@ -175,10 +175,16 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
         if (res?.data?.success) {
           navigation?.goBack();
         }
-        if (res?.error?.data?.message) {
+        if (res?.error?.data) {
           Toast.show({
             type: 'error',
             text1: res?.error?.data?.message,
+          });
+        }
+        if(res.error?.error){
+          Toast.show({
+            type: 'info',
+            text1: 'Something went wrong',
           });
         }
       });
