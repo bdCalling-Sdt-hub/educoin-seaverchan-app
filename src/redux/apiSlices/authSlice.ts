@@ -1,9 +1,9 @@
 import { api } from "../api/baseApi";
-import { IUser } from "../interface/interface";
+import { IStudentUser, ITeacherUser } from "../interface/interface";
 
 const authSlice = api.injectEndpoints({
     endpoints: (builder) => ({
-        getUser: builder.query<IUser , unknown>({
+        getUserTeacher: builder.query<ITeacherUser , unknown>({
             query: (token) => ({
                 url : `/teacher/profile/`,
                 headers: {
@@ -12,7 +12,16 @@ const authSlice = api.injectEndpoints({
             }),
             providesTags : ["user"]
           }),
-          login: builder.mutation({
+        getUserStudent: builder.query<IStudentUser , unknown>({
+            query: (token) => ({
+                url : `/student/profile`,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+            }),
+            providesTags : ["user"]
+          }),
+          loginTeacher: builder.mutation({
             query: pass_code => ({
               url: `/teacher/login`,
               method: 'POST',
@@ -23,10 +32,38 @@ const authSlice = api.injectEndpoints({
             }),
             invalidatesTags : ["user"]
           }),
+          loginStudent: builder.mutation({
+            query: pass_code => ({
+              url: `/student/login`,
+              method: 'POST',
+              body: {
+                password: pass_code,
+              },
+              
+            }),
+            invalidatesTags : ["user"]
+          }),
+
+          updateStudent: builder.mutation({
+            query: ({token, data}) => ({
+              url: `/student`,
+              method: 'PATCH',
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+              },
+              body: data,
+            }),
+            invalidatesTags: ['user'],
+          }),
         
     })
 });
 
 export const {
-   useGetUserQuery,useLoginMutation
+   useGetUserStudentQuery,
+   useGetUserTeacherQuery,
+   useLoginStudentMutation,
+   useLoginTeacherMutation,
+   useUpdateStudentMutation
 } = authSlice;

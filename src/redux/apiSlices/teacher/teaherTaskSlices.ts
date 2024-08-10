@@ -64,6 +64,17 @@ const authSlice = api.injectEndpoints({
       }),
       invalidatesTags: ['task'],
     }),
+    approveTask: builder.mutation({
+      query: ({token, id, data}) => ({
+        url: `/assign-task/approve/${id}`,
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ['task'],
+    }),
     // deletedClass: builder.mutation({
     //   query: ({token, id}) => ({
     //     url: `/class/${id}`,
@@ -83,5 +94,6 @@ export const {
   useUpdateTaskMutation,
   useGetPendingTaskQuery,
   useGetAssignTaskQuery,
-  useCreateAssignTaskMutation
+  useCreateAssignTaskMutation,
+  useApproveTaskMutation
 } = authSlice;

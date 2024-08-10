@@ -25,6 +25,8 @@ import {useContextApi} from '../../context/ContextApi';
 import {useGetClassesQuery} from '../../redux/apiSlices/teacher/tacherClassSlices';
 import DateTimePicker from 'react-native-ui-datepicker';
 import Toast from 'react-native-toast-message';
+import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import { imageUrl } from '../../redux/api/baseApi';
 
 const data = [
   {
@@ -66,10 +68,13 @@ const data = [
 ];
 
 const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
-  const {user} = useContextApi();
-  const {data: classes} = useGetClassesQuery(user?.token);
   const [createStudent, results] = useCreateStudentMutation();
-  const [selectAvatar, setSelectAvatar] = React.useState<number>();
+  
+  const {user} = useContextApi();
+  const {data : avatarData} = useGetAvatarPresetQuery(user?.token);
+  const {data: classes} = useGetClassesQuery(user?.token);
+  const [selectAvatar, setSelectAvatar] = React.useState<string>();
+  const [tempImage, setTemImage] = React.useState<string>();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [studentInfo, setStudentInfo] = React.useState({
     name: "",
@@ -92,8 +97,9 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
           quality: 0.5,
           includeBase64: true,
         });
-
+    
         if (!result.didCancel) {
+          setTemImage(result?.assets![0].uri);
           setStudentInfo({
             ...studentInfo,
             image: {
@@ -118,6 +124,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
         });
 
         if (!result.didCancel) {
+          setTemImage(result?.assets![0].uri);
           setStudentInfo({
             ...studentInfo,
             image: {
@@ -160,7 +167,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
         return;
       }
       const formData = new FormData();
-      if (UData?.image?.uri) {
+      if (UData?.image) {
         formData.append('image', UData?.image);
       }
       UData?.dateOfBirth &&
@@ -393,7 +400,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
               // paddingHorizontal: 10,
             }}>
             <Require title="Choose Avatar" />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{}}
               onPress={() => {
                 navigation?.navigate('StudentAllAvatar');
@@ -406,12 +413,12 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                 }}>
                 View all avatar
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={SherAvatar}
+            data={avatarData?.data}
             contentContainerStyle={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
@@ -420,13 +427,11 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             }}
             ListHeaderComponent={item => (
               <>
-                {studentInfo?.image ? (
+                {tempImage ? (
                   <TouchableOpacity
                     onPress={() => {
                       handleImagePick('camera');
-                      if (selectAvatar) {
-                        setSelectAvatar(undefined);
-                      }
+                   
                     }}
                     style={{
                       width: 90,
@@ -435,11 +440,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                       backgroundColor: '#F1F1F1',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      borderColor:
-                        selectAvatar !== 0 && !selectAvatar
-                          ? GStyles.primaryPurple
-                          : 'white',
-                      borderWidth: 2,
+                     
                     }}>
                     <Image
                       style={{
@@ -448,9 +449,8 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                         borderRadius: 100,
                       }}
                       source={{
-                        uri: studentInfo?.image
-                          ? studentInfo?.image?.uri
-                          : 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
+                        uri: tempImage
+                         
                       }}
                     />
                   </TouchableOpacity>
@@ -478,7 +478,13 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             )}
             renderItem={item => (
               <TouchableOpacity
-                onPress={() => setSelectAvatar(item.item.id)}
+                onPress={() => {
+                  setSelectAvatar(item.item.image)
+                  setStudentInfo({
+                    ...studentInfo,
+                    image: item.item.image
+                  });
+                }}
                 style={{
                   width: 90,
                   height: 90,
@@ -487,7 +493,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderColor:
-                    selectAvatar === item.item.id
+                    selectAvatar  === item.item.image
                       ? GStyles.primaryPurple
                       : GStyles.borderColor['#ECECEC'],
                   borderWidth: 2,
@@ -499,10 +505,10 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
                     borderRadius: 100,
                   }}
                   source={
-                    item.item.img
-                      ? item.item.img
-                      : {
-                          uri: 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
+                    
+               
+                       {
+                          uri:imageUrl + item?.item?.image
                         }
                   }
                 />

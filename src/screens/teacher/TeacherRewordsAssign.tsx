@@ -35,21 +35,22 @@ import {
   } from '../../redux/apiSlices/teacher/teaherTaskSlices';
   import Toast from 'react-native-toast-message';
 import { useGetAssignRewordsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
+import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
   
   const TeacherRewordsAssign = ({navigation, route}: NavigProps<IReword>) => {
     const Item = route?.params?.data;
-    console.log(Item);
+    // console.log(Item);
     const {user} = useContextApi();
-    const [createAssignTask, results] = useCreateAssignTaskMutation();
+  
     const {data: classes, isLoading: categoryLoading} = useGetClassesQuery(
       user.token,
     );
     const {data: assignRewords} = useGetAssignRewordsQuery(user.token);
     const alreadyAssigned = assignRewords?.data?.filter(
-      assiReword => assiReword._id === Item?._id,
+      assiReword => assiReword?.reward?._id === Item?._id,
     );
 
-    // console.log(assignRewords);
+    // console.log(alreadyAssigned);
   
     // console.log();
     const [selectClass, setSelectClass] = React.useState<string>(
@@ -155,11 +156,11 @@ import { useGetAssignRewordsQuery } from '../../redux/apiSlices/teacher/teacherR
               renderItem={({item, index}) => {
                 return (
                   <>
-                    <AssignCard
+                    <AssignRewordCard
                     //  loading={results.isLoading}
-                      task={Item}
+                      reword={Item}
                       item={item}
-                      Assigned={alreadyAssigned?.find(assigned=>assigned.student === item?._id)}
+                      Assigned={alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)}
                     />
                   </>
                 );
@@ -345,10 +346,11 @@ import { useGetAssignRewordsQuery } from '../../redux/apiSlices/teacher/teacherR
                   //   )}
                   // </View>
                   <>
-                    <AssignCard
-            
+                   <AssignRewordCard
+                    //  loading={results.isLoading}
+                      reword={Item}
                       item={item}
-                      Assigned={alreadyAssigned?.find(assigned=>assigned.student === item?._id)}
+                      Assigned={alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)}
                     />
                   </>
                 );

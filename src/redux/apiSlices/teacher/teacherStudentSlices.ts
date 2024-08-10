@@ -12,7 +12,7 @@ const authSlice = api.injectEndpoints({
       }),
       providesTags: ['student'],
     }),
-    getSingleStudent: builder.query<IStudent, unknown>({
+    getSingleStudent: builder.query<{data : IStudent}, unknown>({
       query: ({token, id}) => ({
         url: `/student/${id}`,
         headers: {

@@ -73,5 +73,6 @@ export const {
   useGetRewordsQuery,
   useCreateRewordsMutation,
   useGetAssignRewordsQuery,
-  useUpdateRewordsMutation
+  useUpdateRewordsMutation,
+  useCreateAssignRewordsMutation
 } = authSlice;

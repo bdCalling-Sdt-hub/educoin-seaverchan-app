@@ -45,7 +45,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
   );
   const {data: assignTask} = useGetAssignTaskQuery(user.token);
   const alreadyAssigned = assignTask?.data?.filter(
-    assiTask => assiTask.task._id === Item?._id,
+    assiTask => assiTask?.task?._id === Item?._id,
   );
 
   // console.log();

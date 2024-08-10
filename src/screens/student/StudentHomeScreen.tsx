@@ -20,6 +20,8 @@ import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
 import { HomeNavigProps } from '../../interfaces/NavigationPros';
+import { useContextApi } from '../../context/ContextApi';
+import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
 
 
 
@@ -29,6 +31,7 @@ const StudentHomeScreen = ({
 }: HomeNavigProps<null>) => {
   const [isCompeted, setIsCompeted] = React.useState('New Task');
   const [modalVisible, setModalVisible] = React.useState(false);
+
 
   return (
     <View

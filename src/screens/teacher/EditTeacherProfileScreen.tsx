@@ -15,7 +15,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {GStyles, WIDTH} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {ScrollView} from 'react-native';
-import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
+
 import {imageUrl} from '../../redux/api/baseApi';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import React, {useCallback, useState} from 'react';
@@ -24,10 +24,11 @@ import {Dialog} from 'react-native-ui-lib';
 import Toast from 'react-native-toast-message';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import {useUpdateTeacherMutation} from '../../redux/apiSlices/teacher/teacherSlices';
+import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
 
 const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
-  const {data, error} = useGetUserQuery('');
   const {user} = useContextApi();
+  const {data, error} = useGetUserTeacherQuery(user.token);
   const [imgModal, setImageModal] = useState(false);
   const [updateUser, results] = useUpdateTeacherMutation();
   const [userInfo, setUserInfo] = React.useState({
@@ -130,6 +131,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   );
 
   // console.log(results?.isLoading);
+  
 
   return (
     <View

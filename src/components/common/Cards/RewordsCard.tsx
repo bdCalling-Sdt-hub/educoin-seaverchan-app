@@ -4,6 +4,7 @@ import {GStyles} from '../../../styles/GStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {NavigProps} from '../../../interfaces/NavigationPros';
 import { IReword } from '../../../redux/interface/interface';
 
@@ -16,6 +17,7 @@ interface RewordsCardProps extends NavigProps<null> {
   editRoute?: string;
   routeData?: IReword;
   onPress?: () => void;
+  optionOnPress?: ()=>void;
   borderColor?: string;
   borderWidth?: number;
   disabled?: boolean;
@@ -53,7 +55,8 @@ const RewordsCard = ({
   claimPress,
   removeBtn,
   removePress,
-  points
+  points,
+  optionOnPress
   
 }: RewordsCardProps) => {
   // console.log(points);
@@ -178,17 +181,38 @@ const RewordsCard = ({
       {editOption && (
           <TouchableOpacity
             onPress={() =>
-              editRoute &&
-              editOption &&
-              navigation?.navigate(editRoute, {data: routeData})
+          {
+            if(!editRoute){
+              optionOnPress && optionOnPress()
+            }
+            if( editRoute &&
+             editOption ){
+
+               navigation?.navigate(editRoute, {data: routeData})
+             }
+          }
               
             }
             style={{
               padding: 5,
               position : "absolute",
-              right : 15,
+              right : 5,
             }}>
-            <FontAwesome5 name="edit" size={20} color="#3D3D3D" />
+              
+                <View
+                  // onPressIn={onPressOption}
+               
+                  style={{
+                    paddingHorizontal: 10,
+                  }}>
+                  <Entypo
+                    name="dots-three-vertical"
+                    size={20}
+                    color={'black'}
+                  />
+           
+              </View>
+            {/* <FontAwesome5 name="edit" size={20} color="#3D3D3D" /> */}
           </TouchableOpacity>
         )}
         {claimBtn && (

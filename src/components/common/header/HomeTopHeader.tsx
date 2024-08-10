@@ -12,8 +12,8 @@ interface HomeTopHeaderProps extends NavigProps<null> {
     userDetails?: {
         name?: string,
         image?: string,
-        class?: number,
-        level?: number,
+        rewardsTotal?: number,
+        pendingPoints?: number,
         points?: number
     }
     profileStyle?: "teacher" | "student",
@@ -21,7 +21,7 @@ interface HomeTopHeaderProps extends NavigProps<null> {
     ringColorOpacity?: number,
     notifyRoute? : string,
     notifyRouteData? : any,
-    setSearchValue?: () => void,
+    setSearchValue?: React.Dispatch<React.SetStateAction<string>>,
     searchValue? : string,
     containerGap ?: number,
     imgAssets? : any,
@@ -87,7 +87,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             //   alignSelf: 'center',
           }}
           source={{
-            uri:userDetails?.image ? userDetails?.image : 'https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg',
+            uri:userDetails?.image 
           }}
         />
         }
@@ -154,7 +154,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             fontSize : 12,
             fontFamily : GStyles.PoppinsSemiBold,
             color : GStyles.primaryOrange
-          }}>51</Text>
+          }}>{userDetails?.points}</Text>
          </View>
          <View style={{
           flexDirection : "row",
@@ -165,7 +165,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             fontSize : 12,
             fontFamily : GStyles.PoppinsSemiBold,
             color : GStyles.primaryOrange
-          }}>5</Text>
+          }}>{userDetails?.pendingPoints}</Text>
          </View>
          <View style={{
           flexDirection : "row",
@@ -176,7 +176,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             fontSize : 12,
             fontFamily : GStyles.PoppinsSemiBold,
             color : GStyles.gray.lightActive
-          }}>1</Text>
+          }}>{userDetails?.rewardsTotal}</Text>
          </View>
         </View>
       </View>
@@ -233,7 +233,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             flex: 1,
             // paddingHorizontal: 10,
           }}
-          onChangeText={setSearchValue}
+          onChangeText={(text : string)=> setSearchValue && setSearchValue(text as string)}
           value={searchValue}
         />
         <Feather name="search" color="#858585" size={24} />

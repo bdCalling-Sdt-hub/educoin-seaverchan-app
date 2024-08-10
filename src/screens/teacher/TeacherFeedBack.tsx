@@ -1,19 +1,51 @@
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useCallback } from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 
 import {GStyles} from '../../styles/GStyles';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import {NavigProps} from '../../interfaces/NavigationPros';
+import { useSendFeedBackMutation } from '../../redux/apiSlices/setings/setingsSlices';
+import { useContextApi } from '../../context/ContextApi';
+import Toast from 'react-native-toast-message';
 
 const TeacherFeedback = ({navigation}: NavigProps<null>) => {
+  const {user} = useContextApi()
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [feedback, setFeedback] = React.useState('');
+  const [sendFeedBack,feedbackResults] = useSendFeedBackMutation();
+
+  const handleSendFeedback = useCallback(()=>{
+    
+    // setModalVisible(true);
+    sendFeedBack({token :user.token , data: {feedback}})
+     .then((res) => {
+       console.log(res);
+       if(res.error){
+        Toast.show({
+          type : 'error',
+          text1: "please try again",
+        })
+       }
+       if (res.data.success) {
+          setModalVisible(true);
+          setFeedback('');
+        } else {
+       
+        }
+      })
+     .catch((error) => {
+        setModalVisible(false);
+    
+      });
+  },[])
 
   return (
     <View
@@ -33,7 +65,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           paddingHorizontal: '4%',
           paddingVertical: '8%',
         }}>
-        <View>
+        {/* <View>
           <Text
             style={{
               fontFamily: 'Poppins',
@@ -57,7 +89,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
             }}
             // value="khushi"
           />
-        </View>
+        </View> */}
 
         <View>
           <Text
@@ -72,6 +104,8 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           </Text>
           <TextInput
             placeholder="Ex. what is the feedback about us. "
+
+            onChangeText={(text)=>setFeedback(text)}
             style={{
               borderWidth: 1,
               borderColor: '#EEEEEE',
@@ -116,7 +150,9 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setModalVisible(true)}
+          onPress={() => {
+            handleSendFeedback();
+          }}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 15,
@@ -140,7 +176,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'30%'}
+        height={'20%'}
         width={'85%'}
         Radius={10}>
         <View
@@ -160,14 +196,14 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
             }}>
             Your Feedback Send Successfully
           </Text>
-          <Text
+          {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
               fontSize: 16,
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
-          </Text>
+          </Text> */}
 
           <View>
             <TouchableOpacity

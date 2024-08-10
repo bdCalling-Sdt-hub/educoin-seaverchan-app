@@ -19,36 +19,29 @@ import {FlatList} from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import {categoryIcons, ShearIcons, SherAvatar} from '../../utils/ShearData';
 import {Slider} from 'react-native-awesome-slider';
-import {useSharedValue} from 'react-native-reanimated';
+import {useSharedValue, withTiming} from 'react-native-reanimated';
 import { useContextApi } from '../../context/ContextApi';
 import { useCreateRewordsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
 import Toast from 'react-native-toast-message';
+import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import { imageUrl } from '../../redux/api/baseApi';
 
 interface IRewordsUProps {
   name: string;
   image: any;
-  requiredPoints: string;
+  requiredPoints: number;
 }
 
 const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
-  const [rewordsData, setRewordsData] = React.useState<IRewordsUProps | null>();
-
   const {user} = useContextApi();
+  const [rewordsData, setRewordsData] = React.useState<IRewordsUProps>();
+  const {data: IconsData} = useGetIconsPresetQuery(user.token);
   const [createRewords,results] = useCreateRewordsMutation()
 
   const [rewordPoints, setRewordPoints] = React.useState<number>(50);
 
-  const [customImage, setCustomImage] = React.useState({
-    lastModified: 1723207192440,
-    lastModifiedDate: '2024-08-09T12:39:52.440Z',
-    name: '34.png',
-    size: 11916,
-    type: 'image/png',
-    uri: 'file:///data/user/0/com.seaverchan.educoin/cache/rn_image_picker_lib_temp_fb41d3f2-8cc7-425b-8cd3-97a99161d80f.png',
-    webkitRelativePath: '',
-  });
+  const [customImage, setCustomImage] = React.useState<string>(IconsData?.data![0].image as string);
 
-  const [modalVisible, setModalVisible] = React.useState(false);
   const [successModal, setSuccessModal] = React.useState(false);
 
   const progress = useSharedValue(rewordPoints);
@@ -58,44 +51,57 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
   const handleCreateReword = useCallback(
     (UData :IRewordsUProps) => {
 
-
-
-      console.log(UData);
-      const formData = new FormData();
-      if (!UData?.image) {
-        formData.append('image', customImage);
+      // console.log(UData);
+      if(!UData?.requiredPoints){
+      UData.requiredPoints = rewordPoints
       }
-      UData?.name && formData.append('name', UData?.name);
-      UData?.requiredPoints && formData.append('requiredPoints', UData?.requiredPoints);
-
-      if(!UData?.name){
+    
+      if(!UData?.image){
+        UData.image = customImage
+      }
+      
+      if(!UData.name){
         Toast.show({
-          type: 'info',
-          text1: 'Name is required',
+          type : "info",
+          text1 : "Please write a reword name"
         })
       }
-      if(!UData?.requiredPoints){
-         UData.requiredPoints = parseInt(rewordPoints)
+      if(!UData.requiredPoints){
+        Toast.show({
+          type : "info",
+          text1 : "Select required points"
+        })
       }
+      
+    
 
-      createRewords({token : user.token, data : formData}).then(res=>{
-        console.log(res);
+     if(UData?.name&& UData?.requiredPoints && UData?.image){
+      createRewords({token : user.token, data : UData}).then(res=>{
+        // console.log(res);
         if(res?.data?.success){
           // setModalVisible(false);
           setSuccessModal(true);
         }
-        if(res?.error?.data?.message){
+        if(res?.error){
+          console.log(res.error);
           Toast.show({
             type: 'error',
-            text1: res?.error?.data?.message,
+            text1: "something is missing try again",
           })
         }
       })
+     }
+    
       // setSuccessModal(true);
 
     },
     [rewordsData],
   );
+
+
+  React.useEffect(() => {
+    progress.value = withTiming(rewordPoints, {duration: 10});
+  }, [rewordPoints]);
 
   return (
     <View
@@ -174,73 +180,44 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             paddingVertical: '5%',
             marginTop: -10,
           }}>
-          <View
+           <View
             style={{
               marginVertical: 15,
               flexDirection: 'row',
               gap: 10,
               alignItems: 'center',
-              justifyContent: 'space-between',
             }}>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: GStyles.primaryOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: GStyles.primaryOrange,
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: GStyles.PoppinsSemiBold,
+                color: '#3D3D3D',
+
+                fontWeight: '500',
+                letterSpacing: 0.5,
+              }}>
+              Points
+            </Text>
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 gap: 5,
-                justifyContent: 'center',
               }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 8,
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    borderColor: GStyles.primaryOrange,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: GStyles.primaryOrange,
-                  }}
-                />
-
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    color: '#3D3D3D',
-
-                    fontWeight: '500',
-                    letterSpacing: 0.5,
-                  }}>
-                  Points
-                </Text>
-              </View>
               <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
-            </View>
-            <View
-              style={{
-                height: 30,
-                justifyContent: 'center',
-                //  alignItems : "center"
-              }}>
-              <Text
-                style={{
-                  fontFamily: GStyles.PoppinsMedium,
-                  backgroundColor: GStyles.primaryPurple,
-                  fontSize: 12,
-                  padding: 5,
-                  borderRadius: 4,
-                  color: 'white',
-                  width: 45,
-                  textAlign: 'center',
-                }}>
-                +{parseInt(rewordPoints)}
-              </Text>
+              <Text>{parseInt(rewordPoints)}</Text>
             </View>
           </View>
           <Slider
@@ -257,9 +234,61 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             maximumValue={max}
             onSlidingComplete={(value: number) => {
               setRewordPoints(value);
-              setRewordsData({...rewordsData, requiredPoints: parseInt(value)});
+             
             }}
           />
+             <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 10,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                rewordPoints !== 0 && setRewordPoints(rewordPoints - 10);
+              }}
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.gray.lightActive,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  textAlign: 'center',
+                  width: 45,
+                }}>
+                -10
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                rewordPoints < max.value && setRewordPoints(rewordPoints + 10);
+              }}
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.primaryPurple,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  color: 'white',
+                  width: 45,
+                  textAlign: 'center',
+                }}>
+                +10
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View
           style={{
@@ -319,12 +348,15 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             contentContainerStyle={{
               gap: 24,
             }}
-            data={ShearIcons}
-            keyExtractor={item => item.id + item.title}
+            data={IconsData?.data}
+            keyExtractor={item => item._id + item.createdAt}
             renderItem={item => (
               <TouchableOpacity
+              activeOpacity={.8}
                 key={item.index}
-                onPress={() => {}}>
+                onPress={() => {
+                  setCustomImage(item.item.image) 
+                }}>
                 <View
                   style={{
                     gap: 12,
@@ -336,10 +368,10 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                       width: 70,
                       height: 70,
                       borderRadius: 15,
-                      // borderColor:
-                      //   customCategory === item.item.id
-                      //     ? GStyles.primaryPurple
-                      //     : GStyles.gray.light,
+                      borderColor:
+                        customImage  === item.item.image
+                          ? GStyles.primaryPurple
+                          : GStyles.gray.light,
                       borderWidth: 2,
                       padding: 2,
                       justifyContent: 'center',
@@ -347,7 +379,9 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                       elevation: 2,
                     }}>
                     <Image
-                      source={item.item.img}
+                      source={{
+                        uri : imageUrl + item.item.image
+                      }}
                       style={{
                         width: 65,
                         height: 65,

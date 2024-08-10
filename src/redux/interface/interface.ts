@@ -3,7 +3,7 @@ export interface IFetchStatus {
   success: boolean;
 }
 
-export interface IUser extends IFetchStatus {
+export interface ITeacherUser extends IFetchStatus {
   data: {
     __v: number;
     _id: any;
@@ -16,8 +16,27 @@ export interface IUser extends IFetchStatus {
     profile: string;
     role: string;
     status: boolean;
-    totalStudent: 2;
+    totalStudent: number;
     updatedAt: Date;
+  };
+}
+export interface IStudentUser extends IFetchStatus {
+  data: {
+    _id: string;
+    name: string;
+    password: string;
+    role: string;
+    dateOfBirth: string;
+    profile: string;
+    class: string;
+    teacher: string;
+    points: number;
+    level: number;
+    rewards: number;
+    pendingPoints: number;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
   };
 }
 
@@ -35,7 +54,7 @@ export interface IStudent {
   pendingPoints: number;
   createdAt: Date;
   updatedAt: Date;
-  __v: 0;
+  __v: number;
 }
 
 export interface IStudents extends IFetchStatus {
@@ -49,7 +68,7 @@ export interface IClass {
   teacher: Date;
   createdAt: Date;
   updatedAt: Date;
-  __v: 0;
+  __v: number;
 }
 
 export interface IClasses extends IFetchStatus {
@@ -62,7 +81,7 @@ export interface ICategory {
   teacher: string;
   createdAt: Date;
   updatedAt: DataView;
-  __v: 0;
+  __v: number;
 }
 
 export interface ICategories extends IFetchStatus {
@@ -79,14 +98,14 @@ export interface ITask {
     teacher: string;
     createdAt: Date;
     updatedAt: Date;
-    __v: 0;
+    __v: number;
   };
   type: string;
   repeat: string;
   teacher: string;
   createdAt: Date;
   updatedAt: Date;
-  __v: 0;
+  __v: number;
 }
 
 export interface ITasks extends IFetchStatus {
@@ -100,7 +119,7 @@ export interface IReword {
   teacher: string;
   createdAt: string;
   updatedAt: string;
-  __v: 0;
+  __v: number;
 }
 
 export interface IRewords extends IFetchStatus {
@@ -114,7 +133,7 @@ export interface IPendingTask {
   status: string;
   createdAt: Date;
   updatedAt: Date;
-  __v: 0;
+  __v: number;
 }
 
 export interface IPendingTasks extends IFetchStatus {
@@ -128,7 +147,7 @@ export interface IAssignTask {
   status: string;
   createdAt: string;
   updatedAt: string;
-  __v: 0;
+  __v: number;
 }
 
 export interface IAssignTasks extends IFetchStatus {
@@ -142,9 +161,74 @@ export interface IAssignReword {
   status: string;
   createdAt: string;
   updatedAt: string;
-  __v: 0;
+  __v: number;
 }
 
 export interface IAssignRewords extends IFetchStatus {
   data: Array<IAssignReword>;
+}
+export interface IPreset {
+  _id: string;
+  image: string;
+  type: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface IPresets extends IFetchStatus {
+  data: Array<IPreset>;
+}
+
+export interface IAssignStudentTask {
+  _id:string;
+  task: ITask;
+  student:string;
+  teacher: {
+    _id: string;
+    name:string;
+    email: string;
+    profile: string;
+  };
+  status: "notStarted" | "inProgress";
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface IAssignStudentTasks extends IFetchStatus {
+  data: Array<IAssignStudentTask>;
+}
+export interface IAssignStudentReword {
+  _id:string;
+  reward: IReword;
+  student:string;
+  teacher: {
+    _id: string;
+    name:string;
+    email: string;
+    profile: string;
+  };
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface IAssignStudentRewords extends IFetchStatus {
+  data: Array<IAssignStudentReword>;
+}
+export interface IEarnedStudentReword {
+  _id:string;
+  reward: IReword;
+  student:string;
+  teacher: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface IEarnedStudentRewords extends IFetchStatus {
+  data: Array<IEarnedStudentReword>;
 }

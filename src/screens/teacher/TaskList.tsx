@@ -24,6 +24,7 @@ import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import {FontSize} from '../../utils/utils';
 import {ActionSheet} from 'react-native-ui-lib';
 import {
+  useApproveTaskMutation,
   useGetPendingTaskQuery,
   useGetTaskQuery,
 } from '../../redux/apiSlices/teacher/teaherTaskSlices';
@@ -35,6 +36,7 @@ const TaskList = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
   const {data: tasks} = useGetTaskQuery(user.token);
   const {data: pendingTasks} = useGetPendingTaskQuery(user.token);
+  const [approveTask,results] = useApproveTaskMutation()
 
   // console.log(tasks);
   const [op, setOp] = React.useState('Task List');
@@ -182,7 +184,14 @@ const TaskList = ({navigation}: NavigProps<null>) => {
                 isButton
                 buttonText="Pending"
                 OnButtonPress={() => {
+                  console.log("ok");
                   // navigation?.navigate('TeacherTaskAssign');
+                  approveTask({token : user.token, id : item?.item?._id}).then(res=>{
+                   
+                    if(res.data?.success){
+                      setModalVisible(true)
+                    }
+                  })
              
                 }}
                 key={item.index}
@@ -237,7 +246,7 @@ const TaskList = ({navigation}: NavigProps<null>) => {
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
-        height={'30%'}
+        height={'20%'}
         width={'85%'}
         Radius={10}>
         <View
@@ -257,14 +266,14 @@ const TaskList = ({navigation}: NavigProps<null>) => {
             }}>
             Task Approved Successfully
           </Text>
-          <Text
+          {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
               fontSize: 16,
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
-          </Text>
+          </Text> */}
 
           <View>
             <TouchableOpacity

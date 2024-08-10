@@ -17,52 +17,37 @@ import {
   import CustomModal from '../../components/common/CustomModal/CustomModal';
   import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { SherAvatar } from '../../utils/ShearData';
+import { IStudent, IStudentUser } from '../../redux/interface/interface';
+import { useGetUserStudentQuery, useUpdateStudentMutation } from '../../redux/apiSlices/authSlice';
+import { useContextApi } from '../../context/ContextApi';
+import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import DateTimePicker from 'react-native-ui-datepicker';
+import Require from '../../components/common/require/Require';
+import { Dropdown } from 'react-native-element-dropdown';
+import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
   
   
-  const data = [
-    {
-      id: 1,
-      avatar: require("../../assets/images/studentAvatar/1.png"),
-    },
-    {
-      id: 2,
-      avatar: require("../../assets/images/studentAvatar/2.png"),
-    },
-    {
-      id: 3,
-      avatar: require("../../assets/images/studentAvatar/3.png"),
-    },
-    {
-      id: 4,
-      avatar: require("../../assets/images/studentAvatar/4.png"),
-    },
-    {
-      id: 5,
-      avatar: require("../../assets/images/studentAvatar/5.png"),
-    },
-    {
-      id: 6,
-      avatar: require("../../assets/images/studentAvatar/6.png"),
-    },
-    {
-      id: 7,
-      avatar: require("../../assets/images/studentAvatar/7.png"),
-    },
-    {
-      id: 8,
-      avatar: require("../../assets/images/studentAvatar/8.png"),
-    },
-    {
-      id: 9,
-      avatar: require("../../assets/images/studentAvatar/9.png"),
-    },
-  ]
-  
-  const StudentProfileEdit = ({navigation}: NavigProps<null>) => {
-    const [selectAvatar,setSelectAvatar] = React.useState<number>()
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const [image,setImage] = React.useState<string>()
-  
+  const StudentProfileEdit = ({navigation,route}: NavigProps<IStudentUser>) => {
+
+  const {user} = useContextApi();
+  // const {data : student} = useGetUserStudentQuery(user.token)
+  const StudentData = route?.params?.data.data
+  const {data: classes} = useGetClassesQuery(user?.token);
+  const {data : avatarData} = useGetAvatarPresetQuery(user?.token);
+  const [selectAvatar, setSelectAvatar] = React.useState<number>();
+    const [image, setImage] = React.useState<string | null>();
+  const [selectClass, setSelectClass] = React.useState<string>();
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [studentInfo, setStudentInfo] = React.useState(StudentData);
+
+  const [startDate, setStartDate] = React.useState(false);
+  const [dateModal, setDateModal] = React.useState(false);
+
+
+     const UserData = route?.params?.data;
+
+
     const handleImagePick = async (option: 'camera' | 'library') => {
       try {
         if (option === 'camera') {
@@ -98,7 +83,7 @@ import { SherAvatar } from '../../utils/ShearData';
       }
     };
   
-    console.log(selectAvatar);
+    console.log(avatarData);
     return (
       <View
         style={{
@@ -111,159 +96,128 @@ import { SherAvatar } from '../../utils/ShearData';
         ringColor={GStyles.orange.normalHover}
         navigation={navigation}
       />
-        <ScrollView
-          contentContainerStyle={{
-            paddingHorizontal: '4%',
-            paddingVertical: 20,
-            gap: 24,
+           <ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: '4%',
+          paddingVertical: 20,
+          gap: 30,
+        }}>
+        <View
+          style={{
+            marginTop: 10,
           }}>
-          <View>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                fontFamily: GStyles.Poppins,
-                color: GStyles.textColor['#3D3D3D'],
-              }}>
-              Student name
-            </Text>
-            <TextInput
-              style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                borderRadius: 2,
-                paddingHorizontal: 10,
-                fontFamily: GStyles.Poppins,
-                paddingVertical: 10,
-              }}
-              placeholder="Task Name"
-            />
-          </View>
-  
-          <View>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                fontFamily: GStyles.Poppins,
-                color: GStyles.textColor['#3D3D3D'],
-              }}>
-              Date of birth
-            </Text>
-            <TextInput
-              style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                borderRadius: 2,
-                paddingHorizontal: 10,
-                fontFamily: GStyles.Poppins,
-                paddingVertical: 10,
-              }}
-              placeholder="dd/mm/yy"
-            />
-          </View>
-          {/* <View>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                fontFamily: GStyles.Poppins,
-                color: GStyles.textColor['#3D3D3D'],
-              }}>
-              Create a passcode for Student
-            </Text>
-            <TextInput
-              style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                borderRadius: 2,
-                paddingHorizontal: 10,
-                fontFamily: GStyles.Poppins,
-                paddingVertical: 10,
-              }}
-              placeholder="16435"
-            />
-          </View> */}
-          {/* <View
+          <Require title="Student name" />
+          <TextInput
             style={{
-              marginBottom: 20,
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              borderRadius: 2,
+              paddingHorizontal: 10,
+              fontFamily: GStyles.Poppins,
+              paddingVertical: 10,
+            }}
+            placeholder="Task Name"
+            onChangeText={text => setStudentInfo({...studentInfo, name: text})}
+            placeholderTextColor={GStyles.gray.lightHover}
+          />
+        </View>
+
+       
+      
+       
+     
+        {/* <View>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '500',
+              fontFamily: GStyles.Poppins,
+              color: GStyles.textColor['#3D3D3D'],
             }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '500',
-                fontFamily: GStyles.Poppins,
-                color: GStyles.textColor['#3D3D3D'],
-              }}>
-              Graduation year
-            </Text>
-            <TextInput
-              style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                borderRadius: 2,
-                paddingHorizontal: 10,
-                fontFamily: GStyles.Poppins,
-                paddingVertical: 10,
-              }}
-              placeholder="2024"
-            />
-          </View> */}
-          <View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingVertical: 10,
-                paddingHorizontal: 10,
+            Create a passcode for Student
+          </Text>
+          <TextInput
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              borderRadius: 2,
+              paddingHorizontal: 10,
+              fontFamily: GStyles.Poppins,
+              paddingVertical: 10,
+            }}
+            placeholder="16435"
+          />
+        </View> */}
+        {/* <View
+          style={{
+            marginBottom: 20,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '500',
+              fontFamily: GStyles.Poppins,
+              color: GStyles.textColor['#3D3D3D'],
+            }}>
+            Graduation year
+          </Text>
+          <TextInput
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              borderRadius: 2,
+              paddingHorizontal: 10,
+              fontFamily: GStyles.Poppins,
+              paddingVertical: 10,
+            }}
+            placeholder="2024"
+          />
+        </View> */}
+        <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingVertical: 10,
+              // paddingHorizontal: 10,
+            }}>
+            <Require title="Choose Avatar" />
+            <TouchableOpacity
+              style={{}}
+              onPress={() => {
+                navigation?.navigate('StudentAllAvatar');
               }}>
               <Text
                 style={{
-                  fontSize: 16,
-                  fontWeight: '500',
+                  fontSize: 12,
                   fontFamily: GStyles.Poppins,
-                  color: GStyles.textColor['#3D3D3D'],
+                  color: GStyles.primaryPurple,
                 }}>
-                Choose Avatar
+                View all avatar
               </Text>
-              <TouchableOpacity
-                style={{}}
-                onPress={() => {
-                  navigation?.navigate('AllStudentAvatar');
-                  
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontFamily: GStyles.Poppins,
-                    color: GStyles.primaryPurple,
-                  }}>
-                  View all avatar
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={SherAvatar}
-              contentContainerStyle={{
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                gap: 10,
-              }}
-              ListHeaderComponent={item => (
-                <>
-                 
-                 {
-                  image ?<TouchableOpacity
-                  onPress={()=>{
-                    handleImagePick("camera")
-                    if(selectAvatar){
-                      setSelectAvatar(undefined)
-                    }
-                  }}
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={avatarData?.data}
+            contentContainerStyle={{
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              gap: 10,
+            }}
+            ListHeaderComponent={item => (
+              <>
+                {studentInfo?.image ? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleImagePick('camera');
+                      if (selectAvatar) {
+                        setSelectAvatar(undefined);
+                      }
+                    }}
                     style={{
                       width: 90,
                       height: 90,
@@ -271,9 +225,11 @@ import { SherAvatar } from '../../utils/ShearData';
                       backgroundColor: '#F1F1F1',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      borderColor: selectAvatar !== 0 && !selectAvatar ?  GStyles.primaryPurple :"white"  ,
-                      borderWidth:  2,
-                    
+                      borderColor:
+                        selectAvatar !== 0 && !selectAvatar
+                          ? GStyles.primaryPurple
+                          : 'white',
+                      borderWidth: 2,
                     }}>
                     <Image
                       style={{
@@ -282,158 +238,189 @@ import { SherAvatar } from '../../utils/ShearData';
                         borderRadius: 100,
                       }}
                       source={{
-                        uri: image ? image : 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
+                        uri: studentInfo?.profile
                       }}
                     />
-                  </TouchableOpacity> :  <TouchableOpacity
-           onPress={()=>handleImagePick("camera")}
-                  style={{
-                    width: 90,
-                    height: 90,
-                    borderRadius: 100,
-                    backgroundColor: '#F1F1F1',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderColor: GStyles.borderColor['#ECECEC'],
-                    borderWidth: 1,
-                  }}>
-                  <AntDesign
-                    name="plus"
-                    size={24}
-                    color={GStyles.textColor['#3D3D3D']}
-                  />
-                </TouchableOpacity>
-                 }
-                
-                </>
-               
-              )}
-              renderItem={item => (
-                <TouchableOpacity
-                onPress={()=>setSelectAvatar(item.item.id)}
-                  style={{
-                    width: 90,
-                    height: 90,
-                    borderRadius: 100,
-                    backgroundColor: '#F1F1F1',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderColor: selectAvatar === item.item.id ? GStyles.primaryPurple : GStyles.borderColor['#ECECEC'],
-                    borderWidth:  2,
-                  
-                  }}>
-                  <Image
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => handleImagePick('camera')}
                     style={{
-                      width: 80,
-                      height: 80,
+                      width: 90,
+                      height: 90,
                       borderRadius: 100,
-                    }}
-                    source={item.item.img}
-                  />
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </ScrollView>
+                      backgroundColor: '#F1F1F1',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderColor: GStyles.borderColor['#ECECEC'],
+                      borderWidth: 1,
+                    }}>
+                    <AntDesign
+                      name="plus"
+                      size={24}
+                      color={GStyles.textColor['#3D3D3D']}
+                    />
+                  </TouchableOpacity>
+                )}
+              </>
+            )}
+            renderItem={item => (
+              <TouchableOpacity
+                onPress={() => setSelectAvatar(item.item.id)}
+                style={{
+                  width: 90,
+                  height: 90,
+                  borderRadius: 100,
+                  backgroundColor: '#F1F1F1',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderColor:
+                    selectAvatar === item.item.id
+                      ? GStyles.primaryPurple
+                      : GStyles.borderColor['#ECECEC'],
+                  borderWidth: 2,
+                }}>
+                <Image
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 100,
+                  }}
+                  source={
+                    item.item.img
+                      ? item.item.img
+                      : {
+                          uri: 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
+                        }
+                  }
+                />
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+      </ScrollView>
+      <View
+        style={{
+          paddingVertical: 10,
+        }}>
+        <NormalButtons
+          // loading={results?.isLoading}
+          title="Save"
+          onPress={() => {
+            // handleClassInfoSubmit(studentInfo);
+          }}
+        />
+      </View>
+      <CustomModal
+        modalVisible={modalVisible}
+        backButton
+        setModalVisible={setModalVisible}
+        height={'30%'}
+        width={'85%'}
+        Radius={10}>
         <View
           style={{
-            paddingHorizontal: '4%',
-            paddingVertical: '5%',
+            padding: 20,
+            gap: 20,
             justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
+            flex: 1,
           }}>
-          <TouchableOpacity
-            onPress={() => {
-              setModalVisible(true);
-              // navigation.goBack()
-            }}
+          <Text
             style={{
-              backgroundColor: GStyles.primaryOrange,
-              padding: 10,
-              borderRadius: 100,
-              marginVertical: 10,
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              width: '90%',
+              fontSize: 18,
+              fontFamily: GStyles.PoppinsMedium,
+              textAlign: 'center',
+              color: GStyles.textColor['#3D3D3D'],
+              marginTop: 10,
             }}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-              }}>
-              {/* <AntDesign name="plus" size={20} color="white" /> */}
-            </Text>
-            <Text
-              style={{
-                color: 'white',
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                letterSpacing: 0.8,
-                marginTop: 5,
-              }}>
-              Updated
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <CustomModal
-          modalVisible={modalVisible}
-          backButton
-          setModalVisible={setModalVisible}
-          height={'30%'}
-          width={'85%'}
-          Radius={10}>
-          <View
+            Student Added Successfully
+          </Text>
+          <Text
             style={{
-              padding: 20,
-              gap: 20,
-              justifyContent: 'center',
-              flex: 1,
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              textAlign: 'center',
             }}>
-            <Text
+            simply dummy text of the printing and typesetting industry
+          </Text>
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
               style={{
-                fontSize: 18,
-                fontFamily: GStyles.PoppinsMedium,
-                textAlign: 'center',
-                color: GStyles.textColor['#3D3D3D'],
-                marginTop: 10,
+                backgroundColor: GStyles.primaryPurple,
+                width: '30%',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
               }}>
-               Updated Successfully
-            </Text>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                textAlign: 'center',
-              }}>
-              simply dummy text of the printing and typesetting industry
-            </Text>
-  
-            <View>
-              <TouchableOpacity
-                onPress={() => setModalVisible(false)}
+              <Text
                 style={{
-                  backgroundColor: GStyles.primaryOrange,
-                  width: '30%',
-                  paddingVertical: 10,
-                  paddingHorizontal: 15,
-                  borderRadius: 100,
-                  alignSelf: 'center',
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
                 }}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontFamily: GStyles.Poppins,
-                    textAlign: 'center',
-                    fontSize: 16,
-                    fontWeight: '400',
-                  }}>
-                  Exit
-                </Text>
-              </TouchableOpacity>
-            </View>
+                Exit
+              </Text>
+            </TouchableOpacity>
           </View>
-        </CustomModal>
+        </View>
+      </CustomModal>
+      <CustomModal
+        height={'47%'}
+        Radius={20}
+        paddingHorizontal="4%"
+        modalVisible={dateModal}
+        backButton
+        setModalVisible={setDateModal}>
+        <DateTimePicker
+          headerContainerStyle={{
+            marginTop: '8%',
+          }}
+          // headerButtonColor={colors.redis}
+          // headerTextStyle={{
+          //   color: colors.redis,
+          //   fontFamily: font.Poppins,
+          //   fontSize: 14,
+          // }}
+          // headerButtonSize={14}
+          // headerButtonStyle={{
+          //   backgroundColor: colors.bg,
+          //   elevation: 1,
+          //   borderRadius: 4,
+          // }}
+          // calendarTextStyle={{
+          //   color: colors.textColor.light,
+          // }}
+          // selectedItemColor={colors.blue}
+          // weekDaysTextStyle={{
+          //   color: colors.primaryColor,
+          //   fontFamily: font.Poppins,
+          //   fontSize: 12,
+          // }}
+          // headerTextContainerStyle={{
+          //   backgroundColor: colors.bg,
+          //   elevation: 1,
+          //   marginHorizontal: 5,
+          //   // paddingVertical: 2,
+          //   paddingHorizontal: 10,
+          //   borderRadius: 4,
+          //   alignItems: 'center',
+          //   justifyContent: 'center',
+          // }}
+          mode="single"
+          date={studentInfo?.dateOfBirth ? studentInfo.dateOfBirth : new Date()}
+          onChange={(params: any) => {
+            // console.log(params);
+            setStudentInfo({...studentInfo, dateOfBirth: params?.date});
+
+            setDateModal(false);
+          }}
+        />
+      </CustomModal>
       </View>
     );
   };

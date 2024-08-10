@@ -6,6 +6,9 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {BarChart} from 'react-native-gifted-charts';
+import { useContextApi } from '../../context/ContextApi';
+import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
+import { imageUrl } from '../../redux/api/baseApi';
 
 const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
   const barData = [
@@ -17,6 +20,13 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
     {value: 90, label: 'Fri'},
     {value: 20, label: 'Sat'},
   ];
+
+
+  const {user} = useContextApi()
+  const {data : studentData} = useGetUserStudentQuery(user.token)
+
+  // console.log(user);
+
   return (
     <View
       style={{
@@ -61,7 +71,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               borderRadius: 100,
             }}
             source={{
-              uri: 'https://s3-alpha-sig.figma.com/img/7e25/5623/4294ee5c7b1b9f58586be6b07d5af09b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoYP6qbNyHMaDp7G~F0LsLi4D0Zb2zJK9~MoCQh-nBo13nilsaprRhhB~jZ3NESLlm45D6~LJzohohDlrx1PyVFJhC1c6SYzNiZemEYD9S5WofLU-5StHzQuuoU6dPwZJHLeX9AX9EdHNV-u3xX9jlMTspEKEb2cXbH0QH54QsEbsKi0ILq7RQvW~PBB251NBenJtxcsXGiDmjHaRyEcKjS8L56erB11TsgtmpBgpeQvRnY5rrLgBzX1H-hD769AETCEgNj7T9ZbUwJq1-YuI9j13kTEuTtjv9cuwWlkaOLGYSnJTxfrjoMU36e3zvQDAi6O~Gm00Uiwa0J7HtQAlQ__',
+              uri: imageUrl + studentData?.data?.profile
             }}
           />
         </View>
@@ -79,7 +89,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               fontWeight: '600',
               letterSpacing: 0.5,
             }}>
-            Aadi T
+           {studentData?.data?.name}
           </Text>
 
           <Text
@@ -90,7 +100,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               fontWeight: '400',
               letterSpacing: 0.5,
             }}>
-            Class : 01
+            {studentData?.data?.class}
           </Text>
           <Text
             style={{
@@ -100,7 +110,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}>
-            Level 1
+            Level {studentData?.data?.level}
           </Text>
 
           <View
@@ -117,14 +127,14 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
                 fontWeight: '400',
                 letterSpacing: 0.5,
               }}>
-              45{' '}
+              {studentData?.data?.points}
             </Text>
             <AntDesign name="star" size={15} color={GStyles.primaryYellow} />
           </View>
           
         </View>
         <TouchableOpacity 
-        onPress={()=>navigation?.navigate('StudentProfileEdit')}
+        onPress={()=>navigation?.navigate('StudentProfileEdit',studentData)}
         style={{
             position : "absolute",
             top : 15,
@@ -178,7 +188,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               fontWeight: '400',
               letterSpacing: 0.8,
             }}>
-            level 1
+            level {studentData?.data?.level}
           </Text>
           <View
             style={{
@@ -206,7 +216,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               fontWeight: '400',
               letterSpacing: 0.8,
             }}>
-            level 2
+            level {studentData?.data?.level as number + 1}
           </Text>
         </View>
       </View>

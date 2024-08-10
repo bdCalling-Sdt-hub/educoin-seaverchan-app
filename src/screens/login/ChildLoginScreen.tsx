@@ -15,8 +15,18 @@ import BackButton from '../../components/BackButton';
 import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
+import Toast from 'react-native-toast-message';
+import { setStorageRole, setStorageToken } from '../../utils/utils';
+import { useContextApi } from '../../context/ContextApi';
+import { useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
+import NormalButtons from '../../components/common/Buttons/NormalButtons';
 
 const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
+  const {setUser, user} = useContextApi();
+  const [loginUser, results] = useLoginStudentMutation();
+  // const  dispatch = useDispatch()
+  // console.log(results?.error);
+
   const [pin, setPin] = React.useState('');
   const textInputRef = React.useRef<TextInput>(null);
   const handlePress = () => {
@@ -24,25 +34,66 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
       textInputRef.current.focus();
     }
   };
-  React.useEffect(()=>{
-  textInputRef.current?.focus()
-  },[])
+  React.useEffect(() => {
+    textInputRef.current?.focus();
+  }, []);
 
-
-
-  const handlePinChange = (input : string) => {
+  const handlePinChange = (input: string) => {
     // Ensure only numbers are entered and limit to 6 digits
     const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
     setPin(filteredInput);
   };
 
+  // console.log(results?.error);
+
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
-    console.log('Entered PIN:', pin);
-    navigation?.navigate('StudentDrawerRoutes')
+    // console.log(pin);
+    if (!pin) {
+      Toast.show({
+        text1: 'Please enter the passcode !',
+        type: 'error',
+        // swipeable : true
+      });
+    }
+    if (pin.length < 6) {
+      Toast.show({
+        text1: 'Passcode must be 6 digit!',
+        type: 'error',
+        // swipeable : true
+      });
+    }
+    console.log(pin.length);
+    if (pin.length < 7) {
+      loginUser(pin).then(res => {
+        // console.log(res);
+        // if (res.error) {
+        //   Toast.show({
+        //     text1: res?.error?.data?.message,
+        //     type: 'info',
+        //     // swipeable : true
+        //   });
+        // }
+
+        if (res?.data?.success) {
+          setUser({
+            token: res?.data?.data,
+            role: 'student',
+          });
+          setStorageRole('student');
+          setStorageToken(res?.data?.data);
+          Toast.show({
+            text1: 'Login successful!',
+            type: 'success',
+            visibilityTime: 2000,
+          });
+        }
+      });
+      // navigation?.navigate("TeacherDrawerRoutes")
+    }
+    // navigation?.navigate('TeacherDrawerRoutes');
     Keyboard.dismiss(); // Dismiss the keyboard
   };
-
   return (
     <View style={styles.container}>
       <BackButton />
@@ -81,12 +132,9 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
         <View style={styles.buttonContain} >
-          <TouchableOpacity
-            disabled={pin.length !== 6}
-            style={[styles.button, pin.length === 6 ? {    backgroundColor: GStyles.primaryOrange} : { backgroundColor: GStyles.borderColor['#ECECEC']}]}
-            onPress={handleGoPress}>
-            <Text style={[styles.buttonText, pin.length === 6 ? {    color: GStyles.white} : { color: GStyles.gray.lightHover}]}>Go</Text>
-          </TouchableOpacity>
+        <NormalButtons title='Go' onPress={()=>{
+          handleGoPress()
+        }} />
         </View>
       </ScrollView>
 
@@ -97,11 +145,7 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
           position: 'absolute',
           top: -500,
         }}
-        onEndEditing={() => {
-          if (pin.length === 6) {
-            navigation?.navigate('StudentDrawerRoutes');
-          }
-        }}
+       
         onChangeText={handlePinChange}
 
         maxLength={6}

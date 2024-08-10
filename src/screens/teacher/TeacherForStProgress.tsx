@@ -27,11 +27,26 @@ import Animated, {
 } from 'react-native-reanimated';
 import {PieChart} from 'react-native-gifted-charts';
 import LinearGradient from 'react-native-linear-gradient';
+import { useContextApi } from '../../context/ContextApi';
+import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import { useGetSingleStudentQuery, useGetStudentThrowClassQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
+import { imageUrl } from '../../redux/api/baseApi';
 
 const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
+
+
+  const {user} = useContextApi();
+  const {data : classes} = useGetClassesQuery(user.token);
+  const [selectedClass, setSelectedClass] = useState<any>(classes?.data[0].className);
+  const {data : students,refetch : studentRefetch} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
+  const [selectedStudent, setSelectedStudent] = useState<any>(students?.data[0]._id);
+  const {data : student} = useGetSingleStudentQuery({token : user.token, id : selectedStudent })
+  console.log(student?.data._id);
+
   const [data, setData] = useState([
     {value: 10, color: '#42A5F5', text: '10%'},
     {value: 70, color: '#AB47BC', text: '70%'},
+    {value: 70, color: '#FF8811', text: '20%'},
   ]);
   const [isOp, setIsOp] = React.useState('Profile');
   const [value, setValue] = React.useState<string>();
@@ -45,11 +60,10 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
   const progressBar = useSharedValue('0%');
 
   useEffect(() => {
+    studentRefetch()
     progressBar.value = withSpring('50%');
-
     completedTask.value = withSpring(50);
     uncompletedTask.value = withSpring(50);
-
     // setData([
     //   { value: 50, color:'#42A5F5', text: "50%" },
     //   { value: 50, color: '#AB47BC', text: "50%" },
@@ -60,7 +74,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
       progressBar.value = '1%';
       animationOpacity.value = 0;
     };
-  }, [value]);
+  }, [value,selectedClass]);
 
   return (
     <View
@@ -75,7 +89,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      {!isPayment && (
+      {/* {!isPayment && (
         <View
           style={{
             height: HEIGHT,
@@ -123,9 +137,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             </TouchableOpacity>
           </LinearGradient>
         </View>
-      )}
+      )} */}
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             marginTop: 20,
@@ -153,35 +167,18 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               iconStyle={{
                 marginHorizontal: 10,
               }}
-              labelField="label"
-              valueField="value"
+              labelField="className"
+              valueField="className"
               value={value}
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
               onChange={item => {
-                setValue(item?.value);
-                setIsFocus(false);
+                // console.log(item);
+                setSelectedClass(item?.className);
+            
               }}
               placeholder="class 1"
-              data={[
-                {label: 'class 1', value: '1'},
-                {label: 'class 2', value: '2'},
-                {label: 'class 3', value: '3'},
-                {label: 'class 4', value: '4'},
-                {label: 'class 5', value: '5'},
-                {label: 'class 6', value: '6'},
-                {label: 'class 7', value: '7'},
-                {label: 'class 8', value: '8'},
-                {label: 'class 9', value: '9'},
-                {label: 'class 10', value: '10'},
-                {label: 'class 11', value: '11'},
-                {label: 'class 12', value: '12'},
-                {label: 'class 13', value: '13'},
-                {label: 'class 14', value: '14'},
-                {label: 'class 15', value: '15'},
-                {label: 'class 16', value: '16'},
-                {label: 'class 17', value: '17'},
-              ]}
+              data={classes?.data}
             />
           </View>
 
@@ -193,16 +190,15 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               gap: 15,
               paddingVertical: 10,
             }}
-            data={[...Array(10)]}
+            data={students?.data}
             renderItem={item => (
               <StudentMiniCard
                 student={{
-                  class: 10,
-                  image:
-                    'https://s3-alpha-sig.figma.com/img/e7cf/58d5/ad26a782d01e9b869a2db8abbae39d7c?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=q6AzXTJXCNOceLS10AroQ~uDsNBvY6JxeX9ErdRAD4ludj7cJv40V7~1u9R-tUw-vP3fVm8gcgHOQvVxZo1Gy~ftVuSBvly5WYwaiXdnj2newRV73NesbgsqbQfLkQiGQ-HYpA~mF-4cWK-MOe8zKeixZniFwNYho62VOTB0VSdlhxXKzlKZCTejlps~JI6GybnOFODJOGgljJUCAfg~irQhUQ5TBVDVaOFf1hXV~xALeon256Z6t4dlqt8bl3U7RuuVIP3580kAd~808yyGazIFv2EnotksLua9lw7S2pMZ1UTLKRBx6PyhIg73-0zJZBaZY1HimZav1y0~96tC9Q__',
-                  level: 4,
-                  name: 'John Doe',
-                  points: 100,
+                  class: item?.item?.class,
+                  image:imageUrl + item?.item.profile,
+                  level: item?.item.level,
+                  name: item?.item?.name,
+                  points: item?.item?.points,
                 }}
                 borderColor={
                   select === item.index
@@ -257,7 +253,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 fontWeight: '400',
                 letterSpacing: 0.8,
               }}>
-              level 1
+              level {student?.data?.level}
             </Text>
             <View
               style={{
@@ -285,7 +281,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 fontWeight: '400',
                 letterSpacing: 0.8,
               }}>
-              level 2
+              level {student?.data?.level as number + 1}
             </Text>
           </View>
         </View>

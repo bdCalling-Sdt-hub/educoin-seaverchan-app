@@ -17,7 +17,7 @@ import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
-import {useLoginMutation} from '../../redux/apiSlices/authSlice';
+
 
 import {useDispatch, useSelector} from 'react-redux';
 import {setToken, setUserRole} from '../../redux/apiSlices/userSlice';
@@ -25,9 +25,10 @@ import {setStorageRole, setStorageToken} from '../../utils/utils';
 import {useContextApi} from '../../context/ContextApi';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import Toast from 'react-native-toast-message';
+import { useLoginTeacherMutation } from '../../redux/apiSlices/authSlice';
 
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
-  const [loginUser, results] = useLoginMutation();
+  const [loginUser, results] = useLoginTeacherMutation();
   // const  dispatch = useDispatch()
   // console.log(results?.error);
   const {setUser, user} = useContextApi();

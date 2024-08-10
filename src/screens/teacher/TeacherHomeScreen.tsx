@@ -30,7 +30,7 @@ import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import {useSelector} from 'react-redux';
 import {useGetStudentsQuery} from '../../redux/apiSlices/teacher/teacherStudentSlices';
 import {useContextApi} from '../../context/ContextApi';
-import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
+
 import {imageUrl} from '../../redux/api/baseApi';
 import {
   ActionSheet,
@@ -43,6 +43,7 @@ import {
   useDeletedClassMutation,
   useGetClassesQuery,
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -50,7 +51,7 @@ interface AdminHOmeProps {
 
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const {user} = useContextApi();
-  const {data: userInfo} = useGetUserQuery(user?.token);
+  const {data: userInfo} = useGetUserTeacherQuery(user?.token);
   const {data: students} = useGetStudentsQuery(user?.token);
   const {data: classes} = useGetClassesQuery(user?.token);
   const [deletedClass, results] = useDeletedClassMutation();

@@ -20,18 +20,23 @@ import RewordsCard from '../../components/common/Cards/RewordsCard';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
 import { categoryIcons } from '../../utils/ShearData';
-import { categories } from './EditCategory';
+
 import { useSharedValue } from 'react-native-reanimated';
 import { useGetRewordsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
 import { useContextApi } from '../../context/ContextApi';
 import { imageUrl } from '../../redux/api/baseApi';
+import { ActionSheet } from 'react-native-ui-lib';
+import { FontSize } from '../../utils/utils';
+import { IReword } from '../../redux/interface/interface';
 
 const TeacherRewords = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
   const {data : rewords} = useGetRewordsQuery(user.token)
-  console.log(rewords);
+  // console.log(rewords);
+  const [selectItem,setSelectItem] = React.useState<IReword | null>()
   const [isEarned, setIsEarned] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [isActionOpen, setIsActions] = React.useState(false);
 
   return (
     <View
@@ -62,10 +67,14 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
           <Fragment key={item.index}>
           <RewordsCard
             navigation={navigation}
-            editRoute={"TeacherEditRewords"}
-            routeData={item?.item}
+            // editRoute={"TeacherEditRewords"}
+            // routeData={item?.item}
             editOption={true}
             // achieved
+            optionOnPress={()=>{
+              setSelectItem(item?.item)
+              setIsActions(true)
+            }}
             points={item?.item?.requiredPoints}
             title={item?.item?.name}
             imgAssets={{ uri : imageUrl + item?.item.image}}
@@ -87,7 +96,11 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
           justifyContent: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation?.navigate('TeacherCreateRewords')}
+          onPress={() => {
+           
+            navigation?.navigate('TeacherCreateRewords')
+          } 
+        }
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,
@@ -117,7 +130,7 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
         </TouchableOpacity>
       </View>
 
-      <CustomModal
+      {/* <CustomModal
         modalVisible={modalVisible}
         backButton
         setModalVisible={setModalVisible}
@@ -172,7 +185,73 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
             </TouchableOpacity>
           </View>
         </View>
-      </CustomModal>
+      </CustomModal> */}
+
+
+   <ActionSheet
+        visible={isActionOpen}
+        onDismiss={() => {
+          setIsActions(false);
+        }}
+        // title={'Task options'}
+        // message={'Message goes here'}
+        // cancelButtonIndex={3}
+        destructiveButtonIndex={0}
+        optionsStyle={{}}
+        showCancelButton
+        dialogStyle={{
+          borderTopRightRadius: 10,
+          borderTopStartRadius: 10,
+        }}
+        containerStyle={{
+          paddingBottom: 20,
+          paddingTop: 15,
+        }}
+        options={[
+          {
+            label: 'Edit',
+            onPress: () => {
+
+              navigation?.navigate('TeacherEditRewords',{data : selectItem})
+            },
+          },
+          {
+            label: 'Re-assign',
+            onPress: () => {
+              navigation?.navigate('TeacherRewordsAssign',{data : selectItem})
+            },
+          },
+        ]}
+        renderAction={(option, index: number, onOptionPress) => {
+          return (
+            <View key={index}>
+              <TouchableOpacity
+                onPress={() => onOptionPress(index)}
+                style={{
+                  paddingHorizontal: '4%',
+                  paddingVertical: 10,
+
+                  borderRadius: 8,
+                  justifyContent: 'center',
+                  // alignItems : "center",
+                }}>
+                <Text
+                  style={{
+                    fontSize: FontSize(14),
+                    color:
+                      option?.label === 'Deleted'
+                        ? 'rgba(255,20,20,.7)'
+                        : 'gray',
+                    fontFamily: GStyles.Poppins,
+                  }}>
+                  {option?.label}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+      />
+
     </View>
   );
 };

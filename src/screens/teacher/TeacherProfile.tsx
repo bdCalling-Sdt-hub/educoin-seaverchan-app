@@ -11,11 +11,14 @@ import FastImage from 'react-native-fast-image';
 
 import {useEffect} from 'react';
 
-import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
+
 import {imageUrl} from '../../redux/api/baseApi';
+import { useContextApi } from '../../context/ContextApi';
+import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
 
 const TeacherProfile = ({navigation}: NavigProps<null>) => {
-  const {data, error} = useGetUserQuery('');
+  const {user} = useContextApi()
+  const {data, error} = useGetUserTeacherQuery(user.token);
 
   console.log(data);
 
