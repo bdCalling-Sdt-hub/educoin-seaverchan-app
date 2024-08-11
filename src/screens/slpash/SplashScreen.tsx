@@ -39,7 +39,7 @@ const SplashScreen = ({navigation}: splashProps) => {
       if(user?.role === "student"){
          navigation.navigate("StudentDrawerRoutes");
       }
-    },1000)
+    },600)
 
   return (
     <View style={styles.container}>
