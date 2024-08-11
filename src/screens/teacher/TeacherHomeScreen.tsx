@@ -43,7 +43,7 @@ import {
   useDeletedClassMutation,
   useGetClassesQuery,
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
-import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
+import { useGetUserTeacherQuery, useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -55,14 +55,16 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const {data: students} = useGetStudentsQuery(user?.token);
   const {data: classes} = useGetClassesQuery(user?.token);
   const [deletedClass, results] = useDeletedClassMutation();
+  const [loadingStudent] = useLoginStudentMutation();
   const [selectedItem, setSelectItem] = React.useState<any>();
   const [op, setOp] = React.useState<string>('All Students');
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
   const [classActions, setClassActions] = useState<boolean>(false);
   // const token = useSelector((state) => state?.token?.token)
+  const [search,setSearch] = React.useState<string>(null)
 
-  // console.log(students);
+  console.log(search);
 
   const handleClassAction = useCallback(
     (action: 'edit' | 'deleted') => {
@@ -94,6 +96,8 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         ringColorOpacity={0.1}
         ringColor={GStyles.purple.normalActive}
         backgroundColor={GStyles.primaryPurple}
+        setSearchValue={setSearch}
+        searchValue={search}
         profileStyle="teacher"
         userDetails={{
           image: imageUrl + userInfo?.data?.profile,
@@ -131,7 +135,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       {op === 'All Students' ? (
         <GridList
           showsVerticalScrollIndicator={false}
-          data={students?.data}
+          data={students?.data.filter(student=>search ? student.name.includes(search) : student)}
           numColumns={2}
           containerWidth={WIDTH * 0.9}
           contentContainerStyle={{
@@ -164,7 +168,13 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}
                 onPress={() => {
                   // console.log('lol');
-                  navigation.navigate('StudentsProgressAndInfo');
+                  loadingStudent(item.password).then(res=>{
+                    // console.log(res.data);
+                    if(res.data.success){
+                      navigation.navigate('StudentsProgressAndInfo', res.data);
+                    }
+                    if(res.error){}
+                  })
                 }}
                 key={index}
               />
@@ -174,7 +184,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       ) : (
         <GridList
           showsVerticalScrollIndicator={false}
-          data={classes?.data}
+          data={classes?.data.filter(classe=>search ? classe.className.includes(search) : classe)}
           numColumns={2}
           containerWidth={WIDTH * 0.9}
           contentContainerStyle={{

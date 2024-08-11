@@ -3,11 +3,14 @@ import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import {useGetUserQuery} from '../../redux/apiSlices/authSlice';
+import { useGetTeacherPasscodeQuery } from '../../redux/apiSlices/authSlice';
+import { useContextApi } from '../../context/ContextApi';
+
 
 const TeacherPassCode = ({navigation}: NavigProps<null>) => {
-  const {data} = useGetUserQuery('');
-  //   console.log(data);
+  const {user} = useContextApi();
+  const {data} = useGetTeacherPasscodeQuery(user.token);
+    console.log(data);
   return (
     <View
       style={{
@@ -57,7 +60,7 @@ const TeacherPassCode = ({navigation}: NavigProps<null>) => {
               fontFamily: GStyles.PoppinsSemiBold,
               letterSpacing: 5,
             }}>
-            {data?.data?.password}
+            {data?.data}
           </Text>
         </View>
       </View>

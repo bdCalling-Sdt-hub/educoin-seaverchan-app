@@ -17,9 +17,13 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import {categoryIcons, ShearIcons} from '../../utils/ShearData';
 import {useGetCategoriesQuery} from '../../redux/apiSlices/teacher/techerCategorySlices';
 import {imageUrl} from '../../redux/api/baseApi';
+import { useContextApi } from '../../context/ContextApi';
+import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 
 const CategoryScreen = ({navigation}: NavigProps<null>) => {
-  const {data: categories} = useGetCategoriesQuery('');
+  const {user} = useContextApi();
+  const {data: categories} = useGetCategoriesQuery(user.token);
+
 
   return (
     <View

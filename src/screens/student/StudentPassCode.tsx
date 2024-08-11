@@ -3,8 +3,15 @@ import React from 'react'
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground'
 import { GStyles } from '../../styles/GStyles'
 import { NavigProps } from '../../interfaces/NavigationPros'
+import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice'
+import { useContextApi } from '../../context/ContextApi'
 
 const StudentPassCode = ({navigation} : NavigProps<null>) => {
+
+
+    const {user} = useContextApi();
+    const {data}= useGetUserStudentQuery(user.token);
+
   return (
     <View style={{
         height : "100%"
@@ -35,17 +42,17 @@ const StudentPassCode = ({navigation} : NavigProps<null>) => {
             width: "90%",
             height: 200,
             borderRadius: 8,
-            backgroundColor: GStyles.orange.normal,
+            // backgroundColor: GStyles.orange.normal,
             justifyContent: 'center',
             alignItems: 'center'
         }}>
             <Text style={{
                 fontSize: 40,
                 // fontWeight: 'bold',
-                color: GStyles.white,
+                color: GStyles.textColor['#3D3D3D'],
                 fontFamily : GStyles.PoppinsSemiBold,
                 letterSpacing : 5
-            }}>4545451</Text>
+            }}>{data?.data.password}</Text>
         </View>
     </View>
 

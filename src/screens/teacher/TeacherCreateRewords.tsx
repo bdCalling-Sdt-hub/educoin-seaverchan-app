@@ -28,19 +28,19 @@ import { imageUrl } from '../../redux/api/baseApi';
 
 interface IRewordsUProps {
   name: string;
-  image: any;
+  image: string;
   requiredPoints: number;
 }
 
-const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
+const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
   const [rewordsData, setRewordsData] = React.useState<IRewordsUProps>();
-  const {data: IconsData} = useGetIconsPresetQuery(user.token);
+  const {data: Icons} = useGetIconsPresetQuery(user.token);
   const [createRewords,results] = useCreateRewordsMutation()
 
   const [rewordPoints, setRewordPoints] = React.useState<number>(50);
 
-  const [customImage, setCustomImage] = React.useState<string>(IconsData?.data![0].image as string);
+  const [customImage, setCustomImage] = React.useState<string>(Icons?.data![0].image as string);
 
   const [successModal, setSuccessModal] = React.useState(false);
 
@@ -348,7 +348,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
             contentContainerStyle={{
               gap: 24,
             }}
-            data={IconsData?.data}
+            data={Icons?.data}
             keyExtractor={item => item._id + item.createdAt}
             renderItem={item => (
               <TouchableOpacity
@@ -356,6 +356,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                 key={item.index}
                 onPress={() => {
                   setCustomImage(item.item.image) 
+                  setRewordsData({...rewordsData,image : item.item.image})
                 }}>
                 <View
                   style={{
@@ -368,28 +369,29 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                       width: 70,
                       height: 70,
                       borderRadius: 15,
-                      borderColor:
-                        customImage  === item.item.image
-                          ? GStyles.primaryPurple
-                          : GStyles.gray.light,
-                      borderWidth: 2,
+                  
                       padding: 2,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      elevation: 2,
+                      elevation: 1,
                     }}>
                     <Image
                       source={{
                         uri : imageUrl + item.item.image
                       }}
                       style={{
+                        borderColor:
+                        customImage  === item.item.image
+                          ? GStyles.primaryPurple
+                          : GStyles.gray.light,
+                      borderWidth: 2,
                         width: 65,
                         height: 65,
                         borderRadius: 8,
                       }}
                     />
                   </View>
-                  <Text
+                  {/* <Text
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
@@ -400,7 +402,7 @@ const TeacherCreateRewords = ({navigation, route}: NavigProps<null>) => {
                       paddingVertical: 5,
                     }}>
                     {item.item.title}
-                  </Text>
+                  </Text> */}
                 </View>
               </TouchableOpacity>
             )}

@@ -22,9 +22,12 @@ import {categoryIcons, ShearIcons} from '../../utils/ShearData';
 import Require from '../../components/common/require/Require';
 import {useCreateCategoryMutation} from '../../redux/apiSlices/teacher/techerCategorySlices';
 import {useContextApi} from '../../context/ContextApi';
+import { useGetAvatarPresetQuery, useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import { imageUrl } from '../../redux/api/baseApi';
 
 const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
+  const {data : icons} = useGetIconsPresetQuery(user.token) 
   const [createCategory, results] = useCreateCategoryMutation();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [launchCameraModal, setLaunchCameraModal] = React.useState(false);
@@ -33,84 +36,22 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
     name: '',
     image: {},
   });
-  const [customCategory, setCustomCategory] = React.useState<number>();
 
-  const [categoryImage, setCategoryImage] = React.useState<string | undefined>(
-    '',
+
+  const [categoryImage, setCategoryImage] = React.useState<string>(
+    icons?.data[0].image || "",
   );
-  console.log(categoryData.image);
+  // console.log(categoryData.image);
 
-  const handleImagePick = async (option: 'camera' | 'library') => {
-    try {
-      if (option === 'camera') {
-        const result = await launchCamera({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-       
-        });
-
-        if (!result.didCancel) {
-
-       
-          setCategoryData({
-            ...categoryData,
-            image: {
-              uri: result?.assets![0].uri,
-              type: result?.assets![0].type,
-              name: result?.assets![0].fileName,
-              size: result?.assets![0].fileSize,
-              lastModified: new Date().getTime(), // Assuming current time as last modified
-              lastModifiedDate: new Date(),
-              webkitRelativePath: '',
-            },
-          });
-          // console.log(result);
-        }
-      }
-      if (option === 'library') {
-        const result = await launchImageLibrary({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
-
-        if (!result.didCancel) {
-        
-          setCategoryData({
-            ...categoryData,
-            image: {
-              uri: result?.assets![0].uri,
-              type: result?.assets![0].type,
-              name: result?.assets![0].fileName,
-              size: result?.assets![0].fileSize,
-              lastModified: new Date().getTime(), // Assuming current time as last modified
-              lastModifiedDate: new Date(),
-              webkitRelativePath: '',
-            },
-          });
-          // console.log(result);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleCreateCategory = useCallback(
     (UData: {name: string; image: {}}) => {
-      console.log(UData);
-      const formData = new FormData();
-      if (UData?.image?.uri) {
-        formData.append('image', UData?.image);
+      // console.log(UData);
+
+      if(UData?.image){
+        UData.image =  categoryImage
       }
-      UData?.name && formData.append('name', UData?.name);
-
-      createCategory({token: user?.token, data: formData}).then(res => {
-
+      createCategory({token: user?.token, data: UData}).then(res => {
         if(res.error){
           console.log(res.error);
         }
@@ -254,67 +195,68 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           style={{
             marginBottom: 20,
           }}>
-          <Require title="Choose Image" />
+          <Require title="Choose Icon" />
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
               gap: 24,
             }}
-            data={ShearIcons}
-            ListHeaderComponent={() => (
-              <View>
-                <TouchableOpacity onPress={() => handleImagePick('library')}>
-                  <View
-                    style={{
-                      gap: 12,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginVertical: 15,
-                      borderColor: GStyles.gray.light,
-                      // padding: 5,
-                      borderWidth: 2,
-                      borderRadius: 8,
-                      // elevation: 2,
-                    }}>
-                    <View
-                      style={{
-                        width: 65,
-                        height: 65,
-                        // backgroundColor: GStyles.purple.light,
-                        borderRadius: 8,
-                        padding: 3,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      {categoryData?.image?.uri ? (
-                        <Image
-                          source={{
-                            uri: categoryData?.image?.uri,
-                          }}
-                          style={{
-                            width: 60,
-                            height: 60,
-                            borderRadius: 8,
-                          }}
-                          resizeMode="cover"
-                        />
-                      ) : (
-                        <Feather
-                          name="plus"
-                          color={GStyles.gray.lightHover}
-                          size={25}
-                        />
-                      )}
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            )}
+            data={icons?.data}
+            // ListHeaderComponent={() => (
+            //   <View>
+            //     <TouchableOpacity onPress={() => handleImagePick('library')}>
+            //       <View
+            //         style={{
+            //           gap: 12,
+            //           justifyContent: 'center',
+            //           alignItems: 'center',
+            //           marginVertical: 15,
+            //           borderColor: GStyles.gray.light,
+            //           // padding: 5,
+            //           borderWidth: 2,
+            //           borderRadius: 8,
+            //           // elevation: 2,
+            //         }}>
+            //         <View
+            //           style={{
+            //             width: 65,
+            //             height: 65,
+            //             // backgroundColor: GStyles.purple.light,
+            //             borderRadius: 8,
+            //             padding: 3,
+            //             justifyContent: 'center',
+            //             alignItems: 'center',
+            //           }}>
+            //           {categoryData?.image?.uri ? (
+            //             <Image
+            //               source={{
+            //                 uri: categoryData?.image?.uri,
+            //               }}
+            //               style={{
+            //                 width: 60,
+            //                 height: 60,
+            //                 borderRadius: 8,
+            //               }}
+            //               resizeMode="cover"
+            //             />
+            //           ) : (
+            //             <Feather
+            //               name="plus"
+            //               color={GStyles.gray.lightHover}
+            //               size={25}
+            //             />
+            //           )}
+            //         </View>
+            //       </View>
+            //     </TouchableOpacity>
+            //   </View>
+            // )}
             renderItem={item => (
               <TouchableOpacity
                 onPress={() => {
-                  setCustomCategory(item.item.id);
+                  setCategoryImage(item.item.image);
+                  setCategoryData({...categoryData,image : item.item.image})
                 }}
                 key={item.index}>
                 <View
@@ -323,18 +265,21 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     marginVertical: 15,
-                    borderColor:
-                      customCategory === item.item.id
-                        ? GStyles.primaryPurple
-                        : GStyles.gray.light,
-                    padding: 1,
-                    borderWidth: 2,
+                   
                     borderRadius: 15,
                     // elevation : 2
                   }}>
                   <Image
-                    source={item.item.img}
+                    source={{
+                      uri: imageUrl + item.item.image,
+                    }}
                     style={{
+                      borderColor:
+                      categoryImage === item.item.image
+                        ? GStyles.primaryPurple
+                        : GStyles.gray.light,
+                    // padding: 1,
+                    borderWidth: 3,
                       width: 70,
                       height: 70,
                       borderRadius: 5,
@@ -420,7 +365,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
               textAlign: 'center',
               color: GStyles.gray.normal,
             }}>
-            simply dummy text of the printing and typesetting industry
+            category created done now you can use this category to create task
           </Text>
 
           <View>

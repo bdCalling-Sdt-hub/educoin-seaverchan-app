@@ -4,13 +4,13 @@ import HeaderBackground from '../../components/common/headerBackground/HeaderBac
 import { GStyles } from '../../styles/GStyles'
 import { NavigProps } from '../../interfaces/NavigationPros'
 
-const StudentPassCodeWithTeacher = ({navigation} : NavigProps<null>) => {
+const StudentPassCodeWithTeacher = ({navigation,route} : NavigProps<string>) => {
   return (
     <View style={{
         height : "100%"
     }}>
         <HeaderBackground
-        title="Teacher Pass Code"
+        title="Student Pass Code"
         backgroundColor={GStyles.primaryPurple}
         ringColor={GStyles.purple.normalHover}
         navigation={navigation}
@@ -35,17 +35,17 @@ const StudentPassCodeWithTeacher = ({navigation} : NavigProps<null>) => {
             width: "90%",
             height: 200,
             borderRadius: 8,
-            backgroundColor: GStyles.primaryOrange,
+            // backgroundColor: GStyles.primaryOrange,
             justifyContent: 'center',
             alignItems: 'center'
         }}>
             <Text style={{
                 fontSize: 40,
                 // fontWeight: 'bold',
-                color: GStyles.white,
+                color: GStyles.textColor['#3D3D3D'],
                 fontFamily : GStyles.PoppinsSemiBold,
                 letterSpacing : 5
-            }}>4545451</Text>
+            }}>{route?.params?.data}</Text>
         </View>
     </View>
 

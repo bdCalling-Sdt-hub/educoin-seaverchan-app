@@ -9,7 +9,7 @@ import {
 import React, { useCallback } from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, HEIGHT} from '../../styles/GStyles';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import { useSendFeedBackMutation } from '../../redux/apiSlices/setings/setingsSlices';
@@ -22,10 +22,11 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
   const [feedback, setFeedback] = React.useState('');
   const [sendFeedBack,feedbackResults] = useSendFeedBackMutation();
 
-  const handleSendFeedback = useCallback(()=>{
+  const handleSendFeedback = useCallback((UFeedback : string)=>{
     
     // setModalVisible(true);
-    sendFeedBack({token :user.token , data: {feedback}})
+    // console.log(UFeedback);
+    sendFeedBack({token :user.token , data: {feedback : UFeedback}})
      .then((res) => {
        console.log(res);
        if(res.error){
@@ -45,7 +46,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
         setModalVisible(false);
     
       });
-  },[])
+  },[feedback])
 
   return (
     <View
@@ -114,9 +115,10 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
               borderRadius: 10,
               width: '100%',
               color: '#6E6E6F',
-              height: 170,
+              height: HEIGHT * .3,
             }}
             multiline={true}
+            value={feedback}
             textAlign="left"
             textAlignVertical="top"
           />
@@ -129,7 +131,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           justifyContent: 'flex-end',
           paddingHorizontal: '4%',
         }}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             borderColor: GStyles.primaryPurple,
             borderWidth: 1,
@@ -148,10 +150,10 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
             }}>
             Cancel
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           onPress={() => {
-            handleSendFeedback();
+            handleSendFeedback(feedback);
           }}
           style={{
             backgroundColor: GStyles.primaryPurple,

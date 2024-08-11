@@ -14,7 +14,7 @@ const presetSlice = api.injectEndpoints({
     }),
 
     getIconsPreset: builder.query<IPresets, unknown>({
-      query: ({token, id}) => ({
+      query: token => ({
         url: `/preset/icon`,
         headers: {
           Authorization: `Bearer ${token}`,

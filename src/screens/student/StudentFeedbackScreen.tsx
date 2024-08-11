@@ -8,13 +8,46 @@ import {
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, HEIGHT} from '../../styles/GStyles';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import { useContextApi } from '../../context/ContextApi';
+import { useSendFeedBackMutation } from '../../redux/apiSlices/setings/setingsSlices';
+import Toast from 'react-native-toast-message';
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
 const StudentFeedback = ({navigation}: AdminRoutesProps) => {
+  const {user} = useContextApi()
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [feedback, setFeedback] = React.useState('');
+  const [sendFeedBack,feedbackResults] = useSendFeedBackMutation();
+
+  const handleSendFeedback = React.useCallback((UFeedback : string)=>{
+    
+    // setModalVisible(true);
+    // console.log(UFeedback);
+    sendFeedBack({token :user.token , data: {feedback : UFeedback}})
+     .then((res) => {
+       console.log(res);
+       if(res.error){
+        Toast.show({
+          type : 'error',
+          text1: "please try again",
+        })
+       }
+       if (res.data.success) {
+          setModalVisible(true);
+          setFeedback('');
+        } else {
+       
+        }
+      })
+     .catch((error) => {
+        setModalVisible(false);
+    
+      });
+  },[feedback])
+
 
   return (
     <View
@@ -28,12 +61,12 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
         ringColor={GStyles.orange.normalHover}
         navigation={navigation}
       />
-      <View
+       <View
         style={{
           paddingHorizontal: '4%',
           paddingVertical: '8%',
         }}>
-        <View>
+        {/* <View>
           <Text
             style={{
               fontFamily: 'Poppins',
@@ -55,9 +88,9 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
               width: '100%',
               color: '#6E6E6F',
             }}
-            value="khushi"
+            // value="khushi"
           />
-        </View>
+        </View> */}
 
         <View>
           <Text
@@ -72,6 +105,8 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           </Text>
           <TextInput
             placeholder="Ex. what is the feedback about us. "
+
+            onChangeText={(text)=>setFeedback(text)}
             style={{
               borderWidth: 1,
               borderColor: '#EEEEEE',
@@ -80,9 +115,10 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
               borderRadius: 10,
               width: '100%',
               color: '#6E6E6F',
-              height: 170,
+              height: HEIGHT * .3,
             }}
             multiline={true}
+            value={feedback}
             textAlign="left"
             textAlignVertical="top"
           />
@@ -95,9 +131,9 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           justifyContent: 'flex-end',
           paddingHorizontal: '4%',
         }}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
-            borderColor: GStyles.primaryOrange,
+            borderColor: GStyles.primaryPurple,
             borderWidth: 1,
             padding: 15,
             borderRadius: 100,
@@ -108,15 +144,17 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           }}>
           <Text
             style={{
-              color: GStyles.primaryOrange,
+              color: GStyles.primaryPurple,
               fontSize: 16,
               fontWeight: 'bold',
             }}>
             Cancel
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
-          onPress={() => setModalVisible(true)}
+          onPress={() => {
+            handleSendFeedback(feedback);
+          }}
           style={{
             backgroundColor: GStyles.primaryOrange,
             padding: 15,

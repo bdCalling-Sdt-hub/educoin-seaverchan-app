@@ -1,5 +1,5 @@
 import {api} from '../../api/baseApi';
-import {IStudent, IStudents} from '../../interface/interface';
+import {IStatistics, IStudent, IStudents} from '../../interface/interface';
 
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -15,6 +15,15 @@ const authSlice = api.injectEndpoints({
     getSingleStudent: builder.query<{data : IStudent}, unknown>({
       query: ({token, id}) => ({
         url: `/student/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        providesTags: ['student'],
+      }),
+    }),
+    getStatisticStudent: builder.query<IStatistics, unknown>({
+      query: ({token, id}) => ({
+        url: `/student/statistics/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,4 +70,5 @@ export const {
   useCreateStudentMutation,
   useGetSingleStudentQuery,
   useGetStudentThrowClassQuery,
+  useGetStatisticStudentQuery
 } = authSlice;

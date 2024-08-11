@@ -17,7 +17,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import StudentMiniCard from '../../components/common/Cards/StudentMiniCard';
 import {Dropdown} from 'react-native-element-dropdown';
-import PieChartWithLabels from '../../utils/PieChart';
+
 import Animated, {
   Easing,
   ReduceMotion,
@@ -29,52 +29,60 @@ import {PieChart} from 'react-native-gifted-charts';
 import LinearGradient from 'react-native-linear-gradient';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
-import { useGetSingleStudentQuery, useGetStudentThrowClassQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
+import { useGetSingleStudentQuery, useGetStatisticStudentQuery, useGetStudentThrowClassQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
 import { imageUrl } from '../../redux/api/baseApi';
+import LoaderScreen from '../../components/Loader/LoaderScreen';
 
 const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
 
   const {user} = useContextApi();
-  const {data : classes} = useGetClassesQuery(user.token);
+  const {data : classes, isSuccess : classesIsSuccess} = useGetClassesQuery(user.token);
   const [selectedClass, setSelectedClass] = useState<any>(classes?.data[0].className);
-  const {data : students,refetch : studentRefetch} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
-  const [selectedStudent, setSelectedStudent] = useState<any>(students?.data[0]._id);
-  const {data : student} = useGetSingleStudentQuery({token : user.token, id : selectedStudent })
-  console.log(student?.data._id);
+  const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
+  const [selectedStudent, setSelectedStudent] = useState<string>(students?.data[0]._id as string);
+  const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
+  // console.log(ProgressIfo);
+  // console.log(student?.data._id);
+  
+  // console.log(ProgressIfo?.data?.totalCompletedTask + 1);
 
-  const [data, setData] = useState([
-    {value: 10, color: '#42A5F5', text: '10%'},
-    {value: 70, color: '#AB47BC', text: '70%'},
-    {value: 70, color: '#FF8811', text: '20%'},
-  ]);
+
+
+  const [data, setData] = useState<Array<{
+    value: number;
+    color: string;
+    text: string;
+  }>>(
+    [
+      {value: 0, color: '#42A5F5', text: '0%'},
+    {value: 0, color: '#AB47BC', text: '0%'},
+    {value: 0, color: '#FF8811', text: '0%'},
+    ]
+  );
   const [isOp, setIsOp] = React.useState('Profile');
   const [value, setValue] = React.useState<string>();
   const [isFocus, setIsFocus] = React.useState(false);
   const [isPayment, setIsPayment] = React.useState(false);
-  const [select, setSelect] = React.useState<number | null>(null);
-  const completedTask = useSharedValue(0);
-  const uncompletedTask = useSharedValue(0);
+  const [animate, setAnimate] = useState(false);
+
   const animationOpacity = useSharedValue(0);
 
   const progressBar = useSharedValue('0%');
 
-  useEffect(() => {
-    studentRefetch()
-    progressBar.value = withSpring('50%');
-    completedTask.value = withSpring(50);
-    uncompletedTask.value = withSpring(50);
-    // setData([
-    //   { value: 50, color:'#42A5F5', text: "50%" },
-    //   { value: 50, color: '#AB47BC', text: "50%" },
-    // ])
 
+
+  useEffect(() => {
+    // studentRefetch()
+    progressBar.value = withTiming('50%',{duration: 500});  
     animationOpacity.value = withSpring(1);
+      //  studentInfoRefetch()
+
     return () => {
       progressBar.value = '1%';
       animationOpacity.value = 0;
     };
-  }, [value,selectedClass]);
+  }, [selectedClass,selectedStudent]);
 
   return (
     <View
@@ -82,6 +90,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
         height: '100%',
         backgroundColor: 'white',
       }}>
+        {
+          isLoading && <LoaderScreen />
+        }
       <HeaderBackground
         title="Progress"
         ringColor={GStyles.purple.normalHover}
@@ -201,12 +212,12 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                   points: item?.item?.points,
                 }}
                 borderColor={
-                  select === item.index
+                  selectedStudent === item.item?._id
                     ? GStyles.primaryOrange
                     : GStyles.borderColor['#ECECEC']
                 }
                 onPress={() => {
-                  setSelect(item.index);
+                  setSelectedStudent(item?.item?._id)
                 }}
                 key={item.index}
               />
@@ -253,7 +264,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 fontWeight: '400',
                 letterSpacing: 0.8,
               }}>
-              level {student?.data?.level}
+              level {ProgressIfo?.data?.level}
             </Text>
             <View
               style={{
@@ -269,7 +280,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                   fontWeight: '400',
                   letterSpacing: 0.8,
                 }}>
-                45\200
+           {ProgressIfo?.data?.points}
               </Text>
               <AntDesign name="star" size={15} color={GStyles.primaryYellow} />
             </View>
@@ -281,7 +292,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 fontWeight: '400',
                 letterSpacing: 0.8,
               }}>
-              level {student?.data?.level as number + 1}
+              level {ProgressIfo?.data?.level  + 1}
             </Text>
           </View>
         </View>
@@ -290,20 +301,28 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
           <Animated.View
             style={[styles.container, {opacity: animationOpacity}]}>
             <PieChart
-              data={data}
+              data={[
+                {value: ProgressIfo?.data.totalCompletedTask || 0, color: '#42A5F5', text: `${ProgressIfo?.data.totalCompletedTask}%`},
+                {value: ProgressIfo?.data.totalUnCompletedTask || 0, color: '#AB47BC', text: `${ProgressIfo?.data.totalUnCompletedTask}%`},
+                {value: ProgressIfo?.data.totalAssignTask || 1, color: '#FF8811', text: `${ProgressIfo?.data.totalAssignTask || 0}%`},
+              ]}
               showText
               textColor="white"
               textSize={16}
-              showValuesAsLabels
-              // animationDuration={2000}
+              // isAnimated
+              // initialAngle={100}
+              // endAngle={10}
+            
+              // animationDuration={1000}
+        radius={120}
               textBackgroundColor="black"
               textBackgroundRadius={15}
               donut
               innerRadius={60}
               centerLabelComponent={() => (
                 <View style={styles.centerText}>
-                  <Text style={styles.levelText}>Level 1</Text>
-                  <Text style={styles.scoreText}>45 ★</Text>
+                  <Text style={styles.levelText}>Level {ProgressIfo?.data?.level}</Text>
+                  <Text style={styles.scoreText}>{ProgressIfo?.data?.points} ★</Text>
                 </View>
               )}
             />
@@ -343,7 +362,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                   fontWeight: '500',
                   letterSpacing: 0.5,
                 }}>
-                Total Assigned Work: 10
+                Total Assigned Work:{ProgressIfo?.data?.totalAssignTask}
               </Text>
             </View>
             <View
@@ -367,7 +386,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                   fontWeight: '500',
                   letterSpacing: 0.5,
                 }}>
-                Total Completed Work: 15
+                Total Completed Work: {ProgressIfo?.data?.totalCompletedTask}
               </Text>
             </View>
             <View
@@ -391,7 +410,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                   fontWeight: '500',
                   letterSpacing: 0.5,
                 }}>
-                Total Uncompleted Work: 08
+                Total Uncompleted Work: {ProgressIfo?.data?.totalUnCompletedTask}
               </Text>
             </View>
           </View>

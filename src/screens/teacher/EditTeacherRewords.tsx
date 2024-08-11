@@ -42,7 +42,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
 
   const [rewordPoints, setRewordPoints] = React.useState<number>(50);
 
-  const [customImage, setCustomImage] = React.useState<string>(IconsData?.data![0].image as string);
+  const [customImage, setCustomImage] = React.useState<string>(route?.params?.data?.image || IconsData?.data![0].image as string);
 
   const [modalVisible, setModalVisible] = React.useState(false);
   const [successModal, setSuccessModal] = React.useState(false);
@@ -355,6 +355,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
                 key={item.index}
                 onPress={() => {
                   setCustomImage(item.item.image) 
+                  setRewordsData({...rewordsData,image:item.item.image})
                 }}>
                 <View
                   style={{
@@ -367,28 +368,29 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
                       width: 70,
                       height: 70,
                       borderRadius: 15,
-                      borderColor:
-                        customImage  === item.item.image
-                          ? GStyles.primaryPurple
-                          : GStyles.gray.light,
-                      borderWidth: 2,
+                  
                       padding: 2,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      elevation: 2,
+                      elevation: 1,
                     }}>
                     <Image
                       source={{
                         uri : imageUrl + item.item.image
                       }}
                       style={{
+                        borderColor:
+                        customImage  === item.item.image
+                          ? GStyles.primaryPurple
+                          : GStyles.gray.light,
+                      borderWidth: 2,
                         width: 65,
                         height: 65,
                         borderRadius: 8,
                       }}
                     />
                   </View>
-                  <Text
+                  {/* <Text
                     style={{
                       fontSize: 14,
                       fontFamily: GStyles.Poppins,
@@ -399,7 +401,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
                       paddingVertical: 5,
                     }}>
                     {item.item.title}
-                  </Text>
+                  </Text> */}
                 </View>
               </TouchableOpacity>
             )}

@@ -1,10 +1,10 @@
 import { api } from "../api/baseApi";
-import { IStudentUser, ITeacherUser } from "../interface/interface";
+import { IFetchStatus, IStudentUser, ITeacherUser } from "../interface/interface";
 
 const authSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         getUserTeacher: builder.query<ITeacherUser , unknown>({
-            query: (token) => ({
+            query: token => ({
                 url : `/teacher/profile/`,
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -12,8 +12,17 @@ const authSlice = api.injectEndpoints({
             }),
             providesTags : ["user"]
           }),
+        getTeacherPasscode: builder.query<IFetchStatus , unknown>({
+            query: token => ({
+                url : `/teacher/pass-code`,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+            }),
+            providesTags : ["user"]
+          }),
         getUserStudent: builder.query<IStudentUser , unknown>({
-            query: (token) => ({
+            query: token => ({
                 url : `/student/profile`,
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -65,5 +74,6 @@ export const {
    useGetUserTeacherQuery,
    useLoginStudentMutation,
    useLoginTeacherMutation,
-   useUpdateStudentMutation
+   useUpdateStudentMutation,
+   useGetTeacherPasscodeQuery
 } = authSlice;

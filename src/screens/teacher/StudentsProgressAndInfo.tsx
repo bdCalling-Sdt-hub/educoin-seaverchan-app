@@ -1,4 +1,6 @@
 import {
+  ActivityIndicator,
+  FlatList,
   Image,
   ScrollView,
   StatusBar,
@@ -9,7 +11,7 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, HEIGHT} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -26,13 +28,46 @@ import TaskCard from '../../components/common/Cards/TaskCard';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import LottieView from 'lottie-react-native';
+import { IFetchStatus } from '../../redux/interface/interface';
+import { useGetEarnRewordsQuery, useGetStudentAssignRewordsQuery, useGetStudentAssignTaskQuery } from '../../redux/apiSlices/student/studentSlices';
+import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
+import { imageUrl } from '../../redux/api/baseApi';
+import LoaderScreen from '../../components/Loader/LoaderScreen';
 
-const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
-  const [isCompeted, setIsCompeted] = React.useState('Task');
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [yesNoModal, setYesNoModal] = React.useState(false);
-  const [claimModal, setClaimModal] = React.useState(false);
-  const [select,setSelected] = useState([])
+
+const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus>) => {
+
+  const token = route?.params?.data
+
+  // console.log(stUser);
+
+
+
+  const {data : assignTaskData, refetch : assignTaskRefetch} = useGetStudentAssignTaskQuery(token);
+  const {data : assignRewordsData} = useGetStudentAssignRewordsQuery(token);
+  const {data : assignRewordsEarnedData} = useGetEarnRewordsQuery(token);
+  const {data : studentUser,refetch : studentUserRefetch, isLoading} = useGetUserStudentQuery(token);
+
+
+  // console.log(studentUser);
+
+
+
+
+ //  console.log(assignTaskData);
+
+ const [isCompeted, setIsCompeted] = React.useState('Tasks');
+ const [search,setSearch] = React.useState<string>(null)
+ const [modalVisible, setModalVisible] = React.useState(false);
+ const [claimModal, setClaimModal] = React.useState(false);
+ const [yesNoModal, setYesNoModal] = React.useState(false);
+ const [selected, setSelected] = useState([]);
+
+//  React.useEffect(()=>{
+//   studentUserRefetch()
+//  })
+
+
   
   return (
     <View
@@ -41,7 +76,9 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       {/* header part  start */}
-
+       {
+        isLoading && <LoaderScreen />
+       }
       <HeaderBackground
         title="Student Activity"
         ringColor={GStyles.purple.lightActive}
@@ -81,13 +118,14 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
               gap: 15,
             }}>
             <Image
+            resizeMode='cover'
               style={{
                 height: 55,
                 width: 55,
                 borderRadius: 100,
                 //   alignSelf: 'center',
               }}
-              source={require("../../assets/images/avatar/6.png")}
+              source={{uri : imageUrl + studentUser?.data?.profile}}
             />
 
             <View
@@ -103,7 +141,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                   lineHeight: 22,
                   letterSpacing: 1.4,
                 }}>
-                Esther Karina
+                {studentUser?.data?.name}
               </Text>
               <View
                 style={{
@@ -136,7 +174,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.primaryOrange,
                     }}>
-                    51
+                     {studentUser?.data?.points}
                   </Text>
                 </View>
                 <View
@@ -157,7 +195,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.primaryOrange,
                     }}>
-                    5
+                     {studentUser?.data?.pendingPoints}
                   </Text>
                 </View>
                 <View
@@ -178,7 +216,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.gray.lightActive,
                     }}>
-                    1
+                     {studentUser?.data?.rewards}
                   </Text>
                 </View>
               </View>
@@ -193,7 +231,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
             <TouchableOpacity
               onPress={() => {
                 // drawerNavigation?.openDrawer()
-                navigation?.navigate('StudentPassCodeWithTeacher');
+                navigation?.navigate('StudentPassCodeWithTeacher',{data : studentUser?.data?.password});
               }}>
               <Feather name="lock" color="white" size={24} />
             </TouchableOpacity>
@@ -225,7 +263,6 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
     </View> */}
       </View>
 
-      {/* header part  end */}
       <HeaderOption
         isOp={isCompeted}
         setIsOp={setIsCompeted}
@@ -234,7 +271,7 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
         marginTop={15}
         marginBottom={5}
         marginHorizontal={15}
-        op1="Task"
+        op1="Tasks"
         op2="Rewords"
         op3="Earned"
         borderColor={GStyles.orange.lightActive}
@@ -242,265 +279,99 @@ const StudentsProgressAndInfo = ({navigation}: HomeNavigProps<null>) => {
         filButtonHight={48}
       />
       {/* body part start */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          paddingHorizontal: '4%',
-          paddingVertical: 20,
-        }}>
+   
         {isCompeted === 'Earned' ? (
           <>
             <View
               style={{
                 marginBottom: 25,
               }}>
-              {[...Array(1)].map((_, index) => (
+            <FlatList data={assignRewordsEarnedData?.data} renderItem={(item)=>{
+              return(
                 <RewordsCard
-                  key={"agun" + index}
-                  points={50}
-                  removePress={() => {
-                    setYesNoModal(!yesNoModal);
-                  }}
-                  removeBtn
-                  title="play game"
-                  iconOrTextColor={GStyles.primaryOrange}
-                  imgAssets={require('../../assets/icons/icon16.png')}
-                  marginHorizontal={10}
-                />
-              ))}
+                key={item.index}
+                removePress={() => {
+                  setYesNoModal(!yesNoModal);
+                }}
+                // removeBtn
+                iconOrTextColor={GStyles.primaryOrange}
+                imgAssets={{uri : imageUrl + item?.item?.reward?.image}}
+                marginHorizontal={10}
+                points={10}
+                title={item?.item?.reward?.name}
+              />
+              )
+            }} />
             </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                // paddingHorizontal: 10,
-                alignItems: 'center',
-              }}></View>
+          
           </>
         ) : isCompeted === 'Rewords' ? (
-          <View
-            style={{
-              gap: 10,
-            }}>
-            <RewordsCard
-              navigation={navigation}
-              iconOrTextColor={GStyles.orange.normal}
-              backGroundColor={'#FFF3E7'}
-              backGroundColorProgress={'#FFDAB5'}
-              backGroundProgressWidth="20%"
-              borderColor={GStyles.borderColor['#ECECEC']}
-              points={20}
-                title="Rewords name"
-                imgAssets={require('../../assets/icons/icon18.png')}
-            />
-            <RewordsCard
-              navigation={navigation}
-              // route="EditRewords"
-              // routeData={'demo'}
-              // editOption={true}
-              // achieved
-              iconOrTextColor={GStyles.orange.normal}
-              backGroundColor={'#FFF3E7'}
-              backGroundColorProgress={'#FFDAB5'}
-              backGroundProgressWidth="80%"
-              borderColor={GStyles.borderColor['#ECECEC']}
-              // onPress={() => setSelected(index)}
-              points={50}
-             title="Rewords name"
-              imgAssets={require('../../assets/icons/icon6.png')}
-            />
-            <RewordsCard
-              navigation={navigation}
-              // route="EditRewords"
-              // routeData={'demo'}
-              // editOption={true}
-              // achieved
-              iconOrTextColor={GStyles.orange.normal}
-              backGroundColor={'#FFF3E7'}
-              backGroundColorProgress={'#FFDAB5'}
-              backGroundProgressWidth="40%"
-              borderColor={GStyles.borderColor['#ECECEC']}
-              // onPress={() => setSelected(index)}
-              points={50}
-              title="Rewords name"
-              imgAssets={require('../../assets/icons/icon13.png')}
-            />
-            {/* <RewordsCard
-              navigation={navigation}
-              // route="EditRewords"
-              // routeData={'demo'}
-              // editOption={true}
-              // achieved
-              points={50}
-              backGroundColor={'#FFF3E7'}
-              backGroundColorProgress={'#FFDAB5'}
-              backGroundProgressWidth="100%"
-              borderColor={GStyles.borderColor['#ECECEC']}
-              // onPress={() => setSelected(index)}
-              claimPress={()=>{
-                setClaimModal(true)
-              }}
-              iconOrTextColor={GStyles.primaryOrange}
-              title="Playing outside ..."
-              imgAssets={require('../../assets/images/categoryIcons/2.png')}
-              disabled
-              // claimBtn
-            /> */}
-          </View>
+        
+
+              <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
+                paddingHorizontal : "4%",
+                paddingBottom : "10%",
+                gap : 10
+               }} data={assignRewordsData?.data}  renderItem={(item)=>{
+          console.log();
+                return (
+                  <RewordsCard
+                  navigation={navigation}
+                  // route="EditRewords"
+                  // routeData={'demo'}
+                  // editOption={true}
+                
+             
+                
+                
+                  iconOrTextColor={GStyles.orange.normal}
+                  backGroundColor={'#FFF3E7'}
+                  backGroundColorProgress={'#FFDAB5'}
+                  backGroundProgressWidth={`${Math.round((Number(studentUser?.data?.points)/item?.item?.reward?.requiredPoints) * 100)>=100 ? 100 : Math.round((Number(studentUser?.data?.points)/item?.item?.reward?.requiredPoints) * 100)}%`}
+
+              
+                  borderColor={GStyles.borderColor['#ECECEC']}
+                  // onPress={() => setSelected(index)}
+                  points={item?.item?.reward.requiredPoints}
+                  title={item?.item?.reward?.name}
+                  imgAssets={{uri : imageUrl + item?.item?.reward.image}}
+                />
+                )
+              }}/>
+        
         ) : (
-          <View>
-            <View
-              style={{
-                marginBottom: 25,
-              }}>
-              {[...Array(2)].map((_, index) => (
-                <TaskCard
+          
+             
+               <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
+                paddingHorizontal : "4%",
+                paddingBottom : "10%"
+               }} data={assignTaskData?.data} renderItem={(item)=>{
+                return(
+                  <TaskCard
                   approveBTColor={GStyles.primaryOrange}
                   completedTextColor={GStyles.primaryOrange}
-                  isButton
-                  button
+                
+                  // buttonText={"Completed"}
+  
+                 imageUrl={imageUrl +  item?.item?.task?.category?.image}
                   
-                  buttonText={select.includes(index) ? "Approved" : "Approve"}
-                  imgAssets={require('../../assets/icons/icon24.png')}
-                  category="task category"
+                  category={item?.item?.task?.category?.name}
                   // completed
+                 
+                  buttonText={item?.item?.status === "inProgress" ? "Pending..." : "Achieved"}
+                  approveDisabled={item?.item?.status === "inProgress"}
                   // description=''
-                  title="Task name"
-                  points="50"
-                  time="Anytime"
-                  approveDisabled={select.includes(index)}
-                  approveOnPress={() => {
-                    setModalVisible(true);
-                    setSelected([...select,index])
-                  }}
-                  key={index}
+                  title={item?.item?.task?.name}
+                  points={item?.item?.task?.points}
+                  time={item?.item?.task?.repeat}
+              
                 />
-              ))}
-            </View>
-          </View>
+                )
+               }} />
+          
         )}
-      </ScrollView>
-      {/* body part end */}
-
-      <StatusBar
-        backgroundColor={GStyles.primaryPurple}
-        barStyle="light-content"
-        animated
-        showHideTransition="slide"
-      />
-      <CustomModal
-        modalVisible={modalVisible}
-        backButton
-        setModalVisible={setModalVisible}
-        height={'30%'}
-        width={'85%'}
-        Radius={10}>
-        <View
-          style={{
-            padding: 20,
-            gap: 20,
-            justifyContent: 'center',
-            flex: 1,
-          }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontFamily: GStyles.PoppinsMedium,
-              textAlign: 'center',
-              color: GStyles.textColor['#3D3D3D'],
-              marginTop: 10,
-            }}>
-            Accepted Successfully
-          </Text>
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              textAlign: 'center',
-            }}>
-            You will go to class and show your performance and then the teacher
-            will give you a star on your work
-          </Text>
-
-          <View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(false)}
-              style={{
-                backgroundColor: GStyles.primaryOrange,
-                width: '30%',
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 100,
-                alignSelf: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: GStyles.Poppins,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '400',
-                }}>
-                OK
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </CustomModal>
-      <YesNoModal
-        backButton
-        modalVisible={yesNoModal}
-        setModalVisible={setYesNoModal}
-      />
-
-<CustomModal
-        modalVisible={claimModal}
-        backButton
-        setModalVisible={setClaimModal}
-        height={289}
-        Radius={10}>
-        <View
-          style={{
-            padding: 20,
-            gap: 20,
-            justifyContent: 'center',
-            flex: 1,
-            alignItems: 'center',
-          }}>
-          <LottieView
-            source={require('../../assets/lottie/goal-completed.json')}
-            style={{width: 200, height: 200, marginBottom: -70, marginTop: -50}}
-            autoPlay
-            loop
-          />
-
-         
-          <View>
-            <TouchableOpacity
-              onPress={() => setClaimModal(false)}
-              style={{
-                backgroundColor: GStyles.primaryOrange,
-                width: 100,
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 100,
-                alignSelf: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: GStyles.Poppins,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '400',
-                }}>
-                OK
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </CustomModal>
+     
 
     </View>
   );

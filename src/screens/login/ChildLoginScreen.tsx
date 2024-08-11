@@ -74,6 +74,13 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
         //     // swipeable : true
         //   });
         // }
+        if(res.error){
+          Toast.show({
+            text1: res?.error?.data?.message,
+            type: 'error',
+            // swipeable : true
+          });
+        }
 
         if (res?.data?.success) {
           setUser({
@@ -82,11 +89,11 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
           });
           setStorageRole('student');
           setStorageToken(res?.data?.data);
-          Toast.show({
-            text1: 'Login successful!',
-            type: 'success',
-            visibilityTime: 2000,
-          });
+          // Toast.show({
+          //   text1: 'Login successful!',
+          //   type: 'success',
+          //   visibilityTime: 2000,
+          // });
         }
       });
       // navigation?.navigate("TeacherDrawerRoutes")

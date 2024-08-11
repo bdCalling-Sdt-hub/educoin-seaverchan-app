@@ -181,16 +181,16 @@ export interface IPresets extends IFetchStatus {
 }
 
 export interface IAssignStudentTask {
-  _id:string;
+  _id: string;
   task: ITask;
-  student:string;
+  student: string;
   teacher: {
     _id: string;
-    name:string;
+    name: string;
     email: string;
     profile: string;
   };
-  status: "notStarted" | "inProgress";
+  status: 'notStarted' | 'inProgress';
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -200,12 +200,12 @@ export interface IAssignStudentTasks extends IFetchStatus {
   data: Array<IAssignStudentTask>;
 }
 export interface IAssignStudentReword {
-  _id:string;
+  _id: string;
   reward: IReword;
-  student:string;
+  student: string;
   teacher: {
     _id: string;
-    name:string;
+    name: string;
     email: string;
     profile: string;
   };
@@ -219,9 +219,9 @@ export interface IAssignStudentRewords extends IFetchStatus {
   data: Array<IAssignStudentReword>;
 }
 export interface IEarnedStudentReword {
-  _id:string;
+  _id: string;
   reward: IReword;
-  student:string;
+  student: string;
   teacher: string;
   status: string;
   createdAt: string;
@@ -231,4 +231,14 @@ export interface IEarnedStudentReword {
 
 export interface IEarnedStudentRewords extends IFetchStatus {
   data: Array<IEarnedStudentReword>;
+}
+
+export interface IStatistics extends IFetchStatus {
+  data : {
+    level: number;
+  points: number;
+  totalAssignTask: number;
+  totalCompletedTask: number;
+  totalUnCompletedTask: number;
+  }
 }

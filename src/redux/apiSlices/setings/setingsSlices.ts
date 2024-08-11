@@ -1,32 +1,62 @@
 import {api} from '../../api/baseApi';
-import {IAssignRewords, IAssignStudentTasks,  IEarnedStudentRewords} from '../../interface/interface';
+import {
+  IAssignRewords,
+  IAssignStudentTasks,
+  IEarnedStudentRewords,
+  IFetchStatus,
+} from '../../interface/interface';
 
 const studentPartSlice = api.injectEndpoints({
   endpoints: builder => ({
-    // getStudentAssignTask: builder.query<IAssignStudentTasks, unknown>({
-    //   query: token => ({
-    //     url: `/assign-task/student`,
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }),
-    //   providesTags: ['studentAssign'],
-    // }),
-   
-      sendFeedBack: builder.mutation({
+    getPrivacyPolicy: builder.query<
+      {
+        data : {
+          _id: string;
+        content: string;
+        __v: number;
+        }
+      },
+      unknown
+    >({
+      query: token => ({
+        url: `/rule/privacy-policy`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      // providesTags: ['s'],
+    }),
+   getTermsAndConditions: builder.query<
+      {
+       data : {
+        _id: string;
+        content: string;
+        __v: number;
+       }
+      },
+      unknown
+    >({
+      query: token => ({
+        url: `/rule/terms-and-conditions`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      // providesTags: ['s'],
+    }),
+
+    sendFeedBack: builder.mutation({
       query: ({token, data}) => ({
         url: `/feedback`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body : data
+        body: data,
       }),
-    //   invalidatesTags: ['studentAssign'],
+      //   invalidatesTags: ['studentAssign'],
     }),
   }),
 });
 
-export const {
-useSendFeedBackMutation
-} = studentPartSlice;
+export const {useSendFeedBackMutation,useGetPrivacyPolicyQuery,useGetTermsAndConditionsQuery} = studentPartSlice;
