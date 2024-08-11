@@ -29,17 +29,17 @@ const SplashScreen = ({navigation}: splashProps) => {
   const {user,loading} = useContextApi()
  
 
-  setTimeout(() => {
-     if(!user?.token && !user?.role && !loading){
-       navigation.navigate('LoginAs');
-     }
-     if(user?.role === "teacher"){
-      navigation.navigate("TeacherDrawerRoutes");
-     }
-     if(user?.role === "student"){
-        navigation.navigate("StudentDrawerRoutes");
-     }
-  }, 2000);
+    setTimeout(()=>{
+      if(!user?.token && !user?.role && !loading){
+        navigation.navigate('LoginAs');
+      }
+      if(user?.role === "teacher"){
+       navigation.navigate("TeacherDrawerRoutes");
+      }
+      if(user?.role === "student"){
+         navigation.navigate("StudentDrawerRoutes");
+      }
+    },1000)
 
   return (
     <View style={styles.container}>

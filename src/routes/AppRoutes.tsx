@@ -241,18 +241,31 @@ import TeacherEditClass from '../screens/teacher/TeacherEditClass';
 import AddPaymentCards from '../screens/payments/AddPaymentCards';
 import PaymentScreen from '../screens/payments/PaymentScreen';
 import TeacherRewordsAssign from '../screens/teacher/TeacherRewordsAssign';
+import GlobalSplash from '../screens/slpash/GlobalSplash';
 export const Routes = () => {
   const {
-    netInfo: {type, isConnected},
-    refresh,
+    netInfo: { isConnected },
   } = useNetInfoInstance();
+  
+ 
+  const [isLoading, setIsLoading] = React.useState(true); // New loading state
 
-  console.log('internet', isConnected);
+
+
+
+
+
+  
+
+
+  
+
+ 
   return (
     <GestureHandlerRootView>
       <Provider store={store}>
         <ContextApi>
-          {!isConnected ? <InternetStatusScreen /> : <NavigationRoutes />}
+          { isLoading ?   <GlobalSplash  setAppLoad={setIsLoading}  />: !isConnected ? <InternetStatusScreen />  :  <NavigationRoutes />  }
         </ContextApi>
       </Provider>
       <Toast config={ToasTConfig} />
