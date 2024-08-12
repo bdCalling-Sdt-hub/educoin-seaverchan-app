@@ -27,6 +27,7 @@ import DateTimePicker from 'react-native-ui-datepicker';
 import Toast from 'react-native-toast-message';
 import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { imageUrl } from '../../redux/api/baseApi';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 
 const data = [
   {
@@ -69,7 +70,7 @@ const data = [
 
 const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
   const [createStudent, results] = useCreateStudentMutation();
-  
+  const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
   const {data : avatarData} = useGetAvatarPresetQuery(user?.token);
   const {data: classes} = useGetClassesQuery(user?.token);
@@ -149,13 +150,28 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
   const handleClassInfoSubmit = useCallback(
     UData => {
       console.log(UData);
-      !UData?.name && Toast.show({type: 'info', text1: 'name is empty'});
-      !UData?.class && Toast.show({type: 'info', text1: 'Please select class'});
-      !UData?.dateOfBirth &&
-        Toast.show({type: 'info', text1: 'Date of birth is empty'});
-      !UData?.password &&
-        Toast.show({type: 'info', text1: 'password is empty'});
-      !UData?.image && Toast.show({type: 'info', text1: 'image is empty'});
+      !UData?.name &&   popRef.current?.open({
+        title: 'Name is required',
+          buttonText : "Ok"
+      }) 
+      !UData?.class && popRef.current?.open({
+        title: 'Please select class',
+          buttonText : "Ok"
+      })  
+      !UData?.dateOfBirth &&  popRef.current?.open({
+        title: 'Please select your birth date',
+          buttonText : "Ok"
+      }) 
+      
+      !UData?.password && popRef.current?.open({
+        title: 'Passcode is required',
+          buttonText : "Ok"
+      }) 
+        
+      !UData?.image && popRef.current?.open({
+        content: 'Please select avatar or upload image',
+        buttonText : "Ok"
+      }) 
       // !UData?.name && Toast.show({type: 'info', text1: 'name is empty'});
       if (
         !UData?.image ||
@@ -176,23 +192,24 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
       UData?.name && formData.append('name', UData?.name);
       UData?.password && formData.append('password', UData?.password);
 
-      console.log(formData);
+      // console.log(formData);
       createStudent({token: user?.token, data: formData}).then(res => {
         console.log(res);
         if (res?.data?.success) {
           navigation?.goBack();
         }
         if (res?.error?.data) {
-          Toast.show({
-            type: 'error',
-            text1: res?.error?.data?.message,
-          });
+          popRef.current?.open({
+            content: res?.error?.data?.message,
+            buttonText : "Ok"
+          }) 
+        
         }
         if(res.error?.error){
-          Toast.show({
-            type: 'info',
-            text1: 'Something went wrong',
-          });
+          popRef.current?.open({
+            title: 'Something went wrong',
+          })
+         
         }
       });
     },
@@ -639,6 +656,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
           }}
         />
       </CustomModal>
+      <PopUpModal ref={popRef} />
     </View>
   );
 };

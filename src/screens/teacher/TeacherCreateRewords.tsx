@@ -25,6 +25,7 @@ import { useCreateRewordsMutation } from '../../redux/apiSlices/teacher/teacherR
 import Toast from 'react-native-toast-message';
 import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { imageUrl } from '../../redux/api/baseApi';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 
 interface IRewordsUProps {
   name: string;
@@ -33,8 +34,13 @@ interface IRewordsUProps {
 }
 
 const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
+  const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
-  const [rewordsData, setRewordsData] = React.useState<IRewordsUProps>();
+  const [rewordsData, setRewordsData] = React.useState<IRewordsUProps>({
+    name: "",
+    image: "",
+    requiredPoints: 0
+  });
   const {data: Icons} = useGetIconsPresetQuery(user.token);
   const [createRewords,results] = useCreateRewordsMutation()
 
@@ -61,16 +67,16 @@ const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
       }
       
       if(!UData.name){
-        Toast.show({
-          type : "info",
-          text1 : "Please write a reword name"
-        })
+        return popRef.current?.open({
+          title:"Please write rewords name",
+            buttonText : "Ok"
+        }) 
       }
       if(!UData.requiredPoints){
-        Toast.show({
-          type : "info",
-          text1 : "Select required points"
-        })
+       return  popRef.current?.open({
+          title:"select required points",
+            buttonText : "Ok"
+        }) 
       }
       
     
@@ -550,6 +556,7 @@ const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
+      <PopUpModal ref={popRef} />
     </View>
   );
 };

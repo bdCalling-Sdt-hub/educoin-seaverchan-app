@@ -40,27 +40,30 @@ import { useCreateTaskMutation } from '../../redux/apiSlices/teacher/teaherTaskS
 import { useContextApi } from '../../context/ContextApi';
 import Toast from 'react-native-toast-message';
 import { NavigProps } from '../../interfaces/NavigationPros';
+import PopUpModal, { PopModalRef, PopUpModalRef } from '../../components/modals/PopUpModal';
 
 interface taskData {
   name: string;
-  points: number;
+  points: string;
   category: string;
   type: 'good' | 'bad'
   repeat: 'everyday' | 'weekly' | 'monthly';
 }
 
 const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
+  const popRef = React.useRef<PopUpModalRef>()
+
   const {user} = useContextApi();
-  const {data : categories,isLoading} = useGetCategoriesQuery("")
+  const {data : categories,isLoading} = useGetCategoriesQuery(user.token)
   const [createTask,results] = useCreateTaskMutation()
   const [value, setValue] = React.useState<string>();
 
   const [customCategory, setCustomCategory] = React.useState<string>();
 
   const [taskData, setTaskData] = React.useState<taskData>({
-    category : categories?.data[0]._id,
-    name: null,
-    points: null,
+    category : categories?.data[0]._id || "",
+    name: "",
+    points: "",
     type: 'good',
     repeat: 'everyday',
   });
@@ -78,40 +81,6 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
 
 
 
-  const handleImagePick = async (option: 'camera' | 'library') => {
-    try {
-      if (option === 'camera') {
-        const result = await launchCamera({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
-
-        if (!result.didCancel) {
-          setCustomImage(result?.assets![0].uri);
-          // console.log(result);
-        }
-      }
-      if (option === 'library') {
-        const result = await launchImageLibrary({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
-
-        if (!result.didCancel) {
-          setCustomImage(result?.assets![0].uri);
-          // console.log(result);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const progress = useSharedValue(customPoints);
   const min = useSharedValue(0);
@@ -138,16 +107,18 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
       UData.type = "good"
      }
      if(!UData?.category){
-      Toast.show({
-        type : "info",
-        text1 : "Please select a category"
-      })
+      popRef.current?.open({
+        title:"Please select a category",
+          buttonText : "Ok"
+      })  
+     
      }
      if(!UData?.name){
-      Toast.show({
-        type : "info",
-        text1 : "Please write task name"
-      })
+      popRef.current?.open({
+        title:"Please write task name",
+          buttonText : "Ok"
+      }) 
+      
      }
      console.log(UData);
   if(UData.category && UData.name && UData.points && UData.repeat && UData.type){
@@ -1073,6 +1044,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
+      <PopUpModal ref={popRef} />
     </View>
   );
 };

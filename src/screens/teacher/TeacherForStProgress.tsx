@@ -40,9 +40,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
   const {data : classes, isSuccess : classesIsSuccess} = useGetClassesQuery(user.token);
   const [selectedClass, setSelectedClass] = useState<any>(classes?.data[0].className);
   const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
-  const [selectedStudent, setSelectedStudent] = useState<string>(students?.data[0]._id as string);
+  const [selectedStudent, setSelectedStudent] = useState<string>(students?.data![0]?._id as string);
   const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
-  // console.log(ProgressIfo);
+  console.log(students);
   // console.log(student?.data._id);
   
   // console.log(ProgressIfo?.data?.totalCompletedTask + 1);
@@ -225,12 +225,12 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
           />
         </View>
 
-        <View
+        {/* <View
           style={{
             marginTop: 10,
             paddingHorizontal: '8%',
           }}>
-          {/* progress bar started */}
+      
           <View
             style={{
               flexDirection: 'row',
@@ -248,7 +248,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               }}
             />
           </View>
-          {/* progress bar ended */}
+     
           <View
             style={{
               flexDirection: 'row',
@@ -295,10 +295,11 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               level {ProgressIfo?.data?.level  + 1}
             </Text>
           </View>
-        </View>
+        </View> */}
 
-        <View style={{}}>
-          <Animated.View
+        {
+          students?.data?.length !== 0 && <>
+           <Animated.View
             style={[styles.container, {opacity: animationOpacity}]}>
             <PieChart
               data={[
@@ -327,8 +328,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               )}
             />
           </Animated.View>
-        </View>
-        <View
+          <View
           style={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -415,6 +415,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             </View>
           </View>
         </View>
+          </>
+        }
+     
       </ScrollView>
     </View>
   );

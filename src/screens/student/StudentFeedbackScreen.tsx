@@ -13,10 +13,12 @@ import CustomModal from '../../components/common/CustomModal/CustomModal';
 import { useContextApi } from '../../context/ContextApi';
 import { useSendFeedBackMutation } from '../../redux/apiSlices/setings/setingsSlices';
 import Toast from 'react-native-toast-message';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
 const StudentFeedback = ({navigation}: AdminRoutesProps) => {
+  const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi()
   const [modalVisible, setModalVisible] = React.useState(false);
   const [feedback, setFeedback] = React.useState('');
@@ -30,9 +32,10 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
      .then((res) => {
        console.log(res);
        if(res.error){
-        Toast.show({
-          type : 'error',
-          text1: "please try again",
+        popRef.current?.open({
+          buttonColor : GStyles?.primaryOrange,
+          title : "Please enter your feedback",
+            buttonText : "Ok"
         })
        }
        if (res.data.success) {
@@ -232,6 +235,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           </View>
         </View>
       </CustomModal>
+      <PopUpModal ref={popRef} />
     </View>
   );
 };

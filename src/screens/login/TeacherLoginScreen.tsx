@@ -26,9 +26,16 @@ import {useContextApi} from '../../context/ContextApi';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import Toast from 'react-native-toast-message';
 import { useLoginTeacherMutation } from '../../redux/apiSlices/authSlice';
+import SlideModal, { SlideModalRef } from '../../components/modals/SlideModal';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+
 
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
   const [loginUser, results] = useLoginTeacherMutation();
+
+  const popRef = React.useRef<PopUpModalRef>()
+
+ 
   // const  dispatch = useDispatch()
   // console.log(results?.error);
   const {setUser, user} = useContextApi();
@@ -55,22 +62,12 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
     // console.log(pin);
-    if (!pin) {
-      Toast.show({
-        text1: 'Please enter the passcode !',
-        type: 'error',
-        // swipeable : true
-      });
-    }
+  
     if (pin.length < 6) {
-      Toast.show({
-        text1: 'Passcode must be 6 digit!',
-        type: 'error',
-        // swipeable : true
-      });
+      popRef.current?.open({title : "Pin must be at least 6 digits"})
     }
-    console.log(pin.length);
-    if (pin.length < 7) {
+   
+    if (pin.length ===6) {
       loginUser(pin).then(res => {
         // console.log(res);
         // if (res.error) {
@@ -81,11 +78,9 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
         //   });
         // }
         if(res.error){
-          Toast.show({
-            text1: res?.error?.data?.message,
-            type: 'error',
-            // swipeable : true
-          });
+          // console.log(res);
+          popRef.current?.open({title : res.error?.data?.message})
+  
         }
 
         if (res?.data?.success) {
@@ -193,6 +188,9 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
         maxLength={6}
       />
       <StatusBar backgroundColor="white" barStyle="dark-content" />
+
+       
+       <PopUpModal ref={popRef}/>
     </View>
   );
 };

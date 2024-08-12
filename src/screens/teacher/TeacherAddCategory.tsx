@@ -24,8 +24,10 @@ import {useCreateCategoryMutation} from '../../redux/apiSlices/teacher/techerCat
 import {useContextApi} from '../../context/ContextApi';
 import { useGetAvatarPresetQuery, useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { imageUrl } from '../../redux/api/baseApi';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 
 const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
+  const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
   const {data : icons} = useGetIconsPresetQuery(user.token) 
   const [createCategory, results] = useCreateCategoryMutation();
@@ -47,6 +49,12 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const handleCreateCategory = useCallback(
     (UData: {name: string; image: {}}) => {
       // console.log(UData);
+
+      if(!UData?.name){
+        return popRef?.current?.open({
+          title : "Category name is required"
+        })
+      }
 
       if(UData?.image){
         UData.image =  categoryImage
@@ -396,6 +404,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
+      <PopUpModal ref={popRef} />
     </View>
   );
 };

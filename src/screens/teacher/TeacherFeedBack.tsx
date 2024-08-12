@@ -15,8 +15,10 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import { useSendFeedBackMutation } from '../../redux/apiSlices/setings/setingsSlices';
 import { useContextApi } from '../../context/ContextApi';
 import Toast from 'react-native-toast-message';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 
 const TeacherFeedback = ({navigation}: NavigProps<null>) => {
+  const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi()
   const [modalVisible, setModalVisible] = React.useState(false);
   const [feedback, setFeedback] = React.useState('');
@@ -28,12 +30,14 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
     // console.log(UFeedback);
     sendFeedBack({token :user.token , data: {feedback : UFeedback}})
      .then((res) => {
-       console.log(res);
+     
        if(res.error){
-        Toast.show({
-          type : 'error',
-          text1: "please try again",
+        popRef.current?.open({
+          // buttonColor : GStyles?.primaryOrange
+          title : "Please enter your feedback",
+          buttonText : "Ok"
         })
+       
        }
        if (res.data.success) {
           setModalVisible(true);
@@ -232,6 +236,8 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
+
+      <PopUpModal ref={popRef} />
     </View>
   );
 };

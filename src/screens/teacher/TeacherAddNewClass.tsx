@@ -20,8 +20,10 @@ import {useContextApi} from '../../context/ContextApi';
 import Toast from 'react-native-toast-message';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import Require from '../../components/common/require/Require';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 
 const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
+  const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
   const [createClass, results] = useCreateClassMutation();
   const [classInfo, setClassInfo] = React.useState<{
@@ -37,17 +39,34 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
   });
   const [dateModal, setDateModal] = React.useState(false);
   const handleClassInfoSubmit = useCallback(
-    data => {
-      console.log(data);
-      createClass({token: user?.token, data}).then(res => {
+    UData => {
+      // console.log(data);
+      if(!UData?.className){
+        return  popRef.current?.open({
+          title: 'Class name is required',
+            buttonText : "Ok"
+        })  
+      }
+      if(!UData?.startDate){
+        return  popRef.current?.open({
+          title: 'Select your start date',
+            buttonText : "Ok"
+        })  
+      }
+      if(!UData?.endDate){
+        return  popRef.current?.open({
+          title: 'Select your end date',
+            buttonText : "Ok"
+        })  
+      }
+      createClass({token: user?.token, data : UData}).then(res => {
         // console.log(res);
         if (res?.error) {
-          console.log(res.error?.data?.message);
-          Toast.show({
-            text1: res?.error?.data?.message,
-            type: 'info',
-            // swipeable : true,
-          });
+          popRef.current?.open({
+            title: res.error?.data?.message,
+              buttonText : "Ok"
+          })  
+          
         }
         if (res.data?.success) {
           navigation?.goBack();
@@ -367,6 +386,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
           }}
         />
       </CustomModal>
+      <PopUpModal ref={popRef} />
     </View>
   );
 };

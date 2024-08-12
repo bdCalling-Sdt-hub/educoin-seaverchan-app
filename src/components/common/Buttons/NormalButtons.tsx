@@ -12,15 +12,16 @@ interface NormalButtonsPros {
   title: string;
   onPress: () => void;
   loading?: boolean;
+  BtnColor ?  : string;
 }
 
-const NormalButtons = ({onPress, title, loading}: NormalButtonsPros) => {
+const NormalButtons = ({onPress, title, loading,BtnColor}: NormalButtonsPros) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={loading}
       style={{
-        backgroundColor: GStyles.primaryPurple,
+        backgroundColor: BtnColor || GStyles.primaryPurple,
         padding: 10,
         borderRadius: 100,
         marginVertical: 10,
