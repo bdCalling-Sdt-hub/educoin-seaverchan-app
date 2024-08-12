@@ -103,6 +103,11 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     Keyboard.dismiss(); // Dismiss the keyboard
   };
 
+
+
+
+
+
   return (
     <View style={styles.container}>
       <BackButton />

@@ -58,11 +58,15 @@ import AllStudentAvatar from '../screens/student/AllStudentAvatar';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider, useDispatch, useSelector} from 'react-redux';
 
+
+
+
 const Stack = createNativeStackNavigator();
 
 export const NavigationRoutes = () => {
   // console.log( "token" + token);
   const {user} = useContextApi();
+  requestUserPermission()
 
   return (
     <NavigationContainer>
@@ -242,23 +246,72 @@ import AddPaymentCards from '../screens/payments/AddPaymentCards';
 import PaymentScreen from '../screens/payments/PaymentScreen';
 import TeacherRewordsAssign from '../screens/teacher/TeacherRewordsAssign';
 import GlobalSplash from '../screens/slpash/GlobalSplash';
+
+
+
+import notifee, { AuthorizationStatus } from '@notifee/react-native';
+
+//  google clude message 
+// import messaging from '@react-native-firebase/messaging';
+// On foreground notification
+// async function requestUserPermission() {
+//   const authStatus = await messaging().requestPermission();
+//   const enabled =
+//     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+//     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+//   if (enabled) {
+//     console.log('Authorization status:', authStatus);
+//   }
+// }
+
+// messaging()
+//   .getToken()
+//   .then(token => {
+//     console.log('FCM Token:', token);
+//   })
+//   .catch(error => {
+//     console.log('Error getting FCM Token:', error);
+//   });
+
+// notifee 
+async function requestUserPermission() {
+  const settings = await notifee.requestPermission();
+
+  if (settings.authorizationStatus >= AuthorizationStatus.AUTHORIZED) {
+    console.log('Permission settings:', settings);
+  } else {
+    console.log('User declined permissions');
+  }
+}
+
+
+
 export const Routes = () => {
+
   const {
     netInfo: { isConnected },
   } = useNetInfoInstance();
-  
+
  
   const [isLoading, setIsLoading] = React.useState(true); // New loading state
 
 
+  // React.useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
+  //     // Display the notification
+  //     await notifee.displayNotification({
+  //       title: remoteMessage.notification?.title,
+  //       body: remoteMessage.notification?.body,
+  //       android: {
+  //         channelId: 'default',
+  //         sound : "default"
+  //       },
+  //     });
+  //   });
 
-
-
-
-  
-
-
-  
+  //   return unsubscribe;
+  // }, []);
 
  
   return (
@@ -268,7 +321,7 @@ export const Routes = () => {
           { isLoading ?   <GlobalSplash  setAppLoad={setIsLoading}  />: !isConnected ? <InternetStatusScreen />  :  <NavigationRoutes />  }
         </ContextApi>
       </Provider>
-      <Toast config={ToasTConfig} />
+      {/* <Toast config={ToasTConfig} /> */}
     </GestureHandlerRootView>
   );
 };

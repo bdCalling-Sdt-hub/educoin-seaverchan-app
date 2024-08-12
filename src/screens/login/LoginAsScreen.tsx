@@ -16,6 +16,7 @@ import { FontSize } from '../../utils/utils';
 
 
 
+
 const AsLoginData = [
   {
     id: 3,
@@ -71,7 +72,8 @@ const {scale,fontScale,height,width} = Dimensions.get('window');
 const LoginAsScreen = ({navigation}: LoginAsProps) => {
 
   
-  
+ 
+
 
   return (
     <View style={styles.container}>
@@ -103,7 +105,7 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
                       data.style.algin === 'right' ? 'row-reverse' : 'row',
                   },
                 ]}>
-                <View
+                {/* <View
                   style={{
                     backgroundColor: 'white',
                     borderRadius: 100,
@@ -114,12 +116,13 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
                     alignItems: 'center',
                   }}>
                   <Image style={styles.cardImage} source={data.image} />
-                </View>
+                </View> */}
                 <Text adjustsFontSizeToFit style={styles.cardTitle}>{data.name}</Text>
               </View>
             </TouchableOpacity>
           ))}
         </View>
+         
       </View>
       <StatusBar backgroundColor={'white'} barStyle="dark-content" />
     </View>
@@ -183,7 +186,7 @@ const styles = StyleSheet.create({
     height: 58,
   },
   cardTitle: {
-    fontFamily: GStyles.PoppinsBold,
+    fontFamily: GStyles.PoppinsMedium,
     fontSize: FontSize(25),
     // fontWeight: 'bold',
     flex : 1,

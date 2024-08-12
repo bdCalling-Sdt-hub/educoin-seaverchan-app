@@ -147,13 +147,14 @@ const RewordsCard = ({
         ) : (
           <View style={{gap: 5,width : '100%'}}>
             <Text
+            numberOfLines={2}
               style={{
                 fontSize: 16,
                 fontWeight: '500',
                 color: '#3D3D3D',
                 fontFamily: GStyles.PoppinsSemiBold,
                 letterSpacing: 0.8,
-                width: "70%",
+                width: claimBtn ? "45%" : "60%",
               }}>
              {title}
             </Text>

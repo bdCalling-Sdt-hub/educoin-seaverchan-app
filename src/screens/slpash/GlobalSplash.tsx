@@ -17,7 +17,7 @@ import {
   interface splashProps {
     // setLoad: Dispatch<boolean>;
     // navigation: NavigationProp<ParamListBase>;
-    appLoad : boolean;
+    appLoad ?: boolean;
      setAppLoad : React.Dispatch<React.SetStateAction<boolean>>
   }
   
