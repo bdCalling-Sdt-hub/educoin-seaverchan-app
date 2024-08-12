@@ -17,7 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ModalOfBottom from '../../components/common/CustomModal/ModalOfButtom';
-import {categories} from './EditCategory';
+
 import {categoryIcons, ShearIcons} from '../../utils/ShearData';
 import Require from '../../components/common/require/Require';
 import {useCreateCategoryMutation} from '../../redux/apiSlices/teacher/techerCategorySlices';
@@ -29,7 +29,8 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
-  const {data : icons} = useGetIconsPresetQuery(user.token) 
+  const {data : icons,refetch : iconsRefetch} = useGetIconsPresetQuery(user.token) 
+  console.log(icons);
   const [createCategory, results] = useCreateCategoryMutation();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [launchCameraModal, setLaunchCameraModal] = React.useState(false);
@@ -41,7 +42,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
 
 
   const [categoryImage, setCategoryImage] = React.useState<string>(
-    icons?.data[0].image || "",
+    icons?.data![0]?.image || "",
   );
   // console.log(categoryData.image);
 
@@ -72,6 +73,11 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
     [],
   );
 
+
+  React.useEffect(()=>{
+    iconsRefetch()
+  },[])
+
   return (
     <View
       style={{
@@ -86,6 +92,8 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         navigation={navigation}
       />
       <ScrollView
+
+      keyboardShouldPersistTaps="always"
         contentContainerStyle={{
           paddingHorizontal: '4%',
           paddingVertical: 20,
@@ -275,7 +283,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                     marginVertical: 15,
                    
                     borderRadius: 15,
-                    // elevation : 2
+                    // elevation : 1
                   }}>
                   <Image
                     source={{

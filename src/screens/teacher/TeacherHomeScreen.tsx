@@ -44,12 +44,14 @@ import {
   useGetClassesQuery,
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
 import { useGetUserTeacherQuery, useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
 }
 
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
+  const PopModal = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
   const {data: userInfo} = useGetUserTeacherQuery(user?.token);
   const {data: students} = useGetStudentsQuery(user?.token);
@@ -306,21 +308,11 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
               navigation.navigate('TeacherAddNewStudent');
             }
             else{
-              Alert.alert(
-                'Warning',
-                'No classes available. Please add a class first.',
-                [
-                  {
-                    text: 'Cancel',
-                    style: 'cancel',
-                  },
-                  {
-                    text: 'OK',
-                    onPress: () => navigation.navigate('TeacherAddNewClass'),
-                  },
-                ],
-                {cancelable: false},
-              );
+              PopModal.current?.open({
+                buttonText : "Ok",
+                title : "Warning",
+                content : "No classes available. Please add a class first.",
+              })
             }
             }}
             style={{
@@ -436,6 +428,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           );
         }}
       />
+      <PopUpModal  ref={PopModal}/>
     </View>
   );
 };

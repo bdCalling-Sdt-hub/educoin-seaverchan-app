@@ -34,7 +34,7 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
   // const {data : student} = useGetUserStudentQuery(user.token)
   const StudentData = route?.params?.data.data
   const {data: classes} = useGetClassesQuery(user?.token);
-  const {data : avatarData} = useGetAvatarPresetQuery(user?.token);
+  const {data : avatarData , refetch : avatarRefetch} = useGetAvatarPresetQuery(user?.token);
   const [selectAvatar, setSelectAvatar] = React.useState<number>();
     const [image, setImage] = React.useState<string | null>();
   const [selectClass, setSelectClass] = React.useState<string>();
@@ -83,7 +83,10 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
       }
     };
   
-    console.log(avatarData);
+    // console.log(avatarData);
+    React.useEffect(()=>{
+      avatarRefetch()
+    },[])
     return (
       <View
         style={{

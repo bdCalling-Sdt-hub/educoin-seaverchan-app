@@ -279,7 +279,7 @@ async function requestUserPermission() {
   const settings = await notifee.requestPermission();
 
   if (settings.authorizationStatus >= AuthorizationStatus.AUTHORIZED) {
-    console.log('Permission settings:', settings);
+    // console.log('Permission settings:', settings);
   } else {
     console.log('User declined permissions');
   }

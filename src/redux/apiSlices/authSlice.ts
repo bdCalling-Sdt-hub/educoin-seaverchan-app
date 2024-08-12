@@ -28,7 +28,7 @@ const authSlice = api.injectEndpoints({
                   Authorization: `Bearer ${token}`,
                 },
             }),
-            providesTags : ["user"]
+            providesTags : ["user","studentUser"]
           }),
           loginTeacher: builder.mutation({
             query: pass_code => ({
@@ -59,7 +59,7 @@ const authSlice = api.injectEndpoints({
               method: 'PATCH',
               headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
+              
               },
               body: data,
             }),
