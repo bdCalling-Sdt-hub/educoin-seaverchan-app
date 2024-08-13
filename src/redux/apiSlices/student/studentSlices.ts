@@ -38,7 +38,7 @@ const studentPartSlice = api.injectEndpoints({
           Authorization: `Bearer ${token}`,
         },
       }),
-      invalidatesTags: ['studentAssign'],
+      invalidatesTags: ['studentAssign',"studentUser"],
     }),
       studentClaimAction: builder.mutation({
       query: ({token, id}) => ({
@@ -48,7 +48,7 @@ const studentPartSlice = api.injectEndpoints({
           Authorization: `Bearer ${token}`,
         },
       }),
-      invalidatesTags: ['studentAssign'],
+      invalidatesTags: ['studentAssign',"studentUser"],
     }),
   }),
 });

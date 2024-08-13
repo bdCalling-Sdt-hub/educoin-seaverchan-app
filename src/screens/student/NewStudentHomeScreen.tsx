@@ -37,8 +37,10 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
    const {user} = useContextApi()
    const {data : assignTaskData, refetch : assignTaskRefetch} = useGetStudentAssignTaskQuery(user.token);
    const {data : assignRewordsData} = useGetStudentAssignRewordsQuery(user.token);
-   const {data : assignRewordsEarnedData} = useGetEarnRewordsQuery(user.token);
+   const {data : assignRewordsEarnedData , refetch : refetchEarnReword} = useGetEarnRewordsQuery(user.token);
    const {data : studentUser} = useGetUserStudentQuery(user.token);
+
+  //  console.log(assignRewordsEarnedData[0]);
    const [achieveAction,achieveActionResults] = useStudentAchieveActionMutation()
    const [claimAction,claimActionResults] = useStudentClaimActionMutation()
 
@@ -67,6 +69,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
   })
 
   useEffect(()=>{
+    refetchEarnReword()
    if(claimModal){
     bottom.value =  withSpring(60)
    }
@@ -138,7 +141,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
                 iconOrTextColor={GStyles.primaryOrange}
                 imgAssets={{uri : imageUrl + item?.item?.reward?.image}}
                 marginHorizontal={10}
-                points={10}
+                points={item?.item?.reward?.requiredPoints}
                 title={item?.item?.reward?.name}
               />
               )
@@ -186,7 +189,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               
                   borderColor={GStyles.borderColor['#ECECEC']}
                   // onPress={() => setSelected(index)}
-                  points={item?.item?.reward.requiredPoints}
+                  points={Number(item?.item?.reward.requiredPoints)}
                   title={item?.item?.reward?.name}
                   imgAssets={{uri : imageUrl + item?.item?.reward.image}}
                 />

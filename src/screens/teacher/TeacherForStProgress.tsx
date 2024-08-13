@@ -150,7 +150,8 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
         </View>
       )} */}
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      {
+        classes?.data?.length !== 0 &&   <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             marginTop: 20,
@@ -419,6 +420,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
         }
      
       </ScrollView>
+      }
+
+    
     </View>
   );
 };

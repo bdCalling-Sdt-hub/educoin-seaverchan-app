@@ -239,7 +239,7 @@ const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
             minimumValue={min}
             maximumValue={max}
             onSlidingComplete={(value: number) => {
-              setRewordPoints(value);
+              setRewordPoints(Math.round(value));
              
             }}
           />
@@ -376,10 +376,10 @@ const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
                       height: 70,
                       borderRadius: 15,
                   
-                      padding: 2,
+                      // padding: 2,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      elevation: 1,
+                      // elevation: 1,
                     }}>
                     <Image
                       source={{
@@ -390,7 +390,7 @@ const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
                         customImage  === item.item.image
                           ? GStyles.primaryPurple
                           : GStyles.gray.light,
-                      borderWidth: 2,
+                      borderWidth: 3,
                         width: 65,
                         height: 65,
                         borderRadius: 8,

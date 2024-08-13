@@ -45,7 +45,7 @@ const authSlice = api.injectEndpoints({
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
+          
         },
         body: data,
       }),

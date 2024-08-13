@@ -72,7 +72,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
   const [createStudent, results] = useCreateStudentMutation();
   const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
-  const {data : avatarData} = useGetAvatarPresetQuery(user?.token);
+  const {data : avatarData, refetch :  refetchAvatar} = useGetAvatarPresetQuery(user?.token);
   const {data: classes} = useGetClassesQuery(user?.token);
   const [selectAvatar, setSelectAvatar] = React.useState<string>();
   const [tempImage, setTemImage] = React.useState<string>();
@@ -82,74 +82,74 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
     password: "",
     dateOfBirth: new Date(),
     class: "",
-    image: null
+    profile: null
   });
 
   const [startDate, setStartDate] = React.useState(false);
   const [dateModal, setDateModal] = React.useState(false);
 
-  const handleImagePick = async (option: 'camera' | 'library') => {
-    try {
-      if (option === 'camera') {
-        const result = await launchCamera({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
+  // const handleImagePick = async (option: 'camera' | 'library') => {
+  //   try {
+  //     if (option === 'camera') {
+  //       const result = await launchCamera({
+  //         mediaType: 'photo',
+  //         maxWidth: 500,
+  //         maxHeight: 500,
+  //         quality: 0.5,
+  //         includeBase64: true,
+  //       });
     
-        if (!result.didCancel) {
-          setTemImage(result?.assets![0].uri);
-          setStudentInfo({
-            ...studentInfo,
-            image: {
-              uri: result?.assets![0].uri,
-              type: result?.assets![0].type,
-              name: result?.assets![0].fileName,
-              size: result?.assets![0].fileSize,
-              lastModified: new Date().getTime(), // Assuming current time as last modified
-              lastModifiedDate: new Date(),
-              webkitRelativePath: '',
-            },
-          });
-        }
-      }
-      if (option === 'library') {
-        const result = await launchImageLibrary({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
+  //       if (!result.didCancel) {
+  //         setTemImage(result?.assets![0].uri);
+  //         setStudentInfo({
+  //           ...studentInfo,
+  //           image: {
+  //             uri: result?.assets![0].uri,
+  //             type: result?.assets![0].type,
+  //             name: result?.assets![0].fileName,
+  //             size: result?.assets![0].fileSize,
+  //             lastModified: new Date().getTime(), // Assuming current time as last modified
+  //             lastModifiedDate: new Date(),
+  //             webkitRelativePath: '',
+  //           },
+  //         });
+  //       }
+  //     }
+  //     if (option === 'library') {
+  //       const result = await launchImageLibrary({
+  //         mediaType: 'photo',
+  //         maxWidth: 500,
+  //         maxHeight: 500,
+  //         quality: 0.5,
+  //         includeBase64: true,
+  //       });
 
-        if (!result.didCancel) {
-          setTemImage(result?.assets![0].uri);
-          setStudentInfo({
-            ...studentInfo,
-            image: {
-              uri: result?.assets![0].uri,
-              type: result?.assets![0].type,
-              name: result?.assets![0].fileName,
-              size: result?.assets![0].fileSize,
-              lastModified: new Date().getTime(), // Assuming current time as last modified
-              lastModifiedDate: new Date(),
-              webkitRelativePath: '',
-            },
-          });
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //       if (!result.didCancel) {
+  //         setTemImage(result?.assets![0].uri);
+  //         setStudentInfo({
+  //           ...studentInfo,
+  //           image: {
+  //             uri: result?.assets![0].uri,
+  //             type: result?.assets![0].type,
+  //             name: result?.assets![0].fileName,
+  //             size: result?.assets![0].fileSize,
+  //             lastModified: new Date().getTime(), // Assuming current time as last modified
+  //             lastModifiedDate: new Date(),
+  //             webkitRelativePath: '',
+  //           },
+  //         });
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // console.log(selectAvatar);
 
   const handleClassInfoSubmit = useCallback(
     UData => {
-      console.log(UData);
+      // console.log(UData);
       !UData?.name &&   popRef.current?.open({
         title: 'Name is required',
           buttonText : "Ok"
@@ -168,13 +168,13 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
           buttonText : "Ok"
       }) 
         
-      !UData?.image && popRef.current?.open({
-        content: 'Please select avatar or upload image',
+      !UData?.profile && popRef.current?.open({
+        title: 'Please select avatar ',
         buttonText : "Ok"
       }) 
       // !UData?.name && Toast.show({type: 'info', text1: 'name is empty'});
       if (
-        !UData?.image ||
+        !UData?.profile ||
         !UData?.dateOfBirth ||
         !UData?.class ||
         !UData?.name ||
@@ -182,20 +182,15 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
       ) {
         return;
       }
-      const formData = new FormData();
-      if (UData?.image) {
-        formData.append('image', UData?.image);
-      }
-      UData?.dateOfBirth &&
-        formData.append('dateOfBirth', `${UData?.dateOfBirth}`);
-      UData?.class && formData.append('class', UData?.class);
-      UData?.name && formData.append('name', UData?.name);
-      UData?.password && formData.append('password', UData?.password);
+   
 
       // console.log(formData);
-      createStudent({token: user?.token, data: formData}).then(res => {
-        console.log(res);
+      createStudent({token: user?.token, data: UData}).then(res => {
+        // console.log(res);
         if (res?.data?.success) {
+          popRef.current?.open({
+            content: "Student Created Successfully",
+          }) 
           navigation?.goBack();
         }
         if (res?.error?.data) {
@@ -215,6 +210,10 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
     },
     [studentInfo],
   );
+
+  React.useEffect(()=>{
+    refetchAvatar()
+  },[])
   // console.log(classes);
   return (
     <View
@@ -442,84 +441,85 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
               alignItems: 'center',
               gap: 10,
             }}
-            ListHeaderComponent={item => (
-              <>
-                {tempImage ? (
-                  <TouchableOpacity
-                    onPress={() => {
-                      handleImagePick('camera');
+            // ListHeaderComponent={item => (
+            //   <>
+            //     {tempImage ? (
+            //       <TouchableOpacity
+            //         onPress={() => {
+            //           handleImagePick('camera');
                    
-                    }}
-                    style={{
-                      width: 90,
-                      height: 90,
-                      borderRadius: 100,
-                      backgroundColor: '#F1F1F1',
-                      justifyContent: 'center',
-                      alignItems: 'center',
+            //         }}
+            //         style={{
+            //           width: 90,
+            //           height: 90,
+            //           borderRadius: 100,
+            //           backgroundColor: '#F1F1F1',
+            //           justifyContent: 'center',
+            //           alignItems: 'center',
                      
-                    }}>
-                    <Image
-                      style={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: 100,
-                      }}
-                      source={{
-                        uri: tempImage
+            //         }}>
+            //         <Image
+            //           style={{
+            //             width: 80,
+            //             height: 80,
+            //             borderRadius: 100,
+            //           }}
+            //           source={{
+            //             uri: tempImage
                          
-                      }}
-                    />
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => handleImagePick('camera')}
-                    style={{
-                      width: 90,
-                      height: 90,
-                      borderRadius: 100,
-                      backgroundColor: '#F1F1F1',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderColor: GStyles.borderColor['#ECECEC'],
-                      borderWidth: 1,
-                    }}>
-                    <AntDesign
-                      name="plus"
-                      size={24}
-                      color={GStyles.textColor['#3D3D3D']}
-                    />
-                  </TouchableOpacity>
-                )}
-              </>
-            )}
+            //           }}
+            //         />
+            //       </TouchableOpacity>
+            //     ) : (
+            //       <TouchableOpacity
+            //         onPress={() => handleImagePick('camera')}
+            //         style={{
+            //           width: 90,
+            //           height: 90,
+            //           borderRadius: 100,
+            //           backgroundColor: '#F1F1F1',
+            //           justifyContent: 'center',
+            //           alignItems: 'center',
+            //           borderColor: GStyles.borderColor['#ECECEC'],
+            //           borderWidth: 1,
+            //         }}>
+            //         <AntDesign
+            //           name="plus"
+            //           size={24}
+            //           color={GStyles.textColor['#3D3D3D']}
+            //         />
+            //       </TouchableOpacity>
+            //     )}
+            //   </>
+            // )}
             renderItem={item => (
               <TouchableOpacity
                 onPress={() => {
                   setSelectAvatar(item.item.image)
                   setStudentInfo({
                     ...studentInfo,
-                    image: item.item.image
+                    profile: item.item.image
                   });
                 }}
                 style={{
-                  width: 90,
-                  height: 90,
+                  width: 82,
+                  height: 82,
                   borderRadius: 100,
                   backgroundColor: '#F1F1F1',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderColor:
-                    selectAvatar  === item.item.image
-                      ? GStyles.primaryPurple
-                      : GStyles.borderColor['#ECECEC'],
-                  borderWidth: 2,
+                 
                 }}>
                 <Image
                   style={{
                     width: 80,
                     height: 80,
                     borderRadius: 100,
+                    borderColor:
+                    selectAvatar  === item.item.image
+                      ? GStyles.primaryPurple
+                      : GStyles.borderColor['#ECECEC'],
+                  borderWidth: 4,
                   }}
                   source={
                     

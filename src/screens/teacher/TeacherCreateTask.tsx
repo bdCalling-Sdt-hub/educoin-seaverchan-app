@@ -54,14 +54,14 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
 
   const {user} = useContextApi();
-  const {data : categories,isLoading} = useGetCategoriesQuery(user.token)
+  const {data : categories,isLoading, refetch :iconsRefetch}  = useGetCategoriesQuery(user.token)
   const [createTask,results] = useCreateTaskMutation()
   const [value, setValue] = React.useState<string>();
 
   const [customCategory, setCustomCategory] = React.useState<string>();
 
   const [taskData, setTaskData] = React.useState<taskData>({
-    category : categories?.data[0]._id || "",
+    category : categories?.data![0]?._id || "",
     name: "",
     points: "",
     type: 'good',
@@ -138,6 +138,10 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   }
 
   }, [taskData]);
+
+  React.useEffect(()=>{
+    iconsRefetch()
+  },[])
 
  if(isLoading){
   return <ActivityIndicator />;
