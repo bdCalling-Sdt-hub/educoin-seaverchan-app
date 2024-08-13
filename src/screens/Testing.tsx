@@ -33,7 +33,7 @@ class TastingComponents extends React.Component {
           horizontal
           data={data}
           onEndReached={() => {
-            console.log('End reached');
+            // console.log('End reached');
             data.push(
               {key: 1},
               {key: 2},

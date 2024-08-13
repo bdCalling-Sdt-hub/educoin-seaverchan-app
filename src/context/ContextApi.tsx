@@ -44,6 +44,7 @@ interface ContextApiProps {
 
 export const useContextApi = () =>{
  const {setUser,user,loading,setLoading} = useContext(ContextProvider)
+ 
 
  return {setUser,user,loading,setLoading}
 }
@@ -67,6 +68,7 @@ const ContextApi = ({children} : ContextApiProps) => {
 // console.log(SToken,SRole);
     React.useEffect(()=>{
       setLoading(true)
+     
         if(SToken && SRole && !user?.token && !user?.role){
           setUser({
             token : SToken,

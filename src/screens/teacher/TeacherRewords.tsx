@@ -130,62 +130,7 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
         </TouchableOpacity>
       </View>
 
-      {/* <CustomModal
-        modalVisible={modalVisible}
-        backButton
-        setModalVisible={setModalVisible}
-        height={289}
-        Radius={10}>
-        <View
-          style={{
-            padding: 20,
-            gap: 20,
-            justifyContent: 'center',
-            flex: 1,
-            alignItems: 'center',
-          }}>
-          <LottieView
-            source={require('../../assets/lottie/goal-completed.json')}
-            style={{width: 200, height: 200, marginBottom: -70, marginTop: -50}}
-            autoPlay
-            loop
-          />
-
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              textAlign: 'center',
-            }}>
-            You will go to class and show your performance and then the teacher
-            will give you a star on your work
-          </Text>
-
-          <View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(false)}
-              style={{
-                backgroundColor: GStyles.primaryOrange,
-                width: 100,
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 100,
-                alignSelf: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: GStyles.Poppins,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '400',
-                }}>
-                OK
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </CustomModal> */}
+   
 
 
    <ActionSheet

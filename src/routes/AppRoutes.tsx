@@ -84,7 +84,9 @@ export const NavigationRoutes = () => {
         <Stack.Screen name="AddPayment" component={AddPaymentCards} />
         <Stack.Screen name="Payment" component={PaymentScreen} />
         <Stack.Screen name="InternetStatus" component={InternetStatusScreen} />
-        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Splash" component={SplashScreen} options={{
+          
+        }} />
 
         {!user?.token && (
           <>

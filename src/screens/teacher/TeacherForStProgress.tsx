@@ -42,7 +42,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
   const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
   const [selectedStudent, setSelectedStudent] = useState<string>(students?.data![0]?._id as string);
   const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
-  console.log(students);
+  // console.log(students);
   // console.log(student?.data._id);
   
   // console.log(ProgressIfo?.data?.totalCompletedTask + 1);

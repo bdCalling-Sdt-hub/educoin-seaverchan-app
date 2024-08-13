@@ -58,7 +58,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
             height: 70,
             borderRadius: 100,
             borderColor: GStyles.primaryOrange,
-            borderWidth: 1,
+            borderWidth: 2,
             justifyContent: 'center',
             alignItems: 'center',
             marginBottom: 5,
@@ -70,9 +70,9 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               height: 60,
               borderRadius: 100,
             }}
-            source={{
+            source={studentData?.data?.profile ?{
               uri: imageUrl + studentData?.data?.profile
-            }}
+            } : require("../../assets/images/avatar/default_avatar.png")}
           />
         </View>
         <View

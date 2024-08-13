@@ -28,6 +28,7 @@ const authSlice = api.injectEndpoints({
                   Authorization: `Bearer ${token}`,
                 },
             }),
+            keepUnusedDataFor: 5,
             providesTags : ["user","studentUser"]
           }),
           loginTeacher: builder.mutation({

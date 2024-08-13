@@ -102,7 +102,7 @@ const AssignCard = ({item,Assigned,onPress,loading,task}:AssignCardProps) => {
                   
                   
                 } else {
-                  console.log(res?.error);
+                  // console.log(res?.error);
                 }
               })
         }}

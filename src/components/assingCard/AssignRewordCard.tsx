@@ -97,11 +97,11 @@ const AssignRewordCard = ({
               student: item?._id,
             },
           }).then(res => {
-            console.log(res);
+            // console.log(res);
             if (res?.data?.success) {
               // setModalVisible(true);
             } else {
-              console.log(res?.error);
+              // console.log(res?.error);
             }
           });
         }}

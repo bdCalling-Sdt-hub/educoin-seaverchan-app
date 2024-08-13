@@ -55,7 +55,7 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
     if (pin.length < 6) {
       popRef.current?.open({title : "Pin must be at least 6 digits",buttonColor :GStyles.primaryOrange})
     }
-    console.log(pin.length);
+    // console.log(pin.length);
     if (pin.length === 6) {
       loginUser(pin).then(res => {
         // console.log(res);

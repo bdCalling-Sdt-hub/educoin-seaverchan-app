@@ -3,13 +3,11 @@ import HeaderBackground from '../../components/common/headerBackground/HeaderBac
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import Feather from 'react-native-vector-icons/Feather';
+
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
-import FastImage from 'react-native-fast-image';
 
-import {useEffect} from 'react';
 
 
 import {imageUrl} from '../../redux/api/baseApi';
@@ -59,9 +57,9 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               width: 86,
             }}>
             <Image
-              source={{
+              source={data?.data?.profile ? {
                 uri: imageUrl + data?.data?.profile,
-              }}
+              } : require("../../assets/images/avatar/default_avatar.png")}
               style={{
                 height: 86,
                 width: 86,
@@ -70,6 +68,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}
               resizeMode="cover"
             />
+            
             {/* <TouchableOpacity
               style={{
                 width: 32,

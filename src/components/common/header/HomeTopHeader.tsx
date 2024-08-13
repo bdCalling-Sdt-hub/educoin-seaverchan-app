@@ -67,18 +67,9 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
           gap: 10,
         }}>
 
-        {
-          imgAssets &&   <Image
-          style={{
-            height: 46,
-            width: 46,
-            borderRadius: 100,
-            //   alignSelf: 'center',
-          }}
-          source={imgAssets}
-        />
-        }
-        {
+    
+       <TouchableOpacity>
+       {
           userDetails?.image && <Image
           style={{
             height: 46,
@@ -91,6 +82,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
           }}
         />
         }
+       </TouchableOpacity>
         
         {
             profileStyle === "teacher" &&  <View>

@@ -276,64 +276,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
           }}
         />
       </View>
-      <CustomModal
-        modalVisible={modalVisible}
-        backButton
-        setModalVisible={setModalVisible}
-        height={'30%'}
-        width={'85%'}
-        Radius={10}>
-        <View
-          style={{
-            padding: 20,
-            gap: 20,
-            justifyContent: 'center',
-            flex: 1,
-          }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontFamily: GStyles.PoppinsMedium,
-              textAlign: 'center',
-              color: GStyles.textColor['#3D3D3D'],
-              marginTop: 10,
-            }}>
-            Class Added Successfully
-          </Text>
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              textAlign: 'center',
-            }}>
-            simply dummy text of the printing and typesetting industry
-          </Text>
-
-          <View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(false)}
-              style={{
-                backgroundColor: GStyles.primaryPurple,
-                width: '30%',
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 100,
-                alignSelf: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: GStyles.Poppins,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '400',
-                }}>
-                Exit
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </CustomModal>
+    
       <CustomModal
         height={'47%'}
         Radius={20}

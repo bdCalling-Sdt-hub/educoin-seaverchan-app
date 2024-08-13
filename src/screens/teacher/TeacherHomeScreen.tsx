@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment, useCallback, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
 import {GStyles, WIDTH} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -38,7 +38,7 @@ import {
   GridList,
   GridView,
 } from 'react-native-ui-lib';
-import {FontSize} from '../../utils/utils';
+import {FontSize, removeStorageRole, removeStorageToken} from '../../utils/utils';
 import {
   useDeletedClassMutation,
   useGetClassesQuery,
@@ -46,14 +46,16 @@ import {
 import { useGetUserTeacherQuery, useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 
+
+
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
 }
 
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const PopModal = React.useRef<PopUpModalRef>()
-  const {user} = useContextApi();
-  const {data: userInfo} = useGetUserTeacherQuery(user?.token);
+  const {user,setUser} = useContextApi();
+  const {data: userTeacherInfo,isSuccess , isError : userTeacherInfoError} = useGetUserTeacherQuery(user?.token);
   const {data: students} = useGetStudentsQuery(user?.token);
   const {data: classes} = useGetClassesQuery(user?.token);
   const [deletedClass, results] = useDeletedClassMutation();
@@ -66,7 +68,6 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   // const token = useSelector((state) => state?.token?.token)
   const [search,setSearch] = React.useState<string>(null)
 
-  console.log(search);
 
   const handleClassAction = useCallback(
     (action: 'edit' | 'deleted') => {
@@ -74,16 +75,28 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         navigation?.navigate('TeacherEditClass', {data: selectedItem});
       }
       if (action === 'deleted') {
-        console.log({token: user.token, id: selectedItem?._id});
+        // console.log({token: user.token, id: selectedItem?._id});
         selectedItem?._id &&
           deletedClass({token: user.token, id: selectedItem?._id}).then(res => {
-            console.log(res);
+            // console.log(res);
           });
-        console.log('deleted');
+        // console.log('deleted');
       }
     },
     [selectedItem],
   );
+
+
+  if(userTeacherInfoError?.status === 401){
+      removeStorageRole();
+      removeStorageToken();
+      setUser({
+        token: null,
+        role: null,
+      });
+  }
+
+ 
 
   return (
     <View
@@ -102,8 +115,8 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         searchValue={search}
         profileStyle="teacher"
         userDetails={{
-          image: imageUrl + userInfo?.data?.profile,
-          name: userInfo?.data?.name,
+          image: imageUrl + userTeacherInfo?.data?.profile,
+          name: userTeacherInfo?.data?.name,
         }}
         navigation={navigation}
         drawerNavigation={navigation}

@@ -77,7 +77,7 @@ const CustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
 
       if (!result.didCancel) {
         setCustomImage(result?.assets![0].uri);
-        console.log(result);
+        // console.log(result);
       }
     } catch (error) {
       console.log(error);

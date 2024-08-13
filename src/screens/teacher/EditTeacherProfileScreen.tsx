@@ -169,10 +169,11 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               height: 86,
               width: 86,
             }}>
+         
             <Image
-              source={{
-                uri: categoryImage || imageUrl + data?.data?.profile,
-              }}
+              source={data?.data?.profile ? {
+                uri: imageUrl + data?.data?.profile,
+              } : require("../../assets/images/avatar/default_avatar.png")}
               style={{
                 height: 86,
                 width: 86,

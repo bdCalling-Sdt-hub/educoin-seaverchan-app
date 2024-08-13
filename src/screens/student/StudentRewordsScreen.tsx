@@ -234,7 +234,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
 
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={289}
         Radius={10}>

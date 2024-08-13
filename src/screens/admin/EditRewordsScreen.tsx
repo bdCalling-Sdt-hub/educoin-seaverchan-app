@@ -41,7 +41,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
 
       if (!result.didCancel) {
         setRewordImage(result?.assets![0].uri);
-        console.log(result);
+        // console.log(result);
       }
     } catch (error) {
       console.log(error);

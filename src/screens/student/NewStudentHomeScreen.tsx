@@ -31,14 +31,16 @@ import { useContextApi } from '../../context/ContextApi';
 import { useGetEarnRewordsQuery, useGetStudentAssignRewordsQuery, useGetStudentAssignTaskQuery, useStudentAchieveActionMutation, useStudentClaimActionMutation } from '../../redux/apiSlices/student/studentSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
+import { removeStorageRole, removeStorageToken } from '../../utils/utils';
+import LoaderScreen from '../../components/Loader/LoaderScreen';
 
 const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
 
-   const {user} = useContextApi()
-   const {data : assignTaskData, refetch : assignTaskRefetch} = useGetStudentAssignTaskQuery(user.token);
-   const {data : assignRewordsData} = useGetStudentAssignRewordsQuery(user.token);
-   const {data : assignRewordsEarnedData , refetch : refetchEarnReword} = useGetEarnRewordsQuery(user.token);
-   const {data : studentUser} = useGetUserStudentQuery(user.token);
+   const {user,setUser} = useContextApi()
+   const {data : assignTaskData, refetch : assignTaskRefetch, isLoading : taskLoading} = useGetStudentAssignTaskQuery(user.token);
+   const {data : assignRewordsData , refetch : rewordRefetch , isLoading : rewordLoading} = useGetStudentAssignRewordsQuery(user.token);
+   const {data : assignRewordsEarnedData , refetch : refetchEarnReword , isLoading : earnRewordLoading} = useGetEarnRewordsQuery(user.token);
+   const {data : studentUser,isSuccess , isLoading : studentUserLoading , refetch : refetchStudentUser,error : studentUserError} = useGetUserStudentQuery(user?.token);
 
   //  console.log(assignRewordsEarnedData[0]);
    const [achieveAction,achieveActionResults] = useStudentAchieveActionMutation()
@@ -68,15 +70,29 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
     }
   })
 
+// console.log(studentUserError);
+  if(studentUserError?.status === 401){
+      removeStorageRole();
+      removeStorageToken();
+      setUser({
+        token: null,
+        role: null,
+      });
+  }
+  
   useEffect(()=>{
-    refetchEarnReword()
    if(claimModal){
     bottom.value =  withSpring(60)
    }
    else{
     bottom.value = withSpring(0)
    }
+ 
+  
   },[claimModal])
+
+
+
 
   return (
     <View
@@ -85,7 +101,9 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       {/* header part  start */}
-
+      {
+       taskLoading ||rewordLoading ||  earnRewordLoading || studentUserLoading   && <LoaderScreen />
+      }
       <HomeTopHeader
         drawerNavigation={navigation}
         navigation={navigation}
@@ -158,7 +176,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
                 paddingBottom : "10%",
                 gap : 10
                }} data={assignRewordsData?.data}  renderItem={(item)=>{
-          console.log();
+       
                 return (
                   <RewordsCard
                   navigation={navigation}
@@ -248,7 +266,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
       />
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'30%'}
         width={'85%'}

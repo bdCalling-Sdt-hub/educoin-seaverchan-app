@@ -185,7 +185,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
                     alignItems: 'center',
                     marginVertical: 15,
                    
-                    borderRadius: 15,
+                 
                     // elevation : 2
                   }}>
                   <Image
@@ -201,7 +201,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
                     borderWidth: 3,
                       width: 70,
                       height: 70,
-                      borderRadius: 5,
+                      borderRadius: 10,
                     }}
                     resizeMode="cover"
                   />
@@ -255,7 +255,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
       </View>
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'20%'}
         width={'85%'}

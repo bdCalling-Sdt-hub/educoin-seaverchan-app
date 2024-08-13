@@ -548,7 +548,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
       </View>
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'30%'}
         width={'85%'}

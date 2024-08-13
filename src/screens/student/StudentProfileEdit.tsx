@@ -55,10 +55,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
       // console.log(res);
       if(res.data?.success){
     
-        popRef.current?.open({
-          title: 'Profile Updated Successful',
-          buttonColor: GStyles.primaryOrange,
-        })
+       navigation?.goBack()
        
       }
       if(res.error){
@@ -343,7 +340,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
       </View>
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'30%'}
         width={'85%'}

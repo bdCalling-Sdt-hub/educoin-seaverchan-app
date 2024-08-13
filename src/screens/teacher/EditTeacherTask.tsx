@@ -915,7 +915,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={250}
         width={'85%'}
