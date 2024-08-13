@@ -895,7 +895,9 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         setModalVisible={setModalVisible}
         height={250}
         width={'85%'}
-        Radius={10}>
+        Radius={10}
+        
+        >
         <View
           style={{
             padding: 20,

@@ -79,7 +79,8 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
         // }
         if(res.error){
           // console.log(res);
-          popRef.current?.open({title : res.error?.data?.message})
+          // popRef.current?.open({title : res.error?.data?.message})
+          popRef.current?.open({title : `${pin} fetch error`})
   
         }
 
@@ -96,7 +97,10 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
           //   visibilityTime: 2000,
           // });
         }
-      });
+      }).catch(err => {
+        console.log(err);
+        popRef.current?.open({title : "Something went wrong, please try again"})
+      })
       // navigation?.navigate("TeacherDrawerRoutes")
     }
     // navigation?.navigate('TeacherDrawerRoutes');
