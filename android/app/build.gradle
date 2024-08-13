@@ -76,9 +76,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.seaverchan.educoin"
+    namespace "com.seaverchan.quokki"
     defaultConfig {
-        applicationId "com.seaverchan.educoin"
+        applicationId "com.seaverchan.quokki"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5

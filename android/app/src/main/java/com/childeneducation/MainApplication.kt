@@ -1,4 +1,4 @@
-package com.seaverchan.educoin
+package com.seaverchan.quokki
 
 import android.app.Application
 import com.facebook.react.PackageList
