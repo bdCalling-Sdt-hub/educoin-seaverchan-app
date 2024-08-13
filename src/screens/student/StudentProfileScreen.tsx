@@ -134,7 +134,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
           
         </View>
         <TouchableOpacity 
-        onPress={()=>navigation?.navigate('StudentProfileEdit',studentData)}
+        onPress={()=>navigation?.navigate('StudentProfileEdit',studentData?.data)}
         style={{
             position : "absolute",
             top : 15,
@@ -151,7 +151,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
             <AntDesign name="edit" size={16} color={"white"} />
           </TouchableOpacity>
       </View>
-      <View
+      {/* <View
         style={{
           marginTop: 10,
           paddingHorizontal: '4%',
@@ -219,7 +219,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
             level {studentData?.data?.level as number + 1}
           </Text>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };

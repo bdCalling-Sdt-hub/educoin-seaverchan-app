@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     View,
   } from 'react-native';
-  import React from 'react';
+  import React, { useCallback } from 'react';
   import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
   import {NavigProps} from '../../interfaces/NavigationPros';
   import {GStyles} from '../../styles/GStyles';
@@ -26,62 +26,87 @@ import DateTimePicker from 'react-native-ui-datepicker';
 import Require from '../../components/common/require/Require';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import { imageUrl } from '../../redux/api/baseApi';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
   
   
-  const StudentProfileEdit = ({navigation,route}: NavigProps<IStudentUser>) => {
+  const StudentProfileEdit = ({navigation,route}: NavigProps<any>) => {
 
+    const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
   // const {data : student} = useGetUserStudentQuery(user.token)
-  const StudentData = route?.params?.data.data
-  const {data: classes} = useGetClassesQuery(user?.token);
+  const StudentData = route?.params
+  // console.log(StudentData);
   const {data : avatarData , refetch : avatarRefetch} = useGetAvatarPresetQuery(user?.token);
-  const [selectAvatar, setSelectAvatar] = React.useState<number>();
+  const [selectAvatar, setSelectAvatar] = React.useState<string>();
     const [image, setImage] = React.useState<string | null>();
   const [selectClass, setSelectClass] = React.useState<string>();
+  const [updateStudent] = useUpdateStudentMutation();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [studentInfo, setStudentInfo] = React.useState(StudentData);
 
-  const [startDate, setStartDate] = React.useState(false);
   const [dateModal, setDateModal] = React.useState(false);
 
 
-     const UserData = route?.params?.data;
-
-
-    const handleImagePick = async (option: 'camera' | 'library') => {
-      try {
-        if (option === 'camera') {
-          const result = await launchCamera({
-            mediaType: 'photo',
-            maxWidth: 500,
-            maxHeight: 500,
-            quality: 0.5,
-            includeBase64: true,
-          });
-  
-          if (!result.didCancel) {
-            setImage(result?.assets![0].uri);
-            console.log(result);
-          }
-        }
-        if (option === 'library') {
-          const result = await launchImageLibrary({
-            mediaType: 'photo',
-            maxWidth: 500,
-            maxHeight: 500,
-            quality: 0.5,
-            includeBase64: true,
-          });
-  
-          if (!result.didCancel) {
-            setImage(result?.assets![0].uri);
-            console.log(result);
-          }
-        }
-      } catch (error) {
-        console.log(error);
+  const handleUpdateStudent = useCallback((UData)=>{
+    updateStudent({
+     token : user.token, data : UData
+    }).then((res)=>{
+      // console.log(res);
+      if(res.data?.success){
+    
+        popRef.current?.open({
+          title: 'Profile Updated Successful',
+          buttonColor: GStyles.primaryOrange,
+        })
+       
       }
-    };
+      if(res.error){
+        console.log(res.error);
+        popRef.current?.open({
+          title: res.error?.data?.message,
+          buttonColor: GStyles.primaryOrange
+        })
+      }
+    })
+   
+  },[studentInfo])
+
+
+    // const handleImagePick = async (option: 'camera' | 'library') => {
+    //   try {
+    //     if (option === 'camera') {
+    //       const result = await launchCamera({
+    //         mediaType: 'photo',
+    //         maxWidth: 500,
+    //         maxHeight: 500,
+    //         quality: 0.5,
+    //         includeBase64: true,
+    //       });
+  
+    //       if (!result.didCancel) {
+    //         setImage(result?.assets![0].uri);
+    //         console.log(result);
+    //       }
+    //     }
+    //     if (option === 'library') {
+    //       const result = await launchImageLibrary({
+    //         mediaType: 'photo',
+    //         maxWidth: 500,
+    //         maxHeight: 500,
+    //         quality: 0.5,
+    //         includeBase64: true,
+    //       });
+  
+    //       if (!result.didCancel) {
+    //         setImage(result?.assets![0].uri);
+    //         console.log(result);
+    //       }
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
   
     // console.log(avatarData);
     React.useEffect(()=>{
@@ -121,6 +146,7 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
             }}
             placeholder="Task Name"
             onChangeText={text => setStudentInfo({...studentInfo, name: text})}
+            value={studentInfo?.name}
             placeholderTextColor={GStyles.gray.lightHover}
           />
         </View>
@@ -186,7 +212,7 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
               // paddingHorizontal: 10,
             }}>
             <Require title="Choose Avatar" />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{}}
               onPress={() => {
                 navigation?.navigate('StudentAllAvatar');
@@ -199,7 +225,7 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
                 }}>
                 View all avatar
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <FlatList
             horizontal
@@ -211,90 +237,90 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
               alignItems: 'center',
               gap: 10,
             }}
-            ListHeaderComponent={item => (
-              <>
-                {studentInfo?.image ? (
-                  <TouchableOpacity
-                    onPress={() => {
-                      handleImagePick('camera');
-                      if (selectAvatar) {
-                        setSelectAvatar(undefined);
-                      }
-                    }}
-                    style={{
-                      width: 90,
-                      height: 90,
-                      borderRadius: 100,
-                      backgroundColor: '#F1F1F1',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderColor:
-                        selectAvatar !== 0 && !selectAvatar
-                          ? GStyles.primaryPurple
-                          : 'white',
-                      borderWidth: 2,
-                    }}>
-                    <Image
-                      style={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: 100,
-                      }}
-                      source={{
-                        uri: studentInfo?.profile
-                      }}
-                    />
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => handleImagePick('camera')}
-                    style={{
-                      width: 90,
-                      height: 90,
-                      borderRadius: 100,
-                      backgroundColor: '#F1F1F1',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderColor: GStyles.borderColor['#ECECEC'],
-                      borderWidth: 1,
-                    }}>
-                    <AntDesign
-                      name="plus"
-                      size={24}
-                      color={GStyles.textColor['#3D3D3D']}
-                    />
-                  </TouchableOpacity>
-                )}
-              </>
-            )}
+            // ListHeaderComponent={item => (
+            //   <>
+            //     {studentInfo?.image ? (
+            //       <TouchableOpacity
+            //         onPress={() => {
+            //           handleImagePick('camera');
+            //           if (selectAvatar) {
+            //             setSelectAvatar(undefined);
+            //           }
+            //         }}
+            //         style={{
+            //           width: 90,
+            //           height: 90,
+            //           borderRadius: 100,
+            //           backgroundColor: '#F1F1F1',
+            //           justifyContent: 'center',
+            //           alignItems: 'center',
+            //           borderColor:
+            //             selectAvatar !== 0 && !selectAvatar
+            //               ? GStyles.primaryPurple
+            //               : 'white',
+            //           borderWidth: 2,
+            //         }}>
+            //         <Image
+            //           style={{
+            //             width: 80,
+            //             height: 80,
+            //             borderRadius: 100,
+            //           }}
+            //           source={{
+            //             uri: studentInfo?.profile
+            //           }}
+            //         />
+            //       </TouchableOpacity>
+            //     ) : (
+            //       <TouchableOpacity
+            //         onPress={() => handleImagePick('camera')}
+            //         style={{
+            //           width: 90,
+            //           height: 90,
+            //           borderRadius: 100,
+            //           backgroundColor: '#F1F1F1',
+            //           justifyContent: 'center',
+            //           alignItems: 'center',
+            //           borderColor: GStyles.borderColor['#ECECEC'],
+            //           borderWidth: 1,
+            //         }}>
+            //         <AntDesign
+            //           name="plus"
+            //           size={24}
+            //           color={GStyles.textColor['#3D3D3D']}
+            //         />
+            //       </TouchableOpacity>
+            //     )}
+            //   </>
+            // )}
             renderItem={item => (
               <TouchableOpacity
-                onPress={() => setSelectAvatar(item.item.id)}
+                onPress={() => setStudentInfo({...studentInfo, profile : item.item.image})}
                 style={{
-                  width: 90,
-                  height: 90,
+                
                   borderRadius: 100,
                   backgroundColor: '#F1F1F1',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderColor:
-                    selectAvatar === item.item.id
-                      ? GStyles.primaryPurple
-                      : GStyles.borderColor['#ECECEC'],
-                  borderWidth: 2,
+                  
                 }}>
                 <Image
                   style={{
                     width: 80,
                     height: 80,
                     borderRadius: 100,
+                    borderColor:
+                    studentInfo?.profile === item?.item?.image
+                      ? GStyles.primaryPurple
+                      : GStyles.borderColor['#ECECEC'],
+                  borderWidth: 3,
                   }}
                   source={
-                    item.item.img
-                      ? item.item.img
-                      : {
-                          uri: 'https://img.freepik.com/free-photo/fashion-boy-with-yellow-jacket-blue-pants_71767-96.jpg?t=st=1719114915~exp=1719118515~hmac=b0042447940766e77ea1a9af3f624920c9fa8c13da6a64b23180f75605c7ef17&w=740',
-                        }
+                   {
+                     uri: imageUrl + item?.item?.image
+                   }
+                     
+                     
                   }
                 />
               </TouchableOpacity>
@@ -309,8 +335,9 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
         <NormalButtons
           // loading={results?.isLoading}
           title="Save"
+          BtnColor={GStyles.primaryOrange}
           onPress={() => {
-            // handleClassInfoSubmit(studentInfo);
+            handleUpdateStudent(studentInfo);
           }}
         />
       </View>
@@ -336,16 +363,16 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
               color: GStyles.textColor['#3D3D3D'],
               marginTop: 10,
             }}>
-            Student Added Successfully
+            Profile Updated Successfully
           </Text>
-          <Text
+          {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
               fontSize: 16,
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
-          </Text>
+          </Text> */}
 
           <View>
             <TouchableOpacity
@@ -424,6 +451,7 @@ import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSli
           }}
         />
       </CustomModal>
+      <PopUpModal ref={popRef} />
       </View>
     );
   };
