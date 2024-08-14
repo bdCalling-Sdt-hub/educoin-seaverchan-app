@@ -229,6 +229,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
         navigation={navigation}
       />
       <ScrollView
+      keyboardShouldPersistTaps="always"
         contentContainerStyle={{
           paddingHorizontal: '4%',
           paddingVertical: 20,
@@ -432,6 +433,7 @@ const TeacherAddNewStudent = ({navigation}: NavigProps<null>) => {
             </TouchableOpacity> */}
           </View>
           <FlatList
+          keyboardShouldPersistTaps="always"
             horizontal
             showsHorizontalScrollIndicator={false}
             data={avatarData?.data}

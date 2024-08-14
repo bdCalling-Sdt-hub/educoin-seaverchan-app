@@ -2,6 +2,15 @@ export interface IFetchStatus {
   message: string;
   success: boolean;
 }
+export interface IFetchPagination {
+  totalNotification: number;
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
+}
 
 export interface ITeacherUser extends IFetchStatus {
   data: {
@@ -234,11 +243,29 @@ export interface IEarnedStudentRewords extends IFetchStatus {
 }
 
 export interface IStatistics extends IFetchStatus {
-  data : {
+  data: {
     level: number;
-  points: number;
-  totalAssignTask: number;
-  totalCompletedTask: number;
-  totalUnCompletedTask: number;
-  }
+    points: number;
+    totalAssignTask: number;
+    totalCompletedTask: number;
+    totalUnCompletedTask: number;
+  };
 }
+
+export interface INotification {
+  _id: string;
+  recipient:string;
+  recipientModel: string;
+  message: string;
+  read: boolean;
+  role: string;
+  type: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface INotifications extends IFetchStatus , IFetchPagination {
+  data:Array<INotification>
+}
+

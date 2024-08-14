@@ -69,13 +69,13 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         if(res.error){
           console.log(res.error);
         }
-        console.log(res);
+        // console.log(res);
         if (res?.data?.success) {
           setModalVisible(true);
         }
       });
     },
-    [],
+    [categoryData],
   );
 
 
@@ -216,6 +216,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           }}>
           <Require title="Choose Icon" />
           <FlatList
+          keyboardShouldPersistTaps="always"
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{

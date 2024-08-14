@@ -31,6 +31,8 @@ interface RewordsCardProps extends NavigProps<null> {
   removeBtn?: boolean;
   removePress?: ()=>void;
   points ?: number;
+  
+  
 }
 
 const RewordsCard = ({

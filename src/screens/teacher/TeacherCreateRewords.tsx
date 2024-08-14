@@ -351,6 +351,7 @@ const TeacherCreateRewords = ({navigation}: NavigProps<null>) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
+               keyboardShouldPersistTaps="always"
             contentContainerStyle={{
               gap: 24,
             }}

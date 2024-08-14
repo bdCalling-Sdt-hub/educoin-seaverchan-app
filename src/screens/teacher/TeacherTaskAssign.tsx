@@ -37,7 +37,7 @@ import Toast from 'react-native-toast-message';
 
 const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
   const Item = route?.params?.data;
-  console.log(Item);
+  // console.log(Item);
   const {user} = useContextApi();
   const [createAssignTask, results] = useCreateAssignTaskMutation();
   const {data: classes, isLoading: categoryLoading} = useGetClassesQuery(
@@ -154,9 +154,10 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
                 <>
                   <AssignCard
                   //  loading={results.isLoading}
+                
                       task={Item}
                     item={item}
-                    Assigned={alreadyAssigned?.find(assigned=>assigned.student === item?._id)}
+                    Assigned={!!alreadyAssigned?.find(assigned=>assigned.student === item?._id)?._id}
                   />
                 </>
               );
@@ -343,9 +344,10 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
                 // </View>
                 <>
                   <AssignCard
-          
+      
                     item={item}
-                    Assigned={alreadyAssigned?.find(assigned=>assigned.student === item?._id)}
+                    
+                    Assigned={!!alreadyAssigned?.find(assigned=>assigned.student === item?._id)?._id}
                   />
                 </>
               );
@@ -398,7 +400,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
         modalVisible={modalVisible}
         // backButton
         setModalVisible={setModalVisible}
-        height={'30%'}
+        height={'20%'}
         width={'85%'}
         Radius={10}>
         <View
@@ -418,14 +420,14 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
             }}>
             Assign Successfully
           </Text>
-          <Text
+          {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
               fontSize: 16,
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
-          </Text>
+          </Text> */}
 
           <View>
             <TouchableOpacity

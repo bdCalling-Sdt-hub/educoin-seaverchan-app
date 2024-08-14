@@ -9,34 +9,49 @@ import AppRoutes from './src/routes/AppRoutes';
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
 
+// example 
+// {
+//   title: 'Notification Title',
+//   body: 'Main body content of the notification',
+//   android: {
+//     channelId,
+//     sound: 'hollow',
+//     autoCancel: false, 
+//     // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+//     // pressAction is needed if you want the notification to open the app when pressed
+//     pressAction: {
+//       id: 'default',
+      
+//     },
+//   },
+// }
 
-
-export async function onDisplayNotification() {
+export async function onDisplayNotification(data) {
     // Request permissions (required for iOS)
     await notifee.requestPermission()
   
     // Create a channel (required for Android)
     const channelId = await notifee.createChannel({
-      id: 'custom-sound',
-    name: 'Channel with custom sound',
-    sound: 'hollow',
+      id: 'default',
+    name: 'default',
+    sound: 'default',
     });
   
     // Display a notification
     await notifee.displayNotification({
-      title: 'Notification Title',
-      body: 'Main body content of the notification',
-      android: {
-        channelId,
-        sound: 'hollow',
-        autoCancel: false, 
-        // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
-        // pressAction is needed if you want the notification to open the app when pressed
-        pressAction: {
-          id: 'default',
-          
+      title: data?.title,
+        body: data?.body,
+        android: {
+          channelId,
+          sound: 'hollow',
+          autoCancel: false, 
+          // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+          // pressAction is needed if you want the notification to open the app when pressed
+          pressAction: {
+            id: 'default',
+            
+          },
         },
-      },
     });
   }
   

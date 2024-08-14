@@ -160,7 +160,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
                     //  loading={results.isLoading}
                       reword={Item}
                       item={item}
-                      Assigned={alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)}
+                      Assigned={!!alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)?._id}
                     />
                   </>
                 );
@@ -350,7 +350,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
                     //  loading={results.isLoading}
                       reword={Item}
                       item={item}
-                      Assigned={alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)}
+                      Assigned={!!alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)?._id}
                     />
                   </>
                 );

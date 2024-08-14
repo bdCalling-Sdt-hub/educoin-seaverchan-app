@@ -41,6 +41,7 @@ import { useContextApi } from '../../context/ContextApi';
 import Toast from 'react-native-toast-message';
 import { NavigProps } from '../../interfaces/NavigationPros';
 import PopUpModal, { PopModalRef, PopUpModalRef } from '../../components/modals/PopUpModal';
+import LoaderScreen from '../../components/Loader/LoaderScreen';
 
 interface taskData {
   name: string;
@@ -120,7 +121,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
       }) 
       
      }
-     console.log(UData);
+    //  console.log(UData);
   if(UData.category && UData.name && UData.points && UData.repeat && UData.type){
     createTask({token : user.token , data : UData}).then(res=>{
       // console.log(res);
@@ -143,9 +144,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
     iconsRefetch()
   },[])
 
- if(isLoading){
-  return <ActivityIndicator />;
- }
+
 
   return (
     <View
@@ -153,6 +152,9 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         height: '100%',
         backgroundColor: GStyles.white,
       }}>
+        {
+isLoading && <LoaderScreen />
+        }
       <HeaderBackground
         title="New Task"
         ringColor={GStyles.purple.normalHover}
@@ -434,6 +436,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             </View>
           </View>
           <FlatList
+             keyboardShouldPersistTaps="always"
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{

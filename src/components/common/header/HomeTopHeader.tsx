@@ -25,9 +25,10 @@ interface HomeTopHeaderProps extends NavigProps<null> {
     searchValue? : string,
     containerGap ?: number,
     imgAssets? : any,
+    isNotification ?: boolean;
 }
 
-const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,imgAssets} : HomeTopHeaderProps) => {
+const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,isNotification} : HomeTopHeaderProps) => {
   return (
     <View
     style={{
@@ -188,6 +189,8 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
               position: 'relative',
             }}>
             <Feather name="bell" color="white" size={24} />
+            {
+              isNotification && 
             <View
               style={{
                 width: 10,
@@ -200,6 +203,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
                 opacity: 0.8,
                 zIndex: 999,
               }}></View>
+            }
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => drawerNavigation?.openDrawer()}>

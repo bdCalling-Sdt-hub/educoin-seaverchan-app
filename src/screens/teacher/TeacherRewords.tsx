@@ -28,10 +28,11 @@ import { imageUrl } from '../../redux/api/baseApi';
 import { ActionSheet } from 'react-native-ui-lib';
 import { FontSize } from '../../utils/utils';
 import { IReword } from '../../redux/interface/interface';
+import { RefreshControl } from 'react-native-gesture-handler';
 
 const TeacherRewords = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
-  const {data : rewords} = useGetRewordsQuery(user.token)
+  const {data : rewords, isLoading : rewordLoading, refetch : rewordRefetch} = useGetRewordsQuery(user.token)
   // console.log(rewords);
   const [selectItem,setSelectItem] = React.useState<IReword | null>()
   const [isEarned, setIsEarned] = React.useState(false);
@@ -54,6 +55,10 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
       />
 
       <FlatList
+
+     refreshControl={<RefreshControl  refreshing={rewordLoading}
+     onRefresh={rewordRefetch} colors={[GStyles?.primaryPurple]} />}
+
         contentContainerStyle={{
           paddingBottom: 80,
           paddingTop: 15,

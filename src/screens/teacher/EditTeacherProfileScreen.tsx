@@ -121,7 +121,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
       UData?.name && formData.append('name', UData?.name);
       UData?.contact && formData.append('contact', UData?.contact);
       UData?.location && formData.append('location', UData?.location);
-      console.log(UData);
+      // console.log(UData);
       updateUser({token: user?.token, data: formData}).then(res => {
         // console.log(res);
         navigation?.goBack();

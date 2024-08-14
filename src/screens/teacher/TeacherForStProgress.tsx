@@ -38,7 +38,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
   const {user} = useContextApi();
   const {data : classes, isSuccess : classesIsSuccess} = useGetClassesQuery(user.token);
-  const [selectedClass, setSelectedClass] = useState<any>(classes?.data[0].className);
+  const [selectedClass, setSelectedClass] = useState<any>(classes?.data![0]?.className);
   const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
   const [selectedStudent, setSelectedStudent] = useState<string>(students?.data![0]?._id as string);
   const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
@@ -72,7 +72,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
 
 
-  useEffect(() => {
+  React.useLayoutEffect(() => {
     // studentRefetch()
     progressBar.value = withTiming('50%',{duration: 500});  
     animationOpacity.value = withSpring(1);

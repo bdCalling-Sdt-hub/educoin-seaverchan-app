@@ -89,6 +89,7 @@ const AssignRewordCard = ({
       </View>
 
       <TouchableOpacity
+      disabled={Assigned || results.isLoading }
         onPress={() => {
             createAssignReword({
             token: user.token,

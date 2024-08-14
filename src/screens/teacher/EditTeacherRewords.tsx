@@ -77,7 +77,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
    
      if(UData?.name&& UData?.requiredPoints && UData?.image){
       updateReword({token : user.token, id : route?.params?.data._id, data : UData}).then(res=>{
-        console.log(res);
+        // console.log(res);
         if(res?.data?.success){
           // setModalVisible(false);
           setSuccessModal(true);

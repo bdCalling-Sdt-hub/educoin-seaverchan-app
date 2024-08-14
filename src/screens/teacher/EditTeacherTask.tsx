@@ -143,7 +143,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
         text1 : "Please write task name"
       })
      }
-     console.log(UData);
+    //  console.log(UData);
     //  delete UData._id 
   if(UData){
     updateTask({token : user.token , id : Item?._id, data : UData}).then(res=>{

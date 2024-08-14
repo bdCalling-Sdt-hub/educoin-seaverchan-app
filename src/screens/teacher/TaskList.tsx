@@ -31,11 +31,13 @@ import {
 import {imageUrl} from '../../redux/api/baseApi';
 import {useContextApi} from '../../context/ContextApi';
 import { ITask } from '../../redux/interface/interface';
+import { RefreshControl } from 'react-native-gesture-handler';
 
-const TaskList = ({navigation}: NavigProps<null>) => {
+const TaskList = ({navigation,route}: NavigProps<string>) => {
+  console.log(route?.params?.data);
   const {user} = useContextApi();
-  const {data: tasks} = useGetTaskQuery(user.token);
-  const {data: pendingTasks} = useGetPendingTaskQuery(user.token);
+  const {data: tasks, isLoading : taskLoading, refetch : taskRefetch} = useGetTaskQuery(user.token);
+  const {data: pendingTasks, isLoading : pendingTaskIsLoading, refetch : pendingTskRefetch} = useGetPendingTaskQuery(user.token);
   const [approveTask,results] = useApproveTaskMutation()
 
   // console.log(tasks);
@@ -50,7 +52,10 @@ const TaskList = ({navigation}: NavigProps<null>) => {
   useEffect(() => {
     ShearTask;
     setReload(false);
-  }, [reLoad]);
+    if(route?.params?.data ){
+      setOp(route?.params?.data)
+    }
+  }, [reLoad,route?.params?.data]);
   return (
     <View
       style={{
@@ -92,8 +97,11 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           ListHeaderComponentStyle={{
             width: '100%',
           }}
-          onRefresh={() => setReload(true)}
-          refreshing={reLoad}
+          refreshControl={<RefreshControl   onRefresh={() => taskRefetch()}
+          refreshing={taskLoading} colors={[GStyles?.primaryPurple]} />}
+
+       
+    
           keyExtractor={item => item._id}
           renderItem={item => (
             <>
@@ -163,8 +171,8 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           ListHeaderComponentStyle={{
             width: '100%',
           }}
-          onRefresh={() => setReload(true)}
-          refreshing={reLoad}
+          refreshControl={<RefreshControl        onRefresh={() =>pendingTskRefetch()}
+          refreshing={pendingTaskIsLoading}colors={[GStyles?.primaryPurple]} />}
           keyExtractor={item => item._id}
           renderItem={item => (
             <>

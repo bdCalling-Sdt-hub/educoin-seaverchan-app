@@ -45,6 +45,8 @@ import {
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
 import { useGetUserTeacherQuery, useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { RefreshControl } from 'react-native-gesture-handler';
+import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
 
 
 
@@ -56,8 +58,9 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const PopModal = React.useRef<PopUpModalRef>()
   const {user,setUser} = useContextApi();
   const {data: userTeacherInfo,isSuccess , isError : userTeacherInfoError} = useGetUserTeacherQuery(user?.token);
-  const {data: students} = useGetStudentsQuery(user?.token);
-  const {data: classes} = useGetClassesQuery(user?.token);
+  const {data: students, isLoading : studentLoading, refetch : studentRefetch} = useGetStudentsQuery(user?.token);
+  const {data: classes ,  isLoading : classesLoading, refetch : classesRefetch} = useGetClassesQuery(user?.token);
+  const {data : notifications,refetch} = useGetNotificationsQuery(user.token)
   const [deletedClass, results] = useDeletedClassMutation();
   const [loadingStudent] = useLoginStudentMutation();
   const [selectedItem, setSelectItem] = React.useState<any>();
@@ -86,15 +89,16 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
     [selectedItem],
   );
 
+  //  console.log(userTeacherInfoError);
 
-  if(userTeacherInfoError?.status === 401){
-      removeStorageRole();
-      removeStorageToken();
-      setUser({
-        token: null,
-        role: null,
-      });
-  }
+  // if(userTeacherInfoError?.status === 401){
+  //     removeStorageRole();
+  //     removeStorageToken();
+  //     setUser({
+  //       token: null,
+  //       role: null,
+  //     });
+  // }
 
  
 
@@ -113,6 +117,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         backgroundColor={GStyles.primaryPurple}
         setSearchValue={setSearch}
         searchValue={search}
+        isNotification={!!notifications?.data?.find(nt=>nt?.read === false)}
         profileStyle="teacher"
         userDetails={{
           image: imageUrl + userTeacherInfo?.data?.profile,
@@ -150,8 +155,11 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       {op === 'All Students' ? (
         <GridList
           showsVerticalScrollIndicator={false}
-          data={students?.data.filter(student=>search ? student.name.includes(search) : student)}
+          refreshControl={<RefreshControl           refreshing={studentLoading}
+          onRefresh={studentRefetch} colors={[GStyles?.primaryPurple]} />}
+          data={students?.data.filter(student=>search ? student?.name?.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : student)}
           numColumns={2}
+         
           containerWidth={WIDTH * 0.9}
           contentContainerStyle={{
             // alignSelf: 'center',
@@ -202,6 +210,10 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           data={classes?.data.filter(classe=>search ? classe.className.includes(search) : classe)}
           numColumns={2}
           containerWidth={WIDTH * 0.9}
+
+          refreshControl={<RefreshControl          refreshing={classesLoading}
+          onRefresh={classesRefetch} colors={[GStyles?.primaryPurple]} />}
+        
           contentContainerStyle={{
             // alignSelf: 'center',
             paddingVertical: 10,

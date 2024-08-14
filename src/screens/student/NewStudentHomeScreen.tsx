@@ -33,14 +33,18 @@ import { imageUrl } from '../../redux/api/baseApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
 import { removeStorageRole, removeStorageToken } from '../../utils/utils';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
+import { RefreshControl } from 'react-native-gesture-handler';
+import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
 
-const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
-
+const NewStudentHomeScreen = ({navigation,route}: HomeNavigProps<string>) => {
+const RItem = route?.params?.data
    const {user,setUser} = useContextApi()
+ 
    const {data : assignTaskData, refetch : assignTaskRefetch, isLoading : taskLoading} = useGetStudentAssignTaskQuery(user.token);
    const {data : assignRewordsData , refetch : rewordRefetch , isLoading : rewordLoading} = useGetStudentAssignRewordsQuery(user.token);
    const {data : assignRewordsEarnedData , refetch : refetchEarnReword , isLoading : earnRewordLoading} = useGetEarnRewordsQuery(user.token);
    const {data : studentUser,isSuccess , isLoading : studentUserLoading , refetch : refetchStudentUser,error : studentUserError} = useGetUserStudentQuery(user?.token);
+   const {data : notifications,refetch} = useGetNotificationsQuery(user.token)
 
   //  console.log(assignRewordsEarnedData[0]);
    const [achieveAction,achieveActionResults] = useStudentAchieveActionMutation()
@@ -50,8 +54,9 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
 
   //  console.log(assignTaskData);
 
-  const [isCompeted, setIsCompeted] = React.useState('Tasks');
+  const [isCompeted, setIsCompeted] = React.useState<string>('Tasks');
   const [search,setSearch] = React.useState<string>(null)
+
   const [modalVisible, setModalVisible] = React.useState(false);
   const [claimModal, setClaimModal] = React.useState(false);
   const [yesNoModal, setYesNoModal] = React.useState(false);
@@ -71,14 +76,14 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
   })
 
 // console.log(studentUserError);
-  if(studentUserError?.status === 401){
-      removeStorageRole();
-      removeStorageToken();
-      setUser({
-        token: null,
-        role: null,
-      });
-  }
+  // if(studentUserError?.status === 401){
+  //     removeStorageRole();
+  //     removeStorageToken();
+  //     setUser({
+  //       token: null,
+  //       role: null,
+  //     });
+  // }
   
   useEffect(()=>{
    if(claimModal){
@@ -87,9 +92,9 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
    else{
     bottom.value = withSpring(0)
    }
- 
+   RItem && setIsCompeted(RItem)
   
-  },[claimModal])
+  },[claimModal,route])
 
 
 
@@ -109,9 +114,10 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         navigation={navigation}
         backgroundColor={GStyles.primaryOrange}
         ringColor={GStyles.orange.normalHover}
+        isNotification={!!notifications?.data?.find(nt=>nt?.read === false)}
         notifyRoute="StudentNotification"
         profileStyle="student"
-        // imgAssets={require('../../assets/images/avatar/1.png')}
+     
         searchValue={search}
         setSearchValue={setSearch}
         userDetails={{
@@ -144,11 +150,12 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
    
         {isCompeted === 'Earned' ? (
           <>
-            <View
-              style={{
-                marginBottom: 25,
-              }}>
-            <FlatList data={assignRewordsEarnedData?.data} renderItem={(item)=>{
+          
+            <FlatList    showsVerticalScrollIndicator={false} contentContainerStyle={{
+                paddingHorizontal : "4%",
+                paddingBottom : "10%",
+                gap : 20
+               }} refreshing={taskLoading} onRefresh={()=> assignTaskRefetch()} data={assignRewordsEarnedData?.data.filter(s=>search ? s?.reward?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()) :  s)} renderItem={(item)=>{
               return(
                 <RewordsCard
                 key={item.index}
@@ -164,18 +171,22 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
               />
               )
             }} />
-            </View>
+       
 
           
           </>
         ) : isCompeted === 'Rewords' ? (
         
 
-              <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
+              <FlatList 
+              refreshControl={<RefreshControl  refreshing={rewordLoading}  onRefresh={()=> rewordRefetch()}  colors={[GStyles.primaryOrange]} />}
+             
+
+              showsVerticalScrollIndicator={false} contentContainerStyle={{
                 paddingHorizontal : "4%",
                 paddingBottom : "10%",
-                gap : 10
-               }} data={assignRewordsData?.data}  renderItem={(item)=>{
+                gap : 20
+               }} data={assignRewordsData?.data.filter(s=>search ? s?.reward?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()) :s)}  renderItem={(item)=>{
        
                 return (
                   <RewordsCard
@@ -217,10 +228,13 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         ) : (
           
              
-               <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
+               <FlatList
+               
+               refreshControl={<RefreshControl  refreshing={taskLoading}  onRefresh={()=> assignTaskRefetch()}  colors={[GStyles.primaryOrange]} />}
+               showsVerticalScrollIndicator={false} contentContainerStyle={{
                 paddingHorizontal : "4%",
                 paddingBottom : "10%"
-               }} data={assignTaskData?.data} renderItem={(item)=>{
+               }} data={assignTaskData?.data.filter(s=>search ? s?.task?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()) : s)} renderItem={(item)=>{
                 return(
                   <TaskCard
                   approveBTColor={GStyles.primaryOrange}
@@ -330,7 +344,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
 
       <CustomModal
         modalVisible={claimModal}
-        backButton
+        // backButton
         setModalVisible={setClaimModal}
         height={289}
         width={"80%"}

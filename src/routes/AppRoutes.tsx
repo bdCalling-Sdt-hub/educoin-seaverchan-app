@@ -57,16 +57,86 @@ import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTe
 import AllStudentAvatar from '../screens/student/AllStudentAvatar';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider, useDispatch, useSelector} from 'react-redux';
+import { Socket } from 'socket.io-client';
 
-
-
+let socket: Socket;
 
 const Stack = createNativeStackNavigator();
 
 export const NavigationRoutes = () => {
+  requestUserPermission()
   // console.log( "token" + token);
   const {user} = useContextApi();
-  requestUserPermission()
+  const {data : teacherUser} = useGetUserTeacherQuery(user?.token)
+  const {data : studentUser,refetch : studentUserRefetch} = useGetUserStudentQuery(user.token)
+  const {refetch : notificationRefetch} = useGetNotificationsQuery(user.token)
+  const {refetch : pendingTaskRefetch} = useGetPendingTaskQuery(user.token)
+  React.useEffect(() => {
+    // Ensure socket is initialized
+    initiateSocket();
+    const socket = getSocket();
+
+    if (!socket) return;
+
+    const teacherId = teacherUser?.data?._id;
+    const studentId = studentUser?.data?._id;
+
+    const handleNotification = (data :INotification) => {
+      // console.log(data);
+      notificationRefetch()
+      if(data.role === "STUDENT"){
+        studentUserRefetch()
+        // console.log("student");
+        onDisplayNotification({
+          title: data?.type?.toLocaleUpperCase(),
+            body: data?.message,
+        })
+      }
+      if(data.role === "TEACHER"){
+        pendingTaskRefetch()
+        onDisplayNotification({
+          title: data?.type?.toLocaleUpperCase(),
+            body: data?.message,
+        })
+      }
+     
+    };
+
+    const handleError = (error) => {
+      console.warn('Error receiving data:', error.message);
+    };
+
+    if (teacherId) {
+      console.log(teacherId);
+
+      socket.emit(`notification::${teacherId}`, (data) => {
+        console.log(data);
+      });
+
+      socket.on(`notification::${teacherId}`, handleNotification);
+    }
+
+    if (studentId) {
+      console.log(studentId);
+
+      socket.emit(`notification::${studentId}`, (data) => {
+        console.log(data);
+      });
+
+      socket.on(`notification::${studentId}`, handleNotification);
+    }
+
+    // Clean up on component unmount
+    return () => {
+      if (teacherId) {
+        socket.off(`notification::${teacherId}`, handleNotification);
+      }
+      if (studentId) {
+        socket.off(`notification::${studentId}`, handleNotification);
+      }
+      socket.off('error', handleError);
+    };
+  }, [user?.token, teacherUser?.data?._id, studentUser?.data?._id]);
 
   return (
     <NavigationContainer>
@@ -236,7 +306,7 @@ export const NavigationRoutes = () => {
   );
 };
 
-import {useNetInfoInstance} from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import store from '../redux/store';
 import ContextApi, {useContextApi} from '../context/ContextApi';
 import Toast from 'react-native-toast-message';
@@ -252,6 +322,12 @@ import GlobalSplash from '../screens/slpash/GlobalSplash';
 
 
 import notifee, { AuthorizationStatus } from '@notifee/react-native';
+import {  getSocket, initiateSocket } from '../redux/services/socket';
+import { useGetUserStudentQuery, useGetUserTeacherQuery } from '../redux/apiSlices/authSlice';
+import { INotification } from '../redux/interface/interface';
+import { onDisplayNotification } from '../..';
+import { useGetNotificationsQuery } from '../redux/apiSlices/setings/notification';
+import { useGetPendingTaskQuery } from '../redux/apiSlices/teacher/teaherTaskSlices';
 
 //  google clude message 
 // import messaging from '@react-native-firebase/messaging';
@@ -291,9 +367,21 @@ async function requestUserPermission() {
 
 export const Routes = () => {
 
-  const {
-    netInfo: { isConnected },
-  } = useNetInfoInstance();
+  const [isConnected, setIsConnected] = React.useState<boolean | null>(null);
+
+
+   React.useEffect(() => {
+   
+    // Subscribe to network status updates
+    const unsubscribe = NetInfo.addEventListener(state => {
+      // const hasDataConnection = state.isConnected && state.isInternetReachable;
+      const hasDataConnection = state.isConnected ;
+      setIsConnected(hasDataConnection);
+    });
+
+    // Cleanup on component unmount
+    return () => unsubscribe();
+  }, []);
 
  
   const [isLoading, setIsLoading] = React.useState(true); // New loading state
