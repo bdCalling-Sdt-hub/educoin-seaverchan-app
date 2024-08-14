@@ -107,8 +107,6 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
             <>
             {/* {console.log(item.item.category.image)} */}
               <TaskCard
-                // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
-                // imgAssets={imageUrl + item?.item?.category?.image}
                 imageUrl={imageUrl + item?.item?.category?.image}
                 approveBTColor={GStyles.primaryPurple}
                 title={item?.item?.name}
@@ -120,37 +118,11 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
                   setSelectItem(item.item)
                   setIsActions(true);
                 }}
-                // optionList={[
-                //   {
-                //     title: 'Edit',
-                //     onPress: () => {
-                //       navigation?.navigate('EditTeacherTask');
-                //     },
-                //   },
-                //   {
-                //     title: 'Reassign',
-                //     onPress: () => {
-                //       console.log('Cleared');
-                //       navigation?.navigate('TeacherTaskAssign');
-                //     },
-                //   },
-                //   {
-                //     title: 'Deleted',
-                //     onPress: () => {
-                //       setIsYes(true);
-                //     },
-                //   },
-                // ]}
+              
                 button
-                // isButton
-                // buttonText="Assign"
+               
                 time={item?.item?.repeat}
-                // description="ok"
-                // OnButtonPress={() => {
-                //   // console.log('ok');
-                 
-                //   setIsActions(true);
-                // }}
+              
                 key={item.index}
               />
             </>
@@ -177,8 +149,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
           renderItem={item => (
             <>
               <TaskCard
-                // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
-                // imgAssets={require('../../assets/icons/icon18.png')}
+           
                 approveBTColor={GStyles.primaryPurple}
                 title={item.item.task.name}
                 category={item.item.task.category.name}

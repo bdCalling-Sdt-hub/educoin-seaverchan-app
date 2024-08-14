@@ -67,10 +67,10 @@ export const NavigationRoutes = () => {
   requestUserPermission()
   // console.log( "token" + token);
   const {user} = useContextApi();
-  const {data : teacherUser} = useGetUserTeacherQuery(user?.token)
-  const {data : studentUser,refetch : studentUserRefetch} = useGetUserStudentQuery(user.token)
-  const {refetch : notificationRefetch} = useGetNotificationsQuery(user.token)
-  const {refetch : pendingTaskRefetch} = useGetPendingTaskQuery(user.token)
+  const {data : teacherUser} = useGetUserTeacherQuery(user?.token || "")
+  const {data : studentUser,refetch : studentUserRefetch} = useGetUserStudentQuery(user.token || "")
+  const {refetch : notificationRefetch} = useGetNotificationsQuery(user.token || "")
+  const {refetch : pendingTaskRefetch} = useGetPendingTaskQuery(user.token || "")
   React.useEffect(() => {
     // Ensure socket is initialized
     initiateSocket();

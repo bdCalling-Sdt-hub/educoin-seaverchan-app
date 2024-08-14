@@ -70,10 +70,10 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
   const progressBar = useSharedValue('0%');
 
-
+// console.log(ProgressIfo, students);
 
   React.useLayoutEffect(() => {
-    // studentRefetch()
+   
     progressBar.value = withTiming('50%',{duration: 500});  
     animationOpacity.value = withSpring(1);
       //  studentInfoRefetch()
@@ -218,7 +218,10 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                     : GStyles.borderColor['#ECECEC']
                 }
                 onPress={() => {
+                  studentRefetch()
+                  studentInfoRefetch()
                   setSelectedStudent(item?.item?._id)
+              
                 }}
                 key={item.index}
               />

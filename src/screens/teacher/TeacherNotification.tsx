@@ -1,21 +1,46 @@
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, HEIGHT} from '../../styles/GStyles';
 
 import Feather from 'react-native-vector-icons/Feather';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import { useGetNotificationsQuery, useReadNotificationMutation } from '../../redux/apiSlices/setings/notification';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
+import { RefreshControl } from 'react-native-gesture-handler';
+import { Notification } from '@notifee/react-native';
 
 const TeacherNotification = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
+  const [page,setPage] = React.useState(1)
   // const {data : teacherUser} = useGetUserTeacherQuery(user.token) 
-  const {data : notifications} = useGetNotificationsQuery(user.token)
+  const {data : notifications,isLoading : notificationLoading,refetch} = useGetNotificationsQuery({ token : user?.token,page})
   const [readNotifications,results] = useReadNotificationMutation()
   // console.log(notifications);
+  const [totalNotifications, setTotalNotifications] = React.useState<notifications>([])
+  //  console.log(totalNotifications?.length);
+  React.useEffect(()=>{
+    refetch()
+  },[])
+
+  const loadMoreData = async () => {
+    //  console.log("ok");
+    if(notifications?.data?.length !== 0){
+       setPage(page + 1)
+        setTotalNotifications(totalNotifications.concat(notifications?.data))
+     }else{
+       // console.log("no more data");
+       return;
+     }
+  
+  };
+
+  if(notificationLoading){
+    return;
+  }
+
   return (
     <View
       style={{
@@ -29,26 +54,45 @@ const TeacherNotification = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
+      
       <FlatList
       showsVerticalScrollIndicator={false}
+       refreshControl={<RefreshControl refreshing={notificationLoading} onRefresh={()=> refetch()} colors={[GStyles?.primaryPurple]} />}
+      keyExtractor={(item)=>item._id + item?.updatedAt.toString()}
+      onEndReachedThreshold={0.1}
+      ListFooterComponentStyle={{
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      ListFooterComponent={notificationLoading ? <View style={{
+       
+      }}>
+        <ActivityIndicator size="large" color={GStyles?.primaryOrange} />
+      </View> : null}
+      onEndReached={()=>{
+        loadMoreData()
+      }}
+      
+     
       contentContainerStyle={{
         gap : 20,
         paddingHorizontal: '5%',
         paddingVertical: 20,
-      }} data={notifications?.data} renderItem={(item)=>{
+  
+      }} data={totalNotifications} renderItem={(item)=>{
         return(   <TouchableOpacity
 
           onPress={()=>{
             readNotifications({token : user.token, id : item?.item?._id}).then(res=>{
               if(res.data?.success){
-                if(item?.item?.message === "You have a new message regarding the task awaiting your approval."){
+    
               navigation?.navigate('TaskList',{data : "Tasks Pending"})
-             }
+            
               }
             }).catch(err=>{
-                   if(item?.item?.message === "You have a new message regarding the task awaiting your approval."){
-              navigation?.navigate('TaskList',{data : "Tasks Pending"})
-            }
+ 
+  
             })
        
           }}

@@ -10,16 +10,36 @@ interface AdminRoutesProps {
 import Feather from 'react-native-vector-icons/Feather';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetNotificationsQuery, useReadNotificationMutation } from '../../redux/apiSlices/setings/notification';
+import { RefreshControl } from 'react-native-gesture-handler';
 
 const StudentNotification = ({navigation}: AdminRoutesProps) => {
   const {user} = useContextApi();
+  const [page,setPage] = React.useState(1)
   // const {data : teacherUser} = useGetUserTeacherQuery(user.token) 
-  const {data : notifications,refetch} = useGetNotificationsQuery(user.token)
+  const {data : notifications,isLoading : notificationLoading,refetch} = useGetNotificationsQuery({ token : user?.token,page})
   const [readNotifications,results] = useReadNotificationMutation()
   // console.log(notifications);
+  const [totalNotifications, setTotalNotifications] = React.useState<notifications>([])
+  //  console.log(totalNotifications?.length);
   React.useEffect(()=>{
-refetch()
-  }, []);
+    refetch()
+  },[])
+
+  const loadMoreData = async () => {
+    //  console.log("ok");
+    if(notifications?.data?.length !== 0){
+       setPage(page + 1)
+        setTotalNotifications(totalNotifications.concat(notifications?.data))
+     }else{
+       // console.log("no more data");
+       return;
+     }
+  
+  };
+
+  if(notificationLoading){
+    return;
+  }
   return (
     <View
       style={{
@@ -32,23 +52,44 @@ refetch()
         ringColor={GStyles.orange.normalHover}
         navigation={navigation}
       />
-      <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
+      <FlatList
+      showsVerticalScrollIndicator={false}
+       refreshControl={<RefreshControl refreshing={notificationLoading} onRefresh={()=> refetch()} colors={[GStyles?.primaryPurple]} />}
+      keyExtractor={(item)=>item._id + item?.updatedAt.toString()}
+      onEndReachedThreshold={0.1}
+      ListFooterComponentStyle={{
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      ListFooterComponent={notificationLoading ? <View style={{
+       
+      }}>
+        <ActivityIndicator size="large" color={GStyles?.primaryOrange} />
+      </View> : null}
+      onEndReached={()=>{
+        loadMoreData()
+      }}
+      
+     
+      contentContainerStyle={{
         gap : 20,
         paddingHorizontal: '5%',
         paddingVertical: 20,
-      }} data={notifications?.data} renderItem={(item)=>{
+  
+      }} data={totalNotifications} renderItem={(item)=>{
         return(   <TouchableOpacity
 
           onPress={()=>{
             readNotifications({token : user.token, id : item?.item?._id}).then(res=>{
               if(res.data?.success){
-           
-              // navigation?.navigate('NewStudentHome',{data : "Earned"})
-         
+    
+              navigation?.navigate('TaskList',{data : "Tasks Pending"})
+            
               }
-           
             }).catch(err=>{
-
+ 
+  
             })
        
           }}

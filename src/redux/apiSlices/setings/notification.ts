@@ -13,8 +13,8 @@ const studentPartSlice = api.injectEndpoints({
      INotifications,
       unknown
     >({
-      query: token => ({
-        url: `/notifications`,
+      query: ({token,page}) => ({
+        url: `/notifications?page=${page}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
