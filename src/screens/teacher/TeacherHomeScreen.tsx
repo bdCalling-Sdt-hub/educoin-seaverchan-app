@@ -49,6 +49,7 @@ import {
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
 import {
   useGetUserTeacherQuery,
+  useLoginForTeacherStudentMutation,
   useLoginStudentMutation,
 } from '../../redux/apiSlices/authSlice';
 import PopUpModal, {PopUpModalRef} from '../../components/modals/PopUpModal';
@@ -63,27 +64,38 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const [pageStudent, setPageStudent] = React.useState(1);
   const [pageClass, setPageClass] = React.useState(1);
   const PopModal = React.useRef<PopUpModalRef>();
-  const {user, setUser} = useContextApi();
+  const {user} = useContextApi();
+
+  //get user info fetch 
+
   const {
     data: userTeacherInfo,
-    isSuccess,
-    isError: userTeacherInfoError,
   } = useGetUserTeacherQuery(user?.token);
+
+  // get student fetch 
+
   const {
     data: students,
     isLoading: studentLoading,
     refetch: studentRefetch,
     isFetching : studentsFetching,
   } = useGetStudentsQuery({token : user?.token, page : pageStudent == 0 ? 1 : pageStudent });
+  // get all classes
   const {
     data: classes,
     isLoading: classesLoading,
     refetch: classesRefetch,
-    isFetching : classesFetching,
   } = useGetClassesQuery({token : user?.token, page : pageClass == 0 ? 1 : pageClass });
+  // get all notification 
   const {data: notifications, refetch} = useGetNotificationsQuery(user.token);
+  // class deleted post 
   const [deletedClass, results] = useDeletedClassMutation();
-  const [loadingStudent] = useLoginStudentMutation();
+  // student login fetch
+  const [loadingStudent] = useLoginForTeacherStudentMutation();
+  
+
+
+
   const [selectedItem, setSelectItem] = React.useState<any>();
   const [op, setOp] = React.useState<string>('All Students');
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -123,57 +135,57 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   const [AllClasses, setAllClasses] = React.useState([]);
   const [ALlStudents, setALlStudents] = React.useState([]);
   
-  React.useEffect(() => {
-    // Append new classes data to the existing state only if there are new items
-    if (classes?.data?.length) {
-      setAllClasses(prevClasses => prevClasses.concat(classes?.data));
-    }
-    return ()=>{
-      // Cleanup function
+  // React.useEffect(() => {
+  //   // Append new classes data to the existing state only if there are new items
+  //   if (classes?.data?.length) {
+  //     setAllClasses(prevClasses => prevClasses.concat(classes?.data));
+  //   }
+  //   return ()=>{
+  //     // Cleanup function
     
-    }
-  }, [classes?.data]);
+  //   }
+  // }, [classes?.data]);
   
-  React.useEffect(() => {
-    // Append new students data to the existing state only if there are new items
-    if (students?.data?.length) {
-      setALlStudents(prevStudents => prevStudents.concat(students?.data));
-    }
-    return ()=>{
-      // Cleanup function
+  // React.useEffect(() => {
+  //   // Append new students data to the existing state only if there are new items
+  //   if (students?.data?.length) {
+  //     setALlStudents(prevStudents => prevStudents.concat(students?.data));
+  //   }
+  //   return ()=>{
+  //     // Cleanup function
   
-    }
-  }, [students?.data]);
+  //   }
+  // }, [students?.data]);
   
-  const loadMoreStudents = () => {
-    if (pageStudent < students?.pagination?.totalPage) {
-      setPageStudent(prevPage => prevPage == 0 ? 2 :prevPage + 1);
-    }
-  };
+  // const loadMoreStudents = () => {
+  //   if (pageStudent < students?.pagination?.totalPage) {
+  //     setPageStudent(prevPage => prevPage == 0 ? 2 :prevPage + 1);
+  //   }
+  // };
   
-  const loadMoreClasses = () => {
-    if (pageClass <= classes?.pagination?.totalPage) {
-      setPageClass(prevPage => prevPage === 0 ? 2 :prevPage + 1);
-    }
-  };
+  // const loadMoreClasses = () => {
+  //   if (pageClass <= classes?.pagination?.totalPage) {
+  //     setPageClass(prevPage => prevPage === 0 ? 2 :prevPage + 1);
+  //   }
+  // };
 
   // console.log(page,classes?.pagination?.totalPage);
   
-  const resetStudentData = () => {
-   if(pageStudent){
-     setPageStudent(0);
-    setALlStudents([]);
-    studentRefetch();
+  // const resetStudentData = () => {
+  //  if(pageStudent){
+  //    setPageStudent(0);
+  //   setALlStudents([]);
+  //   studentRefetch();
 
-   }
-  };
-  const resetClassData = () => {
-   if(pageClass){
-     setPageClass(0);
-    setAllClasses([]);
-    classesRefetch();
-   }
-  };
+  //  }
+  // };
+  // const resetClassData = () => {
+  //  if(pageClass){
+  //    setPageClass(0);
+  //   setAllClasses([]);
+  //   classesRefetch();
+  //  }
+  // };
 
   return (
     <View
@@ -228,23 +240,30 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       {op === 'All Students' ? (
         <GridList
           showsVerticalScrollIndicator={false}
-          onEndReached={students?.data?.length ? loadMoreStudents : () => {}}
-          onEndReachedThreshold={0}
+          // onEndReached={students?.data?.length ? loadMoreStudents : () => {}}
+          // onEndReachedThreshold={0}
        
           refreshControl={
             <RefreshControl
               refreshing={studentLoading}
-              onRefresh={resetStudentData}
+              onRefresh={studentRefetch}
               colors={[GStyles?.primaryPurple]}
             />
           }
-          data={ALlStudents.length ? ALlStudents?.filter(student =>
+          // data={ALlStudents.length ? ALlStudents?.filter(student =>
+          //   search
+          //     ? student?.name
+          //         ?.toLocaleLowerCase()
+          //         .includes(search.toLocaleLowerCase())
+          //     : student,
+          // ) : students?.data}
+          data={students?.data?.filter(student =>
             search
               ? student?.name
                   ?.toLocaleLowerCase()
                   .includes(search.toLocaleLowerCase())
               : student,
-          ) : students?.data}
+          ) }
           numColumns={2}
           containerWidth={WIDTH * 0.9}
           contentContainerStyle={{
@@ -286,7 +305,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                     }
                   });
                 }}
-                key={index}
+            
               />
             </View>
           )}
@@ -295,18 +314,22 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         <GridList
           showsVerticalScrollIndicator={false}
          
-          data={AllClasses?.length ? AllClasses.filter(classe =>
+          // data={AllClasses?.length ? AllClasses.filter(classe =>
+          //   search ? classe.className.includes(search) : classe,
+          // ) : classes?.data}
+          // numColumns={2}
+          data={classes?.data?.filter(classe =>
             search ? classe.className.includes(search) : classe,
-          ) : classes?.data}
+          ) }
           numColumns={2}
 
-          onEndReached={classes?.data?.length ? loadMoreClasses : () => {}}
-          onEndReachedThreshold={0}
+          // onEndReached={classes?.data?.length ? loadMoreClasses : () => {}}
+          // onEndReachedThreshold={0}
           containerWidth={WIDTH * 0.9}
           refreshControl={
             <RefreshControl
               refreshing={classesLoading}
-              onRefresh={resetClassData}
+              onRefresh={classesRefetch}
               colors={[GStyles?.primaryPurple]}
             />
           }

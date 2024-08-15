@@ -53,6 +53,17 @@ const authSlice = api.injectEndpoints({
             }),
             invalidatesTags : ["user"]
           }),
+          loginForTeacherStudent: builder.mutation({
+            query: pass_code => ({
+              url: `/student/login`,
+              method: 'POST',
+              body: {
+                password: pass_code,
+              },
+              
+            }),
+            // invalidatesTags : ["user"]
+          }),
 
           updateStudent: builder.mutation({
             query: ({token, data}) => ({
@@ -76,5 +87,6 @@ export const {
    useLoginStudentMutation,
    useLoginTeacherMutation,
    useUpdateStudentMutation,
-   useGetTeacherPasscodeQuery
+   useGetTeacherPasscodeQuery,
+   useLoginForTeacherStudentMutation
 } = authSlice;

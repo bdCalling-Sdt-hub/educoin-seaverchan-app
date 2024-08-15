@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   Text,
@@ -32,12 +33,12 @@ const TeacherAddNewStudent = ({ navigation }: NavigProps<null>) => {
   const popRef = useRef<PopUpModalRef>();
   const { user } = useContextApi();
   const { data: avatarData, refetch: refetchAvatar, isLoading : avatarLoading } = useGetAvatarPresetQuery(user?.token);
-  const { data: classes , isLoading : classLoading } = useGetClassesQuery(user?.token);
+  const { data: classes , isLoading : classLoading } = useGetClassesQuery({token : user?.token});
   const [selectAvatar, setSelectAvatar] = useState<string | null>(null);
   const [studentInfo, setStudentInfo] = useState({
     name: '',
     password: '',
-    dateOfBirth: '',
+    dateOfBirth: new Date(),
     class: '',
     profile: null,
   });
@@ -113,7 +114,14 @@ const TeacherAddNewStudent = ({ navigation }: NavigProps<null>) => {
         navigation={navigation}
       />
       {
-classLoading || avatarLoading ?<LoaderScreen /> :  <ScrollView keyboardShouldPersistTaps="always" contentContainerStyle={{ paddingHorizontal: '4%', paddingVertical: 20, gap: 30 }}>
+classLoading || avatarLoading ?<View style={{
+  flex : 1,
+  justifyContent : 'center',
+  alignItems : 'center',
+  height : '100%'
+}}>
+  <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
+</View> :  <ScrollView keyboardShouldPersistTaps="always" contentContainerStyle={{ paddingHorizontal: '4%', paddingVertical: 20, gap: 30 }}>
 <View style={{ marginTop: 10 }}>
   <Require title="Student name" />
   <TextInput
@@ -133,7 +141,8 @@ classLoading || avatarLoading ?<LoaderScreen /> :  <ScrollView keyboardShouldPer
 
 <View>
   <Require title="Class" />
-  {/* <Dropdown
+  {
+    classes?.data?.length !== 0 && <Dropdown
     placeholderStyle={{ color: GStyles.gray.lightHover }}
     placeholder="Select a class"
     valueField="className"
@@ -147,7 +156,8 @@ classLoading || avatarLoading ?<LoaderScreen /> :  <ScrollView keyboardShouldPer
     }}
     onChange={(item) => setStudentInfo({ ...studentInfo, class: item.className })}
     data={classes?.data}
-  /> */}
+  />
+  }
 </View>
 
 <View>
@@ -246,9 +256,20 @@ classLoading || avatarLoading ?<LoaderScreen /> :  <ScrollView keyboardShouldPer
         modalVisible={dateModal}
         backButton
         setModalVisible={setDateModal}>
-        <DateTimePicker
-          headerContainerStyle={{ marginTop: '8%' }}
-          onDateChange={(date) => setStudentInfo({ ...studentInfo, dateOfBirth: date })}
+       <DateTimePicker
+          headerContainerStyle={{
+            marginTop: '8%',
+          }}
+          mode="single"
+          date={studentInfo?.dateOfBirth}
+          onChange={(params: any) => {
+            // console.log(params);
+            setStudentInfo({
+             ...studentInfo,
+              dateOfBirth: params.date,
+            });
+            setDateModal(false);
+          }}
         />
       </CustomModal>
 

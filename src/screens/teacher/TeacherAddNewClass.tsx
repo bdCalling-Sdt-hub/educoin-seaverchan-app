@@ -288,37 +288,6 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
           headerContainerStyle={{
             marginTop: '8%',
           }}
-          // headerButtonColor={colors.redis}
-          // headerTextStyle={{
-          //   color: colors.redis,
-          //   fontFamily: font.Poppins,
-          //   fontSize: 14,
-          // }}
-          // headerButtonSize={14}
-          // headerButtonStyle={{
-          //   backgroundColor: colors.bg,
-          //   elevation: 1,
-          //   borderRadius: 4,
-          // }}
-          // calendarTextStyle={{
-          //   color: colors.textColor.light,
-          // }}
-          // selectedItemColor={colors.blue}
-          // weekDaysTextStyle={{
-          //   color: colors.primaryColor,
-          //   fontFamily: font.Poppins,
-          //   fontSize: 12,
-          // }}
-          // headerTextContainerStyle={{
-          //   backgroundColor: colors.bg,
-          //   elevation: 1,
-          //   marginHorizontal: 5,
-          //   // paddingVertical: 2,
-          //   paddingHorizontal: 10,
-          //   borderRadius: 4,
-          //   alignItems: 'center',
-          //   justifyContent: 'center',
-          // }}
           mode="single"
           date={startDate ? classInfo?.startDate : classInfo?.endDate}
           onChange={(params: any) => {

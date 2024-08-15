@@ -76,9 +76,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
         backgroundColor: 'white',
       }}>
       {/* header part  start */}
-       {
-        isLoading && <LoaderScreen />
-       }
+      
       <HeaderBackground
         title="Student Activity"
         ringColor={GStyles.purple.lightActive}
@@ -87,7 +85,16 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
         navigation={navigation}
       />
 
-      <View
+{
+        isLoading ? <View style={{
+          flex : 1,
+          justifyContent : 'center',
+          alignItems : 'center',
+          height : '100%'
+        }}>
+          <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
+        </View> : <>
+          <View
         style={{
           height: 80,
           backgroundColor: GStyles.primaryOrange,
@@ -372,6 +379,10 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
           
         )}
      
+        </>
+       }
+
+    
 
     </View>
   );
