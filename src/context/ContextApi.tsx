@@ -3,6 +3,7 @@ import React, { ReactNode, useContext } from 'react'
 import { getStorageRole, getStorageToken } from '../utils/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToken, setUserRole } from '../redux/apiSlices/userSlice'
+import { initiateSocket } from '../redux/services/socket'
 
 
 // Create a context for global state
@@ -77,6 +78,7 @@ const ContextApi = ({children} : ContextApiProps) => {
        if(user?.role && user?.token){
          dispatch(setUserRole(user?.role))
          dispatch(setToken(user?.token))
+         initiateSocket();
        }   
   
     setLoading(false)

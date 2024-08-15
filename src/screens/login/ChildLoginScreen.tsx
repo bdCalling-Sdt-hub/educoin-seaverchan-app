@@ -21,6 +21,7 @@ import { useContextApi } from '../../context/ContextApi';
 import { useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { initiateSocket } from '../../redux/services/socket';
 
 const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
@@ -82,6 +83,7 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
           //   type: 'success',
           //   visibilityTime: 2000,
           // });
+          initiateSocket();
         }
       });
       // navigation?.navigate("TeacherDrawerRoutes")

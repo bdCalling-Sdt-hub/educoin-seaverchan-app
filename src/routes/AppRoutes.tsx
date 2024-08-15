@@ -73,7 +73,7 @@ export const NavigationRoutes = () => {
   const {refetch : pendingTaskRefetch} = useGetPendingTaskQuery(user.token || "")
   React.useEffect(() => {
     // Ensure socket is initialized
-    initiateSocket();
+  
     const socket = getSocket();
 
     if (!socket) return;
@@ -107,22 +107,13 @@ export const NavigationRoutes = () => {
     };
 
     if (teacherId) {
-      console.log(teacherId);
-
-      socket.emit(`notification::${teacherId}`, (data) => {
-        console.log(data);
-      });
+  
 
       socket.on(`notification::${teacherId}`, handleNotification);
     }
 
     if (studentId) {
-      console.log(studentId);
-
-      socket.emit(`notification::${studentId}`, (data) => {
-        console.log(data);
-      });
-
+  
       socket.on(`notification::${studentId}`, handleNotification);
     }
 

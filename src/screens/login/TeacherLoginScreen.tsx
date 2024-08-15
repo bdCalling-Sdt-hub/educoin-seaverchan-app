@@ -28,6 +28,7 @@ import Toast from 'react-native-toast-message';
 import { useLoginTeacherMutation } from '../../redux/apiSlices/authSlice';
 import SlideModal, { SlideModalRef } from '../../components/modals/SlideModal';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { initiateSocket } from '../../redux/services/socket';
 
 
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
@@ -96,6 +97,7 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
           //   type: 'success',
           //   visibilityTime: 2000,
           // });
+          initiateSocket();
         }
       }).catch(err => {
         console.log(err);

@@ -23,6 +23,7 @@ import {useDispatch} from 'react-redux';
 import {clearToken, clearUserRole} from '../../redux/apiSlices/userSlice';
 import {removeStorageRole, removeStorageToken} from '../../utils/utils';
 import {useContextApi} from '../../context/ContextApi';
+import { disconnectSocket } from '../../redux/services/socket';
 
 function TeacherCustomDrawer(props: any) {
   const {setUser} = useContextApi();
@@ -270,6 +271,7 @@ function TeacherCustomDrawer(props: any) {
               token: null,
               role: null,
             });
+            disconnectSocket()
             // navigation.navigate('LoginAs')
           }}
           style={{

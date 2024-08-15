@@ -47,6 +47,7 @@ export const disconnectSocket = () => {
   if (socket) {
     socket.disconnect();
     socket = null; // Reset the socket instance after disconnection
+    console.warn('Socket is disconnect');
   } else {
     console.warn('No socket to disconnect');
   }
