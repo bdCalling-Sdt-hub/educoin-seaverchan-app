@@ -152,9 +152,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         height: '100%',
         backgroundColor: GStyles.white,
       }}>
-        {
-isLoading && <LoaderScreen />
-        }
+       
       <HeaderBackground
         title="New Task"
         ringColor={GStyles.purple.normalHover}
@@ -162,7 +160,15 @@ isLoading && <LoaderScreen />
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
+      {
+        isLoading ? <View style={{
+          flex : 1,
+          justifyContent : 'center',
+          alignItems : 'center',
+          height : '100%'
+        }}>
+          <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
+        </View> :  <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
         <View
           style={{
             paddingHorizontal: '4%',
@@ -834,6 +840,8 @@ isLoading && <LoaderScreen />
           />
         </View> */}
       </ScrollView>
+      }
+    
       <View
         style={{
           paddingHorizontal: '4%',

@@ -66,7 +66,7 @@ export interface IStudent {
   __v: number;
 }
 
-export interface IStudents extends IFetchStatus {
+export interface IStudents extends IFetchStatus , IFetchPagination {
   data: Array<IStudent>;
 }
 export interface IClass {
@@ -80,7 +80,7 @@ export interface IClass {
   __v: number;
 }
 
-export interface IClasses extends IFetchStatus {
+export interface IClasses extends IFetchStatus , IFetchPagination {
   data: Array<IClass>;
 }
 export interface ICategory {

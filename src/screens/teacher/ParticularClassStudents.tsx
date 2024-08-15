@@ -1,9 +1,14 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {Fragment} from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, WIDTH} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import StudentCard from '../../components/common/Cards/StudentCard';
+import { useGetStudentThrowClassQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
+import { useContextApi } from '../../context/ContextApi';
+import { GridList } from 'react-native-ui-lib';
+import { imageUrl } from '../../redux/api/baseApi';
+import { useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
 
  interface ParamsData {
   class: string;
@@ -11,6 +16,42 @@ import StudentCard from '../../components/common/Cards/StudentCard';
 
 const ParticularClassStudents = ({navigation, route}: NavigProps<ParamsData>) => {
   console.log(route?.params);
+  const [pageStudent, setPageStudent] = React.useState(1);
+const {user} = useContextApi();
+  const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess,isFetching : studentLoading} = useGetStudentThrowClassQuery({token :  user.token , className : route?.params?.data})
+
+  const [loadingStudent] = useLoginStudentMutation();
+  const [ALlStudents, setAllStudents] = React.useState<any[]>([]);
+
+
+
+  React.useEffect(() => {
+    // Append new students data to the existing state only if there are new items
+    if (students?.data?.length) {
+      setAllStudents(prevStudents => prevStudents.concat(students?.data));
+    }
+    // return ()=>{
+    //   // Cleanup function
+    //   setPage(1);
+    // }
+  }, [students?.data]);
+
+  const loadMoreStudents = () => {
+    if (pageStudent < students?.pagination?.totalPage) {
+      setPageStudent(prevPage => prevPage == 0 ? 2 :prevPage + 1);
+    }
+  };
+
+  const resetStudentData = () => {
+    if(pageStudent){
+      setPageStudent(0);
+      setAllStudents([]);
+     studentRefetch();
+ 
+    }
+   };
+  
+
   return (
     <View
       style={{
@@ -18,52 +59,71 @@ const ParticularClassStudents = ({navigation, route}: NavigProps<ParamsData>) =>
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title={`Class:  ${route?.params.data.class}`}
+        title={`${route?.params.data}`}
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={[...Array(2)]}
-        numColumns={2}
-        contentContainerStyle={{
-          gap: 10,
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingTop: 10,
-          paddingBottom: 50,
-        }}
-        columnWrapperStyle={{
-          gap: 10,
-          alignSelf: 'center',
-        }}
-        ListHeaderComponentStyle={{
-          width: '100%',
-        }}
-        renderItem={item => (
-          <Fragment key={item.index}>
-            <StudentCard
-              imgBorderColor={GStyles.primaryPurple}
-              width={'45%'}
-              imgAssets={require(`../../assets/images/avatar/15.png`)}
-              student={{
-               
-                class: 1,
-                level: 9,
-                name: 'John Doe',
-                points: 100,
-              }}
-              onPress={() => {
-                // console.log('lol');
-                navigation?.navigate('StudentsProgressAndInfo');
-              }}
-              key={item.index}
+      <GridList
+          showsVerticalScrollIndicator={false}
+          onEndReached={students?.data?.length ? loadMoreStudents : () => {}}
+          onEndReachedThreshold={0}
+       
+          refreshControl={
+            <RefreshControl
+              refreshing={studentLoading}
+              onRefresh={resetStudentData}
+              colors={[GStyles?.primaryPurple]}
             />
-          </Fragment>
-        )}
-      />
+          }
+          data={ALlStudents.length ? ALlStudents : students?.data}
+          numColumns={2}
+          containerWidth={WIDTH * 0.9}
+          contentContainerStyle={{
+            // alignSelf: 'center',
+            paddingVertical: 10,
+            paddingHorizontal: '5%',
+          }}
+          // ListHeaderComponent={item => (
+
+          // ListHeaderComponent={item => (
+
+          // )}
+          renderItem={({item, index}) => (
+            <View key={index} style={{}}>
+              <Image
+                source={{
+                  uri: imageUrl + item?.profile,
+                }}
+              />
+
+              <StudentCard
+                imgBorderColor={GStyles.primaryPurple}
+                width={'100%'}
+                student={{
+                  class: item?.class,
+                  level: item?.level,
+                  name: item?.name,
+                  points: item?.points,
+                  image: item?.profile,
+                }}
+                onPress={() => {
+                  // console.log('lol');
+                  loadingStudent(item.password).then(res => {
+                    // console.log(res.data);
+                    if (res.data.success) {
+                      navigation?.navigate('StudentsProgressAndInfo', res.data);
+                    }
+                    if (res.error) {
+                    }
+                  });
+                }}
+                key={index}
+              />
+            </View>
+          )}
+        />
     </View>
   );
 };

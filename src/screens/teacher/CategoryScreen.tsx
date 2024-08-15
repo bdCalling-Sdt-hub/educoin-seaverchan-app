@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
@@ -22,7 +23,7 @@ import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlic
 
 const CategoryScreen = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
-  const {data: categories} = useGetCategoriesQuery(user.token);
+  const {data: categories, isFetching : categoryLoading} = useGetCategoriesQuery(user.token);
 
 
   return (
@@ -40,152 +41,161 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
         navigation={navigation}
       />
 
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingHorizontal: '4%',
-          paddingTop: 20,
-          paddingBottom: 30,
-          gap: 20,
-        }}
-        data={categories?.data}
-        // numColumns={2}
+    {
+      categoryLoading ? <View style={{
+        flex : 1,
+        justifyContent : 'center',
+        alignItems : 'center',
+        height : '100%'
+      }}>
+        <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
+      </View> :    <FlatList
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingHorizontal: '4%',
+        paddingTop: 20,
+        paddingBottom: 30,
+        gap: 20,
+      }}
+      data={categories?.data}
+      // numColumns={2}
 
-        ListHeaderComponent={() => (
-          <TouchableOpacity
-            onPress={() => {
-              navigation?.navigate('TeacherAddCategory');
-            }}
+      ListHeaderComponent={() => (
+        <TouchableOpacity
+          onPress={() => {
+            navigation?.navigate('TeacherAddCategory');
+          }}
+          style={{
+            //   height: 182,
+
+            borderWidth: 1,
+            borderColor: '#E9E9E9',
+            borderRadius: 8,
+            padding: 16,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <View
             style={{
-              //   height: 182,
-
-              borderWidth: 1,
-              borderColor: '#E9E9E9',
-              borderRadius: 8,
-              padding: 16,
-              width: '100%',
+              gap: 20,
               alignItems: 'center',
-              justifyContent: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
             }}>
+            <Image
+              source={require('../../assets/images/custom/customTaskImage.png')}
+              resizeMode="center"
+              style={{
+                width: 55,
+                height: 55,
+              }}
+            />
+
             <View
               style={{
-                gap: 20,
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                flex: 1,
               }}>
-              <Image
-                source={require('../../assets/images/custom/customTaskImage.png')}
-                resizeMode="center"
+              <Text
                 style={{
-                  width: 55,
-                  height: 55,
-                }}
-              />
-
-              <View
-                style={{
-                  flex: 1,
+                  // textAlign: 'center',
+                  fontFamily: GStyles.PoppinsSemiBold,
+                  fontSize: 16,
+                  color: '#3D3D3D',
                 }}>
-                <Text
-                  style={{
-                    // textAlign: 'center',
-                    fontFamily: GStyles.PoppinsSemiBold,
-                    fontSize: 16,
-                    color: '#3D3D3D',
-                  }}>
-                  Add New Category
-                </Text>
-              </View>
+                Add New Category
+              </Text>
             </View>
-          </TouchableOpacity>
-        )}
-        renderItem={item => (
-          <TouchableOpacity
-            disabled
-            onPress={() => {}}
-            key={item.index}
-            style={{
-              //   height: 182,
+          </View>
+        </TouchableOpacity>
+      )}
+      renderItem={item => (
+        <TouchableOpacity
+          disabled
+          onPress={() => {}}
+          key={item.index}
+          style={{
+            //   height: 182,
 
-              borderWidth: 1,
-              borderColor: '#E9E9E9',
-              borderRadius: 8,
-              padding: 16,
-              width: '100%',
+            borderWidth: 1,
+            borderColor: '#E9E9E9',
+            borderRadius: 8,
+            padding: 16,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <View
+            style={{
+              gap: 20,
               alignItems: 'center',
-              justifyContent: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              borderRadius: 10,
             }}>
-            <View
+            <Image
+              source={{
+                uri: imageUrl + item.item.image,
+              }}
+              resizeMode="stretch"
               style={{
-                gap: 20,
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                width: 70,
+                height: 70,
                 borderRadius: 10,
-              }}>
-              <Image
-                source={{
-                  uri: imageUrl + item.item.image,
-                }}
-                resizeMode="stretch"
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderRadius: 10,
-                }}
-              />
+              }}
+            />
 
+            <View
+              style={{
+                flex: 1,
+              }}>
+              <Text
+                style={{
+                  // textAlign: 'center',
+                  fontFamily: GStyles.PoppinsSemiBold,
+                  fontSize: 16,
+                  color: '#3D3D3D',
+                }}>
+                {item.item.name === 'New Task' ? 'New Task' : item.item.name}
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation?.navigate('EditCategory', {data: item.item})
+              }
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+
+                borderRadius: 100,
+                width: 76,
+                height: 33,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
               <View
                 style={{
-                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+
+                  gap: 5,
                 }}>
                 <Text
                   style={{
-                    // textAlign: 'center',
+                    fontSize: 14,
+                    color: 'white',
                     fontFamily: GStyles.PoppinsSemiBold,
-                    fontSize: 16,
-                    color: '#3D3D3D',
                   }}>
-                  {item.item.name === 'New Task' ? 'New Task' : item.item.name}
+                  Edit
                 </Text>
+                <AntDesign name="edit" size={16} color="white" />
               </View>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation?.navigate('EditCategory', {data: item.item})
-                }
-                style={{
-                  backgroundColor: GStyles.primaryPurple,
-
-                  borderRadius: 100,
-                  width: 76,
-                  height: 33,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-
-                    gap: 5,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: 'white',
-                      fontFamily: GStyles.PoppinsSemiBold,
-                    }}>
-                    Edit
-                  </Text>
-                  <AntDesign name="edit" size={16} color="white" />
-                </View>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
+    }
     </View>
   );
 };

@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -37,11 +38,11 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
 
   const {user} = useContextApi();
-  const {data : classes, isSuccess : classesIsSuccess} = useGetClassesQuery(user.token);
+  const {data : classes, isSuccess : classesIsSuccess,isLoading : classLoading} = useGetClassesQuery({token : user.token});
   const [selectedClass, setSelectedClass] = useState<any>(classes?.data![0]?.className);
-  const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
+  const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess , isLoading : studentLoading} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
   const [selectedStudent, setSelectedStudent] = useState<string>(students?.data![0]?._id as string);
-  const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
+  const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading : ProgressLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
   // console.log(students);
   // console.log(student?.data._id);
   
@@ -84,15 +85,15 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
     };
   }, [selectedClass,selectedStudent]);
 
+
+
   return (
     <View
       style={{
         height: '100%',
         backgroundColor: 'white',
       }}>
-        {
-          isLoading && <LoaderScreen />
-        }
+       
       <HeaderBackground
         title="Progress"
         ringColor={GStyles.purple.normalHover}
@@ -151,7 +152,14 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
       )} */}
 
       {
-        classes?.data?.length !== 0 &&   <ScrollView showsVerticalScrollIndicator={false}>
+        classLoading || ProgressLoading ||studentLoading ? <View style={{
+          flex : 1,
+          justifyContent : 'center',
+          alignItems : 'center',
+          height : '100%'
+        }}>
+          <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
+        </View> :   <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             marginTop: 20,
