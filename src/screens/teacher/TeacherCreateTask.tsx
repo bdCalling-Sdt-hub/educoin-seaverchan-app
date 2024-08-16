@@ -223,7 +223,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             value={taskData?.name}
             placeholderTextColor="gray"
             multiline
-            placeholder="Rewords Name"
+            placeholder="Rewards Name"
           />
         </View>
         <View

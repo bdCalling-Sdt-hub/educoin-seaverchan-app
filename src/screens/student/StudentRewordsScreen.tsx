@@ -15,14 +15,14 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import LottieView from 'lottie-react-native';
-import RewordsCard from '../../components/common/Cards/RewordsCard';
+import RewardsCard from '../../components/common/Cards/RewardsCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
 
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
+const StudentRewardsScreen = ({navigation}: AdminRoutesProps) => {
   const [isEarned, setIsEarned] = React.useState('Achieved');
   const [modalVisible, setModalVisible] = React.useState(false);
   const [selected, setSelected] = React.useState(1);
@@ -105,9 +105,9 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
             showsVerticalScrollIndicator={false}>
             {[...Array(10)].map((item, index) => (
               <Fragment key={index}>
-                <RewordsCard
+                <RewardsCard
                   navigation={navigation}
-                  // route="EditRewords"
+                  // route="EditRewards"
                   // routeData={'demo'}
                   // editOption={true}
                   // achieved
@@ -173,9 +173,9 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
             {[...Array(10)].map((item, index) => (
               <Fragment key={index}>
                 <Fragment key={index}>
-                  <RewordsCard
+                  <RewardsCard
                     navigation={navigation}
-                    // route="EditRewords"
+                    // route="EditRewards"
                     // routeData={'demo'}
                     // editOption={true}
                     disabled
@@ -225,7 +225,7 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
                   letterSpacing: 0.8,
                   marginTop: 5,
                 }}>
-                Add rewords
+                Add Rewards
               </Text>
             </TouchableOpacity>
           </View> */}
@@ -292,6 +292,6 @@ const StudentRewordsScreen = ({navigation}: AdminRoutesProps) => {
   );
 };
 
-export default StudentRewordsScreen;
+export default StudentRewardsScreen;
 
 const styles = StyleSheet.create({});

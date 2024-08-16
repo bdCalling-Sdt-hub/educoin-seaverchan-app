@@ -134,7 +134,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>
-                New rewords added your account
+                New Rewards added your account
               </Text>
               <Text
                 style={{
@@ -263,7 +263,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>
-                New rewords added your account
+                New Rewards added your account
               </Text>
               <Text
                 style={{

@@ -103,7 +103,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
                 alignItems: 'center',
                 gap: 10,
               }}>
-              <Text>Rewords:</Text>
+              <Text>Rewards:</Text>
               <Text>50</Text>
               <AntDesign name="star" color={GStyles.primaryYellow} />
             </View>

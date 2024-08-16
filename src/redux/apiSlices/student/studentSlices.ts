@@ -1,5 +1,5 @@
 import {api} from '../../api/baseApi';
-import {IAssignRewords, IAssignStudentTasks,  IEarnedStudentRewords} from '../../interface/interface';
+import {IAssignRewards, IAssignStudentTasks,  IEarnedStudentRewards} from '../../interface/interface';
 
 const studentPartSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -12,7 +12,7 @@ const studentPartSlice = api.injectEndpoints({
       }),
       providesTags: ['studentAssign'],
     }),
-    getStudentAssignRewords: builder.query<IAssignRewords, unknown>({
+    getStudentAssignRewards: builder.query<IAssignRewards, unknown>({
       query: token => ({
         url: `/assign-reward/student`,
         headers: {
@@ -21,7 +21,7 @@ const studentPartSlice = api.injectEndpoints({
       }),
       providesTags: ['studentAssign'],
     }),
-    getEarnRewords: builder.query<IEarnedStudentRewords, unknown>({
+    getEarnRewards: builder.query<IEarnedStudentRewards, unknown>({
       query: token => ({
         url: `/assign-reward/earn`,
         headers: {
@@ -54,8 +54,8 @@ const studentPartSlice = api.injectEndpoints({
 });
 
 export const {
- useGetEarnRewordsQuery,
- useGetStudentAssignRewordsQuery,
+ useGetEarnRewardsQuery,
+ useGetStudentAssignRewardsQuery,
  useGetStudentAssignTaskQuery,
  useStudentAchieveActionMutation,
  useStudentClaimActionMutation

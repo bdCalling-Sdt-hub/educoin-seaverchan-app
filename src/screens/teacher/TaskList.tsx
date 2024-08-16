@@ -32,6 +32,8 @@ import {imageUrl} from '../../redux/api/baseApi';
 import {useContextApi} from '../../context/ContextApi';
 import { ITask } from '../../redux/interface/interface';
 import { RefreshControl } from 'react-native-gesture-handler';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import LottieView from 'lottie-react-native';
 
 const TaskList = ({navigation,route}: NavigProps<string>) => {
   console.log(route?.params?.data);
@@ -48,6 +50,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
   const [isActionOpen, setIsActions] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
+  const [claimModal, setClaimModal] = React.useState(false);
   // console.log(selectItem);
   useEffect(() => {
     ShearTask;
@@ -56,6 +59,34 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
       setOp(route?.params?.data)
     }
   }, [reLoad,route?.params?.data]);
+
+
+  const bottom = useSharedValue(0)
+  
+  const animationStyle = useAnimatedStyle(()=>{
+    return {
+      
+        position : "absolute",
+        width : 200,
+        height : 200,
+        zIndex : +1,
+        bottom :  bottom.value
+    
+    }
+  })
+  useEffect(()=>{
+   if(claimModal){
+    bottom.value =  withSpring(60)
+   }
+   else{
+    bottom.value = withSpring(0)
+   }
+ 
+  
+  },[claimModal,route])
+
+
+
   return (
     <View
       style={{
@@ -161,14 +192,14 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
                 optionContainerHight={100}
                 button
                 isButton
-                buttonText="Pending"
+                buttonText="Approved"
                 OnButtonPress={() => {
                   console.log("ok");
                   // navigation?.navigate('TeacherTaskAssign');
                   approveTask({token : user.token, id : item?.item?._id}).then(res=>{
-                   
                     if(res.data?.success){
-                      setModalVisible(true)
+                      setClaimModal(true)
+                      // setModalVisible(true)
                     }
                   })
              
@@ -221,7 +252,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <CustomModal
+      {/* <CustomModal
         modalVisible={modalVisible}
         // backButton
         setModalVisible={setModalVisible}
@@ -245,14 +276,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
             }}>
             Task Approved Successfully
           </Text>
-          {/* <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              textAlign: 'center',
-            }}>
-            simply dummy text of the printing and typesetting industry
-          </Text> */}
+      
 
           <View>
             <TouchableOpacity
@@ -278,14 +302,73 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
             </TouchableOpacity>
           </View>
         </View>
+      </CustomModal> */}
+         <CustomModal
+        modalVisible={claimModal}
+        // backButton
+        setModalVisible={setClaimModal}
+        height={289}
+        width={"80%"}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+            alignItems: 'center',
+            position : "relative"
+          }}>
+         <Animated.View style={animationStyle}>
+         <Image style={{
+              position : "absolute",
+              width : 200,
+              height : 200,
+              zIndex : +1,
+              
+            }} source={require("../../assets/images/quakka/happyQuakka.png")}/>
+         </Animated.View>
+          {/* <LottieView
+            source={require('../../assets/lottie/effect.json')}
+            style={{width: 1000, height: "100%"}}
+            autoPlay
+            loop={false}
+            resizeMode='cover'
+          /> */}
+          <LottieView
+            source={require('../../assets/lottie/effect.json')}
+            style={{width: 500, height: "100%"}}
+            autoPlay
+            loop={false}
+            resizeMode='cover'
+          />
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setClaimModal(false)}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: 100,
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+                marginBottom: 20,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                OK
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </CustomModal>
-      <YesNoModal
-        modalVisible={isYes}
-        setModalVisible={setIsYes}
-        yesPress={() => {
-          setIsYes(false);
-        }}
-      />
 
       <ActionSheet
         visible={isActionOpen}

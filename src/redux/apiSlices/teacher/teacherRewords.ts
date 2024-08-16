@@ -1,29 +1,29 @@
 import {api} from '../../api/baseApi';
-import { IAssignReword, IAssignRewords, IRewords} from '../../interface/interface';
+import { IAssignReword, IAssignRewards, IRewards} from '../../interface/interface';
 
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getRewords: builder.query<IRewords, unknown>({
+    getRewards: builder.query<IRewards, unknown>({
       query: token => ({
         url: `/reward`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }),
-      providesTags: ['rewords'],
+      providesTags: ['Rewards'],
     }),
 
-    getAssignRewords: builder.query<IAssignRewords, unknown>({
+    getAssignRewards: builder.query<IAssignRewards, unknown>({
       query: token => ({
         url: `/assign-reward`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }),
-      providesTags: ['rewords'],
+      providesTags: ['Rewards'],
     }),
 
-    createRewords: builder.mutation({
+    createRewards: builder.mutation({
       query: ({token, data}) => ({
         url: `/reward/create-reward`,
         method: 'POST',
@@ -32,9 +32,9 @@ const authSlice = api.injectEndpoints({
         },
         body: data,
       }),
-      invalidatesTags: ['rewords'],
+      invalidatesTags: ['Rewards'],
     }),
-    createAssignRewords: builder.mutation({
+    createAssignRewards: builder.mutation({
       query: ({token, data}) => ({
         url: `/assign-reward`,
         method: 'POST',
@@ -43,9 +43,9 @@ const authSlice = api.injectEndpoints({
         },
         body: data,
       }),
-      invalidatesTags: ['rewords'],
+      invalidatesTags: ['Rewards'],
     }),
-    updateRewords: builder.mutation({
+    updateRewards: builder.mutation({
       query: ({token, id, data}) => ({
         url: `/reward/${id}`,
         method: 'PATCH',
@@ -54,7 +54,7 @@ const authSlice = api.injectEndpoints({
         },
         body: data,
       }),
-      invalidatesTags: ['rewords'],
+      invalidatesTags: ['Rewards'],
     }),
     // deletedClass: builder.mutation({
     //   query: ({token, id}) => ({
@@ -70,9 +70,9 @@ const authSlice = api.injectEndpoints({
 });
 
 export const {
-  useGetRewordsQuery,
-  useCreateRewordsMutation,
-  useGetAssignRewordsQuery,
-  useUpdateRewordsMutation,
-  useCreateAssignRewordsMutation
+  useGetRewardsQuery,
+  useCreateRewardsMutation,
+  useGetAssignRewardsQuery,
+  useUpdateRewardsMutation,
+  useCreateAssignRewardsMutation
 } = authSlice;

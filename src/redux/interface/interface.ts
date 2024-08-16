@@ -131,7 +131,7 @@ export interface IReword {
   __v: number;
 }
 
-export interface IRewords extends IFetchStatus {
+export interface IRewards extends IFetchStatus {
   data: Array<IReword>;
 }
 export interface IPendingTask {
@@ -173,7 +173,7 @@ export interface IAssignReword {
   __v: number;
 }
 
-export interface IAssignRewords extends IFetchStatus {
+export interface IAssignRewards extends IFetchStatus {
   data: Array<IAssignReword>;
 }
 export interface IPreset {
@@ -224,7 +224,7 @@ export interface IAssignStudentReword {
   __v: number;
 }
 
-export interface IAssignStudentRewords extends IFetchStatus {
+export interface IAssignStudentRewards extends IFetchStatus {
   data: Array<IAssignStudentReword>;
 }
 export interface IEarnedStudentReword {
@@ -238,7 +238,7 @@ export interface IEarnedStudentReword {
   __v: number;
 }
 
-export interface IEarnedStudentRewords extends IFetchStatus {
+export interface IEarnedStudentRewards extends IFetchStatus {
   data: Array<IEarnedStudentReword>;
 }
 

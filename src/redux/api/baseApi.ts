@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import { Alert } from 'react-native';
 import { removeStorageRole, removeStorageToken } from '../../utils/utils';
+import { getSocket, initiateSocket } from '../services/socket';
 
 
 
@@ -18,6 +19,11 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth: typeof baseQuery = async (args, api, extraOptions) => {
+  const socket = getSocket();
+
+  if (!socket){
+    initiateSocket();
+  }
   
   let result = await baseQuery(args, api, extraOptions);
   // console.log(result);
@@ -40,7 +46,7 @@ export const api = createApi({
   baseQuery: baseQueryWithReauth,
   
   endpoints: () => ({}),
-  tagTypes: ['user', 'class', 'student', 'category', 'task',"rewords","studentAssign" ,"studentUser","notification"],
+  tagTypes: ['user', 'class', 'student', 'category', 'task',"Rewards","studentAssign" ,"studentUser","notification"],
 });
 
 

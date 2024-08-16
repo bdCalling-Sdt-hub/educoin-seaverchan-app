@@ -10,8 +10,7 @@ import ChildLoginScreen from '../screens/login/ChildLoginScreen';
 import SignUpScreen from '../screens/signup/SignUpScreen';
 import SplashScreen from '../screens/slpash/SplashScreen';
 import AdminRoutes from './AdminRoutes';
-import CreateRewords from '../screens/admin/CreateRewords';
-import EditRewordsScreen from '../screens/admin/EditRewordsScreen';
+
 import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
 import CustomTaskScreen from '../screens/admin/CustomTaskScreen';
 import EditCustomTaskScreen from '../screens/admin/EditCustomTaskScreen';
@@ -34,9 +33,7 @@ import TeacherNotification from '../screens/teacher/TeacherNotification';
 import CategoryScreen from '../screens/teacher/CategoryScreen';
 import EditTeacherTask from '../screens/teacher/EditTeacherTask';
 import TeacherTaskAssign from '../screens/teacher/TeacherTaskAssign';
-import TeacherRewords from '../screens/teacher/TeacherRewords';
-import TeacherCreateRewords from '../screens/teacher/TeacherCreateRewords';
-import TeacherEditRewords from '../screens/teacher/EditTeacherRewords';
+
 import TeacherAddCategory from '../screens/teacher/TeacherAddCategory';
 import TeacherFeedback from '../screens/teacher/TeacherFeedBack';
 import TeacherProfile from '../screens/teacher/TeacherProfile';
@@ -153,6 +150,7 @@ export const NavigationRoutes = () => {
           <>
             <Stack.Screen name="LoginAs" component={LoginAsScreen} />
             <Stack.Screen name="TeacherLogin" component={TeacherLoginScreen} />
+            <Stack.Screen name="TeacherLoginVariation" component={TeacherLoginVariation} />
             <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
             <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
@@ -161,8 +159,8 @@ export const NavigationRoutes = () => {
 
         {/* Admins All Screens  */}
         {/* <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
-      <Stack.Screen name="CreateRewords" component={CreateRewords} />
-      <Stack.Screen name="EditRewords" component={EditRewordsScreen} />
+      <Stack.Screen name="CreateRewards" component={CreateRewards} />
+      <Stack.Screen name="EditRewards" component={EditRewardsScreen} />
       <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
       <Stack.Screen name="CustomTask" component={CustomTaskScreen} />
       <Stack.Screen name="EditCustomTask" component={EditCustomTaskScreen} />
@@ -241,17 +239,17 @@ export const NavigationRoutes = () => {
               component={TeacherTaskAssign}
             />
             <Stack.Screen
-              name="TeacherRewordsAssign"
-              component={TeacherRewordsAssign}
+              name="TeacherRewardsAssign"
+              component={TeacherRewardsAssign}
             />
-            <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
+            <Stack.Screen name="TeacherRewards" component={TeacherRewards} />
             <Stack.Screen
-              name="TeacherCreateRewords"
-              component={TeacherCreateRewords}
+              name="TeacherCreateRewards"
+              component={TeacherCreateRewards}
             />
             <Stack.Screen
-              name="TeacherEditRewords"
-              component={TeacherEditRewords}
+              name="TeacherEditRewards"
+              component={TeacherEditRewards}
             />
             <Stack.Screen
               name="TeacherAddCategory"
@@ -307,7 +305,7 @@ import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
 import TeacherEditClass from '../screens/teacher/TeacherEditClass';
 import AddPaymentCards from '../screens/payments/AddPaymentCards';
 import PaymentScreen from '../screens/payments/PaymentScreen';
-import TeacherRewordsAssign from '../screens/teacher/TeacherRewordsAssign';
+
 import GlobalSplash from '../screens/slpash/GlobalSplash';
 
 
@@ -319,6 +317,11 @@ import { INotification } from '../redux/interface/interface';
 import { onDisplayNotification } from '../..';
 import { useGetNotificationsQuery } from '../redux/apiSlices/setings/notification';
 import { useGetPendingTaskQuery } from '../redux/apiSlices/teacher/teaherTaskSlices';
+import TeacherRewards from '../screens/teacher/TeacherRewords';
+import TeacherCreateRewards from '../screens/teacher/TeacherCreateRewords';
+import TeacherEditRewards from '../screens/teacher/EditTeacherRewords';
+import TeacherRewardsAssign from '../screens/teacher/TeacherRewordsAssign';
+import TeacherLoginVariation from '../screens/login/TeacherLoginVariation';
 
 //  google clude message 
 // import messaging from '@react-native-firebase/messaging';

@@ -18,7 +18,7 @@ interface HeaderBackgroundProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
+const EditRewardsScreen = ({navigation}: HeaderBackgroundProps) => {
   const [rewordName, setRewordName] = React.useState(
     'Playing outside with dad',
   );
@@ -50,7 +50,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
 
   return (
     <View>
-      <HeaderBackground title="Edit Rewords" navigation={navigation} />
+      <HeaderBackground title="Edit Rewards" navigation={navigation} />
       <View>
         <View
           style={{
@@ -74,7 +74,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
             onChangeText={text => setRewordName(text)}
             placeholderTextColor="#3D3D3D"
             multiline
-            placeholder="Rewords Name"
+            placeholder="Rewards Name"
             value={rewordName}
           />
         </View>
@@ -197,7 +197,7 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
           flexDirection: 'row',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('CreateRewords')}
+          onPress={() => navigation.navigate('CreateRewards')}
           style={{
             backgroundColor: GStyles.primaryBlue,
             padding: 10,
@@ -230,6 +230,6 @@ const EditRewordsScreen = ({navigation}: HeaderBackgroundProps) => {
   );
 };
 
-export default EditRewordsScreen;
+export default EditRewardsScreen;
 
 const styles = StyleSheet.create({});

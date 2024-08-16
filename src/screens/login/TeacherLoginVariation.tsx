@@ -9,22 +9,23 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, HEIGHT} from '../../styles/GStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import { FontSize } from '../../utils/utils';
-
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 
 
 const AsLoginData = [
   {
     id: 3,
-    name: 'Student Login',
+    name: 'With Passcode',
     route: 'ChildLogin',
+    icons : <MaterialCommunityIcons name='lock-open' size={25} color={"white"} />,
     style: {
       algin: 'left',
-      bgColor: '#FF8811',
+      bgColor: '#9556D7',
       gradientColor: {
         start: 'rgba(230, 122, 15, 0.01)',
         end: 'rgba(246, 126, 6, 1)',
@@ -34,32 +35,34 @@ const AsLoginData = [
   },
   {
     id: 1,
-    name: 'Teacher Login',
-    route: 'TeacherLoginVariation',
+    name: 'With Google',
+    route: 'TeacherLogin',
     image: require('../../assets/images/loginAs/teacher.png'),
+    icons : <MaterialCommunityIcons name='google' size={25} color={"white"}  />,
     style: {
       algin: 'right',
-      bgColor: '#9556D7',
+      bgColor: 'rgba(26, 162, 255, 1)',
       gradientColor: {
         start: 'rgba(182, 9, 243, 0.01)',
         end: 'rgba(165, 95, 239, 1)',
       },
     },
   },
-  // {
-  //   id: 2,
-  //   name: 'Login as a Admin',
-  //   route: 'AdminLogin',
-  //   style: {
-  //     algin: 'left',
-  //     bgColor: '#3AAFFF',
-  //     gradientColor: {
-  //       start: 'rgba(58, 175, 255, .01)',
-  //       end: 'rgba(26, 162, 255, 1)',
-  //     },
-  //   },
-  //   image: require('../../assets/images/loginAs/admin.png'),
-  // },
+  {
+    id: 2,
+    name: 'Email Or Password',
+    route: 'AdminLogin',
+    icons : <MaterialCommunityIcons name='email' size={25} color={"white"}  />,
+    style: {
+      algin: 'left',
+      bgColor: 'gray',
+      gradientColor: {
+        start: 'rgba(58, 175, 255, .01)',
+        end: 'rgba(26, 162, 255, 1)',
+      },
+    },
+    image: require('../../assets/images/loginAs/admin.png'),
+  },
 ];
 
 interface LoginAsProps {
@@ -69,7 +72,7 @@ interface LoginAsProps {
 const {scale,fontScale,height,width} = Dimensions.get('window');
 
 
-const LoginAsScreen = ({navigation}: LoginAsProps) => {
+const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
 
   
  
@@ -112,10 +115,7 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
               <View
                 style={[
                   styles.cardContentContainer,
-                  {
-                    flexDirection:
-                      data.style.algin === 'right' ? 'row-reverse' : 'row',
-                  },
+                
                 ]}>
                 {/* <View
                   style={{
@@ -129,7 +129,12 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
                   }}>
                   <Image style={styles.cardImage} source={data.image} />
                 </View> */}
-                <Text adjustsFontSizeToFit style={styles.cardTitle}>{data.name}</Text>
+             <View style={{
+              paddingHorizontal : 10
+             }}>
+             {data.icons}
+             </View>
+                <Text  style={styles.cardTitle}>{data.name}</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -143,7 +148,7 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
   );
 };
 
-export default LoginAsScreen;
+export default TeacherLoginVariation;
 
 const styles = StyleSheet.create({
   container: {
@@ -172,7 +177,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '85%',
-    height: 84,
+    height: HEIGHT * .068,
     backgroundColor: '#9556D7',
     borderRadius: 100,
     justifyContent: 'center',
@@ -192,7 +197,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   cardImage: {
@@ -201,9 +206,9 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: GStyles.PoppinsMedium,
-    fontSize: FontSize(25),
+    fontSize: FontSize(20),
     // fontWeight: 'bold',
-    flex : 1,
+    // flex : 1,
     // width : "100%",
 
     color: GStyles.white,

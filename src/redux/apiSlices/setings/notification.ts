@@ -1,8 +1,8 @@
 import {api} from '../../api/baseApi';
 import {
-  IAssignRewords,
+  IAssignRewards,
   IAssignStudentTasks,
-  IEarnedStudentRewords,
+  IEarnedStudentRewards,
   IFetchStatus,
   INotifications,
 } from '../../interface/interface';

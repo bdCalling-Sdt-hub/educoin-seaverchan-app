@@ -170,36 +170,38 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             alignItems: 'center',
           }}>
           <View style={{}}>
-            <Dropdown
-              // maxHeight={150}
-              style={{
-                // flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingHorizontal: 12,
-                paddingVertical: 15,
-                borderWidth: 1,
-                borderColor: '#E2E2E2',
-                borderRadius: 10,
-                width: '100%',
-                gap: 20,
-              }}
-              iconStyle={{
-                marginHorizontal: 10,
-              }}
-              labelField="className"
-              valueField="className"
-              value={value}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
-              onChange={item => {
-                // console.log(item);
-                setSelectedClass(item?.className);
-            
-              }}
-              placeholder="class 1"
-              data={classes?.data}
-            />
+           {
+            !classLoading && <Dropdown
+            // maxHeight={150}
+            style={{
+              // flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingHorizontal: 12,
+              paddingVertical: 15,
+              borderWidth: 1,
+              borderColor: '#E2E2E2',
+              borderRadius: 10,
+              width: '100%',
+              gap: 20,
+            }}
+            iconStyle={{
+              marginHorizontal: 10,
+            }}
+            labelField="className"
+            valueField="className"
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              // console.log(item);
+              setSelectedClass(item?.className);
+          
+            }}
+            placeholder="select class"
+            data={classes?.data}
+          />
+           }
           </View>
 
           <FlatList
@@ -237,77 +239,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
           />
         </View>
 
-        {/* <View
-          style={{
-            marginTop: 10,
-            paddingHorizontal: '8%',
-          }}>
-      
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              backgroundColor: '#FFF3E7',
-              height: 65,
-              borderRadius: 8,
-            }}>
-            <Animated.View
-              style={{
-                backgroundColor: GStyles.primaryOrange,
-                height: 65,
-                width: progressBar,
-                borderRadius: 8,
-              }}
-            />
-          </View>
-     
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginVertical: 17,
-            }}>
-            <Text
-              style={{
-                fontSize: 12,
-                color: GStyles.textColor['#3D3D3D'],
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                letterSpacing: 0.8,
-              }}>
-              level {ProgressIfo?.data?.level}
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                gap: 5,
-              }}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#000000',
-                  fontFamily: GStyles.Poppins,
-                  fontWeight: '400',
-                  letterSpacing: 0.8,
-                }}>
-           {ProgressIfo?.data?.points}
-              </Text>
-              <AntDesign name="star" size={15} color={GStyles.primaryYellow} />
-            </View>
-            <Text
-              style={{
-                fontSize: 12,
-                color: GStyles.textColor['#3D3D3D'],
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                letterSpacing: 0.8,
-              }}>
-              level {ProgressIfo?.data?.level  + 1}
-            </Text>
-          </View>
-        </View> */}
+    
 
         {
           students?.data?.length !== 0 && <>

@@ -18,14 +18,14 @@ interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const AdminRewords = ({navigation}: AdminRoutesProps) => {
+const AdminRewards = ({navigation}: AdminRoutesProps) => {
   return (
     <View
       style={{
         position: 'relative',
         height: '100%',
       }}>
-      <HeaderBackground navigation={navigation} title="Rewords" />
+      <HeaderBackground navigation={navigation} title="Rewards" />
 
       {/* card container  */}
       <ScrollView
@@ -96,7 +96,7 @@ const AdminRewords = ({navigation}: AdminRoutesProps) => {
                 </View>
               </View>
               <TouchableOpacity
-                onPress={() => navigation.navigate('EditRewords')}
+                onPress={() => navigation.navigate('EditRewards')}
                 style={{
                   padding: 5,
                 }}>
@@ -119,7 +119,7 @@ const AdminRewords = ({navigation}: AdminRoutesProps) => {
           justifyContent: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('CreateRewords')}
+          onPress={() => navigation.navigate('CreateRewards')}
           style={{
             backgroundColor: GStyles.primaryBlue,
             padding: 10,
@@ -144,7 +144,7 @@ const AdminRewords = ({navigation}: AdminRoutesProps) => {
               letterSpacing: 0.8,
               marginTop: 5,
             }}>
-            Create rewords
+            Create Rewards
           </Text>
         </TouchableOpacity>
       </View>
@@ -152,6 +152,6 @@ const AdminRewords = ({navigation}: AdminRoutesProps) => {
   );
 };
 
-export default AdminRewords;
+export default AdminRewards;
 
 const styles = StyleSheet.create({});

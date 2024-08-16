@@ -22,17 +22,17 @@ import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
 import {HomeNavigProps} from '../../interfaces/NavigationPros';
-import RewordsCard from '../../components/common/Cards/RewordsCard';
 import StudentCard from '../../components/common/Cards/StudentCard';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import LottieView from 'lottie-react-native';
 import { IFetchStatus } from '../../redux/interface/interface';
-import { useGetEarnRewordsQuery, useGetStudentAssignRewordsQuery, useGetStudentAssignTaskQuery } from '../../redux/apiSlices/student/studentSlices';
+import { useGetEarnRewardsQuery, useGetStudentAssignRewardsQuery, useGetStudentAssignTaskQuery } from '../../redux/apiSlices/student/studentSlices';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
 import { imageUrl } from '../../redux/api/baseApi';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
+import RewardsCard from '../../components/common/Cards/RewordsCard';
 
 
 const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus>) => {
@@ -44,8 +44,8 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
 
 
   const {data : assignTaskData, refetch : assignTaskRefetch} = useGetStudentAssignTaskQuery(token);
-  const {data : assignRewordsData} = useGetStudentAssignRewordsQuery(token);
-  const {data : assignRewordsEarnedData} = useGetEarnRewordsQuery(token);
+  const {data : assignRewardsData} = useGetStudentAssignRewardsQuery(token);
+  const {data : assignRewardsEarnedData} = useGetEarnRewardsQuery(token);
   const {data : studentUser,refetch : studentUserRefetch, isLoading} = useGetUserStudentQuery(token);
 
 
@@ -279,7 +279,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
         marginBottom={5}
         marginHorizontal={15}
         op1="Tasks"
-        op2="Rewords"
+        op2="Rewards"
         op3="Earned"
         borderColor={GStyles.orange.lightActive}
         activeBorderColor={GStyles.primaryOrange}
@@ -293,9 +293,9 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
               style={{
                 marginBottom: 25,
               }}>
-            <FlatList data={assignRewordsEarnedData?.data} renderItem={(item)=>{
+            <FlatList data={assignRewardsEarnedData?.data} renderItem={(item)=>{
               return(
-                <RewordsCard
+                <RewardsCard
                 key={item.index}
                 removePress={() => {
                   setYesNoModal(!yesNoModal);
@@ -313,19 +313,19 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
 
           
           </>
-        ) : isCompeted === 'Rewords' ? (
+        ) : isCompeted === 'Rewards' ? (
         
 
               <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
                 paddingHorizontal : "4%",
                 paddingBottom : "10%",
                 gap : 10
-               }} data={assignRewordsData?.data}  renderItem={(item)=>{
+               }} data={assignRewardsData?.data}  renderItem={(item)=>{
           console.log();
                 return (
-                  <RewordsCard
+                  <RewardsCard
                   navigation={navigation}
-                  // route="EditRewords"
+                  // route="EditRewards"
                   // routeData={'demo'}
                   // editOption={true}
                 

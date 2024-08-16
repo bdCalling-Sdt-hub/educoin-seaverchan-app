@@ -238,7 +238,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
             value={taskData?.name}
             placeholderTextColor="gray"
             multiline
-            placeholder="Rewords Name"
+            placeholder="Rewards Name"
           />
         </View>
         <View

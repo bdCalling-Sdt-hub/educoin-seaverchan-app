@@ -4,14 +4,15 @@ import AdminDrawerRoutes from './AdminDrawerRoutes';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Entypo from 'react-native-vector-icons/Entypo';
-import AdminRewords from '../screens/admin/AdminRewords';
+
 import AdminTask from '../screens/admin/AdminTask';
 import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
 import StudentDrawerRoutes from './StudentDrawerRoutes';
 import {GStyles} from '../styles/GStyles';
-import StudentRewordsScreen from '../screens/student/StudentRewordsScreen';
+
 import ProgressScreen from '../screens/student/ProgressScreen';
 import StudentHomeScreen from '../screens/student/StudentHomeScreen';
+import StudentRewardsScreen from '../screens/student/StudentRewordsScreen';
 const Tab = createBottomTabNavigator();
 
 function StudentRoutes() {
@@ -43,8 +44,8 @@ function StudentRoutes() {
         }}
       />
       <Tab.Screen
-        name="StudentRewords"
-        component={StudentRewordsScreen}
+        name="StudentRewards"
+        component={StudentRewardsScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
