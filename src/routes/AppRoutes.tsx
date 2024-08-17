@@ -7,7 +7,7 @@ import LoginAsScreen from '../screens/login/LoginAsScreen';
 import TeacherLoginScreen from '../screens/login/TeacherLoginScreen';
 import AdminLoginScreen from '../screens/login/AdminLoginScreen';
 import ChildLoginScreen from '../screens/login/ChildLoginScreen';
-import SignUpScreen from '../screens/signup/SignUpScreen';
+
 import SplashScreen from '../screens/slpash/SplashScreen';
 import AdminRoutes from './AdminRoutes';
 
@@ -153,6 +153,7 @@ export const NavigationRoutes = () => {
             <Stack.Screen name="TeacherLoginVariation" component={TeacherLoginVariation} />
             <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
             <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
+            <Stack.Screen name="TeacherLoginWithEmail" component={TeacherLoginWithEmail} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
           </>
         )}
@@ -322,6 +323,8 @@ import TeacherCreateRewards from '../screens/teacher/TeacherCreateRewords';
 import TeacherEditRewards from '../screens/teacher/EditTeacherRewords';
 import TeacherRewardsAssign from '../screens/teacher/TeacherRewordsAssign';
 import TeacherLoginVariation from '../screens/login/TeacherLoginVariation';
+import TeacherLoginWithEmail from '../screens/login/TeacherLoginWithEmail';
+import SignUpScreen from '../screens/login/SignUpScreen';
 
 //  google clude message 
 // import messaging from '@react-native-firebase/messaging';

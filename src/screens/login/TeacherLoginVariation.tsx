@@ -14,52 +14,33 @@ import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import { FontSize } from '../../utils/utils';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import { AppName } from '../../styles/AppDetails';
 
 
 
 const AsLoginData = [
-  {
-    id: 3,
-    name: 'With Passcode',
-    route: 'ChildLogin',
-    icons : <MaterialCommunityIcons name='lock-open' size={25} color={"white"} />,
-    style: {
-      algin: 'left',
-      bgColor: '#9556D7',
-      gradientColor: {
-        start: 'rgba(230, 122, 15, 0.01)',
-        end: 'rgba(246, 126, 6, 1)',
-      },
-    },
-    image: require('../../assets/images/loginAs/student.png'),
-  },
+
   {
     id: 1,
-    name: 'With Google',
-    route: 'TeacherLogin',
+    name: 'Sign in with Google',
+    // route: 'TeacherLogin',
     image: require('../../assets/images/loginAs/teacher.png'),
     icons : <MaterialCommunityIcons name='google' size={25} color={"white"}  />,
     style: {
       algin: 'right',
-      bgColor: 'rgba(26, 162, 255, 1)',
-      gradientColor: {
-        start: 'rgba(182, 9, 243, 0.01)',
-        end: 'rgba(165, 95, 239, 1)',
-      },
+      bgColor: 'rgb(233,75,64)',
+      textColor: "rgb(255,255,255)"
     },
   },
   {
     id: 2,
-    name: 'Email Or Password',
-    route: 'AdminLogin',
-    icons : <MaterialCommunityIcons name='email' size={25} color={"white"}  />,
+    name: 'Sign in with Email',
+    route: 'TeacherLoginWithEmail',
+    icons : <MaterialCommunityIcons name='email' size={25} color={GStyles?.textColor['#3D3D3D']}  />,
     style: {
       algin: 'left',
-      bgColor: 'gray',
-      gradientColor: {
-        start: 'rgba(58, 175, 255, .01)',
-        end: 'rgba(26, 162, 255, 1)',
-      },
+      bgColor: 'rgb(255,255,255)',
+      textColor: GStyles?.textColor['#3D3D3D']
     },
     image: require('../../assets/images/loginAs/admin.png'),
   },
@@ -73,10 +54,6 @@ const {scale,fontScale,height,width} = Dimensions.get('window');
 
 
 const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
-
-  
- 
-
 
   return (
     <View style={styles.container}>
@@ -95,21 +72,29 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
              <View style={styles.bgImage}>
         {/* title on login as  */}
         <View style={styles.loginAsContainer}>
-          <Image
+        <Image
           resizeMode='center'
           style={{
             height:  height * .42,
             width:  width * .9,
-            marginRight :  width * .05
+            marginRight :  width * .1,
+            marginBottom : - height * .015
           }}
             source={require('../../assets/images/loginAs/normalQuokka.png')}
           />
+            <Text style={{
+                fontSize: 32,
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.PoppinsBold,
+            }}>{AppName}</Text>
         </View>
         {/* card container  */}
         <View style={styles.cardContainer}>
           {AsLoginData.map((data, index) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate(data.route)}
+              onPress={() => {
+                data?.route && navigation?.navigate(data?.route)
+              }}
               style={[styles.card, {backgroundColor: data.style.bgColor}]}
               key={index}>
               <View
@@ -117,24 +102,15 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
                   styles.cardContentContainer,
                 
                 ]}>
-                {/* <View
-                  style={{
-                    backgroundColor: 'white',
-                    borderRadius: 100,
-                    width: "21%",
-                    height: "100%",
-                    overflow: 'hidden',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Image style={styles.cardImage} source={data.image} />
-                </View> */}
+              
              <View style={{
               paddingHorizontal : 10
              }}>
              {data.icons}
              </View>
-                <Text  style={styles.cardTitle}>{data.name}</Text>
+                <Text  style={[styles.cardTitle,{
+                      color: data?.style?.textColor
+                }]}>{data.name}</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -211,7 +187,7 @@ const styles = StyleSheet.create({
     // flex : 1,
     // width : "100%",
 
-    color: GStyles.white,
+
     textAlign: 'center',
     paddingHorizontal: 10,
     letterSpacing: 0.8,
