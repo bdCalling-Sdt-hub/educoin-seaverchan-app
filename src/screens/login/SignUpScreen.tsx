@@ -42,7 +42,16 @@ const [createTeacher, results]= useCreateTeacherMutation()
   // console.log(results?.error);
   const {setUser, user} = useContextApi();
 
-  const [userInfo, setUserInfo] = React.useState<{email : string, password : string,name : string,location : string,contact  :string,confirm_password : string }>();
+  const [userInfo, setUserInfo] = React.useState<{email : string, password : string,name : string,location : string,contact  :string,confirm_password : string }>(
+   {
+    email : '',
+    password : '',
+    name : '',
+    location : '',
+    contact  : '',
+    confirm_password : ''
+   }
+  );
 
 
   const handleGoPress = useCallback((UData)=>{

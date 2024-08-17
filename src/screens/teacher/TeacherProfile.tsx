@@ -19,7 +19,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
   const {data, error} = useGetUserTeacherQuery(user.token);
 
   console.log(data);
-
+ const imgUrl = data?.data.profile.startsWith("https") ? data?.data.profile : `${imageUrl}/${data?.data?.profile}`
   return (
     <View
       style={{
@@ -57,9 +57,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               width: 86,
             }}>
             <Image
-              source={data?.data?.profile ? {
-                uri: imageUrl + data?.data?.profile,
-              } : require("../../assets/images/avatar/default_avatar.png")}
+              source={{uri : imgUrl}}
               style={{
                 height: 86,
                 width: 86,

@@ -12,35 +12,42 @@ import React from 'react';
 import {GStyles, HEIGHT} from '../../styles/GStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import { FontSize } from '../../utils/utils';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import { AppName } from '../../styles/AppDetails';
-
-
+import {FontSize, setStorageRole, setStorageToken} from '../../utils/utils';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {AppName} from '../../styles/AppDetails';
+import {onGoogleButtonPress} from '../../utils/google';
+import {useLoginTeacherMutation} from '../../redux/apiSlices/authSlice';
+import { initiateSocket } from '../../redux/services/socket';
+import { useContextApi } from '../../context/ContextApi';
 
 const AsLoginData = [
-
   {
     id: 1,
     name: 'Sign in with Google',
-    // route: 'TeacherLogin',
+    social: true,
     image: require('../../assets/images/loginAs/teacher.png'),
-    icons : <MaterialCommunityIcons name='google' size={25} color={"white"}  />,
+    icons: <MaterialCommunityIcons name="google" size={25} color={'white'} />,
     style: {
       algin: 'right',
       bgColor: 'rgb(233,75,64)',
-      textColor: "rgb(255,255,255)"
+      textColor: 'rgb(255,255,255)',
     },
   },
   {
     id: 2,
     name: 'Sign in with Email',
     route: 'TeacherLoginWithEmail',
-    icons : <MaterialCommunityIcons name='email' size={25} color={GStyles?.textColor['#3D3D3D']}  />,
+    icons: (
+      <MaterialCommunityIcons
+        name="email"
+        size={25}
+        color={GStyles?.textColor['#3D3D3D']}
+      />
+    ),
     style: {
       algin: 'left',
       bgColor: 'rgb(255,255,255)',
-      textColor: GStyles?.textColor['#3D3D3D']
+      textColor: GStyles?.textColor['#3D3D3D'],
     },
     image: require('../../assets/images/loginAs/admin.png'),
   },
@@ -50,75 +57,101 @@ interface LoginAsProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const {scale,fontScale,height,width} = Dimensions.get('window');
-
+const {scale, fontScale, height, width} = Dimensions.get('window');
 
 const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
-
+  const {setUser} = useContextApi()
+  const [loginUser, results] = useLoginTeacherMutation();
   return (
     <View style={styles.container}>
-       <LinearGradient
-            style={{
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            colors={[
-              '#9556D7',
-              'rgba(255,255,255,1)',
-              '#FF8811',
-             
-            ]}>
-             <View style={styles.bgImage}>
-        {/* title on login as  */}
-        <View style={styles.loginAsContainer}>
-        <Image
-          resizeMode='center'
-          style={{
-            height:  height * .42,
-            width:  width * .9,
-            marginRight :  width * .1,
-            marginBottom : - height * .015
-          }}
-            source={require('../../assets/images/loginAs/normalQuokka.png')}
-          />
-            <Text style={{
+      <LinearGradient
+        style={{
+          height: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        colors={['#9556D7', 'rgba(255,255,255,1)', '#FF8811']}>
+        <View style={styles.bgImage}>
+          {/* title on login as  */}
+          <View style={styles.loginAsContainer}>
+            <Image
+              resizeMode="center"
+              style={{
+                height: height * 0.42,
+                width: width * 0.9,
+                marginRight: width * 0.1,
+                marginBottom: -height * 0.015,
+              }}
+              source={require('../../assets/images/loginAs/normalQuokka.png')}
+            />
+            <Text
+              style={{
                 fontSize: 32,
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.PoppinsBold,
-            }}>{AppName}</Text>
+              }}>
+              {AppName}
+            </Text>
+          </View>
+          {/* card container  */}
+          <View style={styles.cardContainer}>
+            {AsLoginData.map((data, index) => (
+              <TouchableOpacity
+                onPress={() => {
+                  if (data.social) {
+                    onGoogleButtonPress().then(res => {
+                      console.log(res?.user?.email);
+                      loginUser({
+                        email: res?.user?.email,
+                        name: res?.user?.displayName,
+                        profile: res?.user?.photoURL,
+                        type: 'social',
+                      }).then(orUser=>{
+                        console.log(orUser);
+                        if (orUser?.data?.success) {
+                          setUser({
+                            token: orUser?.data?.data,
+                            role: 'teacher',
+                          });
+                          setStorageRole('teacher');
+                          setStorageToken(orUser?.data?.data);
+                          // Toast.show({
+                            //   text1: 'Login successful!',
+                            //   type: 'success',
+                            //   visibilityTime: 2000,
+                            // });
+                            initiateSocket();
+                          }
+                      })
+                    });
+                  }
+                  // data?.route && navigation?.navigate(data?.route);
+                }}
+                style={[styles.card, {backgroundColor: data.style.bgColor}]}
+                key={index}>
+                <View style={[styles.cardContentContainer]}>
+                  <View
+                    style={{
+                      paddingHorizontal: 10,
+                    }}>
+                    {data.icons}
+                  </View>
+                  <Text
+                    style={[
+                      styles.cardTitle,
+                      {
+                        color: data?.style?.textColor,
+                      },
+                    ]}>
+                    {data.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-        {/* card container  */}
-        <View style={styles.cardContainer}>
-          {AsLoginData.map((data, index) => (
-            <TouchableOpacity
-              onPress={() => {
-                data?.route && navigation?.navigate(data?.route)
-              }}
-              style={[styles.card, {backgroundColor: data.style.bgColor}]}
-              key={index}>
-              <View
-                style={[
-                  styles.cardContentContainer,
-                
-                ]}>
-              
-             <View style={{
-              paddingHorizontal : 10
-             }}>
-             {data.icons}
-             </View>
-                <Text  style={[styles.cardTitle,{
-                      color: data?.style?.textColor
-                }]}>{data.name}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-         
-      </View>
-          </LinearGradient>
-    
+      </LinearGradient>
+
       <StatusBar backgroundColor={'white'} barStyle="dark-content" />
     </View>
   );
@@ -140,8 +173,8 @@ const styles = StyleSheet.create({
   loginAsContainer: {
     paddingVertical: '20%',
     alignItems: 'center',
-    justifyContent : "center",
-    width : width
+    justifyContent: 'center',
+    width: width,
     // gap: 20,
   },
 
@@ -149,11 +182,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 24,
     // height: 74,
-    width : width
+    width: width,
   },
   card: {
     width: '85%',
-    height: HEIGHT * .068,
+    height: HEIGHT * 0.068,
     backgroundColor: '#9556D7',
     borderRadius: 100,
     justifyContent: 'center',
@@ -186,7 +219,6 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     // flex : 1,
     // width : "100%",
-
 
     textAlign: 'center',
     paddingHorizontal: 10,

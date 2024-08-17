@@ -60,13 +60,13 @@ import { initiateSocket } from '../../redux/services/socket';
       UData.type = "general"
       if(!UData?.email){
         popRef?.current?.open({
-          title: 'Email is required',
+          title: 'Please enter your email',
             buttonText : "Ok"
         })
       }
       if(!UData?.password){
         popRef?.current?.open({
-          title: 'Please enter the password',
+          title: 'Please enter your password',
             buttonText : "Ok"
         })
       }
@@ -196,7 +196,7 @@ import { initiateSocket } from '../../redux/services/socket';
                 flexDirection: 'row',
                 justifyContent:'center',
             }}>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <TouchableOpacity onPress={() => navigation?.navigate('SignUp')}>
             <Text style={{
                 fontSize: FontSize(14),
                 color: GStyles.gray.lightHover,

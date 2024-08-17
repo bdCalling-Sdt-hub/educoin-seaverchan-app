@@ -13,6 +13,9 @@ const config = {
   transformer: {
     babelTransformerPath: require.resolve('react-native-svg-transformer'),
   },
+  server: {
+    port:  10000 //changed from 8081
+ },
   resolver: {
     assetExts: assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...sourceExts, 'svg'],

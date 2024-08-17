@@ -8,85 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:351876329586:android:92103e7ad29c0bbf3a52eb",
-        "android_client_info": {
-          "package_name": "com.animateproject"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAcHadnu02z4gS1hbBfUbzg2y-KSf51dwY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:351876329586:android:7880e093fad9dd0e3a52eb",
-        "android_client_info": {
-          "package_name": "com.pushnotifexample"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAcHadnu02z4gS1hbBfUbzg2y-KSf51dwY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:351876329586:android:ed1e82b73f1f0c8a3a52eb",
-        "android_client_info": {
-          "package_name": "com.pushnotificaiton"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAcHadnu02z4gS1hbBfUbzg2y-KSf51dwY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:351876329586:android:0877dc9bbaca74303a52eb",
+        "mobilesdk_app_id": "1:351876329586:android:d224335cd5089e3e3a52eb",
         "android_client_info": {
           "package_name": "com.seaverchan.quokki"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAcHadnu02z4gS1hbBfUbzg2y-KSf51dwY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:351876329586:android:0dbd0cd1cae716eb3a52eb",
-        "android_client_info": {
-          "package_name": "com.video.calling"
         }
       },
       "oauth_client": [],

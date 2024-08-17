@@ -93,7 +93,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
   // student login fetch
   const [loadingStudent] = useLoginForTeacherStudentMutation();
   
-
+ const imgUrl = userTeacherInfo?.data.profile.startsWith("https") ? userTeacherInfo?.data.profile : `${imageUrl}/${userTeacherInfo?.data?.profile}`
 
 
   const [selectedItem, setSelectItem] = React.useState<any>();
@@ -205,7 +205,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         isNotification={!!notifications?.data?.find(nt => nt?.read === false)}
         profileStyle="teacher"
         userDetails={{
-          image: imageUrl + userTeacherInfo?.data?.profile,
+          image: imgUrl,
           name: userTeacherInfo?.data?.name,
         }}
         navigation={navigation}

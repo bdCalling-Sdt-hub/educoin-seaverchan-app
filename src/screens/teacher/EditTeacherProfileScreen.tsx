@@ -42,6 +42,8 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   );
   // console.log(categoryImage);
 
+  const imgUrl = data?.data.profile.startsWith("https") ? data?.data.profile : `${imageUrl}/${data?.data?.profile}`
+
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
       if (option === 'camera') {
@@ -169,10 +171,10 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               height: 86,
               width: 86,
             }}>
-           {console.log(data?.data?.profile)}
+           {/* {console.log(data?.data?.profile)} */}
             <Image
-              source={data?.data?.profile?.includes("https") ?  require("../../assets/images/avatar/default_avatar.png") :  {
-                uri: imageUrl + data?.data?.profile,
+              source={{
+                uri: imgUrl
               }}
               style={{
                 height: 86,

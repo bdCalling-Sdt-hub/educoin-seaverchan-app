@@ -81,6 +81,7 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
         }
         
         if (res?.data?.success) {
+          // console.log(res);
           setUser({
             token: res?.data?.data,
             role: 'teacher',
