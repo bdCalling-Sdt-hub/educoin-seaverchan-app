@@ -16,23 +16,24 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import LottieView from 'lottie-react-native';
-import RewordsCard from '../../components/common/Cards/RewordsCard';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
 import { categoryIcons } from '../../utils/ShearData';
 
 import { useSharedValue } from 'react-native-reanimated';
-import { useGetRewordsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
 import { useContextApi } from '../../context/ContextApi';
 import { imageUrl } from '../../redux/api/baseApi';
 import { ActionSheet } from 'react-native-ui-lib';
 import { FontSize } from '../../utils/utils';
 import { IReword } from '../../redux/interface/interface';
+import { RefreshControl } from 'react-native-gesture-handler';
+import { useGetRewardsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
+import RewardsCard from '../../components/common/Cards/RewordsCard';
 
-const TeacherRewords = ({navigation}: NavigProps<null>) => {
+const TeacherRewards = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
-  const {data : rewords} = useGetRewordsQuery(user.token)
-  // console.log(rewords);
+  const {data : Rewards, isLoading : rewordLoading, refetch : rewordRefetch} = useGetRewardsQuery(user.token)
+  // console.log(Rewards);
   const [selectItem,setSelectItem] = React.useState<IReword | null>()
   const [isEarned, setIsEarned] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -46,7 +47,7 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       <HeaderBackground
-        title="Rewords"
+        title="Rewards"
         ringColor={GStyles.purple.normalHover}
         opacity={0.02}
         backgroundColor={GStyles.primaryPurple}
@@ -54,6 +55,10 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
       />
 
       <FlatList
+
+     refreshControl={<RefreshControl  refreshing={rewordLoading}
+     onRefresh={rewordRefetch} colors={[GStyles?.primaryPurple]} />}
+
         contentContainerStyle={{
           paddingBottom: 80,
           paddingTop: 15,
@@ -61,13 +66,13 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
           gap : 5
         }}
         showsVerticalScrollIndicator={false}
-        data={rewords?.data}
+        data={Rewards?.data}
 
         renderItem={(item)=>
           <Fragment key={item.index}>
-          <RewordsCard
+          <RewardsCard
             navigation={navigation}
-            // editRoute={"TeacherEditRewords"}
+            // editRoute={"TeacherEditRewards"}
             // routeData={item?.item}
             editOption={true}
             // achieved
@@ -98,7 +103,7 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
         <TouchableOpacity
           onPress={() => {
            
-            navigation?.navigate('TeacherCreateRewords')
+            navigation?.navigate('TeacherCreateRewards')
           } 
         }
           style={{
@@ -125,67 +130,12 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
               letterSpacing: 0.8,
               marginTop: 5,
             }}>
-            Create rewords
+            Create Rewards
           </Text>
         </TouchableOpacity>
       </View>
 
-      {/* <CustomModal
-        modalVisible={modalVisible}
-        backButton
-        setModalVisible={setModalVisible}
-        height={289}
-        Radius={10}>
-        <View
-          style={{
-            padding: 20,
-            gap: 20,
-            justifyContent: 'center',
-            flex: 1,
-            alignItems: 'center',
-          }}>
-          <LottieView
-            source={require('../../assets/lottie/goal-completed.json')}
-            style={{width: 200, height: 200, marginBottom: -70, marginTop: -50}}
-            autoPlay
-            loop
-          />
-
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              textAlign: 'center',
-            }}>
-            You will go to class and show your performance and then the teacher
-            will give you a star on your work
-          </Text>
-
-          <View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(false)}
-              style={{
-                backgroundColor: GStyles.primaryOrange,
-                width: 100,
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 100,
-                alignSelf: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: GStyles.Poppins,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '400',
-                }}>
-                OK
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </CustomModal> */}
+   
 
 
    <ActionSheet
@@ -212,13 +162,13 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
             label: 'Edit',
             onPress: () => {
 
-              navigation?.navigate('TeacherEditRewords',{data : selectItem})
+              navigation?.navigate('TeacherEditRewards',{data : selectItem})
             },
           },
           {
             label: 'Re-assign',
             onPress: () => {
-              navigation?.navigate('TeacherRewordsAssign',{data : selectItem})
+              navigation?.navigate('TeacherRewardsAssign',{data : selectItem})
             },
           },
         ]}
@@ -256,6 +206,6 @@ const TeacherRewords = ({navigation}: NavigProps<null>) => {
   );
 };
 
-export default TeacherRewords;
+export default TeacherRewards;
 
 const styles = StyleSheet.create({});

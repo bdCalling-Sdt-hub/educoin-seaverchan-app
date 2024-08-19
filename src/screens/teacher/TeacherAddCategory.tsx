@@ -30,14 +30,14 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();
   const {data : icons,refetch : iconsRefetch} = useGetIconsPresetQuery(user.token) 
-  console.log(icons);
+  // console.log(icons);
   const [createCategory, results] = useCreateCategoryMutation();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [launchCameraModal, setLaunchCameraModal] = React.useState(false);
   const [isGood, setIsGood] = React.useState(true);
   const [categoryData, setCategoryData] = React.useState({
     name: '',
-    image: {},
+    image: "",
   });
 
 
@@ -48,7 +48,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
 
 
   const handleCreateCategory = useCallback(
-    (UData: {name: string; image: {}}) => {
+    (UData: {name: string; image: string}) => {
       // console.log(UData);
 
       if(!UData?.name){
@@ -57,6 +57,11 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         })
       }
 
+      if(!UData?.image){
+        return popRef?.current?.open({
+          title : "Please choose category icon"
+        })
+      }
       if(UData?.image){
         UData.image =  categoryImage
       }
@@ -64,19 +69,17 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         if(res.error){
           console.log(res.error);
         }
-        console.log(res);
+        // console.log(res);
         if (res?.data?.success) {
           setModalVisible(true);
         }
       });
     },
-    [],
+    [categoryData],
   );
 
 
-  React.useEffect(()=>{
-    iconsRefetch()
-  },[])
+ 
 
   return (
     <View
@@ -213,6 +216,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           }}>
           <Require title="Choose Icon" />
           <FlatList
+          keyboardShouldPersistTaps="always"
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
@@ -282,7 +286,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                     alignItems: 'center',
                     marginVertical: 15,
                    
-                    borderRadius: 15,
+                    // borderRadius: 15,
                     // elevation : 1
                   }}>
                   <Image
@@ -298,7 +302,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                     borderWidth: 3,
                       width: 70,
                       height: 70,
-                      borderRadius: 5,
+                      borderRadius: 10,
                     }}
                     resizeMode="cover"
                   />
@@ -352,7 +356,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
       </View>
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'30%'}
         width={'85%'}

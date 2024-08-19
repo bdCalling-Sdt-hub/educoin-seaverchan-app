@@ -66,7 +66,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
     type : Item?.type ? Item?.type : "good" ,
     repeat : Item?.repeat ? Item.repeat : "everyday",
   });
-  console.log(taskData);
+  // console.log(taskData);
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -143,7 +143,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
         text1 : "Please write task name"
       })
      }
-     console.log(UData);
+    //  console.log(UData);
     //  delete UData._id 
   if(UData){
     updateTask({token : user.token , id : Item?._id, data : UData}).then(res=>{
@@ -238,7 +238,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
             value={taskData?.name}
             placeholderTextColor="gray"
             multiline
-            placeholder="Rewords Name"
+            placeholder="Rewards Name"
           />
         </View>
         <View
@@ -915,7 +915,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={250}
         width={'85%'}

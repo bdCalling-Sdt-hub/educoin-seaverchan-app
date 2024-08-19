@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment, useCallback, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
 import {GStyles, WIDTH} from '../../styles/GStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -38,35 +38,71 @@ import {
   GridList,
   GridView,
 } from 'react-native-ui-lib';
-import {FontSize} from '../../utils/utils';
+import {
+  FontSize,
+  removeStorageRole,
+  removeStorageToken,
+} from '../../utils/utils';
 import {
   useDeletedClassMutation,
   useGetClassesQuery,
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
-import { useGetUserTeacherQuery, useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
-import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import {
+  useGetUserTeacherQuery,
+  useLoginForTeacherStudentMutation,
+  useLoginStudentMutation,
+} from '../../redux/apiSlices/authSlice';
+import PopUpModal, {PopUpModalRef} from '../../components/modals/PopUpModal';
+import {RefreshControl} from 'react-native-gesture-handler';
+import {useGetNotificationsQuery} from '../../redux/apiSlices/setings/notification';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
 }
 
 const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
-  const PopModal = React.useRef<PopUpModalRef>()
+  const [pageStudent, setPageStudent] = React.useState(1);
+  const [pageClass, setPageClass] = React.useState(1);
+  const PopModal = React.useRef<PopUpModalRef>();
   const {user} = useContextApi();
-  const {data: userInfo} = useGetUserTeacherQuery(user?.token);
-  const {data: students} = useGetStudentsQuery(user?.token);
-  const {data: classes} = useGetClassesQuery(user?.token);
+
+  //get user info fetch 
+
+  const {
+    data: userTeacherInfo,
+  } = useGetUserTeacherQuery(user?.token);
+
+  // get student fetch 
+
+  const {
+    data: students,
+    isLoading: studentLoading,
+    refetch: studentRefetch,
+    isFetching : studentsFetching,
+  } = useGetStudentsQuery({token : user?.token, page : pageStudent == 0 ? 1 : pageStudent });
+  // get all classes
+  const {
+    data: classes,
+    isLoading: classesLoading,
+    refetch: classesRefetch,
+  } = useGetClassesQuery({token : user?.token, page : pageClass == 0 ? 1 : pageClass });
+  // get all notification 
+  const {data: notifications, refetch} = useGetNotificationsQuery(user.token);
+  // class deleted post 
   const [deletedClass, results] = useDeletedClassMutation();
-  const [loadingStudent] = useLoginStudentMutation();
+  // student login fetch
+  const [loadingStudent] = useLoginForTeacherStudentMutation();
+  
+ const imgUrl = userTeacherInfo?.data.profile.startsWith("https") ? userTeacherInfo?.data.profile : `${imageUrl}/${userTeacherInfo?.data?.profile}`
+
+
   const [selectedItem, setSelectItem] = React.useState<any>();
   const [op, setOp] = React.useState<string>('All Students');
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
   const [classActions, setClassActions] = useState<boolean>(false);
   // const token = useSelector((state) => state?.token?.token)
-  const [search,setSearch] = React.useState<string>(null)
-
-  console.log(search);
+  const [search, setSearch] = React.useState<string>(null);
 
   const handleClassAction = useCallback(
     (action: 'edit' | 'deleted') => {
@@ -74,16 +110,82 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         navigation?.navigate('TeacherEditClass', {data: selectedItem});
       }
       if (action === 'deleted') {
-        console.log({token: user.token, id: selectedItem?._id});
+        // console.log({token: user.token, id: selectedItem?._id});
         selectedItem?._id &&
           deletedClass({token: user.token, id: selectedItem?._id}).then(res => {
-            console.log(res);
+            // console.log(res);
           });
-        console.log('deleted');
+        // console.log('deleted');
       }
     },
     [selectedItem],
   );
+
+  //  console.log(classes);
+
+  // if(userTeacherInfoError?.status === 401){
+  //     removeStorageRole();
+  //     removeStorageToken();
+  //     setUser({
+  //       token: null,
+  //       role: null,
+  //     });
+  // }
+
+  const [AllClasses, setAllClasses] = React.useState([]);
+  const [ALlStudents, setALlStudents] = React.useState([]);
+  
+  // React.useEffect(() => {
+  //   // Append new classes data to the existing state only if there are new items
+  //   if (classes?.data?.length) {
+  //     setAllClasses(prevClasses => prevClasses.concat(classes?.data));
+  //   }
+  //   return ()=>{
+  //     // Cleanup function
+    
+  //   }
+  // }, [classes?.data]);
+  
+  // React.useEffect(() => {
+  //   // Append new students data to the existing state only if there are new items
+  //   if (students?.data?.length) {
+  //     setALlStudents(prevStudents => prevStudents.concat(students?.data));
+  //   }
+  //   return ()=>{
+  //     // Cleanup function
+  
+  //   }
+  // }, [students?.data]);
+  
+  // const loadMoreStudents = () => {
+  //   if (pageStudent < students?.pagination?.totalPage) {
+  //     setPageStudent(prevPage => prevPage == 0 ? 2 :prevPage + 1);
+  //   }
+  // };
+  
+  // const loadMoreClasses = () => {
+  //   if (pageClass <= classes?.pagination?.totalPage) {
+  //     setPageClass(prevPage => prevPage === 0 ? 2 :prevPage + 1);
+  //   }
+  // };
+
+  // console.log(page,classes?.pagination?.totalPage);
+  
+  // const resetStudentData = () => {
+  //  if(pageStudent){
+  //    setPageStudent(0);
+  //   setALlStudents([]);
+  //   studentRefetch();
+
+  //  }
+  // };
+  // const resetClassData = () => {
+  //  if(pageClass){
+  //    setPageClass(0);
+  //   setAllClasses([]);
+  //   classesRefetch();
+  //  }
+  // };
 
   return (
     <View
@@ -100,10 +202,11 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         backgroundColor={GStyles.primaryPurple}
         setSearchValue={setSearch}
         searchValue={search}
+        isNotification={!!notifications?.data?.find(nt => nt?.read === false)}
         profileStyle="teacher"
         userDetails={{
-          image: imageUrl + userInfo?.data?.profile,
-          name: userInfo?.data?.name,
+          image: imgUrl,
+          name: userTeacherInfo?.data?.name,
         }}
         navigation={navigation}
         drawerNavigation={navigation}
@@ -137,7 +240,30 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       {op === 'All Students' ? (
         <GridList
           showsVerticalScrollIndicator={false}
-          data={students?.data.filter(student=>search ? student.name.includes(search) : student)}
+          // onEndReached={students?.data?.length ? loadMoreStudents : () => {}}
+          // onEndReachedThreshold={0}
+       
+          refreshControl={
+            <RefreshControl
+              refreshing={studentLoading}
+              onRefresh={studentRefetch}
+              colors={[GStyles?.primaryPurple]}
+            />
+          }
+          // data={ALlStudents.length ? ALlStudents?.filter(student =>
+          //   search
+          //     ? student?.name
+          //         ?.toLocaleLowerCase()
+          //         .includes(search.toLocaleLowerCase())
+          //     : student,
+          // ) : students?.data}
+          data={students?.data?.filter(student =>
+            search
+              ? student?.name
+                  ?.toLocaleLowerCase()
+                  .includes(search.toLocaleLowerCase())
+              : student,
+          ) }
           numColumns={2}
           containerWidth={WIDTH * 0.9}
           contentContainerStyle={{
@@ -170,15 +296,16 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}
                 onPress={() => {
                   // console.log('lol');
-                  loadingStudent(item.password).then(res=>{
+                  loadingStudent(item.password).then(res => {
                     // console.log(res.data);
-                    if(res.data.success){
+                    if (res.data.success) {
                       navigation.navigate('StudentsProgressAndInfo', res.data);
                     }
-                    if(res.error){}
-                  })
+                    if (res.error) {
+                    }
+                  });
                 }}
-                key={index}
+            
               />
             </View>
           )}
@@ -186,9 +313,26 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       ) : (
         <GridList
           showsVerticalScrollIndicator={false}
-          data={classes?.data.filter(classe=>search ? classe.className.includes(search) : classe)}
+         
+          // data={AllClasses?.length ? AllClasses.filter(classe =>
+          //   search ? classe.className.includes(search) : classe,
+          // ) : classes?.data}
+          // numColumns={2}
+          data={classes?.data?.filter(classe =>
+            search ? classe.className.includes(search) : classe,
+          ) }
           numColumns={2}
+
+          // onEndReached={classes?.data?.length ? loadMoreClasses : () => {}}
+          // onEndReachedThreshold={0}
           containerWidth={WIDTH * 0.9}
+          refreshControl={
+            <RefreshControl
+              refreshing={classesLoading}
+              onRefresh={classesRefetch}
+              colors={[GStyles?.primaryPurple]}
+            />
+          }
           contentContainerStyle={{
             // alignSelf: 'center',
             paddingVertical: 10,
@@ -202,7 +346,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('ParticularClassStudent', {
-                    data: {class: index + 1},
+                    data: item?.className,
                   });
                 }}
                 style={{
@@ -302,18 +446,16 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           </Text>
           <TouchableOpacity
             onPress={() => {
-
-            if(classes?.data?.length !== 0 ){
-              setModalVisible(false);
-              navigation.navigate('TeacherAddNewStudent');
-            }
-            else{
-              PopModal.current?.open({
-                buttonText : "Ok",
-                title : "Warning",
-                content : "No classes available. Please add a class first.",
-              })
-            }
+              if (classes?.data?.length !== 0 || AllClasses?.length !==0) {
+                setModalVisible(false);
+                navigation?.navigate('TeacherAddNewStudent');
+              } else {
+                PopModal.current?.open({
+                  buttonText: 'Ok',
+                  title: 'Warning',
+                  content: 'No classes available. Please add a class first.',
+                });
+              }
             }}
             style={{
               borderColor: GStyles.primaryPurple,
@@ -428,7 +570,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           );
         }}
       />
-      <PopUpModal  ref={PopModal}/>
+      <PopUpModal ref={PopModal} />
     </View>
   );
 };

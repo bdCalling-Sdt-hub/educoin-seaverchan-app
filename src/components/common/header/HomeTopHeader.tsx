@@ -25,9 +25,10 @@ interface HomeTopHeaderProps extends NavigProps<null> {
     searchValue? : string,
     containerGap ?: number,
     imgAssets? : any,
+    isNotification ?: boolean;
 }
 
-const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,imgAssets} : HomeTopHeaderProps) => {
+const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,isNotification} : HomeTopHeaderProps) => {
   return (
     <View
     style={{
@@ -67,18 +68,9 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
           gap: 10,
         }}>
 
-        {
-          imgAssets &&   <Image
-          style={{
-            height: 46,
-            width: 46,
-            borderRadius: 100,
-            //   alignSelf: 'center',
-          }}
-          source={imgAssets}
-        />
-        }
-        {
+    
+       <TouchableOpacity>
+       {
           userDetails?.image && <Image
           style={{
             height: 46,
@@ -91,6 +83,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
           }}
         />
         }
+       </TouchableOpacity>
         
         {
             profileStyle === "teacher" &&  <View>
@@ -196,6 +189,8 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
               position: 'relative',
             }}>
             <Feather name="bell" color="white" size={24} />
+            {
+              isNotification && 
             <View
               style={{
                 width: 10,
@@ -208,6 +203,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
                 opacity: 0.8,
                 zIndex: 999,
               }}></View>
+            }
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => drawerNavigation?.openDrawer()}>

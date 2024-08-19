@@ -10,7 +10,7 @@ import { useContextApi } from '../../context/ContextApi';
 const TeacherPassCode = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
   const {data} = useGetTeacherPasscodeQuery(user.token);
-    console.log(data);
+    // console.log(data);
   return (
     <View
       style={{

@@ -53,12 +53,13 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
             buttonText : "Ok"
         })  
       }
-      if(!UData?.endDate){
-        return  popRef.current?.open({
-          title: 'Select your end date',
-            buttonText : "Ok"
-        })  
-      }
+      // if(!UData?.endDate){
+      //   UData.endDate = new Date()
+      //   // return  popRef.current?.open({
+      //   //   title: 'Select your end date',
+      //   //     buttonText : "Ok"
+      //   // })  
+      // }
       createClass({token: user?.token, data : UData}).then(res => {
         // console.log(res);
         if (res?.error) {
@@ -200,7 +201,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
           </TouchableOpacity>
         </View>
         <View>
-          <Require title="End date" />
+          <Require title="End date" nonRequired />
 
           <TouchableOpacity
             activeOpacity={0.5}
@@ -276,64 +277,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
           }}
         />
       </View>
-      <CustomModal
-        modalVisible={modalVisible}
-        backButton
-        setModalVisible={setModalVisible}
-        height={'30%'}
-        width={'85%'}
-        Radius={10}>
-        <View
-          style={{
-            padding: 20,
-            gap: 20,
-            justifyContent: 'center',
-            flex: 1,
-          }}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontFamily: GStyles.PoppinsMedium,
-              textAlign: 'center',
-              color: GStyles.textColor['#3D3D3D'],
-              marginTop: 10,
-            }}>
-            Class Added Successfully
-          </Text>
-          <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              textAlign: 'center',
-            }}>
-            simply dummy text of the printing and typesetting industry
-          </Text>
-
-          <View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(false)}
-              style={{
-                backgroundColor: GStyles.primaryPurple,
-                width: '30%',
-                paddingVertical: 10,
-                paddingHorizontal: 15,
-                borderRadius: 100,
-                alignSelf: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: GStyles.Poppins,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: '400',
-                }}>
-                Exit
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </CustomModal>
+    
       <CustomModal
         height={'47%'}
         Radius={20}
@@ -345,37 +289,6 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
           headerContainerStyle={{
             marginTop: '8%',
           }}
-          // headerButtonColor={colors.redis}
-          // headerTextStyle={{
-          //   color: colors.redis,
-          //   fontFamily: font.Poppins,
-          //   fontSize: 14,
-          // }}
-          // headerButtonSize={14}
-          // headerButtonStyle={{
-          //   backgroundColor: colors.bg,
-          //   elevation: 1,
-          //   borderRadius: 4,
-          // }}
-          // calendarTextStyle={{
-          //   color: colors.textColor.light,
-          // }}
-          // selectedItemColor={colors.blue}
-          // weekDaysTextStyle={{
-          //   color: colors.primaryColor,
-          //   fontFamily: font.Poppins,
-          //   fontSize: 12,
-          // }}
-          // headerTextContainerStyle={{
-          //   backgroundColor: colors.bg,
-          //   elevation: 1,
-          //   marginHorizontal: 5,
-          //   // paddingVertical: 2,
-          //   paddingHorizontal: 10,
-          //   borderRadius: 4,
-          //   alignItems: 'center',
-          //   justifyContent: 'center',
-          // }}
           mode="single"
           date={startDate ? classInfo?.startDate : classInfo?.endDate}
           onChange={(params: any) => {

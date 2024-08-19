@@ -28,15 +28,23 @@ const authSlice = api.injectEndpoints({
                   Authorization: `Bearer ${token}`,
                 },
             }),
+            keepUnusedDataFor: 5,
             providesTags : ["user","studentUser"]
           }),
           loginTeacher: builder.mutation({
-            query: pass_code => ({
+            query: (data) => ({
               url: `/teacher/login`,
               method: 'POST',
-              body: {
-                password: pass_code,
-              },
+              body: data,
+              
+            }),
+            invalidatesTags : ["user"]
+          }),
+          createTeacher: builder.mutation({
+            query: (data) => ({
+              url: `/teacher/sign-up`,
+              method: 'POST',
+              body: data,
               
             }),
             invalidatesTags : ["user"]
@@ -51,6 +59,17 @@ const authSlice = api.injectEndpoints({
               
             }),
             invalidatesTags : ["user"]
+          }),
+          loginForTeacherStudent: builder.mutation({
+            query: pass_code => ({
+              url: `/student/login`,
+              method: 'POST',
+              body: {
+                password: pass_code,
+              },
+              
+            }),
+            // invalidatesTags : ["user"]
           }),
 
           updateStudent: builder.mutation({
@@ -75,5 +94,7 @@ export const {
    useLoginStudentMutation,
    useLoginTeacherMutation,
    useUpdateStudentMutation,
-   useGetTeacherPasscodeQuery
+   useGetTeacherPasscodeQuery,
+   useLoginForTeacherStudentMutation,
+   useCreateTeacherMutation
 } = authSlice;

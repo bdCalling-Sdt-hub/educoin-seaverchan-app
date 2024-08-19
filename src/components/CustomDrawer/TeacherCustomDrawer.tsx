@@ -23,6 +23,7 @@ import {useDispatch} from 'react-redux';
 import {clearToken, clearUserRole} from '../../redux/apiSlices/userSlice';
 import {removeStorageRole, removeStorageToken} from '../../utils/utils';
 import {useContextApi} from '../../context/ContextApi';
+import { disconnectSocket } from '../../redux/services/socket';
 
 function TeacherCustomDrawer(props: any) {
   const {setUser} = useContextApi();
@@ -81,9 +82,10 @@ function TeacherCustomDrawer(props: any) {
         {...props}
         style={{
           paddingVertical: 10,
+          marginTop : 10
         }}>
         <DrawerItemList {...props} />
-        <DrawerItem
+        {/* <DrawerItem
           label="Get Passcode"
           icon={() => (
             <AntDesign name="lock" color={GStyles.primaryPurple} size={24} />
@@ -105,7 +107,7 @@ function TeacherCustomDrawer(props: any) {
           onPress={() => {
             navigation.navigate('TeacherPassCode');
           }}
-        />
+        /> */}
         <DrawerItem
           label="Profile"
           icon={() => <AntDesign name="user" color={'#4A2B6C'} size={20} />}
@@ -115,6 +117,7 @@ function TeacherCustomDrawer(props: any) {
             fontSize: 14,
             fontWeight: '400',
             letterSpacing: 0.8,
+     
           }}
           style={
             {
@@ -270,6 +273,7 @@ function TeacherCustomDrawer(props: any) {
               token: null,
               role: null,
             });
+            disconnectSocket()
             // navigation.navigate('LoginAs')
           }}
           style={{

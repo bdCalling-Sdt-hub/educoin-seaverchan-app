@@ -10,11 +10,12 @@ import { useContextApi } from '../../context/ContextApi';
 
 
 interface AssignCardProps {
-    item : IStudent,
-    task : ITask,
-    loading : boolean;
-   onPress :() => void,
+    item ?: IStudent,
+    task ?: ITask,
+    loading ?: boolean;
+   onPress ?:() => void,
    Assigned ? : boolean,
+  
 
 
 }
@@ -22,6 +23,8 @@ interface AssignCardProps {
 const AssignCard = ({item,Assigned,onPress,loading,task}:AssignCardProps) => {
 
     const {user} = useContextApi()
+
+    // console.log("OKAy",Assigned);
 
     const [createAssignTask, results] = useCreateAssignTaskMutation();
     // console.log(Assigned);
@@ -88,6 +91,7 @@ const AssignCard = ({item,Assigned,onPress,loading,task}:AssignCardProps) => {
     </View>
    
       <TouchableOpacity
+   disabled={Assigned || results.isLoading }
         onPress={()=>{
             createAssignTask({
                 token: user.token,
@@ -102,7 +106,7 @@ const AssignCard = ({item,Assigned,onPress,loading,task}:AssignCardProps) => {
                   
                   
                 } else {
-                  console.log(res?.error);
+                  // console.log(res?.error);
                 }
               })
         }}

@@ -30,7 +30,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
     // console.log(UFeedback);
     sendFeedBack({token :user.token , data: {feedback : UFeedback}})
      .then((res) => {
-       console.log(res);
+      //  console.log(res);
        if(res.error){
         popRef.current?.open({
           buttonColor : GStyles?.primaryOrange,
@@ -179,9 +179,9 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
       </View>
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
-        height={'30%'}
+        height={'20%'}
         width={'85%'}
         Radius={10}>
         <View
@@ -201,14 +201,14 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
             }}>
             Your Feedback Send Successfully
           </Text>
-          <Text
+          {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
               fontSize: 16,
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
-          </Text>
+          </Text> */}
 
           <View>
             <TouchableOpacity
@@ -229,7 +229,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
                   fontSize: 16,
                   fontWeight: '400',
                 }}>
-                Exit
+                OK
               </Text>
             </TouchableOpacity>
           </View>

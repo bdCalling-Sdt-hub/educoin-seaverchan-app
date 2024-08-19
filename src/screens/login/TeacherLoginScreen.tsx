@@ -28,6 +28,7 @@ import Toast from 'react-native-toast-message';
 import { useLoginTeacherMutation } from '../../redux/apiSlices/authSlice';
 import SlideModal, { SlideModalRef } from '../../components/modals/SlideModal';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { initiateSocket } from '../../redux/services/socket';
 
 
 const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
@@ -51,39 +52,36 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
     textInputRef.current?.focus();
   }, []);
 
-  const handlePinChange = (input: string) => {
-    // Ensure only numbers are entered and limit to 6 digits
-    const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
-    setPin(filteredInput);
-  };
-
+  
   // console.log(results?.error);
-
+  
   const handleGoPress = () => {
     // Handle the action when the "Go" button is pressed
     // console.log(pin);
-  
+    
     if (pin.length < 6) {
       popRef.current?.open({title : "Pin must be at least 6 digits"})
     }
-   
+    
     if (pin.length ===6) {
       loginUser(pin).then(res => {
         // console.log(res);
         // if (res.error) {
-        //   Toast.show({
-        //     text1: res?.error?.data?.message,
-        //     type: 'info',
-        //     // swipeable : true
-        //   });
-        // }
-        if(res.error){
-          // console.log(res);
-          popRef.current?.open({title : res.error?.data?.message})
-  
+          //   Toast.show({
+            //     text1: res?.error?.data?.message,
+            //     type: 'info',
+            //     // swipeable : true
+            //   });
+            // }
+            if(res.error){
+              // console.log(res);
+          // popRef.current?.open({title : res.error?.data?.message})
+          popRef.current?.open({title : `${pin} fetch error`})
+          
         }
-
+        
         if (res?.data?.success) {
+          // console.log(res);
           setUser({
             token: res?.data?.data,
             role: 'teacher',
@@ -91,25 +89,34 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
           setStorageRole('teacher');
           setStorageToken(res?.data?.data);
           // Toast.show({
-          //   text1: 'Login successful!',
-          //   type: 'success',
-          //   visibilityTime: 2000,
-          // });
-        }
-      });
-      // navigation?.navigate("TeacherDrawerRoutes")
-    }
-    // navigation?.navigate('TeacherDrawerRoutes');
-    Keyboard.dismiss(); // Dismiss the keyboard
-  };
-
-
-
-
-
-
-  return (
-    <View style={styles.container}>
+            //   text1: 'Login successful!',
+            //   type: 'success',
+            //   visibilityTime: 2000,
+            // });
+            initiateSocket();
+          }
+        }).catch(err => {
+          console.log(err);
+          popRef.current?.open({title : "Something went wrong, please try again"})
+        })
+        // navigation?.navigate("TeacherDrawerRoutes")
+      }
+      // navigation?.navigate('TeacherDrawerRoutes');
+      Keyboard.dismiss(); // Dismiss the keyboard
+    };
+    
+    const handlePinChange = (input: string) => {
+      // Ensure only numbers are entered and limit to 6 digits
+      const filteredInput = input.replace(/[^0-9]/g, '').slice(0, 6);
+      setPin(filteredInput);
+    };
+    
+    
+    
+    
+    
+    return (
+      <View style={styles.container}>
       <BackButton />
       <ScrollView>
         <Text style={styles.welcomeText}>Welcome!</Text>
@@ -117,7 +124,7 @@ const TeacherLoginScreen = ({navigation}: NavigProps<null>) => {
           <View style={styles.animationCircle}>
             <Image
               source={require('../../assets/images/loginAs/bearFace.png')}
-            />
+              />
           </View>
           <View>
             <Text style={styles.enterPassCodeText}>

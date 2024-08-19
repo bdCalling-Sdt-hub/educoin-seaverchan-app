@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Image,
   StatusBar,
   StyleSheet,
   Text,
@@ -8,7 +9,8 @@ import {
 import React from 'react';
 import BackButton from '../../components/BackButton';
 import {NavigProps} from '../../interfaces/NavigationPros';
-import {GStyles} from '../../styles/GStyles';
+import {GStyles, HEIGHT} from '../../styles/GStyles';
+import LottieView from 'lottie-react-native';
 
 const InternetStatusScreen = ({navigation}: NavigProps<null>) => {
   return (
@@ -32,7 +34,53 @@ const InternetStatusScreen = ({navigation}: NavigProps<null>) => {
           }}>
           No Internet
         </Text>
-        <Text
+     {/* <View style={{
+      justifyContent: 'center',
+      alignItems : "center"
+     }}>
+     <Image style={{
+       height : HEIGHT * .5,
+       aspectRatio : 1,
+      resizeMode : "contain",
+      marginRight : "20%",
+      // opacity : .5
+     }} source={require("../../assets/images/quakka/unhappyQuakka.png")}/>
+     </View> */}
+        {/* <View style={{
+          justifyContent : "center",
+          alignItems : "center"
+        }}>
+        <LottieView
+              source={require('../../assets/lottie/login-animation.json')}
+              style={{width: 80, height: 80}}
+              autoPlay
+              // loop={false}
+              onAnimationFinish={() => {
+                console.log('Animation end');
+                // setAppLoad(true);
+              }}
+            />
+            <Text style={{
+              color : GStyles?.textColor?.['#929394'],
+              fontFamily : GStyles?.Poppins,
+              fontSize : 12,
+            }}>Please turn on internet</Text>
+        </View> */}
+        <View style={{
+          justifyContent : "center",
+          alignItems : "center"
+        }}>
+        <LottieView
+              source={require('../../assets/lottie/login-animation.json')}
+              style={{width: 80, height: 80}}
+              autoPlay
+              // loop={false}
+              onAnimationFinish={() => {
+                console.log('Animation end');
+                // setAppLoad(true);
+              }}
+            />
+       <Text
           style={{
             fontSize: 24,
             fontFamily: GStyles.Poppins,
@@ -40,6 +88,10 @@ const InternetStatusScreen = ({navigation}: NavigProps<null>) => {
           }}>
           Opps!
         </Text>
+        </View>
+
+        
+        
       </View>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
     </View>

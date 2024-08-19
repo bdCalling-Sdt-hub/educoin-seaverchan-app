@@ -3,6 +3,7 @@ import React, { ReactNode, useContext } from 'react'
 import { getStorageRole, getStorageToken } from '../utils/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToken, setUserRole } from '../redux/apiSlices/userSlice'
+import { disconnectSocket, initiateSocket } from '../redux/services/socket'
 
 
 // Create a context for global state
@@ -44,6 +45,7 @@ interface ContextApiProps {
 
 export const useContextApi = () =>{
  const {setUser,user,loading,setLoading} = useContext(ContextProvider)
+ 
 
  return {setUser,user,loading,setLoading}
 }
@@ -67,7 +69,9 @@ const ContextApi = ({children} : ContextApiProps) => {
 // console.log(SToken,SRole);
     React.useEffect(()=>{
       setLoading(true)
-        if(SToken && SRole && !user?.token && !user?.role){
+      
+      if(SToken && SRole && !user?.token && !user?.role){
+         
           setUser({
             token : SToken,
             role : SRole
@@ -75,7 +79,10 @@ const ContextApi = ({children} : ContextApiProps) => {
        if(user?.role && user?.token){
          dispatch(setUserRole(user?.role))
          dispatch(setToken(user?.token))
-       }   
+  
+       }else{
+
+       }
   
     setLoading(false)
     },[user])

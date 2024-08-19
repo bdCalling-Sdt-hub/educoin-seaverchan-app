@@ -25,7 +25,7 @@ const AdminTask = ({navigation}: AdminRoutesProps) => {
         position: 'relative',
         height: '100%',
       }}>
-      <HeaderBackground navigation={navigation} title="Rewords" />
+      <HeaderBackground navigation={navigation} title="Rewards" />
 
       {/* card container  */}
       <ScrollView

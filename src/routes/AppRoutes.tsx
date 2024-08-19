@@ -7,11 +7,10 @@ import LoginAsScreen from '../screens/login/LoginAsScreen';
 import TeacherLoginScreen from '../screens/login/TeacherLoginScreen';
 import AdminLoginScreen from '../screens/login/AdminLoginScreen';
 import ChildLoginScreen from '../screens/login/ChildLoginScreen';
-import SignUpScreen from '../screens/signup/SignUpScreen';
+
 import SplashScreen from '../screens/slpash/SplashScreen';
 import AdminRoutes from './AdminRoutes';
-import CreateRewords from '../screens/admin/CreateRewords';
-import EditRewordsScreen from '../screens/admin/EditRewordsScreen';
+
 import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
 import CustomTaskScreen from '../screens/admin/CustomTaskScreen';
 import EditCustomTaskScreen from '../screens/admin/EditCustomTaskScreen';
@@ -34,9 +33,7 @@ import TeacherNotification from '../screens/teacher/TeacherNotification';
 import CategoryScreen from '../screens/teacher/CategoryScreen';
 import EditTeacherTask from '../screens/teacher/EditTeacherTask';
 import TeacherTaskAssign from '../screens/teacher/TeacherTaskAssign';
-import TeacherRewords from '../screens/teacher/TeacherRewords';
-import TeacherCreateRewords from '../screens/teacher/TeacherCreateRewords';
-import TeacherEditRewords from '../screens/teacher/EditTeacherRewords';
+
 import TeacherAddCategory from '../screens/teacher/TeacherAddCategory';
 import TeacherFeedback from '../screens/teacher/TeacherFeedBack';
 import TeacherProfile from '../screens/teacher/TeacherProfile';
@@ -57,16 +54,77 @@ import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTe
 import AllStudentAvatar from '../screens/student/AllStudentAvatar';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider, useDispatch, useSelector} from 'react-redux';
+import { Socket } from 'socket.io-client';
 
-
-
+let socket: Socket;
 
 const Stack = createNativeStackNavigator();
 
 export const NavigationRoutes = () => {
+  requestUserPermission()
   // console.log( "token" + token);
   const {user} = useContextApi();
-  requestUserPermission()
+  const {data : teacherUser} = useGetUserTeacherQuery(user?.token || "")
+  const {data : studentUser,refetch : studentUserRefetch} = useGetUserStudentQuery(user.token || "")
+  const {refetch : notificationRefetch} = useGetNotificationsQuery(user.token || "")
+  const {refetch : pendingTaskRefetch} = useGetPendingTaskQuery(user.token || "")
+  React.useEffect(() => {
+    // Ensure socket is initialized
+  
+    const socket = getSocket();
+
+    if (!socket) return;
+
+    const teacherId = teacherUser?.data?._id;
+    const studentId = studentUser?.data?._id;
+
+    const handleNotification = (data :INotification) => {
+      // console.log(data);
+      notificationRefetch()
+      if(data.role === "STUDENT"){
+        studentUserRefetch()
+        // console.log("student");
+        onDisplayNotification({
+          title: data?.type?.toLocaleUpperCase(),
+            body: data?.message,
+        })
+      }
+      if(data.role === "TEACHER"){
+        pendingTaskRefetch()
+        onDisplayNotification({
+          title: data?.type?.toLocaleUpperCase(),
+            body: data?.message,
+        })
+      }
+     
+    };
+
+    const handleError = (error) => {
+      console.warn('Error receiving data:', error.message);
+    };
+
+    if (teacherId) {
+  
+
+      socket.on(`notification::${teacherId}`, handleNotification);
+    }
+
+    if (studentId) {
+  
+      socket.on(`notification::${studentId}`, handleNotification);
+    }
+
+    // Clean up on component unmount
+    return () => {
+      if (teacherId) {
+        socket.off(`notification::${teacherId}`, handleNotification);
+      }
+      if (studentId) {
+        socket.off(`notification::${studentId}`, handleNotification);
+      }
+      socket.off('error', handleError);
+    };
+  }, [user?.token, teacherUser?.data?._id, studentUser?.data?._id]);
 
   return (
     <NavigationContainer>
@@ -84,22 +142,26 @@ export const NavigationRoutes = () => {
         <Stack.Screen name="AddPayment" component={AddPaymentCards} />
         <Stack.Screen name="Payment" component={PaymentScreen} />
         <Stack.Screen name="InternetStatus" component={InternetStatusScreen} />
-        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Splash" component={SplashScreen} options={{
+          
+        }} />
 
         {!user?.token && (
           <>
             <Stack.Screen name="LoginAs" component={LoginAsScreen} />
             <Stack.Screen name="TeacherLogin" component={TeacherLoginScreen} />
+            <Stack.Screen name="TeacherLoginVariation" component={TeacherLoginVariation} />
             <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
             <Stack.Screen name="ChildLogin" component={ChildLoginScreen} />
+            <Stack.Screen name="TeacherLoginWithEmail" component={TeacherLoginWithEmail} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
           </>
         )}
 
         {/* Admins All Screens  */}
         {/* <Stack.Screen name="AdminRoutes" component={AdminRoutes} />
-      <Stack.Screen name="CreateRewords" component={CreateRewords} />
-      <Stack.Screen name="EditRewords" component={EditRewordsScreen} />
+      <Stack.Screen name="CreateRewards" component={CreateRewards} />
+      <Stack.Screen name="EditRewards" component={EditRewardsScreen} />
       <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
       <Stack.Screen name="CustomTask" component={CustomTaskScreen} />
       <Stack.Screen name="EditCustomTask" component={EditCustomTaskScreen} />
@@ -178,17 +240,17 @@ export const NavigationRoutes = () => {
               component={TeacherTaskAssign}
             />
             <Stack.Screen
-              name="TeacherRewordsAssign"
-              component={TeacherRewordsAssign}
+              name="TeacherRewardsAssign"
+              component={TeacherRewardsAssign}
             />
-            <Stack.Screen name="TeacherRewords" component={TeacherRewords} />
+            <Stack.Screen name="TeacherRewards" component={TeacherRewards} />
             <Stack.Screen
-              name="TeacherCreateRewords"
-              component={TeacherCreateRewords}
+              name="TeacherCreateRewards"
+              component={TeacherCreateRewards}
             />
             <Stack.Screen
-              name="TeacherEditRewords"
-              component={TeacherEditRewords}
+              name="TeacherEditRewards"
+              component={TeacherEditRewards}
             />
             <Stack.Screen
               name="TeacherAddCategory"
@@ -234,7 +296,7 @@ export const NavigationRoutes = () => {
   );
 };
 
-import {useNetInfoInstance} from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import store from '../redux/store';
 import ContextApi, {useContextApi} from '../context/ContextApi';
 import Toast from 'react-native-toast-message';
@@ -244,12 +306,25 @@ import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
 import TeacherEditClass from '../screens/teacher/TeacherEditClass';
 import AddPaymentCards from '../screens/payments/AddPaymentCards';
 import PaymentScreen from '../screens/payments/PaymentScreen';
-import TeacherRewordsAssign from '../screens/teacher/TeacherRewordsAssign';
+
 import GlobalSplash from '../screens/slpash/GlobalSplash';
 
 
 
 import notifee, { AuthorizationStatus } from '@notifee/react-native';
+import {  getSocket, initiateSocket } from '../redux/services/socket';
+import { useGetUserStudentQuery, useGetUserTeacherQuery } from '../redux/apiSlices/authSlice';
+import { INotification } from '../redux/interface/interface';
+import { onDisplayNotification } from '../..';
+import { useGetNotificationsQuery } from '../redux/apiSlices/setings/notification';
+import { useGetPendingTaskQuery } from '../redux/apiSlices/teacher/teaherTaskSlices';
+import TeacherRewards from '../screens/teacher/TeacherRewords';
+import TeacherCreateRewards from '../screens/teacher/TeacherCreateRewords';
+import TeacherEditRewards from '../screens/teacher/EditTeacherRewords';
+import TeacherRewardsAssign from '../screens/teacher/TeacherRewordsAssign';
+import TeacherLoginVariation from '../screens/login/TeacherLoginVariation';
+import TeacherLoginWithEmail from '../screens/login/TeacherLoginWithEmail';
+import SignUpScreen from '../screens/login/SignUpScreen';
 
 //  google clude message 
 // import messaging from '@react-native-firebase/messaging';
@@ -289,9 +364,21 @@ async function requestUserPermission() {
 
 export const Routes = () => {
 
-  const {
-    netInfo: { isConnected },
-  } = useNetInfoInstance();
+  const [isConnected, setIsConnected] = React.useState<boolean | null>(null);
+
+
+   React.useEffect(() => {
+   
+    // Subscribe to network status updates
+    const unsubscribe = NetInfo.addEventListener(state => {
+      // const hasDataConnection = state.isConnected && state.isInternetReachable;
+      const hasDataConnection = state.isConnected ;
+      setIsConnected(hasDataConnection);
+    });
+
+    // Cleanup on component unmount
+    return () => unsubscribe();
+  }, []);
 
  
   const [isLoading, setIsLoading] = React.useState(true); // New loading state

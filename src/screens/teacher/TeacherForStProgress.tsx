@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -37,12 +38,12 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
 
   const {user} = useContextApi();
-  const {data : classes, isSuccess : classesIsSuccess} = useGetClassesQuery(user.token);
-  const [selectedClass, setSelectedClass] = useState<any>(classes?.data[0].className);
-  const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
+  const {data : classes, isSuccess : classesIsSuccess,isLoading : classLoading} = useGetClassesQuery({token : user.token});
+  const [selectedClass, setSelectedClass] = useState<any>(classes?.data![0]?.className);
+  const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess , isLoading : studentLoading} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
   const [selectedStudent, setSelectedStudent] = useState<string>(students?.data![0]?._id as string);
-  const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
-  console.log(students);
+  const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading : ProgressLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
+  // console.log(students);
   // console.log(student?.data._id);
   
   // console.log(ProgressIfo?.data?.totalCompletedTask + 1);
@@ -56,7 +57,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
   }>>(
     [
       {value: 0, color: '#42A5F5', text: '0%'},
-    {value: 0, color: '#AB47BC', text: '0%'},
+    // {value: 0, color: '#AB47BC', text: '0%'},
     {value: 0, color: '#FF8811', text: '0%'},
     ]
   );
@@ -70,10 +71,10 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
   const progressBar = useSharedValue('0%');
 
+// console.log(ProgressIfo, students);
 
-
-  useEffect(() => {
-    // studentRefetch()
+  React.useLayoutEffect(() => {
+   
     progressBar.value = withTiming('50%',{duration: 500});  
     animationOpacity.value = withSpring(1);
       //  studentInfoRefetch()
@@ -84,15 +85,25 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
     };
   }, [selectedClass,selectedStudent]);
 
+  const ProgressPercentage = ProgressIfo?.data.totalCompletedTask && ProgressIfo?.data.totalAssignTask
+  ? (ProgressIfo?.data.totalCompletedTask / ProgressIfo?.data.totalAssignTask) * 100
+  : 0;
+  const completedTaskWithPercentage = ProgressIfo?.data?.totalCompletedTask && ProgressIfo?.data?.totalAssignTask
+  ? ((ProgressIfo.data.totalCompletedTask / ProgressIfo.data.totalAssignTask) * 100)
+  : 0;
+
+  const AssignTaskWithPercentage = 100 - completedTaskWithPercentage;
+
+
+  // console.log(completedTaskWithPercentage,remainingPercentage);
+
   return (
     <View
       style={{
         height: '100%',
         backgroundColor: 'white',
       }}>
-        {
-          isLoading && <LoaderScreen />
-        }
+       
       <HeaderBackground
         title="Progress"
         ringColor={GStyles.purple.normalHover}
@@ -151,7 +162,14 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
       )} */}
 
       {
-        classes?.data?.length !== 0 &&   <ScrollView showsVerticalScrollIndicator={false}>
+        classLoading || ProgressLoading ||studentLoading ? <View style={{
+          flex : 1,
+          justifyContent : 'center',
+          alignItems : 'center',
+          height : '100%'
+        }}>
+          <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
+        </View> :   <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             marginTop: 20,
@@ -162,36 +180,38 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             alignItems: 'center',
           }}>
           <View style={{}}>
-            <Dropdown
-              // maxHeight={150}
-              style={{
-                // flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingHorizontal: 12,
-                paddingVertical: 15,
-                borderWidth: 1,
-                borderColor: '#E2E2E2',
-                borderRadius: 10,
-                width: '100%',
-                gap: 20,
-              }}
-              iconStyle={{
-                marginHorizontal: 10,
-              }}
-              labelField="className"
-              valueField="className"
-              value={value}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
-              onChange={item => {
-                // console.log(item);
-                setSelectedClass(item?.className);
-            
-              }}
-              placeholder="class 1"
-              data={classes?.data}
-            />
+           {
+            !classLoading && <Dropdown
+            // maxHeight={150}
+            style={{
+              // flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingHorizontal: 12,
+              paddingVertical: 15,
+              borderWidth: 1,
+              borderColor: '#E2E2E2',
+              borderRadius: 10,
+              width: '100%',
+              gap: 20,
+            }}
+            iconStyle={{
+              marginHorizontal: 10,
+            }}
+            labelField="className"
+            valueField="className"
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              // console.log(item);
+              setSelectedClass(item?.className);
+          
+            }}
+            placeholder="select class"
+            data={classes?.data}
+          />
+           }
           </View>
 
           <FlatList
@@ -218,7 +238,10 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                     : GStyles.borderColor['#ECECEC']
                 }
                 onPress={() => {
+                  studentRefetch()
+                  studentInfoRefetch()
                   setSelectedStudent(item?.item?._id)
+              
                 }}
                 key={item.index}
               />
@@ -226,77 +249,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
           />
         </View>
 
-        {/* <View
-          style={{
-            marginTop: 10,
-            paddingHorizontal: '8%',
-          }}>
-      
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              backgroundColor: '#FFF3E7',
-              height: 65,
-              borderRadius: 8,
-            }}>
-            <Animated.View
-              style={{
-                backgroundColor: GStyles.primaryOrange,
-                height: 65,
-                width: progressBar,
-                borderRadius: 8,
-              }}
-            />
-          </View>
-     
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginVertical: 17,
-            }}>
-            <Text
-              style={{
-                fontSize: 12,
-                color: GStyles.textColor['#3D3D3D'],
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                letterSpacing: 0.8,
-              }}>
-              level {ProgressIfo?.data?.level}
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                gap: 5,
-              }}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#000000',
-                  fontFamily: GStyles.Poppins,
-                  fontWeight: '400',
-                  letterSpacing: 0.8,
-                }}>
-           {ProgressIfo?.data?.points}
-              </Text>
-              <AntDesign name="star" size={15} color={GStyles.primaryYellow} />
-            </View>
-            <Text
-              style={{
-                fontSize: 12,
-                color: GStyles.textColor['#3D3D3D'],
-                fontFamily: GStyles.Poppins,
-                fontWeight: '400',
-                letterSpacing: 0.8,
-              }}>
-              level {ProgressIfo?.data?.level  + 1}
-            </Text>
-          </View>
-        </View> */}
+    
 
         {
           students?.data?.length !== 0 && <>
@@ -304,9 +257,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             style={[styles.container, {opacity: animationOpacity}]}>
             <PieChart
               data={[
-                {value: ProgressIfo?.data.totalCompletedTask || 0, color: '#42A5F5', text: `${ProgressIfo?.data.totalCompletedTask}%`},
-                {value: ProgressIfo?.data.totalUnCompletedTask || 0, color: '#AB47BC', text: `${ProgressIfo?.data.totalUnCompletedTask}%`},
-                {value: ProgressIfo?.data.totalAssignTask || 1, color: '#FF8811', text: `${ProgressIfo?.data.totalAssignTask || 0}%`},
+                {value: completedTaskWithPercentage, color: '#FF8811', text: `${ProgressIfo?.data.totalCompletedTask}`},
+                // {value: ProgressIfo?.data.totalUnCompletedTask || 0, color: '#AB47BC', text: `${ProgressIfo?.data.totalUnCompletedTask}%`},
+                {value: AssignTaskWithPercentage || 1, color:  '#42A5F5', text: `${ProgressIfo?.data.totalAssignTask || 0}`},
               ]}
               showText
               textColor="white"
@@ -323,8 +276,12 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               innerRadius={60}
               centerLabelComponent={() => (
                 <View style={styles.centerText}>
-                  <Text style={styles.levelText}>Level {ProgressIfo?.data?.level}</Text>
-                  <Text style={styles.scoreText}>{ProgressIfo?.data?.points} ★</Text>
+                  <Text style={styles.levelText}>
+
+                {
+                  Math.round(ProgressPercentage) 
+                }%
+                  </Text>
                 </View>
               )}
             />
@@ -350,7 +307,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               }}>
               <View
                 style={{
-                  backgroundColor: GStyles.primaryOrange,
+                  backgroundColor: GStyles.primaryBlue,
                   height: 20,
                   width: 20,
                   borderRadius: 100,
@@ -374,7 +331,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               }}>
               <View
                 style={{
-                  backgroundColor: GStyles.primaryBlue,
+                  backgroundColor: GStyles.primaryOrange,
                   height: 20,
                   width: 20,
                   borderRadius: 100,
@@ -390,7 +347,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 Total Completed Work: {ProgressIfo?.data?.totalCompletedTask}
               </Text>
             </View>
-            <View
+            {/* <View
               style={{
                 flexDirection: 'row',
                 gap: 10,
@@ -413,7 +370,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 }}>
                 Total Uncompleted Work: {ProgressIfo?.data?.totalUnCompletedTask}
               </Text>
-            </View>
+            </View> */}
           </View>
         </View>
           </>
@@ -441,7 +398,7 @@ const styles = StyleSheet.create({
   },
   levelText: {
     fontSize: 24,
-    color: '#FFA726', // Replace with your GStyles.primaryOrange
+    color: GStyles?.primaryOrange, // Replace with your GStyles.primaryOrange
     fontFamily: 'Poppins-Bold', // Replace with your GStyles.PoppinsBold
     fontWeight: '600',
     letterSpacing: 0.5,

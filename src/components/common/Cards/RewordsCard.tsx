@@ -8,7 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {NavigProps} from '../../../interfaces/NavigationPros';
 import { IReword } from '../../../redux/interface/interface';
 
-interface RewordsCardProps extends NavigProps<null> {
+interface RewardsCardProps extends NavigProps<null> {
   title ?: string;
   achieved?: boolean;
   marginHorizontal?: number;
@@ -31,9 +31,11 @@ interface RewordsCardProps extends NavigProps<null> {
   removeBtn?: boolean;
   removePress?: ()=>void;
   points ?: number;
+  earnDate ? : Date;
+  
 }
 
-const RewordsCard = ({
+const RewardsCard = ({
   achieved,
   marginHorizontal,
   title,
@@ -56,9 +58,10 @@ const RewordsCard = ({
   removeBtn,
   removePress,
   points,
-  optionOnPress
+  optionOnPress,
+  earnDate
   
-}: RewordsCardProps) => {
+}: RewardsCardProps) => {
   // console.log(points);
   return (
     <TouchableOpacity
@@ -142,6 +145,7 @@ const RewordsCard = ({
                 }}>
                 {points ? points : 0}
               </Text>
+          
             </View>
           </View>
         ) : (
@@ -161,9 +165,12 @@ const RewordsCard = ({
             <View
               style={{
                 flexDirection: 'row',
-                gap: 3,
+                width : "50%",
+                gap:  4,
+                // justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              <AntDesign name="staro" size={20} color={iconOrTextColor ? iconOrTextColor :'#C3C3C3'} />
+          <AntDesign name="staro" size={20} color={iconOrTextColor ? iconOrTextColor :'#C3C3C3'} />
               <Text
                 style={{
                   color:iconOrTextColor ? iconOrTextColor : '#C3C3C3',
@@ -172,7 +179,21 @@ const RewordsCard = ({
                   letterSpacing: 0.8,
                 }}>
                 {points ? points : 0}
+                
               </Text>
+           
+              <Text
+                style={{
+                  color: GStyles.orange?.dark,
+                  fontFamily: GStyles.Poppins,
+                  fontSize: 12,
+                  letterSpacing: 0.8,
+                  paddingHorizontal : 5
+                
+                }}>
+           {earnDate && new Date(earnDate).toDateString() }
+              </Text>
+          
             </View>
           </View>
         )}
@@ -181,6 +202,8 @@ const RewordsCard = ({
       </View>
       {editOption && (
           <TouchableOpacity
+
+          
             onPress={() =>
           {
             if(!editRoute){
@@ -269,6 +292,6 @@ const RewordsCard = ({
   );
 };
 
-export default RewordsCard;
+export default RewardsCard;
 
 const styles = StyleSheet.create({});

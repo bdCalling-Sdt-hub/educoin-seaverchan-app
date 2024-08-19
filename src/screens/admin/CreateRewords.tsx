@@ -18,7 +18,7 @@ interface HeaderBackgroundProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
+const CreateRewards = ({navigation}: HeaderBackgroundProps) => {
   const [rewordName, setRewordName] = React.useState('');
   const [rewordDescription, setRewordDescription] = React.useState('');
   const [rewordPoints, setRewordPoints] = React.useState<number>();
@@ -37,7 +37,7 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
 
       if (!result.didCancel) {
         setRewordImage(result?.assets![0].uri);
-        console.log(result);
+        // console.log(result);
       }
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
 
   return (
     <View>
-      <HeaderBackground title="Create Rewords" navigation={navigation} />
+      <HeaderBackground title="Create Rewards" navigation={navigation} />
       <View>
         <View
           style={{
@@ -69,7 +69,7 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
             }}
             placeholderTextColor="#3D3D3D"
             multiline
-            placeholder="Rewords Name"
+            placeholder="Rewards Name"
           />
         </View>
         <View
@@ -224,6 +224,6 @@ const CreateRewords = ({navigation}: HeaderBackgroundProps) => {
   );
 };
 
-export default CreateRewords;
+export default CreateRewards;
 
 const styles = StyleSheet.create({});

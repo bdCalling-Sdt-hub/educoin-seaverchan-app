@@ -180,7 +180,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
       </View>
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'20%'}
         width={'85%'}

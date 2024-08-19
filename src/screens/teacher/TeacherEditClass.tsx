@@ -49,7 +49,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
       }).then(res => {
         // console.log(res);
         if (res?.error) {
-          console.log(res.error?.data?.message);
+          // console.log(res.error?.data?.message);
           Toast.show({
             text1: res?.error?.data?.message,
             type: 'info',
@@ -163,7 +163,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
           </TouchableOpacity>
         </View>
         <View>
-          <Require title="End date" />
+          <Require title="End date" nonRequired />
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => {
@@ -216,7 +216,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
       </View>
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'30%'}
         width={'85%'}

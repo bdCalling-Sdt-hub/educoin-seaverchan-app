@@ -889,7 +889,7 @@ const StudentHomeScreen = ({
       />
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'30%'}
         width={'85%'}

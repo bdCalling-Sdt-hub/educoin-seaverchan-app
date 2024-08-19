@@ -34,19 +34,19 @@ import {
     useGetAssignTaskQuery,
   } from '../../redux/apiSlices/teacher/teaherTaskSlices';
   import Toast from 'react-native-toast-message';
-import { useGetAssignRewordsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
 import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
+import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
   
-  const TeacherRewordsAssign = ({navigation, route}: NavigProps<IReword>) => {
+  const TeacherRewardsAssign = ({navigation, route}: NavigProps<IReword>) => {
     const Item = route?.params?.data;
     // console.log(Item);
     const {user} = useContextApi();
   
     const {data: classes, isLoading: categoryLoading} = useGetClassesQuery(
-      user.token,
+      { token : user.token}
     );
-    const {data: assignRewords} = useGetAssignRewordsQuery(user.token);
-    const alreadyAssigned = assignRewords?.data?.filter(
+    const {data: assignRewards} = useGetAssignRewardsQuery(user.token);
+    const alreadyAssigned = assignRewards?.data?.filter(
       assiReword => assiReword?.reward?._id === Item?._id,
     );
 
@@ -56,7 +56,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
     const [selectClass, setSelectClass] = React.useState<string>(
       classes?.data![0]?.className as string,
     );
-    const {data: students} = useGetStudentsQuery(user.token);
+    const {data: students} = useGetStudentsQuery({token : user.token});
     const {data: classFilterStudents, refetch} = useGetStudentThrowClassQuery({
       token: user.token,
       className: selectClass,
@@ -146,7 +146,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
               </Text>
             </TouchableOpacity> */}
             <FlatList
-              data={students?.data.filter(student=>search ? student.name.includes(search) : student)}
+              data={students?.data?.filter(student=>search ? student.name.includes(search) : student)}
               keyExtractor={item => item._id + item.password}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{
@@ -160,7 +160,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
                     //  loading={results.isLoading}
                       reword={Item}
                       item={item}
-                      Assigned={alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)}
+                      Assigned={!!alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)?._id}
                     />
                   </>
                 );
@@ -226,7 +226,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
               </View>
             </View> */}
             <FlatList
-              data={classFilterStudents?.data}
+              data={classFilterStudents?.data?.filter(student=>search ? student.name.includes(search) : student)}
               keyExtractor={item => item._id + item.password}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{
@@ -350,7 +350,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
                     //  loading={results.isLoading}
                       reword={Item}
                       item={item}
-                      Assigned={alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)}
+                      Assigned={!!alreadyAssigned?.find(assigned=>assigned.student._id === item?._id)?._id}
                     />
                   </>
                 );
@@ -359,7 +359,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
           </>
         )}
   
-        {selection && (
+        {/* {selection && (
           <View
             style={{
               paddingHorizontal: '4%',
@@ -397,7 +397,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
               </Text>
             </TouchableOpacity>
           </View>
-        )}
+        )} */}
   
         <CustomModal
           modalVisible={modalVisible}
@@ -464,7 +464,7 @@ import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
     );
   };
   
-  export default TeacherRewordsAssign;
+  export default TeacherRewardsAssign;
   
   const styles = StyleSheet.create({});
   

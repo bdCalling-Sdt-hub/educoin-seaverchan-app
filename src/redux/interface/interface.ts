@@ -2,6 +2,15 @@ export interface IFetchStatus {
   message: string;
   success: boolean;
 }
+export interface IFetchPagination {
+  totalNotification: number;
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
+}
 
 export interface ITeacherUser extends IFetchStatus {
   data: {
@@ -57,7 +66,7 @@ export interface IStudent {
   __v: number;
 }
 
-export interface IStudents extends IFetchStatus {
+export interface IStudents extends IFetchStatus , IFetchPagination {
   data: Array<IStudent>;
 }
 export interface IClass {
@@ -71,7 +80,7 @@ export interface IClass {
   __v: number;
 }
 
-export interface IClasses extends IFetchStatus {
+export interface IClasses extends IFetchStatus , IFetchPagination {
   data: Array<IClass>;
 }
 export interface ICategory {
@@ -122,7 +131,7 @@ export interface IReword {
   __v: number;
 }
 
-export interface IRewords extends IFetchStatus {
+export interface IRewards extends IFetchStatus {
   data: Array<IReword>;
 }
 export interface IPendingTask {
@@ -164,7 +173,7 @@ export interface IAssignReword {
   __v: number;
 }
 
-export interface IAssignRewords extends IFetchStatus {
+export interface IAssignRewards extends IFetchStatus {
   data: Array<IAssignReword>;
 }
 export interface IPreset {
@@ -215,7 +224,7 @@ export interface IAssignStudentReword {
   __v: number;
 }
 
-export interface IAssignStudentRewords extends IFetchStatus {
+export interface IAssignStudentRewards extends IFetchStatus {
   data: Array<IAssignStudentReword>;
 }
 export interface IEarnedStudentReword {
@@ -229,16 +238,34 @@ export interface IEarnedStudentReword {
   __v: number;
 }
 
-export interface IEarnedStudentRewords extends IFetchStatus {
+export interface IEarnedStudentRewards extends IFetchStatus {
   data: Array<IEarnedStudentReword>;
 }
 
 export interface IStatistics extends IFetchStatus {
-  data : {
+  data: {
     level: number;
-  points: number;
-  totalAssignTask: number;
-  totalCompletedTask: number;
-  totalUnCompletedTask: number;
-  }
+    points: number;
+    totalAssignTask: number;
+    totalCompletedTask: number;
+    totalUnCompletedTask: number;
+  };
 }
+
+export interface INotification {
+  _id: string;
+  recipient:string;
+  recipientModel: string;
+  message: string;
+  read: boolean;
+  role: string;
+  type: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface INotifications extends IFetchStatus , IFetchPagination {
+  data:Array<INotification>
+}
+

@@ -3,7 +3,7 @@ import AdminHomeScreen from '../screens/admin/AdminHomeScreen';
 import AdminDrawerRoutes from './AdminDrawerRoutes';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import AdminRewords from '../screens/admin/AdminRewords';
+import AdminRewards from '../screens/admin/AdminRewards';
 import AdminTask from '../screens/admin/AdminTask';
 import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
 const Tab = createBottomTabNavigator();
@@ -35,8 +35,8 @@ function AdminRoutes() {
         }}
       />
       <Tab.Screen
-        name="AdminRewords"
-        component={AdminRewords}
+        name="AdminRewards"
+        component={AdminRewards}
         options={{
           tabBarLabel: 'Home',
           tabBarLabelStyle: {

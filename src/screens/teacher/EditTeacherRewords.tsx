@@ -21,40 +21,39 @@ import {categoryIcons, ShearIcons, SherAvatar} from '../../utils/ShearData';
 import {Slider} from 'react-native-awesome-slider';
 import {useSharedValue, withTiming} from 'react-native-reanimated';
 import { useContextApi } from '../../context/ContextApi';
-import { useCreateRewordsMutation, useUpdateRewordsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+
 import Toast from 'react-native-toast-message';
 import { IReword } from '../../redux/interface/interface';
 import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { imageUrl } from '../../redux/api/baseApi';
+import { useUpdateRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
 
-interface IRewordsUProps {
+interface IRewardsUProps {
   name: string;
   image: any;
   requiredPoints: number;
 }
 
-const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
-  const [rewordsData, setRewordsData] = React.useState<IRewordsUProps>(route?.params.data);
-
+const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
+  const [RewardsData, setRewardsData] = React.useState<IRewardsUProps>(route?.params.data);
+//  console.log(RewardsData);
   const {user} = useContextApi();
   const {data: IconsData} = useGetIconsPresetQuery(user.token);
-  const [updateReword,results] = useUpdateRewordsMutation()
+  const [updateReword,results] = useUpdateRewardsMutation()
 
   const [rewordPoints, setRewordPoints] = React.useState<number>(50);
 
   const [customImage, setCustomImage] = React.useState<string>(route?.params?.data?.image || IconsData?.data![0].image as string);
 
-  const [modalVisible, setModalVisible] = React.useState(false);
+
   const [successModal, setSuccessModal] = React.useState(false);
 
-  const progress = useSharedValue(rewordPoints);
-  const min = useSharedValue(0);
-  const max = useSharedValue(200);
+
 
   const handleCreateReword = useCallback(
-    (UData :IRewordsUProps) => {
+    (UData :IRewardsUProps) => {
 
-      UData.requiredPoints = rewordPoints
+    
       // console.log(UData);
    
     
@@ -77,7 +76,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
    
      if(UData?.name&& UData?.requiredPoints && UData?.image){
       updateReword({token : user.token, id : route?.params?.data._id, data : UData}).then(res=>{
-        console.log(res);
+        // console.log(res);
         if(res?.data?.success){
           // setModalVisible(false);
           setSuccessModal(true);
@@ -95,12 +94,10 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
       // setSuccessModal(true);
 
     },
-    [rewordsData],
+    [RewardsData],
   );
 
-  React.useEffect(() => {
-    progress.value = withTiming(rewordPoints, {duration: 10});
-  }, [rewordPoints]);
+
 
   return (
     <View
@@ -166,22 +163,22 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            onChangeText={text => setRewordsData({...rewordsData, name: text})}
+            onChangeText={text => setRewardsData({...RewardsData, name: text})}
             placeholderTextColor="gray"
             multiline
-            placeholder=" Name"
-            value={rewordsData?.name}
+            placeholder="Name"
+            value={RewardsData?.name}
           />
         </View>
         <View
           style={{
             paddingHorizontal: '4%',
-            paddingVertical: '5%',
-            marginTop: -10,
+          
+         
           }}>
            <View
             style={{
-              marginVertical: 15,
+              marginTop: 15,
               flexDirection: 'row',
               gap: 10,
               alignItems: 'center',
@@ -207,7 +204,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
-              Points
+         Points Required
             </Text>
             <View
               style={{
@@ -216,78 +213,32 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
                 gap: 5,
               }}>
               <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
-              <Text>{parseInt(rewordPoints)}</Text>
+              {/* <Text>{parseInt(rewordPoints)}</Text> */}
             </View>
+            
           </View>
-          <Slider
-            theme={{
-              disableMinTrackTintColor: GStyles.primaryOrange,
-              // maximumTrackTintColor:  GStyles.primaryOrange,
-              minimumTrackTintColor: GStyles.primaryOrange,
-              cacheTrackTintColor: GStyles.primaryOrange,
-              bubbleBackgroundColor: GStyles.primaryOrange,
-              heartbeatColor: GStyles.primaryOrange,
-            }}
-            progress={progress}
-            minimumValue={min}
-            maximumValue={max}
-            onSlidingComplete={(value: number) => {
-              setRewordPoints(value);
-             
-            }}
-          />
-             <View
+       
+          <TextInput
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 10,
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                rewordPoints !== 0 && setRewordPoints(rewordPoints - 10);
-              }}
-              style={{
-                height: 35,
-                justifyContent: 'center',
-                //  alignItems : "center"
-              }}>
-              <Text
-                style={{
-                  fontFamily: GStyles.PoppinsMedium,
-                  backgroundColor: GStyles.gray.lightActive,
-                  fontSize: 12,
-                  padding: 5,
-                  borderRadius: 4,
-                  textAlign: 'center',
-                  width: 45,
-                }}>
-                -10
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                rewordPoints < max.value && setRewordPoints(rewordPoints + 10);
-              }}
-              style={{
-                height: 35,
-                justifyContent: 'center',
-                //  alignItems : "center"
-              }}>
-              <Text
-                style={{
-                  fontFamily: GStyles.PoppinsMedium,
-                  backgroundColor: GStyles.primaryPurple,
-                  fontSize: 12,
-                  padding: 5,
-                  borderRadius: 4,
-                  color: 'white',
-                  width: 45,
-                  textAlign: 'center',
-                }}>
-                +10
-              </Text>
-            </TouchableOpacity>
-          </View>
+              borderBottomColor: '#E2E2E2',
+              borderBottomWidth: 1,
+              width: '100%',
+              paddingLeft: 10,
+              paddingRight: 10,
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              color: '#3D3D3D',
+
+              fontWeight: '500',
+              letterSpacing: 0.5,
+            }}
+            onChangeText={text => setRewardsData({...RewardsData, requiredPoints: Number(text)})}
+            placeholderTextColor="gray"
+            // multiline
+            placeholder="0"
+            keyboardType='decimal-pad'
+            value={`${RewardsData?.requiredPoints}`}
+          />
         </View>
         <View
           style={{
@@ -354,8 +305,8 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
               activeOpacity={.8}
                 key={item.index}
                 onPress={() => {
-                  setCustomImage(item.item.image) 
-                  setRewordsData({...rewordsData,image:item.item.image})
+               
+                  setRewardsData({...RewardsData,image:item.item.image})
                 }}>
                 <View
                   style={{
@@ -372,7 +323,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
                       padding: 2,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      elevation: 1,
+        
                     }}>
                     <Image
                       source={{
@@ -380,10 +331,10 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
                       }}
                       style={{
                         borderColor:
-                        customImage  === item.item.image
+                        RewardsData?.image  == item.item.image
                           ? GStyles.primaryPurple
                           : GStyles.gray.light,
-                      borderWidth: 2,
+                      borderWidth: 3,
                         width: 65,
                         height: 65,
                         borderRadius: 8,
@@ -419,7 +370,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
         <TouchableOpacity
           onPress={() => {
             // navigation?.goBack()
-          handleCreateReword(rewordsData)
+          handleCreateReword(RewardsData)
           }}
           style={{
             backgroundColor: GStyles.primaryPurple,
@@ -519,7 +470,7 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
             {/* <TouchableOpacity
               onPress={() => {
               
-           navigation?.navigate('TeacherRewordsAssign', {data : results?.data?.data})
+           navigation?.navigate('TeacherRewardsAssign', {data : results?.data?.data})
                 setSuccessModal(false);
               }}
               style={{
@@ -553,6 +504,6 @@ const EditTeacherRewords = ({navigation, route}: NavigProps<IReword>) => {
   );
 };
 
-export default EditTeacherRewords;
+export default TeacherEditRewards;
 
 const styles = StyleSheet.create({});

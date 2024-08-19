@@ -7,7 +7,7 @@ import {TouchableOpacity} from 'react-native';
 import {imageUrl} from '../../redux/api/baseApi';
 import {useCreateAssignTaskMutation} from '../../redux/apiSlices/teacher/teaherTaskSlices';
 import {useContextApi} from '../../context/ContextApi';
-import { useCreateAssignRewordsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+import { useCreateAssignRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
 
 interface AssignCardProps {
   item: IStudent;
@@ -26,7 +26,7 @@ const AssignRewordCard = ({
 }: AssignCardProps) => {
   const {user} = useContextApi();
 
-  const [createAssignReword, results] = useCreateAssignRewordsMutation();
+  const [createAssignReword, results] = useCreateAssignRewardsMutation();
   // console.log(Assigned);
   return (
     <View
@@ -89,6 +89,7 @@ const AssignRewordCard = ({
       </View>
 
       <TouchableOpacity
+      disabled={Assigned || results.isLoading }
         onPress={() => {
             createAssignReword({
             token: user.token,
@@ -97,11 +98,11 @@ const AssignRewordCard = ({
               student: item?._id,
             },
           }).then(res => {
-            console.log(res);
+            // console.log(res);
             if (res?.data?.success) {
               // setModalVisible(true);
             } else {
-              console.log(res?.error);
+              // console.log(res?.error);
             }
           });
         }}

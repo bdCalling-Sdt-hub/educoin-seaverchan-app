@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Image,
   ScrollView,
@@ -31,11 +32,18 @@ import {
 import {imageUrl} from '../../redux/api/baseApi';
 import {useContextApi} from '../../context/ContextApi';
 import { ITask } from '../../redux/interface/interface';
+import { RefreshControl } from 'react-native-gesture-handler';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import LottieView from 'lottie-react-native';
+import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
 
-const TaskList = ({navigation}: NavigProps<null>) => {
+const TaskList = ({navigation,route}: NavigProps<string>) => {
+  console.log(route?.params?.data);
   const {user} = useContextApi();
-  const {data: tasks} = useGetTaskQuery(user.token);
-  const {data: pendingTasks} = useGetPendingTaskQuery(user.token);
+  const {data: tasks, isLoading : taskLoading, refetch : taskRefetch} = useGetTaskQuery(user.token);
+  const {data : categories} = useGetCategoriesQuery(user?.token);
+  // console.log(tasks);
+  const {data: pendingTasks, isLoading : pendingTaskIsLoading, refetch : pendingTskRefetch} = useGetPendingTaskQuery(user.token);
   const [approveTask,results] = useApproveTaskMutation()
 
   // console.log(tasks);
@@ -46,11 +54,43 @@ const TaskList = ({navigation}: NavigProps<null>) => {
   const [isActionOpen, setIsActions] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
+  const [claimModal, setClaimModal] = React.useState(false);
   // console.log(selectItem);
   useEffect(() => {
     ShearTask;
     setReload(false);
-  }, [reLoad]);
+    if(route?.params?.data ){
+      setOp(route?.params?.data)
+    }
+  }, [reLoad,route?.params?.data]);
+
+
+  const bottom = useSharedValue(0)
+  
+  const animationStyle = useAnimatedStyle(()=>{
+    return {
+      
+        position : "absolute",
+        width : 200,
+        height : 200,
+        zIndex : +1,
+        bottom :  bottom.value
+    
+    }
+  })
+  useEffect(()=>{
+   if(claimModal){
+    bottom.value =  withSpring(60)
+   }
+   else{
+    bottom.value = withSpring(0)
+   }
+ 
+  
+  },[claimModal,route])
+
+
+
   return (
     <View
       style={{
@@ -92,15 +132,16 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           ListHeaderComponentStyle={{
             width: '100%',
           }}
-          onRefresh={() => setReload(true)}
-          refreshing={reLoad}
+          refreshControl={<RefreshControl   onRefresh={() => taskRefetch()}
+          refreshing={taskLoading} colors={[GStyles?.primaryPurple]} />}
+
+       
+    
           keyExtractor={item => item._id}
           renderItem={item => (
             <>
             {/* {console.log(item.item.category.image)} */}
               <TaskCard
-                // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
-                // imgAssets={imageUrl + item?.item?.category?.image}
                 imageUrl={imageUrl + item?.item?.category?.image}
                 approveBTColor={GStyles.primaryPurple}
                 title={item?.item?.name}
@@ -112,37 +153,11 @@ const TaskList = ({navigation}: NavigProps<null>) => {
                   setSelectItem(item.item)
                   setIsActions(true);
                 }}
-                // optionList={[
-                //   {
-                //     title: 'Edit',
-                //     onPress: () => {
-                //       navigation?.navigate('EditTeacherTask');
-                //     },
-                //   },
-                //   {
-                //     title: 'Reassign',
-                //     onPress: () => {
-                //       console.log('Cleared');
-                //       navigation?.navigate('TeacherTaskAssign');
-                //     },
-                //   },
-                //   {
-                //     title: 'Deleted',
-                //     onPress: () => {
-                //       setIsYes(true);
-                //     },
-                //   },
-                // ]}
+              
                 button
-                // isButton
-                // buttonText="Assign"
+               
                 time={item?.item?.repeat}
-                // description="ok"
-                // OnButtonPress={() => {
-                //   // console.log('ok');
-                 
-                //   setIsActions(true);
-                // }}
+              
                 key={item.index}
               />
             </>
@@ -163,14 +178,13 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           ListHeaderComponentStyle={{
             width: '100%',
           }}
-          onRefresh={() => setReload(true)}
-          refreshing={reLoad}
+          refreshControl={<RefreshControl        onRefresh={() =>pendingTskRefetch()}
+          refreshing={pendingTaskIsLoading}colors={[GStyles?.primaryPurple]} />}
           keyExtractor={item => item._id}
           renderItem={item => (
             <>
               <TaskCard
-                // imageUrl='https://s3-alpha-sig.figma.com/img/3655/c251/53c01811a584d55f7d5e1984c81a983b?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ozsInqYzyeuOvHLdANZdHfcFbTIGXFbUTleaOF3JlQiNYkY~PCDec1-w0eXvlor-~VVpwiAIUUFl8~TXFk-8gKDJ3lDcqSlzAcjm02S6TlU5eEsforuhkhDfrMXZJKzFwc9j18HTvP3UM~BKZQOMB1IVXHfLdVGy-ad5EUkKxiTtuqIWkj16a4vJHT6xoMJkELxcqPBHnpB2aWekC5ntJjA~HOn8a9-rjSGKAJxMDfOcTgOu1KVbOY4XaSPI0gZK~OfMVOr7rTi6-K4Xn5LMp8Wy~4YJSOSu~V3iroaEvTbUIHZRZDZ-f81~WOSZe~KE19ZY6PU3Ck9dzCzWlLxLaA__'
-                // imgAssets={require('../../assets/icons/icon18.png')}
+           
                 approveBTColor={GStyles.primaryPurple}
                 title={item.item.task.name}
                 category={item.item.task.category.name}
@@ -182,14 +196,14 @@ const TaskList = ({navigation}: NavigProps<null>) => {
                 optionContainerHight={100}
                 button
                 isButton
-                buttonText="Pending"
+                buttonText="Approved"
                 OnButtonPress={() => {
-                  console.log("ok");
+                  // console.log("ok");
                   // navigation?.navigate('TeacherTaskAssign');
                   approveTask({token : user.token, id : item?.item?._id}).then(res=>{
-                   
                     if(res.data?.success){
-                      setModalVisible(true)
+                      setClaimModal(true)
+                      // setModalVisible(true)
                     }
                   })
              
@@ -213,7 +227,26 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           justifyContent: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation?.navigate('TeacherCreateTask')}
+          onPress={() => {
+            if(categories?.data?.length !== 0){
+              
+              navigation?.navigate('TeacherCreateTask')
+            }
+            else{
+              Alert.alert('Warning', 'Please add categories to create new task',[
+                {
+                  text: 'Add Category',
+                  onPress: () => navigation?.navigate('TeacherAddCategory'),
+                  style: 'default',
+                },
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                }
+              ])
+            }
+          }}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,
@@ -242,9 +275,9 @@ const TaskList = ({navigation}: NavigProps<null>) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <CustomModal
+      {/* <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'20%'}
         width={'85%'}
@@ -266,14 +299,7 @@ const TaskList = ({navigation}: NavigProps<null>) => {
             }}>
             Task Approved Successfully
           </Text>
-          {/* <Text
-            style={{
-              fontFamily: GStyles.Poppins,
-              fontSize: 16,
-              textAlign: 'center',
-            }}>
-            simply dummy text of the printing and typesetting industry
-          </Text> */}
+      
 
           <View>
             <TouchableOpacity
@@ -299,14 +325,73 @@ const TaskList = ({navigation}: NavigProps<null>) => {
             </TouchableOpacity>
           </View>
         </View>
+      </CustomModal> */}
+         <CustomModal
+        modalVisible={claimModal}
+        // backButton
+        setModalVisible={setClaimModal}
+        height={289}
+        width={"80%"}
+        Radius={10}>
+        <View
+          style={{
+            padding: 20,
+            gap: 20,
+            justifyContent: 'center',
+            flex: 1,
+            alignItems: 'center',
+            position : "relative"
+          }}>
+         <Animated.View style={animationStyle}>
+         <Image style={{
+              position : "absolute",
+              width : 200,
+              height : 200,
+              zIndex : +1,
+              
+            }} source={require("../../assets/images/quakka/happyQuakka.png")}/>
+         </Animated.View>
+          {/* <LottieView
+            source={require('../../assets/lottie/effect.json')}
+            style={{width: 1000, height: "100%"}}
+            autoPlay
+            loop={false}
+            resizeMode='cover'
+          /> */}
+          <LottieView
+            source={require('../../assets/lottie/effect.json')}
+            style={{width: 500, height: "100%"}}
+            autoPlay
+            loop={false}
+            resizeMode='cover'
+          />
+
+          <View>
+            <TouchableOpacity
+              onPress={() => setClaimModal(false)}
+              style={{
+                backgroundColor: GStyles.primaryPurple,
+                width: 100,
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 100,
+                alignSelf: 'center',
+                marginBottom: 20,
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: GStyles.Poppins,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '400',
+                }}>
+                OK
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </CustomModal>
-      <YesNoModal
-        modalVisible={isYes}
-        setModalVisible={setIsYes}
-        yesPress={() => {
-          setIsYes(false);
-        }}
-      />
 
       <ActionSheet
         visible={isActionOpen}

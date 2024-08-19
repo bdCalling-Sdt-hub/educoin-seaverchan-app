@@ -20,6 +20,7 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import { AppName } from '../../styles/AppDetails';
 import { removeStorageRole, removeStorageToken } from '../../utils/utils';
 import { useContextApi } from '../../context/ContextApi';
+import { disconnectSocket } from '../../redux/services/socket';
 function StudentCustomDrawer(props: any) {
   const {setUser} = useContextApi();
   const navigation = useNavigation<any>();
@@ -227,6 +228,7 @@ function StudentCustomDrawer(props: any) {
                 token: null,
                 role: null,
               });
+              disconnectSocket()
               // navigation.navigate('LoginAs')
         
           }}

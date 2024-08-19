@@ -3,13 +3,11 @@ import HeaderBackground from '../../components/common/headerBackground/HeaderBac
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import Feather from 'react-native-vector-icons/Feather';
+
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
-import FastImage from 'react-native-fast-image';
 
-import {useEffect} from 'react';
 
 
 import {imageUrl} from '../../redux/api/baseApi';
@@ -20,8 +18,8 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi()
   const {data, error} = useGetUserTeacherQuery(user.token);
 
-  console.log(data);
-
+  // console.log(data);
+ const imgUrl = data?.data.profile.startsWith("https") ? data?.data.profile : `${imageUrl}/${data?.data?.profile}`
   return (
     <View
       style={{
@@ -59,9 +57,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               width: 86,
             }}>
             <Image
-              source={{
-                uri: imageUrl + data?.data?.profile,
-              }}
+              source={{uri : imgUrl}}
               style={{
                 height: 86,
                 width: 86,
@@ -70,6 +66,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               }}
               resizeMode="cover"
             />
+            
             {/* <TouchableOpacity
               style={{
                 width: 32,
@@ -195,7 +192,8 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               {data?.data?.email}
             </Text>
           </View>
-          <View
+          {
+            data?.data?.contact && <View
             style={{
               gap: 4,
             }}>
@@ -216,27 +214,31 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               {data?.data?.contact}
             </Text>
           </View>
-          <View
+          }
+         {
+          data?.data?.location && <View
+          style={{
+            gap: 4,
+          }}>
+          <Text
             style={{
-              gap: 4,
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              color: '#3D3D3D',
             }}>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                color: '#3D3D3D',
-              }}>
-              Address :
-            </Text>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 14,
-                color: GStyles.textColor['#929394'],
-              }}>
-              {data?.data?.location}
-            </Text>
-          </View>
+            Address :
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 14,
+              color: GStyles.textColor['#929394'],
+            }}>
+            {data?.data?.location}
+          </Text>
+        </View>
+         }
+          
         </View>
       </View>
     </View>

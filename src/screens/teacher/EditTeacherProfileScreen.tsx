@@ -42,6 +42,8 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   );
   // console.log(categoryImage);
 
+  const imgUrl = data?.data.profile.startsWith("https") ? data?.data.profile : `${imageUrl}/${data?.data?.profile}`
+
   const handleImagePick = async (option: 'camera' | 'library') => {
     try {
       if (option === 'camera') {
@@ -101,7 +103,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   const handleSubmit = useCallback(
     (UData: {
       name: string;
-      contact: string;
+      // contact: string;
       location: string;
       image?: {
         uri: string;
@@ -119,9 +121,9 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
         formData.append('image', UData?.image);
       }
       UData?.name && formData.append('name', UData?.name);
-      UData?.contact && formData.append('contact', UData?.contact);
+      // UData?.contact && formData.append('contact', UData?.contact);
       UData?.location && formData.append('location', UData?.location);
-      console.log(UData);
+      // console.log(UData);
       updateUser({token: user?.token, data: formData}).then(res => {
         // console.log(res);
         navigation?.goBack();
@@ -169,9 +171,10 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
               height: 86,
               width: 86,
             }}>
+           {/* {console.log(data?.data?.profile)} */}
             <Image
               source={{
-                uri: categoryImage || imageUrl + data?.data?.profile,
+                uri: imgUrl
               }}
               style={{
                 height: 86,
@@ -293,7 +296,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
             />
           </View>
 
-          <View
+          {/* <View
             style={{
               gap: 4,
             }}>
@@ -321,7 +324,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
                 })
               }
             />
-          </View>
+          </View> */}
           <View
             style={{
               gap: 4,

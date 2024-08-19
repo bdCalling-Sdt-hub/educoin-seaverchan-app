@@ -4,8 +4,8 @@ import {IClass, IClasses, IStudents} from '../../interface/interface';
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
     getClasses: builder.query<IClasses, unknown>({
-      query: token => ({
-        url: `/class`,
+      query: ({token,page}) => ({
+        url: `/class?page=${page}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

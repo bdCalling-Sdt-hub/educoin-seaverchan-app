@@ -72,7 +72,7 @@ import React, {
                 ]}
               >
                 <Text style={styles.buttonText}>
-                  {modalContent?.buttonText || 'Exit'}
+                  {modalContent?.buttonText || 'Okay'}
                 </Text>
               </TouchableOpacity>
             </View>

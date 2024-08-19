@@ -21,26 +21,32 @@ import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
 import {HomeNavigProps} from '../../interfaces/NavigationPros';
-import RewordsCard from '../../components/common/Cards/RewordsCard';
 import StudentCard from '../../components/common/Cards/StudentCard';
 import TaskCard from '../../components/common/Cards/TaskCard';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import LottieView from 'lottie-react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useContextApi } from '../../context/ContextApi';
-import { useGetEarnRewordsQuery, useGetStudentAssignRewordsQuery, useGetStudentAssignTaskQuery, useStudentAchieveActionMutation, useStudentClaimActionMutation } from '../../redux/apiSlices/student/studentSlices';
+import { useGetEarnRewardsQuery, useGetStudentAssignRewardsQuery, useGetStudentAssignTaskQuery, useStudentAchieveActionMutation, useStudentClaimActionMutation } from '../../redux/apiSlices/student/studentSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
+import { removeStorageRole, removeStorageToken } from '../../utils/utils';
+import LoaderScreen from '../../components/Loader/LoaderScreen';
+import { RefreshControl } from 'react-native-gesture-handler';
+import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
+import RewardsCard from '../../components/common/Cards/RewordsCard';
 
-const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
+const NewStudentHomeScreen = ({navigation,route}: HomeNavigProps<string>) => {
+const RItem = route?.params?.data
+   const {user,setUser} = useContextApi()
+ 
+   const {data : assignTaskData, refetch : assignTaskRefetch, isLoading : taskLoading} = useGetStudentAssignTaskQuery(user.token);
+   const {data : assignRewardsData , refetch : rewordRefetch , isLoading : rewordLoading} = useGetStudentAssignRewardsQuery(user.token);
+   const {data : assignRewardsEarnedData , refetch : refetchEarnReword , isLoading : earnRewordLoading} = useGetEarnRewardsQuery(user.token);
+   const {data : studentUser,isSuccess , isLoading : studentUserLoading , refetch : refetchStudentUser,error : studentUserError} = useGetUserStudentQuery(user?.token);
+   const {data : notifications,refetch} = useGetNotificationsQuery(user.token)
 
-   const {user} = useContextApi()
-   const {data : assignTaskData, refetch : assignTaskRefetch} = useGetStudentAssignTaskQuery(user.token);
-   const {data : assignRewordsData} = useGetStudentAssignRewordsQuery(user.token);
-   const {data : assignRewordsEarnedData , refetch : refetchEarnReword} = useGetEarnRewordsQuery(user.token);
-   const {data : studentUser} = useGetUserStudentQuery(user.token);
-
-  //  console.log(assignRewordsEarnedData[0]);
+  //  console.log(assignRewardsEarnedData[0]);
    const [achieveAction,achieveActionResults] = useStudentAchieveActionMutation()
    const [claimAction,claimActionResults] = useStudentClaimActionMutation()
 
@@ -48,12 +54,24 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
 
   //  console.log(assignTaskData);
 
-  const [isCompeted, setIsCompeted] = React.useState('Tasks');
+  const [isCompeted, setIsCompeted] = React.useState<string>('Tasks');
   const [search,setSearch] = React.useState<string>(null)
+
   const [modalVisible, setModalVisible] = React.useState(false);
   const [claimModal, setClaimModal] = React.useState(false);
   const [yesNoModal, setYesNoModal] = React.useState(false);
-  const [selected, setSelected] = useState([]);
+  const [data, setData] = useState([]);
+
+
+// console.log(studentUserError);
+  // if(studentUserError?.status === 401){
+  //     removeStorageRole();
+  //     removeStorageToken();
+  //     setUser({
+  //       token: null,
+  //       role: null,
+  //     });
+  // }
   const bottom = useSharedValue(0)
   
   const animationStyle = useAnimatedStyle(()=>{
@@ -67,16 +85,41 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
     
     }
   })
-
   useEffect(()=>{
-    refetchEarnReword()
    if(claimModal){
     bottom.value =  withSpring(60)
    }
    else{
     bottom.value = withSpring(0)
    }
-  },[claimModal])
+   RItem && setIsCompeted(RItem)
+  
+  },[claimModal,route])
+
+
+
+
+
+
+// useEffect(()=>{
+//   const groupedData = assignRewardsEarnedData?.data.reduce((acc, item) => {
+//     const date = item.createdAt.split("T")[0]; // Extract date portion only (e.g., "2024-08-16")
+//     if (!acc[date]) {
+//         acc[date] = [];
+//     }
+//     acc[date].push(item);
+//     return acc;
+// }, {});
+//   const outputData = Object.keys(groupedData).map(date => ({
+//     date: date,
+//     filterData: groupedData[date]
+//   }));
+//   setData(outputData);
+// },[])
+
+// console.log(data);
+
+// console.log(outputData,null,1);
 
   return (
     <View
@@ -85,15 +128,18 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         backgroundColor: 'white',
       }}>
       {/* header part  start */}
-
+      {
+       taskLoading ||rewordLoading ||  earnRewordLoading || studentUserLoading   && <LoaderScreen />
+      }
       <HomeTopHeader
         drawerNavigation={navigation}
         navigation={navigation}
         backgroundColor={GStyles.primaryOrange}
         ringColor={GStyles.orange.normalHover}
+        isNotification={!!notifications?.data?.find(nt=>nt?.read === false)}
         notifyRoute="StudentNotification"
         profileStyle="student"
-        // imgAssets={require('../../assets/images/avatar/1.png')}
+     
         searchValue={search}
         setSearchValue={setSearch}
         userDetails={{
@@ -116,7 +162,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         marginBottom={5}
         marginHorizontal={15}
         op1="Tasks"
-        op2="Rewords"
+        op2="Rewards"
         op3="Earned"
         borderColor={GStyles.orange.lightActive}
         activeBorderColor={GStyles.primaryOrange}
@@ -126,13 +172,21 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
    
         {isCompeted === 'Earned' ? (
           <>
-            <View
-              style={{
-                marginBottom: 25,
-              }}>
-            <FlatList data={assignRewordsEarnedData?.data} renderItem={(item)=>{
+          
+            <FlatList    showsVerticalScrollIndicator={false} contentContainerStyle={{
+                paddingHorizontal : "4%",
+                paddingBottom : "10%",
+                gap : 20
+               }} 
+               
+               refreshControl={<RefreshControl refreshing={earnRewordLoading} onRefresh={()=> refetchEarnReword()}  colors={[GStyles.primaryOrange]} />}
+               data={assignRewardsEarnedData?.data.filter(s=>search ? s?.reward?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()) :  s)} renderItem={(item)=>{
+                const currentData = item?.item?.updatedAt
               return(
-                <RewordsCard
+                <>
+                
+                <RewardsCard
+                disabled
                 key={item.index}
                 removePress={() => {
                   setYesNoModal(!yesNoModal);
@@ -141,30 +195,31 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
                 iconOrTextColor={GStyles.primaryOrange}
                 imgAssets={{uri : imageUrl + item?.item?.reward?.image}}
                 marginHorizontal={10}
+                earnDate={new Date(item?.item?.updatedAt)}
                 points={item?.item?.reward?.requiredPoints}
                 title={item?.item?.reward?.name}
               />
+                </>
               )
             }} />
-            </View>
+       
 
           
           </>
-        ) : isCompeted === 'Rewords' ? (
-        
+        ) : isCompeted === 'Rewards' ? (
+              <FlatList 
+              refreshControl={<RefreshControl  refreshing={rewordLoading}  onRefresh={()=> rewordRefetch()}  colors={[GStyles.primaryOrange]} />}
+             
 
-              <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
+              showsVerticalScrollIndicator={false} contentContainerStyle={{
                 paddingHorizontal : "4%",
                 paddingBottom : "10%",
-                gap : 10
-               }} data={assignRewordsData?.data}  renderItem={(item)=>{
-          console.log();
+                gap : 20
+               }} data={assignRewardsData?.data.filter(s=>search ? s?.reward?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()) :s)}  renderItem={(item)=>{
+       
                 return (
-                  <RewordsCard
+                  <RewardsCard
                   navigation={navigation}
-                  // route="EditRewords"
-                  // routeData={'demo'}
-                  // editOption={true}
                   claimPress={()=>{
                     claimAction({token : user.token,id : item?.item?._id}).then(res=>{
                       if(res.error){
@@ -172,9 +227,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
                       }
                       if(res?.data?.success){
                         setClaimModal(!claimModal);
-                        // setModalVisible(!modalVisible);
-                        // navigation.navigate('StudentNotification')
-                        // console.log(res.data);
+                 
                       }
                     })
                   }}
@@ -199,10 +252,13 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
         ) : (
           
              
-               <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={{
+               <FlatList
+               
+               refreshControl={<RefreshControl  refreshing={taskLoading}  onRefresh={()=> assignTaskRefetch()}  colors={[GStyles.primaryOrange]} />}
+               showsVerticalScrollIndicator={false} contentContainerStyle={{
                 paddingHorizontal : "4%",
                 paddingBottom : "10%"
-               }} data={assignTaskData?.data} renderItem={(item)=>{
+               }} data={assignTaskData?.data.filter(s=>search ? s?.task?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()) : s)} renderItem={(item)=>{
                 return(
                   <TaskCard
                   approveBTColor={GStyles.primaryOrange}
@@ -224,7 +280,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
                   time={item?.item?.task?.repeat}
                   OnButtonPress={()=>{
                     // console.log("ok");
-                    console.log(item.item.task._id);
+                    // console.log(item.item.task._id);
                     achieveAction({token : user.token,id : item?.item?._id}).then(res=>{
                       // console.log(res);
                       if(res.data.success){
@@ -248,7 +304,7 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
       />
       <CustomModal
         modalVisible={modalVisible}
-        backButton
+        // backButton
         setModalVisible={setModalVisible}
         height={'30%'}
         width={'85%'}
@@ -304,15 +360,11 @@ const NewStudentHomeScreen = ({navigation}: HomeNavigProps<null>) => {
           </View>
         </View>
       </CustomModal>
-      <YesNoModal
-        backButton
-        modalVisible={yesNoModal}
-        setModalVisible={setYesNoModal}
-      />
+  
 
       <CustomModal
         modalVisible={claimModal}
-        backButton
+        // backButton
         setModalVisible={setClaimModal}
         height={289}
         width={"80%"}

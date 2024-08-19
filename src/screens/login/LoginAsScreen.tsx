@@ -13,6 +13,7 @@ import {GStyles} from '../../styles/GStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import { FontSize } from '../../utils/utils';
+import { AppName } from '../../styles/AppDetails';
 
 
 
@@ -35,7 +36,7 @@ const AsLoginData = [
   {
     id: 1,
     name: 'Teacher Login',
-    route: 'TeacherLogin',
+    route: 'TeacherLoginVariation',
     image: require('../../assets/images/loginAs/teacher.png'),
     style: {
       algin: 'right',
@@ -76,8 +77,16 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.bgImage}>
+    <LinearGradient
+    style={styles.container}
+            colors={[
+              '#9556D7',
+              'rgba(255,255,255,1)',
+              '#FF8811',
+             
+            ]}>
+              {/* <ImageBackground resizeMode='repeat' source={require("../../assets/images/loginAs/backgroud.png")}> */}
+             <View style={styles.bgImage}>
         {/* title on login as  */}
         <View style={styles.loginAsContainer}>
           <Image
@@ -85,10 +94,16 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
           style={{
             height:  height * .42,
             width:  width * .9,
-            marginRight :  width * .05
+            marginRight :  width * .1,
+            marginBottom : - height * .015
           }}
             source={require('../../assets/images/loginAs/normalQuokka.png')}
           />
+            <Text style={{
+                fontSize: 32,
+                color: GStyles.primaryPurple,
+                fontFamily: GStyles.PoppinsBold,
+            }}>{AppName}</Text>
         </View>
         {/* card container  */}
         <View style={styles.cardContainer}>
@@ -124,8 +139,10 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
         </View>
          
       </View>
-      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
-    </View>
+    {/* </ImageBackground> */}
+    <StatusBar backgroundColor={'white'} barStyle="dark-content" />
+          </LinearGradient>
+    
   );
 };
 
@@ -136,7 +153,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
   },
   bgImage: {
     width: '100%',
