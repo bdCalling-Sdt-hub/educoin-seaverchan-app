@@ -38,7 +38,7 @@ const TeacherAddNewStudent = ({ navigation }: NavigProps<null>) => {
   const [studentInfo, setStudentInfo] = useState({
     name: '',
     password: '',
-    dateOfBirth: new Date(),
+    dateOfBirth: "",
     class: '',
     profile: null,
   });
@@ -261,7 +261,7 @@ classLoading || avatarLoading ?<View style={{
             marginTop: '8%',
           }}
           mode="single"
-          date={studentInfo?.dateOfBirth}
+          date={studentInfo?.dateOfBirth || new Date()}
           onChange={(params: any) => {
             // console.log(params);
             setStudentInfo({

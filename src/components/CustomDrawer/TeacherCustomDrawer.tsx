@@ -82,6 +82,7 @@ function TeacherCustomDrawer(props: any) {
         {...props}
         style={{
           paddingVertical: 10,
+          marginTop : 10
         }}>
         <DrawerItemList {...props} />
         {/* <DrawerItem
@@ -116,7 +117,7 @@ function TeacherCustomDrawer(props: any) {
             fontSize: 14,
             fontWeight: '400',
             letterSpacing: 0.8,
-            marginTop : 20
+     
           }}
           style={
             {
