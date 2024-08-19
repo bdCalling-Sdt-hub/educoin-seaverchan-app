@@ -53,12 +53,13 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
             buttonText : "Ok"
         })  
       }
-      // if(!UData?.endDate){
-      //   return  popRef.current?.open({
-      //     title: 'Select your end date',
-      //       buttonText : "Ok"
-      //   })  
-      // }
+      if(!UData?.endDate){
+        UData.endDate = new Date()
+        // return  popRef.current?.open({
+        //   title: 'Select your end date',
+        //     buttonText : "Ok"
+        // })  
+      }
       createClass({token: user?.token, data : UData}).then(res => {
         // console.log(res);
         if (res?.error) {
