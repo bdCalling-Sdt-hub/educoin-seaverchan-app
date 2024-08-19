@@ -31,7 +31,7 @@ interface RewardsCardProps extends NavigProps<null> {
   removeBtn?: boolean;
   removePress?: ()=>void;
   points ?: number;
-  earnDate : Date;
+  earnDate ? : Date;
   
 }
 

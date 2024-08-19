@@ -58,7 +58,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
     token: user.token,
     className: selectClass,
   });
-  console.log(students);
+  // console.log(students);
   // console.log(classFilterStudents);
   const [search,setSearch] = React.useState(null)
   const [op, setOp] = React.useState<string>('All Students');

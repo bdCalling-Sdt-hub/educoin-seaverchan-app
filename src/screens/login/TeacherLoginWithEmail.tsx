@@ -72,7 +72,7 @@ import { initiateSocket } from '../../redux/services/socket';
       }
       if(UData?.email && UData?.password){
         loginUser(UData).then(res=>{
-          console.log(res);
+          // console.log(res);
           if (res?.data?.success) {
             setUser({
               token: res?.data?.data,

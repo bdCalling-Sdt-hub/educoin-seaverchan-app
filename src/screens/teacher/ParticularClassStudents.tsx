@@ -15,7 +15,7 @@ import { useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
  }
 
 const ParticularClassStudents = ({navigation, route}: NavigProps<ParamsData>) => {
-  console.log(route?.params);
+  // console.log(route?.params);
   const [pageStudent, setPageStudent] = React.useState(1);
 const {user} = useContextApi();
   const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess,isFetching : studentLoading} = useGetStudentThrowClassQuery({token :  user.token , className : route?.params?.data})

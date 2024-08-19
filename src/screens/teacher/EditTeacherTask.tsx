@@ -66,7 +66,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
     type : Item?.type ? Item?.type : "good" ,
     repeat : Item?.repeat ? Item.repeat : "everyday",
   });
-  console.log(taskData);
+  // console.log(taskData);
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);

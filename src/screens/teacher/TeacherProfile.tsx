@@ -18,7 +18,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi()
   const {data, error} = useGetUserTeacherQuery(user.token);
 
-  console.log(data);
+  // console.log(data);
  const imgUrl = data?.data.profile.startsWith("https") ? data?.data.profile : `${imageUrl}/${data?.data?.profile}`
   return (
     <View

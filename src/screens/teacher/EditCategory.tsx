@@ -61,7 +61,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
         id: route?.params?.data?._id,
         data: UData,
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res?.data?.success) {
           setModalVisible(true);
         }

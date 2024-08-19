@@ -198,7 +198,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
                 isButton
                 buttonText="Approved"
                 OnButtonPress={() => {
-                  console.log("ok");
+                  // console.log("ok");
                   // navigation?.navigate('TeacherTaskAssign');
                   approveTask({token : user.token, id : item?.item?._id}).then(res=>{
                     if(res.data?.success){

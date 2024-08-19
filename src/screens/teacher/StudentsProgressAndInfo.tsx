@@ -321,7 +321,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
                 paddingBottom : "10%",
                 gap : 10
                }} data={assignRewardsData?.data}  renderItem={(item)=>{
-          console.log();
+          
                 return (
                   <RewardsCard
                   navigation={navigation}

@@ -36,7 +36,7 @@ interface IRewardsUProps {
 
 const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
   const [RewardsData, setRewardsData] = React.useState<IRewardsUProps>(route?.params.data);
- console.log(RewardsData);
+//  console.log(RewardsData);
   const {user} = useContextApi();
   const {data: IconsData} = useGetIconsPresetQuery(user.token);
   const [updateReword,results] = useUpdateRewardsMutation()

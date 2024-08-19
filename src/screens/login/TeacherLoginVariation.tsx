@@ -100,14 +100,14 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
                 onPress={() => {
                   if (data.social) {
                     onGoogleButtonPress().then(res => {
-                      console.log(res?.user?.email);
+                      // console.log(res?.user?.email);
                       loginUser({
                         email: res?.user?.email,
                         name: res?.user?.displayName,
                         profile: res?.user?.photoURL,
                         type: 'social',
                       }).then(orUser=>{
-                        console.log(orUser);
+                        // console.log(orUser);
                         if (orUser?.data?.success) {
                           setUser({
                             token: orUser?.data?.data,

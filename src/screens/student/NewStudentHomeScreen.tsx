@@ -280,7 +280,7 @@ const RItem = route?.params?.data
                   time={item?.item?.task?.repeat}
                   OnButtonPress={()=>{
                     // console.log("ok");
-                    console.log(item.item.task._id);
+                    // console.log(item.item.task._id);
                     achieveAction({token : user.token,id : item?.item?._id}).then(res=>{
                       // console.log(res);
                       if(res.data.success){

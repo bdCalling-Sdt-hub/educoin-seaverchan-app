@@ -55,7 +55,7 @@ const [createTeacher, results]= useCreateTeacherMutation()
 
 
   const handleGoPress = useCallback((UData)=>{
-    console.log(UData);
+    // console.log(UData);
       UData.location = "Rampura";
       UData.contact = "018745626"
     if(!UData?.name){
