@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Image,
   ScrollView,
@@ -34,11 +35,14 @@ import { ITask } from '../../redux/interface/interface';
 import { RefreshControl } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
+import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
 
 const TaskList = ({navigation,route}: NavigProps<string>) => {
   console.log(route?.params?.data);
   const {user} = useContextApi();
   const {data: tasks, isLoading : taskLoading, refetch : taskRefetch} = useGetTaskQuery(user.token);
+  const {data : categories} = useGetCategoriesQuery(user?.token);
+  // console.log(tasks);
   const {data: pendingTasks, isLoading : pendingTaskIsLoading, refetch : pendingTskRefetch} = useGetPendingTaskQuery(user.token);
   const [approveTask,results] = useApproveTaskMutation()
 
@@ -223,7 +227,26 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
           justifyContent: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation?.navigate('TeacherCreateTask')}
+          onPress={() => {
+            if(categories?.data?.length !== 0){
+              
+              navigation?.navigate('TeacherCreateTask')
+            }
+            else{
+              Alert.alert('Warning', 'Please add categories to create new task',[
+                {
+                  text: 'Add Category',
+                  onPress: () => navigation?.navigate('TeacherAddCategory'),
+                  style: 'default',
+                },
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                }
+              ])
+            }
+          }}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,

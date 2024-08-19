@@ -57,7 +57,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
   }>>(
     [
       {value: 0, color: '#42A5F5', text: '0%'},
-    {value: 0, color: '#AB47BC', text: '0%'},
+    // {value: 0, color: '#AB47BC', text: '0%'},
     {value: 0, color: '#FF8811', text: '0%'},
     ]
   );
@@ -85,6 +85,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
     };
   }, [selectedClass,selectedStudent]);
 
+  const ProgressPercentage = ProgressIfo?.data.totalCompletedTask && ProgressIfo?.data.totalAssignTask
+  ? (ProgressIfo?.data.totalCompletedTask / ProgressIfo?.data.totalAssignTask) * 100
+  : 0;
 
 
   return (
@@ -247,9 +250,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             style={[styles.container, {opacity: animationOpacity}]}>
             <PieChart
               data={[
-                {value: ProgressIfo?.data.totalCompletedTask || 0, color: '#42A5F5', text: `${ProgressIfo?.data.totalCompletedTask}%`},
-                {value: ProgressIfo?.data.totalUnCompletedTask || 0, color: '#AB47BC', text: `${ProgressIfo?.data.totalUnCompletedTask}%`},
-                {value: ProgressIfo?.data.totalAssignTask || 1, color: '#FF8811', text: `${ProgressIfo?.data.totalAssignTask || 0}%`},
+                {value: ProgressIfo?.data.totalCompletedTask || 0, color: '#42A5F5', text: `${ProgressIfo?.data.totalCompletedTask}`},
+                // {value: ProgressIfo?.data.totalUnCompletedTask || 0, color: '#AB47BC', text: `${ProgressIfo?.data.totalUnCompletedTask}%`},
+                {value: ProgressIfo?.data.totalAssignTask || 1, color: '#FF8811', text: `${ProgressIfo?.data.totalAssignTask || 0}`},
               ]}
               showText
               textColor="white"
@@ -266,8 +269,12 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               innerRadius={60}
               centerLabelComponent={() => (
                 <View style={styles.centerText}>
-                  <Text style={styles.levelText}>Level {ProgressIfo?.data?.level}</Text>
-                  <Text style={styles.scoreText}>{ProgressIfo?.data?.points} ★</Text>
+                  <Text style={styles.levelText}>
+
+                {
+                  Math.round(ProgressPercentage) 
+                }%
+                  </Text>
                 </View>
               )}
             />
@@ -333,7 +340,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 Total Completed Work: {ProgressIfo?.data?.totalCompletedTask}
               </Text>
             </View>
-            <View
+            {/* <View
               style={{
                 flexDirection: 'row',
                 gap: 10,
@@ -356,7 +363,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 }}>
                 Total Uncompleted Work: {ProgressIfo?.data?.totalUnCompletedTask}
               </Text>
-            </View>
+            </View> */}
           </View>
         </View>
           </>
