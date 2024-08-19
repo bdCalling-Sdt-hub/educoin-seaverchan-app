@@ -125,7 +125,7 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
                       })
                     });
                   }
-                  // data?.route && navigation?.navigate(data?.route);
+                  data?.route && navigation?.navigate(data?.route);
                 }}
                 style={[styles.card, {backgroundColor: data.style.bgColor}]}
                 key={index}>

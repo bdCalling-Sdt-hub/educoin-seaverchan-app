@@ -58,12 +58,12 @@ const TeacherAddNewStudent = ({ navigation }: NavigProps<null>) => {
           buttonText: 'Ok',
         });
       }
-      if (!UData?.dateOfBirth) {
-        return popRef.current?.open({
-          title: 'Please select your birth date',
-          buttonText: 'Ok',
-        });
-      }
+      // if (!UData?.dateOfBirth) {
+      //   return popRef.current?.open({
+      //     title: 'Please select your birth date',
+      //     buttonText: 'Ok',
+      //   });
+      // }
       if (!UData?.password) {
         return popRef.current?.open({
           title: 'Passcode is required',

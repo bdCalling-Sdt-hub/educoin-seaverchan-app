@@ -163,7 +163,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
           </TouchableOpacity>
         </View>
         <View>
-          <Require title="End date" />
+          <Require title="End date" nonRequired />
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => {

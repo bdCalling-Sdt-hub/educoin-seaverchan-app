@@ -84,7 +84,7 @@ function TeacherCustomDrawer(props: any) {
           paddingVertical: 10,
         }}>
         <DrawerItemList {...props} />
-        <DrawerItem
+        {/* <DrawerItem
           label="Get Passcode"
           icon={() => (
             <AntDesign name="lock" color={GStyles.primaryPurple} size={24} />
@@ -106,7 +106,7 @@ function TeacherCustomDrawer(props: any) {
           onPress={() => {
             navigation.navigate('TeacherPassCode');
           }}
-        />
+        /> */}
         <DrawerItem
           label="Profile"
           icon={() => <AntDesign name="user" color={'#4A2B6C'} size={20} />}
@@ -116,6 +116,7 @@ function TeacherCustomDrawer(props: any) {
             fontSize: 14,
             fontWeight: '400',
             letterSpacing: 0.8,
+            marginTop : 20
           }}
           style={
             {

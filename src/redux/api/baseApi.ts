@@ -42,7 +42,7 @@ const baseQueryWithReauth: typeof baseQuery = async (args, api, extraOptions) =>
 
 export const api = createApi({
   reducerPath: 'api',
-  keepUnusedDataFor: 0,
+  // keepUnusedDataFor: 0,
   baseQuery: baseQueryWithReauth,
   
   endpoints: () => ({}),

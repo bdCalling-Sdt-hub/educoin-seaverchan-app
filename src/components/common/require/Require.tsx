@@ -5,9 +5,10 @@ import {GStyles} from '../../../styles/GStyles';
 
 interface RequireProps {
   title: string;
+  nonRequired ?: boolean;
 }
 
-const Require = ({title}: RequireProps) => {
+const Require = ({title,nonRequired}: RequireProps) => {
   return (
     <View
       style={{
@@ -15,7 +16,10 @@ const Require = ({title}: RequireProps) => {
         alignItems: 'center',
         gap: 8,
       }}>
-      <FontAwesome name="circle" size={6} color={GStyles?.primaryOrange} />
+        {
+          !nonRequired &&    <FontAwesome name="circle" size={6} color={GStyles?.primaryOrange} />
+        }
+   
       <Text
         style={{
           fontSize: 16,
