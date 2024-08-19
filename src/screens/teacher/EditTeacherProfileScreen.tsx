@@ -103,7 +103,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
   const handleSubmit = useCallback(
     (UData: {
       name: string;
-      contact: string;
+      // contact: string;
       location: string;
       image?: {
         uri: string;
@@ -121,7 +121,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
         formData.append('image', UData?.image);
       }
       UData?.name && formData.append('name', UData?.name);
-      UData?.contact && formData.append('contact', UData?.contact);
+      // UData?.contact && formData.append('contact', UData?.contact);
       UData?.location && formData.append('location', UData?.location);
       // console.log(UData);
       updateUser({token: user?.token, data: formData}).then(res => {
@@ -296,7 +296,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
             />
           </View>
 
-          <View
+          {/* <View
             style={{
               gap: 4,
             }}>
@@ -324,7 +324,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
                 })
               }
             />
-          </View>
+          </View> */}
           <View
             style={{
               gap: 4,

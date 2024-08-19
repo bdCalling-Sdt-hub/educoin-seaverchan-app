@@ -192,7 +192,8 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               {data?.data?.email}
             </Text>
           </View>
-          <View
+          {
+            data?.data?.contact && <View
             style={{
               gap: 4,
             }}>
@@ -213,27 +214,31 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               {data?.data?.contact}
             </Text>
           </View>
-          <View
+          }
+         {
+          data?.data?.location && <View
+          style={{
+            gap: 4,
+          }}>
+          <Text
             style={{
-              gap: 4,
+              fontFamily: GStyles.Poppins,
+              fontSize: 16,
+              color: '#3D3D3D',
             }}>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 16,
-                color: '#3D3D3D',
-              }}>
-              Address :
-            </Text>
-            <Text
-              style={{
-                fontFamily: GStyles.Poppins,
-                fontSize: 14,
-                color: GStyles.textColor['#929394'],
-              }}>
-              {data?.data?.location}
-            </Text>
-          </View>
+            Address :
+          </Text>
+          <Text
+            style={{
+              fontFamily: GStyles.Poppins,
+              fontSize: 14,
+              color: GStyles.textColor['#929394'],
+            }}>
+            {data?.data?.location}
+          </Text>
+        </View>
+         }
+          
         </View>
       </View>
     </View>
