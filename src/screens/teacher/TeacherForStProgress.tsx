@@ -88,7 +88,14 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
   const ProgressPercentage = ProgressIfo?.data.totalCompletedTask && ProgressIfo?.data.totalAssignTask
   ? (ProgressIfo?.data.totalCompletedTask / ProgressIfo?.data.totalAssignTask) * 100
   : 0;
+  const completedTaskWithPercentage = ProgressIfo?.data?.totalCompletedTask && ProgressIfo?.data?.totalAssignTask
+  ? ((ProgressIfo.data.totalCompletedTask / ProgressIfo.data.totalAssignTask) * 100)
+  : 0;
 
+  const AssignTaskWithPercentage = 100 - completedTaskWithPercentage;
+
+
+  // console.log(completedTaskWithPercentage,remainingPercentage);
 
   return (
     <View
@@ -250,9 +257,9 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             style={[styles.container, {opacity: animationOpacity}]}>
             <PieChart
               data={[
-                {value: ProgressIfo?.data.totalCompletedTask || 0, color: '#42A5F5', text: `${ProgressIfo?.data.totalCompletedTask}`},
+                {value: completedTaskWithPercentage, color: '#FF8811', text: `${ProgressIfo?.data.totalCompletedTask}`},
                 // {value: ProgressIfo?.data.totalUnCompletedTask || 0, color: '#AB47BC', text: `${ProgressIfo?.data.totalUnCompletedTask}%`},
-                {value: ProgressIfo?.data.totalAssignTask || 1, color: '#FF8811', text: `${ProgressIfo?.data.totalAssignTask || 0}`},
+                {value: AssignTaskWithPercentage || 1, color:  '#42A5F5', text: `${ProgressIfo?.data.totalAssignTask || 0}`},
               ]}
               showText
               textColor="white"
@@ -300,7 +307,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               }}>
               <View
                 style={{
-                  backgroundColor: GStyles.primaryOrange,
+                  backgroundColor: GStyles.primaryBlue,
                   height: 20,
                   width: 20,
                   borderRadius: 100,
@@ -324,7 +331,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               }}>
               <View
                 style={{
-                  backgroundColor: GStyles.primaryBlue,
+                  backgroundColor: GStyles.primaryOrange,
                   height: 20,
                   width: 20,
                   borderRadius: 100,
@@ -391,7 +398,7 @@ const styles = StyleSheet.create({
   },
   levelText: {
     fontSize: 24,
-    color: '#FFA726', // Replace with your GStyles.primaryOrange
+    color: GStyles?.primaryOrange, // Replace with your GStyles.primaryOrange
     fontFamily: 'Poppins-Bold', // Replace with your GStyles.PoppinsBold
     fontWeight: '600',
     letterSpacing: 0.5,

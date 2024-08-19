@@ -153,7 +153,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
             }}>
               <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
             </View> : <FlatList
-            data={students?.data.filter(student=>search ? student.name.includes(search) : student)}
+            data={students?.data?.filter(student=>search ? student.name.includes(search) : student)}
             keyExtractor={item => item._id + item.password}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
@@ -245,7 +245,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
             </View>
           </View> */}
           <FlatList
-            data={classFilterStudents?.data}
+            data={classFilterStudents?.data?.filter(student=>search ? student.name.includes(search) : student)}
             keyExtractor={item => item._id + item.password}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{

@@ -146,7 +146,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
               </Text>
             </TouchableOpacity> */}
             <FlatList
-              data={students?.data.filter(student=>search ? student.name.includes(search) : student)}
+              data={students?.data?.filter(student=>search ? student.name.includes(search) : student)}
               keyExtractor={item => item._id + item.password}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{
@@ -226,7 +226,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
               </View>
             </View> */}
             <FlatList
-              data={classFilterStudents?.data}
+              data={classFilterStudents?.data?.filter(student=>search ? student.name.includes(search) : student)}
               keyExtractor={item => item._id + item.password}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{
