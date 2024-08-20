@@ -13,6 +13,7 @@ import {
   import {NavigationProp, ParamListBase} from '@react-navigation/native';
   import {AppName} from '../../styles/AppDetails';
   import { useContextApi } from '../../context/ContextApi';
+import { FontSize } from '../../utils/utils';
   
   interface splashProps {
     // setLoad: Dispatch<boolean>;

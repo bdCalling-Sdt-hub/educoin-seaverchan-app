@@ -11,6 +11,7 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {AppName} from '../../styles/AppDetails';
 import { useContextApi } from '../../context/ContextApi';
+import { FontSize } from '../../utils/utils';
 
 interface SplashProps {
   navigation: NavigationProp<ParamListBase>;

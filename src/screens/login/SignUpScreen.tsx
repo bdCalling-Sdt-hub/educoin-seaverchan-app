@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   loginAsContainer: {
-    paddingVertical: HEIGHT < 800 ? '2%' : "20%",
+    paddingVertical: HEIGHT < 800 ? '2%' : "10%",
     paddingBottom: '5%',
     alignItems: 'center',
     justifyContent : "center",
