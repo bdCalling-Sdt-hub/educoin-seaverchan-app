@@ -56,7 +56,7 @@ const [createTeacher, results]= useCreateTeacherMutation()
 
   const handleGoPress = useCallback((UData)=>{
     // console.log(UData);
-      UData.location = "Rampura";
+      // UData.location = "Rampura";
       UData.contact = "018745626"
     if(!UData?.name){
       popRef?.current?.open({
@@ -228,7 +228,7 @@ const [createTeacher, results]= useCreateTeacherMutation()
            value={userInfo?.contact}
           placeholder="your name"
         />
-      </View>
+      </View> */}
       <View style={{
             marginHorizontal : "4%"
         }}>
@@ -251,7 +251,7 @@ const [createTeacher, results]= useCreateTeacherMutation()
            value={userInfo?.location}
           placeholder="your name"
         />
-      </View> */}
+      </View>
         <View style={{
             marginHorizontal : "4%"
         }}>
