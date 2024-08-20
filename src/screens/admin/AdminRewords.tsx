@@ -13,6 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import { FontSize } from '../../utils/utils';
 
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
@@ -69,7 +70,7 @@ const AdminRewards = ({navigation}: AdminRoutesProps) => {
                 <View style={{gap: 5}}>
                   <Text
                     style={{
-                      fontSize: 16,
+                      fontSize: FontSize(16),
                       fontWeight: '500',
                       color: '#3D3D3D',
                       fontFamily: GStyles.PoppinsSemiBold,
@@ -87,7 +88,7 @@ const AdminRewards = ({navigation}: AdminRoutesProps) => {
                       style={{
                         color: '#C3C3C3',
                         fontFamily: GStyles.Poppins,
-                        fontSize: 18,
+                          fontSize: FontSize(18),
                         letterSpacing: 0.8,
                       }}>
                       100
@@ -140,7 +141,7 @@ const AdminRewards = ({navigation}: AdminRoutesProps) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>

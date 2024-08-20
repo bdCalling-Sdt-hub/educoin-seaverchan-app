@@ -7,6 +7,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {NavigProps} from '../../../interfaces/NavigationPros';
 import { IReword } from '../../../redux/interface/interface';
+import { FontSize } from '../../../utils/utils';
 
 interface RewardsCardProps extends NavigProps<null> {
   title ?: string;
@@ -120,7 +121,7 @@ const RewardsCard = ({
           <View style={{gap: 5}}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '500',
                 color: '#3D3D3D',
                 fontFamily: GStyles.PoppinsSemiBold,
@@ -140,7 +141,7 @@ const RewardsCard = ({
                 style={{
                   color: GStyles.primaryYellow,
                   fontFamily: GStyles.Poppins,
-                  fontSize: 18,
+                  fontSize: FontSize(18),
                   letterSpacing: 0.8,
                 }}>
                 {points ? points : 0}
@@ -153,7 +154,7 @@ const RewardsCard = ({
             <Text
             numberOfLines={2}
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '500',
                 color: '#3D3D3D',
                 fontFamily: GStyles.PoppinsSemiBold,
@@ -175,7 +176,7 @@ const RewardsCard = ({
                 style={{
                   color:iconOrTextColor ? iconOrTextColor : '#C3C3C3',
                   fontFamily: GStyles.Poppins,
-                  fontSize: 18,
+                  fontSize:FontSize(18),
                   letterSpacing: 0.8,
                 }}>
                 {points ? points : 0}
@@ -186,7 +187,7 @@ const RewardsCard = ({
                 style={{
                   color: GStyles.orange?.dark,
                   fontFamily: GStyles.Poppins,
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   letterSpacing: 0.8,
                   paddingHorizontal : 5
                 
@@ -257,7 +258,7 @@ const RewardsCard = ({
               right : 15,
             }}>
             <Text style={{
-              fontSize : 12,
+              fontSize : FontSize(12),
               fontFamily : GStyles.PoppinsBold,
               color : 'white'
             }}>Claim</Text>
@@ -281,7 +282,7 @@ const RewardsCard = ({
               right : 15,
             }}>
             <Text style={{
-              fontSize : 12,
+              fontSize : FontSize(12),
               fontFamily : GStyles.PoppinsBold,
               color : 'white'
             }}>remove</Text>

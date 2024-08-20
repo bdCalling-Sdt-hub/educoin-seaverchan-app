@@ -15,6 +15,7 @@ import LottieView from 'lottie-react-native';
 import BackButton from '../../components/BackButton';
 import {GStyles} from '../../styles/GStyles';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import { FontSize } from '../../utils/utils';
 
 export interface NavigationProps {
   navigation: NavigationProp<ParamListBase>;
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   welcomeText: {
-    fontSize: 32,
+       fontSize: FontSize(32),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '600',
     lineHeight: 48,
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   enterPassCodeText: {
-    fontSize: 18,
+      fontSize: FontSize(18),
     fontFamily: GStyles.Poppins,
     fontWeight: '400',
     lineHeight: 27,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputCodeText: {
-    fontSize: 25,
+       fontSize: FontSize(25),
     fontFamily: GStyles.Poppins,
     fontWeight: '600',
     lineHeight: 48,
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: FontSize(16),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '400',
     lineHeight: 18,

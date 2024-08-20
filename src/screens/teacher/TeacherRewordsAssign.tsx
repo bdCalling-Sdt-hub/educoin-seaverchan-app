@@ -36,6 +36,7 @@ import {
   import Toast from 'react-native-toast-message';
 import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
 import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
+import { FontSize } from '../../utils/utils';
   
   const TeacherRewardsAssign = ({navigation, route}: NavigProps<IReword>) => {
     const Item = route?.params?.data;
@@ -138,7 +139,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
               }}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.PoppinsMedium,
                 }}>
             
@@ -216,7 +217,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
                   }}>
                   <Text
                     style={{
-                      fontSize: 16,
+                      fontSize: FontSize(16),
                       fontFamily: GStyles.PoppinsMedium,
                     }}>
                 
@@ -276,7 +277,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
                   //   }}>
                   //     <Text
                   //       style={{
-                  //         fontSize: 16,
+                  //         fontSize: FontSize(16),
                   //         fontFamily: GStyles.PoppinsMedium,
                   //         color: '#3D3D3D',
                   //         // marginTop: 10,
@@ -312,7 +313,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
                   //       <Text
                   //         style={{
                   //           color: 'white',
-                  //           fontSize: 16,
+                  //           fontSize: FontSize(16),
                   //           fontFamily: GStyles.Poppins,
                   //         }}>
                   //         {selection ? 'Assign' : 'Assigned'}
@@ -337,7 +338,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
                   //       <Text
                   //         style={{
                   //           color: GStyles.primaryPurple,
-                  //           fontSize: 16,
+                  //           fontSize: FontSize(16),
                   //           fontFamily: GStyles.Poppins,
                   //         }}>
                   //         Assign
@@ -389,7 +390,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
                 style={{
                   color: 'white',
                   fontFamily: GStyles.Poppins,
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   letterSpacing: 0.8,
                   marginTop: 5,
                 }}>
@@ -415,7 +416,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
             }}>
             <Text
               style={{
-                fontSize: 18,
+                  fontSize: FontSize(18),
                 fontFamily: GStyles.PoppinsMedium,
                 textAlign: 'center',
                 color: GStyles.textColor['#3D3D3D'],
@@ -426,7 +427,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 textAlign: 'center',
               }}>
               simply dummy text of the printing and typesetting industry
@@ -451,7 +452,7 @@ import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherR
                     color: 'white',
                     fontFamily: GStyles.Poppins,
                     textAlign: 'center',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '400',
                   }}>
                   Exit

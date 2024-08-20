@@ -17,6 +17,7 @@ import CustomModal from '../../components/common/CustomModal/CustomModal';
 import LottieView from 'lottie-react-native';
 import RewardsCard from '../../components/common/Cards/RewardsCard';
 import HeaderOption from '../../components/common/header/HeaderOption';
+import { FontSize } from '../../utils/utils';
 
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
@@ -58,7 +59,7 @@ const StudentRewardsScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: 'bold',
                 color: 'white',
                 letterSpacing: 0.8,
@@ -68,7 +69,7 @@ const StudentRewardsScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: 'bold',
                 color: 'white',
                 letterSpacing: 0.8,
@@ -152,7 +153,7 @@ const StudentRewardsScreen = ({navigation}: AdminRoutesProps) => {
                 style={{
                   color: 'white',
                   fontFamily: GStyles.Poppins,
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   letterSpacing: 0.8,
                   marginTop: 5,
                 }}>
@@ -221,7 +222,7 @@ const StudentRewardsScreen = ({navigation}: AdminRoutesProps) => {
                 style={{
                   color: 'white',
                   fontFamily: GStyles.Poppins,
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   letterSpacing: 0.8,
                   marginTop: 5,
                 }}>
@@ -256,7 +257,7 @@ const StudentRewardsScreen = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             You will go to class and show your performance and then the teacher
@@ -279,7 +280,7 @@ const StudentRewardsScreen = ({navigation}: AdminRoutesProps) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 OK

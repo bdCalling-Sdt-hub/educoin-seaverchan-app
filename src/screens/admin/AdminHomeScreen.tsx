@@ -17,6 +17,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
+import { FontSize } from '../../utils/utils';
 
 interface AdminHOmeProps {
   navigation: DrawerNavigationProp<ParamListBase>;
@@ -76,7 +77,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
               <Text
                 style={{
                   color: 'white',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '800',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 22,
@@ -87,7 +88,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
               <Text
                 style={{
                   color: 'white',
-                  fontSize: 20,
+                     fontSize: FontSize(20),
                   fontFamily: GStyles.Poppins,
                   fontWeight: '800',
                   letterSpacing: 0.8,
@@ -172,7 +173,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
               style={{
                 textAlign: 'right',
                 color: GStyles.primaryPurple,
-                fontSize: 14,
+                fontSize: FontSize(14),
                 fontWeight: '400',
                 fontFamily: GStyles.Poppins,
                 lineHeight: 19,
@@ -200,7 +201,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
             <Text
               style={{
                 color: '#3D3D3D',
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '600',
                 fontFamily: GStyles.PoppinsSemiBold,
                 lineHeight: 22,
@@ -211,7 +212,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
             <Text
               style={{
                 color: '#3D3D3D',
-                fontSize: 14,
+                fontSize: FontSize(14),
                 fontWeight: '400',
                 fontFamily: GStyles.Poppins,
                 lineHeight: 19,
@@ -276,7 +277,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '500',
                   fontFamily: GStyles.PoppinsSemiBold,
                  
@@ -293,7 +294,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: FontSize(12),
                     color: '#797979',
                     fontFamily: GStyles.Poppins,
                     lineHeight: 18,
@@ -304,7 +305,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                 </Text>
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: FontSize(12),
                     color: '#797979',
                     fontFamily: GStyles.Poppins,
                     lineHeight: 18,

@@ -21,7 +21,7 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {setToken, setUserRole} from '../../redux/apiSlices/userSlice';
-import {setStorageRole, setStorageToken} from '../../utils/utils';
+import {FontSize, setStorageRole, setStorageToken} from '../../utils/utils';
 import {useContextApi} from '../../context/ContextApi';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import Toast from 'react-native-toast-message';
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
 
   welcomeText: {
-    fontSize: 32,
+       fontSize: FontSize(32),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '600',
     lineHeight: 48,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   enterPassCodeText: {
-    fontSize: 18,
+      fontSize: FontSize(18),
     fontFamily: GStyles.Poppins,
     fontWeight: '400',
     lineHeight: 27,
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputCodeText: {
-    fontSize: 25,
+       fontSize: FontSize(25),
     fontFamily: GStyles.Poppins,
     fontWeight: '600',
     lineHeight: 48,
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: FontSize(16),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '400',
     lineHeight: 18,

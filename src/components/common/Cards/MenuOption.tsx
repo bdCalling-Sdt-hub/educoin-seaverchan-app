@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { GStyles } from '../../../styles/GStyles'
+import { FontSize } from '../../../utils/utils'
 
 interface MenuOption {
     
@@ -42,7 +43,7 @@ const MenuOption = ({options,indexNumber,selectNumber,itemGap} : MenuOption) => 
                         padding : 1,
                         marginVertical : 10
                       }} key={label} onPress={onPress}>
-                        <Text style={{ fontSize: 13, color: GStyles.textColor['#3D3D3D'], textAlign: 'center' }}>
+                        <Text style={{ fontSize: FontSize(13), color: GStyles.textColor['#3D3D3D'], textAlign: 'center' }}>
                           {label}
                         </Text>
                       </TouchableOpacity>

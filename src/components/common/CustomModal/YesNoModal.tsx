@@ -2,6 +2,7 @@ import {View, Modal, Pressable, TouchableOpacity, Text} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {GStyles} from '../../../styles/GStyles';
+import { FontSize } from '../../../utils/utils';
 
 type CustomModalProps = {
   modalVisible: boolean;
@@ -117,7 +118,7 @@ const YesNoModal = ({
             <Text style={{fontSize: 18, fontWeight: 'bold', color : GStyles.textColor['#3D3D3D'], marginBottom: 10}}>
               Are you sure?
             </Text>
-            <Text style={{fontSize: 16, marginBottom: 20 ,color : GStyles.textColor['#3D3D3D']}}>
+            <Text style={{fontSize: FontSize(16), marginBottom: 20 ,color : GStyles.textColor['#3D3D3D']}}>
               This action cannot be undue.
             </Text>
           </View>
@@ -147,7 +148,7 @@ const YesNoModal = ({
             }}>
                 <Text style={{
            color :   GStyles.primaryOrange,
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                    fontFamily : GStyles.Poppins
                 }}>No</Text>
             </TouchableOpacity>
@@ -166,7 +167,7 @@ const YesNoModal = ({
             }}>
                 <Text style={{
                     color: 'white',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontFamily : GStyles.Poppins
                 }}>Yes</Text>
             </TouchableOpacity>

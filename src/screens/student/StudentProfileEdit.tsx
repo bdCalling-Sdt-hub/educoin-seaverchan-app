@@ -28,6 +28,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { FontSize } from '../../utils/utils';
   
   
   const StudentProfileEdit = ({navigation,route}: NavigProps<any>) => {
@@ -155,7 +156,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
         {/* <View>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '500',
               fontFamily: GStyles.Poppins,
               color: GStyles.textColor['#3D3D3D'],
@@ -180,7 +181,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '500',
               fontFamily: GStyles.Poppins,
               color: GStyles.textColor['#3D3D3D'],
@@ -216,7 +217,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.primaryPurple,
                 }}>
@@ -354,7 +355,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -365,7 +366,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
           {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
@@ -387,7 +388,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Exit
@@ -411,7 +412,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
           // headerTextStyle={{
           //   color: colors.redis,
           //   fontFamily: font.Poppins,
-          //   fontSize: 14,
+          //   fontSize: FontSize(14),
           // }}
           // headerButtonSize={14}
           // headerButtonStyle={{
@@ -426,7 +427,7 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
           // weekDaysTextStyle={{
           //   color: colors.primaryColor,
           //   fontFamily: font.Poppins,
-          //   fontSize: 12,
+          //   fontSize: FontSize(12),
           // }}
           // headerTextContainerStyle={{
           //   backgroundColor: colors.bg,

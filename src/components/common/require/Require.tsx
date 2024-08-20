@@ -2,6 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {GStyles} from '../../../styles/GStyles';
+import { FontSize } from '../../../utils/utils';
 
 interface RequireProps {
   title: string;
@@ -22,7 +23,7 @@ const Require = ({title,nonRequired}: RequireProps) => {
    
       <Text
         style={{
-          fontSize: 16,
+          fontSize: FontSize(16),
           fontWeight: '500',
           fontFamily: GStyles.Poppins,
           color: GStyles.textColor['#3D3D3D'],

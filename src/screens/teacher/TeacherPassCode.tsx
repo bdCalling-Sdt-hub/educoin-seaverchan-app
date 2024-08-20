@@ -5,6 +5,7 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import { useGetTeacherPasscodeQuery } from '../../redux/apiSlices/authSlice';
 import { useContextApi } from '../../context/ContextApi';
+import { FontSize } from '../../utils/utils';
 
 
 const TeacherPassCode = ({navigation}: NavigProps<null>) => {
@@ -35,7 +36,7 @@ const TeacherPassCode = ({navigation}: NavigProps<null>) => {
         }}>
         <Text
           style={{
-            fontSize: 14,
+            fontSize: FontSize(14),
             color: GStyles.gray.lightActive,
             fontFamily: GStyles.Poppins,
             marginBottom: 20,
@@ -54,7 +55,7 @@ const TeacherPassCode = ({navigation}: NavigProps<null>) => {
           }}>
           <Text
             style={{
-              fontSize: 40,
+                 fontSize: FontSize(40),
               // fontWeight: 'bold',
               color: GStyles.textColor['#3D3D3D'],
               fontFamily: GStyles.PoppinsSemiBold,

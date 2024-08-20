@@ -8,6 +8,7 @@ import {imageUrl} from '../../redux/api/baseApi';
 import {useCreateAssignTaskMutation} from '../../redux/apiSlices/teacher/teaherTaskSlices';
 import {useContextApi} from '../../context/ContextApi';
 import { useCreateAssignRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+import { FontSize } from '../../utils/utils';
 
 interface AssignCardProps {
   item: IStudent;
@@ -69,7 +70,7 @@ const AssignRewordCard = ({
         }}>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontFamily: GStyles.PoppinsMedium,
             color: '#3D3D3D',
             // marginTop: 10,
@@ -120,7 +121,7 @@ const AssignRewordCard = ({
         <Text
           style={{
             color: Assigned ? 'white' : GStyles.primaryPurple,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontFamily: GStyles.Poppins,
           }}>
           {results.isLoading ? (

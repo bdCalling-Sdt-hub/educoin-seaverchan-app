@@ -21,6 +21,7 @@ import Toast from 'react-native-toast-message';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import Require from '../../components/common/require/Require';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { FontSize } from '../../utils/utils';
 
 const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
@@ -117,7 +118,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
         {/* <View>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '500',
               fontFamily: GStyles.Poppins,
               color: GStyles.textColor['#3D3D3D'],
@@ -166,7 +167,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
                 />
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     fontFamily: GStyles.Poppins,
                     color: GStyles.gray.normal,
                   }}>
@@ -188,7 +189,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
                 />
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     fontFamily: GStyles.Poppins,
                     color: GStyles.gray.lightHover,
                   }}>
@@ -230,7 +231,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
                 />
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     fontFamily: GStyles.Poppins,
                     color: GStyles.gray.normal,
                   }}>
@@ -252,7 +253,7 @@ const TeacherAddNewClass = ({navigation}: NavigProps<null>) => {
                 />
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     fontFamily: GStyles.Poppins,
                     color: GStyles.gray.lightHover,
                   }}>

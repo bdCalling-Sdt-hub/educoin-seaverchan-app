@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import {GStyles} from '../../../styles/GStyles';
+import { FontSize } from '../../../utils/utils';
 
 interface NormalButtonsPros {
   title: string;
@@ -43,7 +44,7 @@ const NormalButtons = ({onPress, title, loading,BtnColor}: NormalButtonsPros) =>
         style={{
           color: 'white',
           fontFamily: GStyles.Poppins,
-          fontSize: 16,
+          fontSize: FontSize(16),
           letterSpacing: 0.8,
           marginTop: 5,
         }}>

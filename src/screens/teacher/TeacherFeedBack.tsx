@@ -16,6 +16,7 @@ import { useSendFeedBackMutation } from '../../redux/apiSlices/setings/setingsSl
 import { useContextApi } from '../../context/ContextApi';
 import Toast from 'react-native-toast-message';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { FontSize } from '../../utils/utils';
 
 const TeacherFeedback = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
@@ -74,7 +75,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
               lineHeight: 20,
@@ -100,7 +101,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
               lineHeight: 20,
@@ -149,7 +150,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               color: GStyles.primaryPurple,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: 'bold',
             }}>
             Cancel
@@ -171,7 +172,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               color: 'white',
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: 'bold',
             }}>
             Submit
@@ -194,7 +195,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -205,7 +206,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
           {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
@@ -227,7 +228,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Exit

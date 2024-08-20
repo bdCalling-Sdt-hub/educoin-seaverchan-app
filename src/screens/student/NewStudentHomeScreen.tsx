@@ -30,7 +30,7 @@ import { useContextApi } from '../../context/ContextApi';
 import { useGetEarnRewardsQuery, useGetStudentAssignRewardsQuery, useGetStudentAssignTaskQuery, useStudentAchieveActionMutation, useStudentClaimActionMutation } from '../../redux/apiSlices/student/studentSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
-import { removeStorageRole, removeStorageToken } from '../../utils/utils';
+import { FontSize, removeStorageRole, removeStorageToken } from '../../utils/utils';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
@@ -318,7 +318,7 @@ const RItem = route?.params?.data
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -329,7 +329,7 @@ const RItem = route?.params?.data
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             Good job your task is completed , waiting for teacher approval.
@@ -351,7 +351,7 @@ const RItem = route?.params?.data
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 OK
@@ -419,7 +419,7 @@ const RItem = route?.params?.data
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 OK

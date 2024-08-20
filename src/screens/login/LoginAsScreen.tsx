@@ -92,15 +92,15 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
           <Image
           resizeMode='center'
           style={{
-            height:  height * .42,
-            width:  width * .9,
-            marginRight :  width * .1,
-            marginBottom : - height * .015
+            height : "60%",
+            width:  "100%",
+            marginRight :  "10%",
+            // marginBottom : - height * .015
           }}
             source={require('../../assets/images/loginAs/normalQuokka.png')}
           />
             <Text style={{
-                fontSize: 32,
+                   fontSize: FontSize(32),
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.PoppinsBold,
             }}>{AppName}</Text>
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    height:  height,
     // backgroundColor: 'white',
   },
   bgImage: {
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   loginAsContainer: {
-    paddingVertical: '20%',
+    // paddingVertical: '20%',
     alignItems: 'center',
     justifyContent : "center",
     width : width

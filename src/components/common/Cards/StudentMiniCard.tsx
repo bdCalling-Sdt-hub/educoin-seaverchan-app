@@ -4,6 +4,7 @@ import {GStyles, WIDTH} from '../../../styles/GStyles';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native';
+import { FontSize } from '../../../utils/utils';
 
 interface StudentCardProps {
   student?: {
@@ -77,7 +78,7 @@ const StudentMiniCard = ({onPress, student, borderColor}: StudentCardProps) => {
             numberOfLines={1}
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: GStyles.textColor['#3D3D3D'],
                 fontWeight: '500',
                 letterSpacing: 0.5,
@@ -94,7 +95,7 @@ const StudentMiniCard = ({onPress, student, borderColor}: StudentCardProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 12,
+                fontSize: FontSize(12),
                 color: '#797979',
                 fontWeight: '400',
                 letterSpacing: 0.5,

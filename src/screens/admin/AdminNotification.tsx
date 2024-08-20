@@ -8,6 +8,7 @@ interface AdminRoutesProps {
 }
 
 import Feather from 'react-native-vector-icons/Feather';
+import { FontSize } from '../../utils/utils';
 
 const AdminNotification = ({navigation}: AdminRoutesProps) => {
   return (
@@ -29,7 +30,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: GStyles.PoppinsMedium,
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#3D3D3D',
               letterSpacing: 0.5,
               marginVertical: 18,
@@ -68,7 +69,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>
@@ -76,7 +77,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: '#888888',
                 }}>
@@ -88,7 +89,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: FontSize(12),
                     fontFamily: GStyles.PoppinsMedium,
                     color: '#3D3D3D',
                   }}>
@@ -130,7 +131,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>
@@ -138,7 +139,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: '#888888',
                 }}>
@@ -158,7 +159,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: GStyles.PoppinsMedium,
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#3D3D3D',
               letterSpacing: 0.5,
               marginVertical: 18,
@@ -197,7 +198,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>
@@ -205,7 +206,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: '#888888',
                 }}>
@@ -217,7 +218,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: FontSize(12),
                     fontFamily: GStyles.PoppinsMedium,
                     color: '#3D3D3D',
                   }}>
@@ -259,7 +260,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>
@@ -267,7 +268,7 @@ const AdminNotification = ({navigation}: AdminRoutesProps) => {
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: '#888888',
                 }}>

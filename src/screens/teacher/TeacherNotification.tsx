@@ -11,6 +11,7 @@ import { useContextApi } from '../../context/ContextApi';
 import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { Notification } from '@notifee/react-native';
+import { FontSize } from '../../utils/utils';
 
 const TeacherNotification = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
@@ -130,7 +131,7 @@ const TeacherNotification = ({navigation}: NavigProps<null>) => {
             }}>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: FontSize(12),
                 fontFamily: GStyles.PoppinsMedium,
                 color:  item?.item?.read ?GStyles?.textColor['#929394'] : GStyles?.textColor?.['#3D3D3D'],
               }}>
@@ -138,7 +139,7 @@ const TeacherNotification = ({navigation}: NavigProps<null>) => {
             </Text>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: FontSize(12),
                 fontFamily: GStyles.Poppins,
                 color:  item?.item?.read ?GStyles?.textColor['#929394'] : GStyles?.textColor?.['#3D3D3D'],
               }}>
@@ -150,7 +151,7 @@ const TeacherNotification = ({navigation}: NavigProps<null>) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>

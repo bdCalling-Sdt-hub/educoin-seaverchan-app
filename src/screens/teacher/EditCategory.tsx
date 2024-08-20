@@ -28,6 +28,7 @@ import {useContextApi} from '../../context/ContextApi';
 import {ICategory} from '../../redux/interface/interface';
 import {imageUrl} from '../../redux/api/baseApi';
 import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import { FontSize } from '../../utils/utils';
 
 const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
   const {user} = useContextApi();
@@ -245,7 +246,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>
@@ -269,7 +270,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -280,7 +281,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
           {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
               color: GStyles.gray.normal,
             }}>
@@ -306,7 +307,7 @@ const EditCategory = ({navigation, route}: NavigProps<ICategory>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Exit

@@ -3,6 +3,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {NavigProps} from '../../../interfaces/NavigationPros';
 import {GStyles} from '../../../styles/GStyles';
+import { FontSize } from '../../../utils/utils';
 
 interface HeaderOptionsProps {
   op1: string;
@@ -88,7 +89,7 @@ const HeaderOption = ({
               }}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
 
                   fontFamily: GStyles.Poppins,
                   fontWeight: '400',
@@ -128,7 +129,7 @@ const HeaderOption = ({
               }}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.Poppins,
                   fontWeight: '400',
                   color:
@@ -164,7 +165,7 @@ const HeaderOption = ({
               }}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.Poppins,
                   fontWeight: '400',
                   color:
@@ -201,7 +202,7 @@ const HeaderOption = ({
               <Text
                 style={{
                   color: GStyles.textColor['#3D3D3D'],
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.Poppins,
                   fontWeight: '400',
                   borderBottomColor:
@@ -222,7 +223,7 @@ const HeaderOption = ({
               <Text
                 style={{
                   color: GStyles.textColor['#3D3D3D'],
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.Poppins,
                   fontWeight: '400',
                   borderBottomColor:
@@ -242,7 +243,7 @@ const HeaderOption = ({
               <Text
                 style={{
                   color: GStyles.textColor['#3D3D3D'],
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.Poppins,
                   fontWeight: '400',
                   borderBottomColor:

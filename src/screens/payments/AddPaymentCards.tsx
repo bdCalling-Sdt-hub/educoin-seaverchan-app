@@ -5,6 +5,7 @@ import { GStyles } from '../../styles/GStyles';
 import { NavigProps } from '../../interfaces/NavigationPros';
 import { RadioButton, RadioGroup } from 'react-native-ui-lib';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import { FontSize } from '../../utils/utils';
 
 const AddPaymentCards = ({navigation} : NavigProps<null>) => {
 
@@ -44,7 +45,7 @@ const AddPaymentCards = ({navigation} : NavigProps<null>) => {
        
         }}>
           <Text style={{
-            fontSize: 18,
+              fontSize: FontSize(18),
            fontFamily : GStyles.PoppinsMedium,
            color : GStyles.textColor['#3D3D3D']
             
@@ -71,7 +72,7 @@ const AddPaymentCards = ({navigation} : NavigProps<null>) => {
             
             }}/>
             <Text style={{
-              fontSize : 16,
+                 fontSize: FontSize(16),
               fontFamily : GStyles.Poppins,
               color : GStyles.textColor['#3D3D3D']
             }}>Add new card</Text>
@@ -100,7 +101,7 @@ const AddPaymentCards = ({navigation} : NavigProps<null>) => {
        
         }}>
           <Text style={{
-            fontSize: 18,
+              fontSize: FontSize(18),
            fontFamily : GStyles.PoppinsMedium,
            color : GStyles.textColor['#3D3D3D']
             
@@ -127,7 +128,7 @@ const AddPaymentCards = ({navigation} : NavigProps<null>) => {
             
             }}/>
             <Text style={{
-              fontSize : 16,
+                 fontSize: FontSize(16),
               fontFamily : GStyles.Poppins,
               color : GStyles.textColor['#3D3D3D']
             }}>Cash</Text>

@@ -2,6 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
+import { FontSize } from '../utils/utils';
 
 interface ButtonProps {
   title?: string;
@@ -37,7 +38,7 @@ const BackButton = ({title, onPress, style, icon, iconStyle}: ButtonProps) => {
         <Text
           style={{
             color: '#6C6E70',
-            fontSize: 18,
+            fontSize: FontSize(18),
             lineHeight: 21,
 
             fontWeight: '600',

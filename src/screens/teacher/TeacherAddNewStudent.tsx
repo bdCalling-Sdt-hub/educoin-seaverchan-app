@@ -27,6 +27,7 @@ import { imageUrl } from '../../redux/api/baseApi';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
+import { FontSize } from '../../utils/utils';
 
 const TeacherAddNewStudent = ({ navigation }: NavigProps<null>) => {
   const [createStudent, results] = useCreateStudentMutation();
@@ -174,7 +175,7 @@ classLoading || avatarLoading ?<View style={{
     }}>
     <View style={{ flexDirection: 'row', gap: 10 }}>
       <AntDesign name="calendar" color={GStyles?.gray.normal} size={16} />
-      <Text style={{ fontSize: 14, fontFamily: GStyles.Poppins, color: GStyles.gray.normal }}>
+      <Text style={{ fontSize: FontSize(14), fontFamily: GStyles.Poppins, color: GStyles.gray.normal }}>
         {studentInfo?.dateOfBirth
           ? new Date(studentInfo?.dateOfBirth)?.toLocaleDateString()
           : 'Select a date'}

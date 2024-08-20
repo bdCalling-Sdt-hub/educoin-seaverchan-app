@@ -33,6 +33,7 @@ import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSli
 import { useGetSingleStudentQuery, useGetStatisticStudentQuery, useGetStudentThrowClassQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
+import { FontSize } from '../../utils/utils';
 
 const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
@@ -152,7 +153,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 style={{
                   color: 'white',
                   fontFamily: GStyles.Poppins,
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                 }}>
                 Active Now
               </Text>
@@ -314,7 +315,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 }}></View>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   color: GStyles.textColor['#3D3D3D'],
                   fontFamily: GStyles.Poppins,
                   fontWeight: '500',
@@ -338,7 +339,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 }}></View>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   color: GStyles.textColor['#3D3D3D'],
                   fontFamily: GStyles.Poppins,
                   fontWeight: '500',
@@ -362,7 +363,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
                 }}></View>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   color: GStyles.textColor['#3D3D3D'],
                   fontFamily: GStyles.Poppins,
                   fontWeight: '500',
@@ -397,14 +398,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   levelText: {
-    fontSize: 24,
+      fontSize: FontSize(24),
     color: GStyles?.primaryOrange, // Replace with your GStyles.primaryOrange
     fontFamily: 'Poppins-Bold', // Replace with your GStyles.PoppinsBold
     fontWeight: '600',
     letterSpacing: 0.5,
   },
   scoreText: {
-    fontSize: 16,
+    fontSize: FontSize(16),
     fontFamily: 'Poppins-Regular', // Replace with your GStyles.Poppins
     color: '#797979',
     fontWeight: '400',

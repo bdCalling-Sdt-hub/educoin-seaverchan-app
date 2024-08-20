@@ -22,6 +22,7 @@ import HomeTopHeader from '../../components/common/header/HomeTopHeader';
 import { HomeNavigProps } from '../../interfaces/NavigationPros';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
+import { FontSize } from '../../utils/utils';
 
 
 
@@ -92,7 +93,7 @@ const StudentHomeScreen = ({
               <Text
                 style={{
                   color: 'white',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '800',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 22,
@@ -103,7 +104,7 @@ const StudentHomeScreen = ({
               <Text
                 style={{
                   color: 'white',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontFamily: GStyles.Poppins,
                   fontWeight: '400',
                   letterSpacing: 0.8,
@@ -252,7 +253,7 @@ const StudentHomeScreen = ({
                     <View>
                       <Text
                         style={{
-                          fontSize: 12,
+                          fontSize: FontSize(12),
                           fontFamily: GStyles.Poppins,
                           color: GStyles.primaryPurple,
                         }}>
@@ -260,7 +261,7 @@ const StudentHomeScreen = ({
                       </Text>
                       <Text
                         style={{
-                          fontSize: 16,
+                          fontSize: FontSize(16),
                           fontFamily: GStyles.PoppinsMedium,
                           color: '#3D3D3D',
                         }}>
@@ -289,7 +290,7 @@ const StudentHomeScreen = ({
                     <Text
                       style={{
                         color: GStyles.primaryBlue,
-                        fontSize: 14,
+                        fontSize: FontSize(14),
                         fontFamily: GStyles.Poppins,
                       }}>
                       Completed
@@ -309,7 +310,7 @@ const StudentHomeScreen = ({
               }}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.PoppinsMedium,
                   color: GStyles.textColor['#3D3D3D'],
 
@@ -365,7 +366,7 @@ const StudentHomeScreen = ({
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -382,7 +383,7 @@ const StudentHomeScreen = ({
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -393,7 +394,7 @@ const StudentHomeScreen = ({
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -454,7 +455,7 @@ const StudentHomeScreen = ({
                   }}>
                   <Text
                     style={{
-                      fontSize: 41,
+                         fontSize: FontSize(41),
                       color: 'white',
                       fontFamily: GStyles.PoppinsMedium,
                       letterSpacing: 0.8,
@@ -487,7 +488,7 @@ const StudentHomeScreen = ({
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -504,7 +505,7 @@ const StudentHomeScreen = ({
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -515,7 +516,7 @@ const StudentHomeScreen = ({
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -596,7 +597,7 @@ const StudentHomeScreen = ({
                       <View>
                         <Text
                           style={{
-                            fontSize: 12,
+                            fontSize: FontSize(12),
                             fontFamily: GStyles.Poppins,
                             color: GStyles.primaryPurple,
                           }}>
@@ -604,7 +605,7 @@ const StudentHomeScreen = ({
                         </Text>
                         <Text
                           style={{
-                            fontSize: 16,
+                            fontSize: FontSize(16),
                             fontFamily: GStyles.PoppinsMedium,
                             color: '#3D3D3D',
                           }}>
@@ -642,7 +643,7 @@ const StudentHomeScreen = ({
                       <Text
                         style={{
                           color: 'white',
-                          fontSize: 16,
+                          fontSize: FontSize(16),
                           fontFamily: GStyles.Poppins,
                         }}>
                        Achieved
@@ -698,7 +699,7 @@ const StudentHomeScreen = ({
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -715,7 +716,7 @@ const StudentHomeScreen = ({
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -726,7 +727,7 @@ const StudentHomeScreen = ({
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -785,7 +786,7 @@ const StudentHomeScreen = ({
                   }}>
                   <Text
                     style={{
-                      fontSize: 41,
+                         fontSize: FontSize(41),
                       color: 'white',
                       fontFamily: GStyles.PoppinsMedium,
                       letterSpacing: 0.8,
@@ -818,7 +819,7 @@ const StudentHomeScreen = ({
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -835,7 +836,7 @@ const StudentHomeScreen = ({
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -846,7 +847,7 @@ const StudentHomeScreen = ({
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -903,7 +904,7 @@ const StudentHomeScreen = ({
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -914,7 +915,7 @@ const StudentHomeScreen = ({
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             You will go to class and show your performance and then the teacher
@@ -937,7 +938,7 @@ const StudentHomeScreen = ({
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 OK

@@ -4,6 +4,7 @@ import {GStyles} from '../../../styles/GStyles';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import { FontSize } from '../../../utils/utils';
 
 interface HeaderBackgroundProps {
   title?: string;
@@ -79,7 +80,7 @@ const HeaderBackground = ({
           <Text
             style={{
               fontFamily: GStyles.PoppinsSemiBold,
-              fontSize: 20,
+                 fontSize: FontSize(20),
               lineHeight: 30,
               textAlign: 'center',
               color: 'white',

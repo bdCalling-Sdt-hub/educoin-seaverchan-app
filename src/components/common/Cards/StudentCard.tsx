@@ -6,6 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {NavigProps} from '../../../interfaces/NavigationPros';
 import {imageUrl} from '../../../redux/api/baseApi';
+import { FontSize } from '../../../utils/utils';
 
 interface StudentCardProps {
   student?: {
@@ -72,7 +73,7 @@ const StudentCard = ({
         <Text
           style={{
             color: '#3D3D3D',
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '500',
             fontFamily: GStyles.PoppinsSemiBold,
 
@@ -86,7 +87,7 @@ const StudentCard = ({
         <Text
           style={{
             color: '#3D3D3D',
-            fontSize: 12,
+            fontSize: FontSize(12),
             fontWeight: '500',
             fontFamily: GStyles.Poppins,
             textAlign: 'center',
@@ -97,7 +98,7 @@ const StudentCard = ({
         <Text
           style={{
             color: '#3D3D3D',
-            fontSize: 12,
+            fontSize: FontSize(12),
             fontWeight: '500',
             fontFamily: GStyles.Poppins,
             textAlign: 'center',
@@ -115,7 +116,7 @@ const StudentCard = ({
           }}>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: '#797979',
               fontFamily: GStyles.Poppins,
 
@@ -126,7 +127,7 @@ const StudentCard = ({
           </Text>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: '#797979',
               fontFamily: GStyles.Poppins,
               fontWeight: '400',

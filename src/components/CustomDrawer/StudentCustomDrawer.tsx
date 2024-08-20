@@ -18,7 +18,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import { AppName } from '../../styles/AppDetails';
-import { removeStorageRole, removeStorageToken } from '../../utils/utils';
+import { FontSize, removeStorageRole, removeStorageToken } from '../../utils/utils';
 import { useContextApi } from '../../context/ContextApi';
 import { disconnectSocket } from '../../redux/services/socket';
 function StudentCustomDrawer(props: any) {
@@ -64,7 +64,7 @@ function StudentCustomDrawer(props: any) {
           <Text
             style={{
               fontFamily: GStyles.SarinaRegular,
-              fontSize: 24,
+                fontSize: FontSize(24),
               fontWeight: '400',
               lineHeight: 34,
               color: '#FCFCFC',
@@ -89,7 +89,7 @@ function StudentCustomDrawer(props: any) {
           labelStyle={{
             color: GStyles.primaryOrange,
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
             letterSpacing: 0.8,
             
@@ -114,7 +114,7 @@ function StudentCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
             letterSpacing: 0.8,
           }}
@@ -132,7 +132,7 @@ function StudentCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -155,7 +155,7 @@ function StudentCustomDrawer(props: any) {
             labelStyle={{
               color: '#4A2B6C',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '400',
   
               letterSpacing: 0.8,
@@ -178,7 +178,7 @@ function StudentCustomDrawer(props: any) {
             labelStyle={{
               color: '#4A2B6C',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '400',
   
               letterSpacing: 0.8,
@@ -201,7 +201,7 @@ function StudentCustomDrawer(props: any) {
             labelStyle={{
               color: '#4A2B6C',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '400',
   
               letterSpacing: 0.8,
@@ -261,7 +261,7 @@ function StudentCustomDrawer(props: any) {
               style={{
                 color: '#3D3D3D',
                 fontFamily: GStyles.Poppins,
-                fontSize: 15,
+                   fontSize: FontSize(15),
                 fontWeight: '400',
                 letterSpacing: 0.8,
               }}>

@@ -6,6 +6,7 @@ import React, {
   import { View, StyleSheet, Text, TouchableOpacity, Dimensions, Pressable } from 'react-native';
   import { Modal } from 'react-native-ui-lib';
   import { GStyles } from '../../styles/GStyles';
+import { FontSize } from '../../utils/utils';
   
   // Define the ref object type
   export interface PopUpModalRef {
@@ -97,7 +98,7 @@ import React, {
       alignItems: 'center',       // Center content horizontally
     },
     modalTitle: {
-      fontSize: 18,
+        fontSize: FontSize(18),
       fontFamily: GStyles.PoppinsMedium,
       textAlign: 'center',
       color: GStyles.textColor['#3D3D3D'],
@@ -105,7 +106,7 @@ import React, {
     },
     modalText: {
       fontFamily: GStyles.Poppins,
-      fontSize: 16,
+      fontSize: FontSize(16),
       textAlign: 'center',
     },
     buttonContainer: {
@@ -125,7 +126,7 @@ import React, {
       color: 'white',
       fontFamily: GStyles.Poppins,
       textAlign: 'center',
-      fontSize: 15,
+         fontSize: FontSize(15),
       fontWeight: '400',
     },
   });

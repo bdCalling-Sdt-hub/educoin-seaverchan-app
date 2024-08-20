@@ -4,6 +4,7 @@ import HeaderBackground from '../../components/common/headerBackground/HeaderBac
 import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { FontSize } from '../../utils/utils';
 
 const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
   return (
@@ -64,7 +65,7 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: GStyles.textColor['#3D3D3D'],
                 fontWeight: '500',
                 letterSpacing: 0.5,
@@ -74,7 +75,7 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#797979',
                 fontWeight: '400',
                 letterSpacing: 0.5,
@@ -92,7 +93,7 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: GStyles.textColor['#3D3D3D'],
                 fontWeight: '500',
                 letterSpacing: 0.5,
@@ -102,7 +103,7 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: GStyles.textColor['#3D3D3D'],
                 fontWeight: '500',
                 letterSpacing: 0.5,
@@ -119,7 +120,7 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
             <Text
               style={{
                 fontFamily: GStyles.PoppinsLight,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: GStyles.textColor['#3D3D3D'],
                 fontWeight: '200',
                 letterSpacing: 0.5,
@@ -129,7 +130,7 @@ const StudentPublicProfileScreen = ({navigation}: NavigProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: GStyles.primaryPurple,
                 fontWeight: '500',
                 letterSpacing: 0.5,

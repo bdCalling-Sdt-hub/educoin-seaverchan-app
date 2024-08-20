@@ -66,7 +66,7 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
     <View style={styles.container}>
       <LinearGradient
         style={{
-          height: '100%',
+          height: HEIGHT,
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -77,16 +77,16 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
             <Image
               resizeMode="center"
               style={{
-                height: height * 0.42,
-                width: width * 0.9,
-                marginRight: width * 0.1,
-                marginBottom: -height * 0.015,
+                height: "60%",
+                width: "90%",
+                marginRight: "5%",
+                // marginBottom: "5%",
               }}
               source={require('../../assets/images/loginAs/normalQuokka.png')}
             />
             <Text
               style={{
-                fontSize: 32,
+                fontSize: FontSize(32),
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.PoppinsBold,
               }}>
@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   loginAsContainer: {
-    paddingVertical: '20%',
     alignItems: 'center',
     justifyContent: 'center',
     width: width,

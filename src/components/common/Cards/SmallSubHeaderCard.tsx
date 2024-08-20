@@ -2,6 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {GStyles} from '../../../styles/GStyles';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { FontSize } from '../../../utils/utils';
 
 interface SmallSubHeaderCardProps {
   title: string;
@@ -54,7 +55,7 @@ const SmallSubHeaderCard = ({
         <Text
           style={{
             color: GStyles.textColor['#3D3D3D'],
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '600',
             fontFamily: GStyles.PoppinsMedium,
             letterSpacing: 0.8,
@@ -64,7 +65,7 @@ const SmallSubHeaderCard = ({
         <Text
           style={{
             color: GStyles.textColor['#3D3D3D'],
-            fontSize: 12,
+            fontSize: FontSize(12),
             fontWeight: '400',
             fontFamily: GStyles.Poppins,
             letterSpacing: 0.8,

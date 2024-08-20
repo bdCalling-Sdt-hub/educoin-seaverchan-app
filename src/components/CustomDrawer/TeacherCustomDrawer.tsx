@@ -21,7 +21,7 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {AppName} from '../../styles/AppDetails';
 import {useDispatch} from 'react-redux';
 import {clearToken, clearUserRole} from '../../redux/apiSlices/userSlice';
-import {removeStorageRole, removeStorageToken} from '../../utils/utils';
+import {FontSize, removeStorageRole, removeStorageToken} from '../../utils/utils';
 import {useContextApi} from '../../context/ContextApi';
 import { disconnectSocket } from '../../redux/services/socket';
 
@@ -68,7 +68,7 @@ function TeacherCustomDrawer(props: any) {
           <Text
             style={{
               fontFamily: GStyles.SarinaRegular,
-              fontSize: 24,
+                fontSize: FontSize(24),
               fontWeight: '400',
               lineHeight: 34,
               color: '#FCFCFC',
@@ -93,7 +93,7 @@ function TeacherCustomDrawer(props: any) {
           labelStyle={{
             color: GStyles.primaryPurple,
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
             letterSpacing: 0.8,
           }}
@@ -114,7 +114,7 @@ function TeacherCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 14,
+            fontSize: FontSize(14),
             fontWeight: '400',
             letterSpacing: 0.8,
      
@@ -135,7 +135,7 @@ function TeacherCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 14,
+            fontSize: FontSize(14),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -156,7 +156,7 @@ function TeacherCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 14,
+            fontSize: FontSize(14),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -179,7 +179,7 @@ function TeacherCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 14,
+            fontSize: FontSize(14),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -200,7 +200,7 @@ function TeacherCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 14,
+            fontSize: FontSize(14),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -224,7 +224,7 @@ function TeacherCustomDrawer(props: any) {
               labelStyle={{
                 color: '#4A2B6C',
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '400',
     
                 letterSpacing: 0.8,
@@ -247,7 +247,7 @@ function TeacherCustomDrawer(props: any) {
               labelStyle={{
                 color: '#4A2B6C',
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '400',
     
                 letterSpacing: 0.8,
@@ -305,7 +305,7 @@ function TeacherCustomDrawer(props: any) {
               style={{
                 color: '#3D3D3D',
                 fontFamily: GStyles.Poppins,
-                fontSize: 15,
+                   fontSize: FontSize(15),
                 fontWeight: '400',
                 letterSpacing: 0.8,
               }}>

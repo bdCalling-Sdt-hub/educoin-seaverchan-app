@@ -16,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {GStyles} from '../../styles/GStyles';
+import { FontSize } from '../../utils/utils';
 
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
@@ -74,7 +75,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -85,7 +86,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -150,7 +151,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -167,7 +168,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -178,7 +179,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -225,7 +226,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -236,7 +237,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -301,7 +302,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -318,7 +319,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -329,7 +330,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -376,7 +377,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -387,7 +388,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -452,7 +453,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -469,7 +470,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -480,7 +481,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -527,7 +528,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -538,7 +539,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -603,7 +604,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -620,7 +621,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -631,7 +632,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -678,7 +679,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -689,7 +690,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -754,7 +755,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -771,7 +772,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -782,7 +783,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -829,7 +830,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -840,7 +841,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -905,7 +906,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -922,7 +923,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -933,7 +934,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -980,7 +981,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -991,7 +992,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -1056,7 +1057,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -1073,7 +1074,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -1084,7 +1085,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -1131,7 +1132,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
                   lineHeight: 22,
@@ -1142,7 +1143,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
               <Text
                 style={{
                   color: '#3D3D3D',
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 19,
@@ -1207,7 +1208,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -1224,7 +1225,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -1235,7 +1236,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,

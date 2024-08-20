@@ -21,6 +21,7 @@ import Toast from 'react-native-toast-message';
 import {IClass} from '../../redux/interface/interface';
 import Require from '../../components/common/require/Require';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import { FontSize } from '../../utils/utils';
 
 const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
   const {user} = useContextApi();
@@ -104,7 +105,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
         {/* <View>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '500',
                 fontFamily: GStyles.Poppins,
                 color: GStyles.textColor['#3D3D3D'],
@@ -142,7 +143,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
             {classInfo?.startDate ? (
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.gray.normal,
                 }}>
@@ -153,7 +154,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
             ) : (
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.gray.lightActive,
                 }}>
@@ -181,7 +182,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
             {classInfo?.endDate ? (
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.gray.normal,
                 }}>
@@ -192,7 +193,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
             ) : (
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: FontSize(14),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.gray.lightActive,
                 }}>
@@ -230,7 +231,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -241,7 +242,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
@@ -263,7 +264,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Exit
@@ -287,7 +288,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
           // headerTextStyle={{
           //   color: colors.redis,
           //   fontFamily: font.Poppins,
-          //   fontSize: 14,
+          //   fontSize: FontSize(14),
           // }}
           // headerButtonSize={14}
           // headerButtonStyle={{
@@ -302,7 +303,7 @@ const TeacherEditClass = ({navigation, route}: NavigProps<IClass>) => {
           // weekDaysTextStyle={{
           //   color: colors.primaryColor,
           //   fontFamily: font.Poppins,
-          //   fontSize: 12,
+          //   fontSize: FontSize(12),
           // }}
           // headerTextContainerStyle={{
           //   backgroundColor: colors.bg,

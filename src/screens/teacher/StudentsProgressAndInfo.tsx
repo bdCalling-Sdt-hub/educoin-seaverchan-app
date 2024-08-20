@@ -33,6 +33,7 @@ import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
 import { imageUrl } from '../../redux/api/baseApi';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
 import RewardsCard from '../../components/common/Cards/RewordsCard';
+import { FontSize } from '../../utils/utils';
 
 
 const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus>) => {
@@ -142,7 +143,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
               <Text
                 style={{
                   color: 'white',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '800',
                   fontFamily: GStyles.Poppins,
                   lineHeight: 22,
@@ -176,7 +177,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
                   />
                   <Text
                     style={{
-                      fontSize: 15,
+                         fontSize: FontSize(15),
                       textAlign : "center",
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.primaryOrange,
@@ -198,7 +199,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
                   />
                   <Text
                     style={{
-                      fontSize: 15,
+                         fontSize: FontSize(15),
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.primaryOrange,
                     }}>
@@ -219,7 +220,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
                   />
                   <Text
                     style={{
-                      fontSize: 15,
+                         fontSize: FontSize(15),
                       fontFamily: GStyles.PoppinsSemiBold,
                       color: GStyles.gray.lightActive,
                     }}>

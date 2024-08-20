@@ -11,6 +11,7 @@ import {GStyles, WIDTH} from '../../../styles/GStyles';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { FontSize } from '../../../utils/utils';
 
 interface TaskCardProps {
   title?: string;
@@ -133,7 +134,7 @@ const TaskCard = ({
             {category && (
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.primaryPurple,
                 }}>
@@ -144,7 +145,7 @@ const TaskCard = ({
             <Text
             numberOfLines={isButton ? 1 : 2}
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsMedium,
                 color: '#3D3D3D',
                 width : isButton ? WIDTH * .45 : WIDTH * .65,
@@ -167,7 +168,7 @@ const TaskCard = ({
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.textColor['#3D3D3D'],
                 }}>
@@ -179,7 +180,7 @@ const TaskCard = ({
               (time && (
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: FontSize(12),
                     fontFamily: GStyles.Poppins,
                     color: GStyles.primaryBlue,
                     marginTop: 5,
@@ -206,7 +207,7 @@ const TaskCard = ({
                     color: completedTextColor
                       ? completedTextColor
                       : GStyles.primaryBlue,
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     fontFamily: GStyles.Poppins,
                   }}>
                   {completedText ? completedText : 'Completed'}
@@ -233,7 +234,7 @@ const TaskCard = ({
                 <Text
                   style={{
                     color: 'white',
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     fontFamily: GStyles.Poppins,
                   }}>
                   {buttonText ? buttonText : 'Achieve'}
