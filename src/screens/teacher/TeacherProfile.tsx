@@ -13,6 +13,7 @@ import {NavigProps} from '../../interfaces/NavigationPros';
 import {imageUrl} from '../../redux/api/baseApi';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
+import { FontSize } from '../../utils/utils';
 
 const TeacherProfile = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi()
@@ -96,7 +97,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.PoppinsSemiBold,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
@@ -105,7 +106,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
@@ -132,7 +133,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.PoppinsSemiBold,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
                 marginVertical: 3,
               }}>
@@ -143,7 +144,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
               <AntDesign
                 name="edit"
                 style={{
-                  fontSize: 20,
+                     fontSize: FontSize(20),
                   color: '#3D3D3D',
                   fontWeight: 'bold',
                 }}
@@ -157,7 +158,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
               }}>
               Name :
@@ -165,7 +166,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
                 color: GStyles.textColor['#929394'],
               }}>
               {data?.data?.name}
@@ -178,7 +179,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
               }}>
               Email :
@@ -186,7 +187,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
                 color: GStyles.textColor['#929394'],
               }}>
               {data?.data?.email}
@@ -200,7 +201,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
               }}>
               Phone number :
@@ -208,7 +209,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
                 color: GStyles.textColor['#929394'],
               }}>
               {data?.data?.contact}
@@ -223,7 +224,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: '#3D3D3D',
             }}>
             Address :
@@ -231,7 +232,7 @@ const TeacherProfile = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: GStyles.textColor['#929394'],
             }}>
             {data?.data?.location}

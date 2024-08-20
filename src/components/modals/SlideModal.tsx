@@ -7,6 +7,7 @@ import React, {
   import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
   import { Dialog } from 'react-native-ui-lib';
   import { GStyles } from '../../styles/GStyles';
+import { FontSize } from '../../utils/utils';
   
   // Define the ref object type
   export interface SlideModalRef {
@@ -64,7 +65,7 @@ import React, {
           {modalContent?.title && (
             <Text
               style={{
-                fontSize: 18,
+                  fontSize: FontSize(18),
                 fontFamily: GStyles.PoppinsMedium,
                 textAlign: 'center',
                 color: GStyles.textColor['#3D3D3D'],
@@ -78,7 +79,7 @@ import React, {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 textAlign: 'center',
               }}
             >
@@ -113,7 +114,7 @@ import React, {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 15,
+                     fontSize: FontSize(15),
                   fontWeight: '400',
                 }}
               >

@@ -38,7 +38,7 @@ const SplashScreen = ({navigation}: SplashProps) => {
           <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: '10%', gap: -10 }}>
             <Text style={styles.welcomeText}>Welcome to</Text>
             <Text style={{
-                fontSize: 32,
+                   fontSize: FontSize(32),
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.PoppinsBold,
             }}>{AppName}</Text>
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   welcomeText: {
-    fontSize: 32,
+       fontSize: FontSize(32),
     fontWeight: '600',
     color: GStyles.primaryPurple,
     fontFamily: GStyles.PoppinsBold,
   },
   appNameText: {
-    fontSize: 32,
+       fontSize: FontSize(32),
     color: GStyles.primaryPurple,
     fontFamily: GStyles.PoppinsBold,
   },

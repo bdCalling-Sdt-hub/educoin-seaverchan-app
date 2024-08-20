@@ -39,7 +39,7 @@ import {
               }}>
               <Text
                 style={{
-                  fontSize: 32,
+                     fontSize: FontSize(32),
                   fontWeight: '600',
                   color: GStyles.primaryPurple,
                   fontFamily: GStyles.PoppinsBold,
@@ -48,7 +48,7 @@ import {
               </Text>
               <Text
                 style={{
-                  fontSize: 32,
+                     fontSize: FontSize(32),
   
                   color: GStyles.primaryPurple,
                   fontFamily: GStyles.PoppinsBold,
@@ -95,7 +95,7 @@ import {
                 <Text
                   style={{
                     color: 'white',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontFamily: GStyles.PoppinsMedium,
                     letterSpacing: 0.8,
                   }}>

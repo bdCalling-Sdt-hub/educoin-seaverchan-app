@@ -147,13 +147,13 @@ const [createTeacher, results]= useCreateTeacherMutation()
           style={{
             height:  height * .22,
             width:  width * .9,
-            marginRight :  width * .08,
+            marginRight : HEIGHT < 800 ? 0 : width * .08,
           //   marginBottom : - height * .015
           }}
             source={require('../../assets/images/loginAs/normalQuokka.png')}
           />
             <Text style={{
-                fontSize: 32,
+                   fontSize: FontSize(32),
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.PoppinsBold,
             }}>{AppName}</Text>
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   loginAsContainer: {
-    paddingTop: '10%',
+    paddingVertical: HEIGHT < 800 ? '2%' : "20%",
     paddingBottom: '5%',
     alignItems: 'center',
     justifyContent : "center",

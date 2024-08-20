@@ -35,6 +35,7 @@ import {
 } from '../../redux/apiSlices/teacher/teaherTaskSlices';
 import Toast from 'react-native-toast-message';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
+import { FontSize } from '../../utils/utils';
 
 const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
   const Item = route?.params?.data;
@@ -137,7 +138,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
             }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsMedium,
               }}>
           
@@ -235,7 +236,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontFamily: GStyles.PoppinsMedium,
                   }}>
               
@@ -302,7 +303,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
               style={{
                 color: 'white',
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 letterSpacing: 0.8,
                 marginTop: 5,
               }}>
@@ -328,7 +329,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -339,7 +340,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
           {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
@@ -364,7 +365,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Exit

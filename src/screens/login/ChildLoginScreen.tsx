@@ -16,7 +16,7 @@ import {GStyles} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import Toast from 'react-native-toast-message';
-import { setStorageRole, setStorageToken } from '../../utils/utils';
+import { FontSize, setStorageRole, setStorageToken } from '../../utils/utils';
 import { useContextApi } from '../../context/ContextApi';
 import { useLoginStudentMutation } from '../../redux/apiSlices/authSlice';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
 
   welcomeText: {
-    fontSize: 32,
+       fontSize: FontSize(32),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '600',
     lineHeight: 48,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   enterPassCodeText: {
-    fontSize: 18,
+      fontSize: FontSize(18),
     fontFamily: GStyles.Poppins,
     fontWeight: '400',
     lineHeight: 27,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputCodeText: {
-    fontSize: 25,
+       fontSize: FontSize(25),
     fontFamily: GStyles.Poppins,
     fontWeight: '600',
     lineHeight: 48,
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: FontSize(16),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '400',
     lineHeight: 18,

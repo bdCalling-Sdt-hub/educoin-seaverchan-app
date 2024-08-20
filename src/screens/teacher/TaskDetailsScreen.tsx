@@ -7,6 +7,7 @@ import {TouchableOpacity} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ScrollView} from 'react-native';
+import { FontSize } from '../../utils/utils';
 
 const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
   return (
@@ -74,7 +75,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.textColor['#3D3D3D'],
                 }}>
@@ -82,7 +83,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
               </Text>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.Poppins,
                   color: GStyles.primaryPurple,
                 }}>
@@ -91,7 +92,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
             </View>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsMedium,
                 color: '#3D3D3D',
               }}>
@@ -134,7 +135,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontFamily: GStyles.PoppinsMedium,
               color: '#3D3D3D',
               fontWeight: '500',
@@ -189,7 +190,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
                   <Text
                     style={{
                       color: 'gray',
-                      fontSize: 14,
+                      fontSize: FontSize(14),
                       fontWeight: '500',
                       fontFamily: GStyles.PoppinsMedium,
 
@@ -236,7 +237,7 @@ const TaskDetailsScreen = ({navigation}: NavigProps<null>) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>

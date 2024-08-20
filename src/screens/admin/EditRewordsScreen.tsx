@@ -13,6 +13,7 @@ import {GStyles} from '../../styles/GStyles';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { FontSize } from '../../utils/utils';
 
 interface HeaderBackgroundProps {
   navigation: NavigationProp<ParamListBase>;
@@ -65,7 +66,7 @@ const EditRewardsScreen = ({navigation}: HeaderBackgroundProps) => {
               paddingLeft: 10,
               paddingRight: 10,
               fontFamily: GStyles.PoppinsSemiBold,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: '#3D3D3D',
              
               fontWeight: '500',
@@ -85,7 +86,7 @@ const EditRewardsScreen = ({navigation}: HeaderBackgroundProps) => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
              
@@ -121,7 +122,7 @@ const EditRewardsScreen = ({navigation}: HeaderBackgroundProps) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontFamily: GStyles.PoppinsSemiBold,
                     color: rewordPoints === i ? 'white' : '#3D3D3D',
                     fontWeight: '500',
@@ -141,7 +142,7 @@ const EditRewardsScreen = ({navigation}: HeaderBackgroundProps) => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
              
@@ -175,7 +176,7 @@ const EditRewardsScreen = ({navigation}: HeaderBackgroundProps) => {
                 <Ionicons name="images-outline" size={100} color="#C3C3C3" />
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: FontSize(12),
                     fontFamily: GStyles.Poppins,
                     color: '#236999',
                    
@@ -218,7 +219,7 @@ const EditRewardsScreen = ({navigation}: HeaderBackgroundProps) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>

@@ -3,6 +3,7 @@ import React from 'react'
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground'
 import { GStyles } from '../../styles/GStyles'
 import { NavigProps } from '../../interfaces/NavigationPros'
+import { FontSize } from '../../utils/utils'
 
 const PaymentScreen = ({navigation} : NavigProps<null>) => {
   return (
@@ -28,7 +29,7 @@ const PaymentScreen = ({navigation} : NavigProps<null>) => {
           gap :4
         }}>
         <Text style={{
-            fontSize: 16,
+            fontSize: FontSize(16),
            fontFamily : GStyles.Poppins,
            color : GStyles.textColor['#3D3D3D']
             
@@ -52,7 +53,7 @@ const PaymentScreen = ({navigation} : NavigProps<null>) => {
           gap :4
         }}>
         <Text style={{
-            fontSize: 16,
+            fontSize: FontSize(16),
            fontFamily : GStyles.Poppins,
            color : GStyles.textColor['#3D3D3D']
             
@@ -82,7 +83,7 @@ const PaymentScreen = ({navigation} : NavigProps<null>) => {
           flex : 1
         }}>
         <Text style={{
-            fontSize: 16,
+            fontSize: FontSize(16),
            fontFamily : GStyles.Poppins,
            color : GStyles.textColor['#3D3D3D']
             
@@ -107,7 +108,7 @@ const PaymentScreen = ({navigation} : NavigProps<null>) => {
           flex : 1
         }}>
         <Text style={{
-            fontSize: 16,
+            fontSize: FontSize(16),
            fontFamily : GStyles.Poppins,
            color : GStyles.textColor['#3D3D3D']
             

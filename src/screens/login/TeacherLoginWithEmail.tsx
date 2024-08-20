@@ -34,7 +34,7 @@ import { initiateSocket } from '../../redux/services/socket';
   
   const {scale,fontScale,height,width} = Dimensions.get('window');
   
-  
+  // console.log(height);
   const TeacherLoginWithEmail = ({navigation,route}: NavigProps<any>) => {
     // console.log();
     const [loginUser, results] = useLoginTeacherMutation();
@@ -122,13 +122,13 @@ import { initiateSocket } from '../../redux/services/socket';
             style={{
               height:  height * .22,
               width:  width * .9,
-              marginRight :  width * .08,
+              marginRight : HEIGHT < 800 ? 0 : width * .08,
             //   marginBottom : - height * .015
             }}
               source={require('../../assets/images/loginAs/normalQuokka.png')}
             />
               <Text style={{
-                  fontSize: 32,
+                     fontSize: FontSize(32),
                   color: GStyles.primaryPurple,
                   fontFamily: GStyles.PoppinsBold,
               }}>{AppName}</Text>
@@ -228,8 +228,8 @@ import { initiateSocket } from '../../redux/services/socket';
   
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      height :"100%",
+      // flex: 1,
+      height :HEIGHT,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
@@ -239,7 +239,7 @@ import { initiateSocket } from '../../redux/services/socket';
       height: '100%',
     },
     loginAsContainer: {
-      paddingVertical: '20%',
+      paddingVertical: HEIGHT < 800 ? '2%' : "20%",
       alignItems: 'center',
       justifyContent : "center",
       width : width

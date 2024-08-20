@@ -11,6 +11,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetNotificationsQuery, useReadNotificationMutation } from '../../redux/apiSlices/setings/notification';
 import { RefreshControl } from 'react-native-gesture-handler';
+import { FontSize } from '../../utils/utils';
 
 const StudentNotification = ({navigation}: AdminRoutesProps) => {
   const {user} = useContextApi();
@@ -127,7 +128,7 @@ const StudentNotification = ({navigation}: AdminRoutesProps) => {
             }}>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: FontSize(12),
                 fontFamily: GStyles.PoppinsMedium,
                 color:  item?.item?.read ?GStyles?.textColor['#929394'] : GStyles?.textColor?.['#3D3D3D'],
               }}>
@@ -135,7 +136,7 @@ const StudentNotification = ({navigation}: AdminRoutesProps) => {
             </Text>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: FontSize(12),
                 fontFamily: GStyles.Poppins,
                 color:  item?.item?.read ?GStyles?.textColor['#929394'] : GStyles?.textColor?.['#3D3D3D'],
               }}>
@@ -147,7 +148,7 @@ const StudentNotification = ({navigation}: AdminRoutesProps) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                 }}>

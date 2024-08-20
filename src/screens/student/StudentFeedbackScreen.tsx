@@ -14,6 +14,7 @@ import { useContextApi } from '../../context/ContextApi';
 import { useSendFeedBackMutation } from '../../redux/apiSlices/setings/setingsSlices';
 import Toast from 'react-native-toast-message';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { FontSize } from '../../utils/utils';
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
@@ -73,7 +74,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
               lineHeight: 20,
@@ -99,7 +100,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
               lineHeight: 20,
@@ -148,7 +149,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               color: GStyles.primaryPurple,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: 'bold',
             }}>
             Cancel
@@ -170,7 +171,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               color: 'white',
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: 'bold',
             }}>
             Submit
@@ -193,7 +194,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -204,7 +205,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
           {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             simply dummy text of the printing and typesetting industry
@@ -226,7 +227,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 OK

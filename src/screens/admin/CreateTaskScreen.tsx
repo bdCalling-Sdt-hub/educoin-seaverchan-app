@@ -13,6 +13,7 @@ import {GStyles} from '../../styles/GStyles';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import { FontSize } from '../../utils/utils';
 
 const data = [
   {
@@ -125,7 +126,7 @@ const CreateTaskScreen = ({navigation}: AdminRoutesProps) => {
                 style={{
                   textAlign: 'center',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   color: '#3D3D3D',
                 }}>
                 {item.item.title === 'Custom' ? 'Custom' : item.item.title}
@@ -157,7 +158,7 @@ const CreateTaskScreen = ({navigation}: AdminRoutesProps) => {
                     />
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: FontSize(14),
                         color: '#3D3D3D',
                         fontFamily: GStyles.Poppins,
                         lineHeight: 18,
@@ -188,7 +189,7 @@ const CreateTaskScreen = ({navigation}: AdminRoutesProps) => {
                       }}>
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: FontSize(14),
                           color: 'white',
                           fontFamily: GStyles.PoppinsSemiBold,
                         }}>

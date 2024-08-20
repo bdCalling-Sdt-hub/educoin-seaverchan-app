@@ -362,7 +362,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     color: GStyles.textColor['#3D3D3D'],
 
@@ -437,7 +437,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             style={{
               textAlign: 'center',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '500',
               marginTop: 20,
               color: GStyles.textColor['#3D3D3D'],
@@ -468,7 +468,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '500',
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.Poppins,
@@ -492,7 +492,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '500',
                 color: GStyles.primaryPurple,
                 fontFamily: GStyles.Poppins,

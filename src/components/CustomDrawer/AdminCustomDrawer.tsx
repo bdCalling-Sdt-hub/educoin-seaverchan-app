@@ -9,6 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
+import { FontSize } from '../../utils/utils';
 function AdminCustomDrawer(props: any) {
   const navigation = useNavigation<any>();
   return (
@@ -40,7 +41,7 @@ function AdminCustomDrawer(props: any) {
           <Text
             style={{
               fontFamily: GStyles.ProstoOneRegular,
-              fontSize: 24,
+                fontSize: FontSize(24),
               fontWeight: '400',
               lineHeight: 34,
               color: '#FCFCFC',
@@ -61,7 +62,7 @@ function AdminCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
             letterSpacing: 0.8,
           }}
@@ -81,7 +82,7 @@ function AdminCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -104,7 +105,7 @@ function AdminCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -127,7 +128,7 @@ function AdminCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -150,7 +151,7 @@ function AdminCustomDrawer(props: any) {
           labelStyle={{
             color: '#4A2B6C',
             fontFamily: GStyles.Poppins,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '400',
 
             letterSpacing: 0.8,
@@ -187,7 +188,7 @@ function AdminCustomDrawer(props: any) {
             style={{
               color: '#3D3D3D',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '400',
               letterSpacing: 0.8,
             }}>

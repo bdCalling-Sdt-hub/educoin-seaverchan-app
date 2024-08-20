@@ -9,6 +9,7 @@ import {BarChart} from 'react-native-gifted-charts';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
 import { imageUrl } from '../../redux/api/baseApi';
+import { FontSize } from '../../utils/utils';
 
 const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
   const barData = [
@@ -84,7 +85,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: GStyles.textColor['#3D3D3D'],
               fontWeight: '600',
               letterSpacing: 0.5,
@@ -95,7 +96,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: GStyles.textColor['#3D3D3D'],
               fontWeight: '400',
               letterSpacing: 0.5,
@@ -105,7 +106,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.PoppinsSemiBold,
-              fontSize: 20,
+                 fontSize: FontSize(20),
               color: GStyles.primaryOrange,
               fontWeight: '500',
               letterSpacing: 0.5,
@@ -122,7 +123,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 12,
+                fontSize: FontSize(12),
                 color: '#797979',
                 fontWeight: '400',
                 letterSpacing: 0.5,
@@ -182,7 +183,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
           }}>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: GStyles.textColor['#3D3D3D'],
               fontFamily: GStyles.Poppins,
               fontWeight: '400',
@@ -198,7 +199,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
             }}>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: FontSize(12),
                 color: '#000000',
                 fontFamily: GStyles.Poppins,
                 fontWeight: '400',
@@ -210,7 +211,7 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
           </View>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: GStyles.textColor['#3D3D3D'],
               fontFamily: GStyles.Poppins,
               fontWeight: '400',

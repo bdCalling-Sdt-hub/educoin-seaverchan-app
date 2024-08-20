@@ -54,7 +54,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
             }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsMedium,
                 color: GStyles.textColor['#3D3D3D'],
 
@@ -111,7 +111,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
                 <Text
                   style={{
                     color: '#3D3D3D',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontWeight: '500',
                     fontFamily: GStyles.PoppinsSemiBold,
                    
@@ -128,7 +128,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
                   }}>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,
@@ -139,7 +139,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 12,
+                      fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
                       lineHeight: 18,

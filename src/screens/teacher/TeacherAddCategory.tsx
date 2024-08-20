@@ -25,6 +25,7 @@ import {useContextApi} from '../../context/ContextApi';
 import { useGetAvatarPresetQuery, useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { FontSize } from '../../utils/utils';
 
 const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
@@ -125,7 +126,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
         {/* <View>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: '500',
               fontFamily: GStyles.Poppins,
               color: GStyles.textColor['#3D3D3D'],
@@ -346,7 +347,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>
@@ -370,7 +371,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -381,7 +382,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
               color: GStyles.gray.normal,
             }}>
@@ -407,7 +408,7 @@ const TeacherAddCategory = ({navigation}: NavigProps<null>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Exit

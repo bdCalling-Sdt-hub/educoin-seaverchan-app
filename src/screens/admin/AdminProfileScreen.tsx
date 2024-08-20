@@ -10,6 +10,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Feather from 'react-native-vector-icons/Feather';
 import {GStyles} from '../../styles/GStyles';
+import { FontSize } from '../../utils/utils';
 
 const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
   return (
@@ -78,7 +79,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.PoppinsSemiBold,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
@@ -87,7 +88,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 textAlign: 'center',
                 color: '#3D3D3D',
               }}>
@@ -114,7 +115,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.PoppinsSemiBold,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
                 marginVertical: 3,
               }}>
@@ -124,7 +125,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
               <AntDesign
                 name="edit"
                 style={{
-                  fontSize: 20,
+                     fontSize: FontSize(20),
                   color: '#3D3D3D',
                   fontWeight: 'bold',
                 }}
@@ -138,7 +139,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
               }}>
               Name :{' '}
@@ -146,7 +147,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
               }}>
               Alan Marcus
             </Text>
@@ -158,7 +159,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
               }}>
               Email :
@@ -166,7 +167,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
               }}>
               deanna.curtis@example.com
             </Text>
@@ -178,7 +179,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
               }}>
               Phone number :
@@ -186,7 +187,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
               }}>
               +1 145528 455265
             </Text>
@@ -198,7 +199,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 16,
+                fontSize: FontSize(16),
                 color: '#3D3D3D',
               }}>
               Address :
@@ -206,7 +207,7 @@ const AdminProfileScreen = ({navigation}: AdminRoutesProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
               }}>
               Bushwick Brooklyn, NY, USA
             </Text>

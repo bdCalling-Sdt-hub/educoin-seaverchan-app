@@ -27,6 +27,7 @@ import { IReword } from '../../redux/interface/interface';
 import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import { useUpdateRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+import { FontSize } from '../../utils/utils';
 
 interface IRewardsUProps {
   name: string;
@@ -139,7 +140,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
 
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
 
@@ -157,7 +158,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
               paddingLeft: 10,
               paddingRight: 10,
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: '#3D3D3D',
 
               fontWeight: '500',
@@ -197,7 +198,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
             />
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
 
@@ -226,7 +227,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
               paddingLeft: 10,
               paddingRight: 10,
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: '#3D3D3D',
 
               fontWeight: '500',
@@ -280,7 +281,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
 
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontFamily: GStyles.PoppinsSemiBold,
                     color: '#3D3D3D',
 
@@ -343,7 +344,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
                   </View>
                   {/* <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: FontSize(14),
                       fontFamily: GStyles.Poppins,
                       // color:
                       //   item.item.id === customCategory
@@ -392,7 +393,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>
@@ -417,7 +418,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -428,7 +429,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
           {/* <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               textAlign: 'center',
             }}>
             New Reword is added successfully ,You can assign the reword your students
@@ -461,7 +462,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Exit
@@ -490,7 +491,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Assign to

@@ -3,6 +3,7 @@ import React from 'react'
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground'
 import { GStyles } from '../../styles/GStyles'
 import { NavigProps } from '../../interfaces/NavigationPros'
+import { FontSize } from '../../utils/utils'
 
 const StudentPassCodeWithTeacher = ({navigation,route} : NavigProps<string>) => {
   return (
@@ -25,7 +26,7 @@ const StudentPassCodeWithTeacher = ({navigation,route} : NavigProps<string>) => 
         marginBottom : "50%"
     }}>
         <Text style={{
-            fontSize: 14,
+            fontSize: FontSize(14),
             color: GStyles.gray.lightActive,
             fontFamily : GStyles.Poppins,
             marginBottom: 20,
@@ -40,7 +41,7 @@ const StudentPassCodeWithTeacher = ({navigation,route} : NavigProps<string>) => 
             alignItems: 'center'
         }}>
             <Text style={{
-                fontSize: 40,
+                   fontSize: FontSize(40),
                 // fontWeight: 'bold',
                 color: GStyles.textColor['#3D3D3D'],
                 fontFamily : GStyles.PoppinsSemiBold,

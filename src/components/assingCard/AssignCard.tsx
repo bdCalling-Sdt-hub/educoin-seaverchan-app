@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native';
 import { imageUrl } from '../../redux/api/baseApi';
 import { useCreateAssignTaskMutation } from '../../redux/apiSlices/teacher/teaherTaskSlices';
 import { useContextApi } from '../../context/ContextApi';
+import { FontSize } from '../../utils/utils';
 
 
 interface AssignCardProps {
@@ -69,7 +70,7 @@ const AssignCard = ({item,Assigned,onPress,loading,task}:AssignCardProps) => {
     }}>
       <Text
         style={{
-          fontSize: 16,
+          fontSize: FontSize(16),
           fontFamily: GStyles.PoppinsMedium,
           color: '#3D3D3D',
           // marginTop: 10,
@@ -124,7 +125,7 @@ const AssignCard = ({item,Assigned,onPress,loading,task}:AssignCardProps) => {
         <Text
           style={{
             color: Assigned ? "white" : GStyles.primaryPurple,
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontFamily: GStyles.Poppins,
           }}>
    { results.isLoading ? <ActivityIndicator /> : Assigned ?  'Assigned' : 'Assign'}

@@ -126,7 +126,7 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>

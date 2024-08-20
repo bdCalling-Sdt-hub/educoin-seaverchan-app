@@ -9,6 +9,7 @@ import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {GStyles} from '../../styles/GStyles';
+import { FontSize } from '../../utils/utils';
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
 }
@@ -25,7 +26,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
               lineHeight: 20,
@@ -50,7 +51,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
               lineHeight: 20,
@@ -74,7 +75,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               fontFamily: 'Poppins',
-              fontSize: 14,
+              fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
               lineHeight: 20,
@@ -120,7 +121,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               color: GStyles.primaryBlue,
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: 'bold',
             }}>
             Cancel
@@ -139,7 +140,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
           <Text
             style={{
               color: 'white',
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontWeight: 'bold',
             }}>
             Submit

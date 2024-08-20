@@ -14,6 +14,7 @@ import {TextInput} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {GStyles} from '../../styles/GStyles';
+import { FontSize } from '../../utils/utils';
 
 interface AdminRoutesProps {
   navigation: NavigationProp<ParamListBase>;
@@ -54,7 +55,7 @@ const AssignTaskScreen = ({navigation}: AdminRoutesProps) => {
 
       <Text
         style={{
-          fontSize: 18,
+            fontSize: FontSize(18),
           fontFamily: 'Poppins-SemiBold',
           color: '#3D3D3D',
           marginHorizontal: '4%',
@@ -107,7 +108,7 @@ const AssignTaskScreen = ({navigation}: AdminRoutesProps) => {
             <View>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.PoppinsMedium,
                   color: '#3D3D3D',
                   marginTop: 10,
@@ -158,7 +159,7 @@ const AssignTaskScreen = ({navigation}: AdminRoutesProps) => {
                 <Text
                   style={{
                     color: 'white',
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontFamily: GStyles.Poppins,
                   }}>
                   Submit

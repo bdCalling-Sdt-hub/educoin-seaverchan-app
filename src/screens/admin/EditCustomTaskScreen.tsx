@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {FlatList} from 'react-native';
+import { FontSize } from '../../utils/utils';
 
 interface HeaderBackgroundProps {
   navigation: NavigationProp<ParamListBase>;
@@ -80,7 +81,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
               paddingLeft: 10,
               paddingRight: 10,
               fontFamily: GStyles.PoppinsSemiBold,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: '#3D3D3D',
              
               fontWeight: '500',
@@ -100,7 +101,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
              
@@ -138,7 +139,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: FontSize(16),
                     fontFamily: GStyles.PoppinsSemiBold,
                     color: customPoints === i ? 'white' : '#3D3D3D',
                     fontWeight: '500',
@@ -157,7 +158,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
               fontWeight: '500',
@@ -206,7 +207,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
                   </View>
                   <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: FontSize(14),
                       fontFamily: GStyles.Poppins,
                       color:
                         item.item.title === TaskCategory
@@ -227,7 +228,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
               fontWeight: '500',
@@ -254,7 +255,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
                 color: '#3D3D3D',
               }}>
               Repeat everyday
@@ -274,7 +275,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
           }}>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: FontSize(16),
               fontFamily: GStyles.PoppinsSemiBold,
               color: '#3D3D3D',
               fontWeight: '500',
@@ -298,7 +299,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 14,
+                fontSize: FontSize(14),
                 color: '#3D3D3D',
               }}>
               Anytime
@@ -336,7 +337,7 @@ const EditCustomTaskScreen = ({navigation}: HeaderBackgroundProps) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>

@@ -20,6 +20,7 @@ import {useGetCategoriesQuery} from '../../redux/apiSlices/teacher/techerCategor
 import {imageUrl} from '../../redux/api/baseApi';
 import { useContextApi } from '../../context/ContextApi';
 import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import { FontSize } from '../../utils/utils';
 
 const CategoryScreen = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
@@ -100,7 +101,7 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
                 style={{
                   // textAlign: 'center',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   color: '#3D3D3D',
                 }}>
                 Add New Category
@@ -153,7 +154,7 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
                 style={{
                   // textAlign: 'center',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   color: '#3D3D3D',
                 }}>
                 {item.item.name === 'New Task' ? 'New Task' : item.item.name}
@@ -182,7 +183,7 @@ const CategoryScreen = ({navigation}: NavigProps<null>) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     color: 'white',
                     fontFamily: GStyles.PoppinsSemiBold,
                   }}>

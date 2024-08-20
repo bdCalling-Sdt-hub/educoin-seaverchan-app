@@ -6,6 +6,7 @@ import { Image } from 'react-native'
 import Feather from "react-native-vector-icons/Feather"
 import AntDesign from "react-native-vector-icons/AntDesign"
 import { NavigProps } from '../../../interfaces/NavigationPros'
+import { FontSize } from '../../../utils/utils'
 
 interface HomeTopHeaderProps extends NavigProps<null> {
     backgroundColor?: string,
@@ -90,7 +91,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             <Text
               style={{
                 color: 'white',
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontWeight: '800',
                 fontFamily: GStyles.Poppins,
                 lineHeight: 22,
@@ -101,7 +102,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             <Text
               style={{
                 color: 'white',
-                fontSize: 20,
+                   fontSize: FontSize(20),
                 fontFamily: GStyles.Poppins,
                 fontWeight: '800',
                 letterSpacing: 0.8,
@@ -119,7 +120,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         <Text
           style={{
             color: 'white',
-            fontSize: 16,
+            fontSize: FontSize(16),
             fontWeight: '800',
             fontFamily: GStyles.Poppins,
             lineHeight: 22,
@@ -144,7 +145,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
          }}> 
           <AntDesign name='star' size={15} color={GStyles.primaryOrange}/>
           <Text style={{
-            fontSize : 12,
+            fontSize: FontSize(12),
             fontFamily : GStyles.PoppinsSemiBold,
             color : GStyles.primaryOrange
           }}>{userDetails?.points}</Text>
@@ -155,7 +156,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
          }}> 
           <AntDesign name='staro' size={15} color={GStyles.primaryOrange}/>
           <Text style={{
-            fontSize : 12,
+            fontSize: FontSize(12),
             fontFamily : GStyles.PoppinsSemiBold,
             color : GStyles.primaryOrange
           }}>{userDetails?.pendingPoints}</Text>
@@ -166,7 +167,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
          }}> 
           <AntDesign name='staro' size={15} color={GStyles.gray.lightActive}/>
           <Text style={{
-            fontSize : 12,
+            fontSize: FontSize(12),
             fontFamily : GStyles.PoppinsSemiBold,
             color : GStyles.gray.lightActive
           }}>{userDetails?.rewardsTotal}</Text>

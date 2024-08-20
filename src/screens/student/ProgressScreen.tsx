@@ -5,6 +5,7 @@ import {GStyles} from '../../styles/GStyles';
 import {NavigProps} from '../../interfaces/NavigationPros';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { FontSize } from '../../utils/utils';
 
 const ProgressScreen = ({navigation}: NavigProps<null>) => {
   return (
@@ -64,7 +65,7 @@ const ProgressScreen = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: GStyles.textColor['#3D3D3D'],
               fontWeight: '600',
               letterSpacing: 0.5,
@@ -75,7 +76,7 @@ const ProgressScreen = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.Poppins,
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: GStyles.textColor['#3D3D3D'],
               fontWeight: '400',
               letterSpacing: 0.5,
@@ -85,7 +86,7 @@ const ProgressScreen = ({navigation}: NavigProps<null>) => {
           <Text
             style={{
               fontFamily: GStyles.PoppinsSemiBold,
-              fontSize: 20,
+                 fontSize: FontSize(20),
               color: GStyles.primaryOrange,
               fontWeight: '500',
               letterSpacing: 0.5,
@@ -102,7 +103,7 @@ const ProgressScreen = ({navigation}: NavigProps<null>) => {
             <Text
               style={{
                 fontFamily: GStyles.Poppins,
-                fontSize: 12,
+                fontSize: FontSize(12),
                 color: '#797979',
                 fontWeight: '400',
                 letterSpacing: 0.5,
@@ -144,7 +145,7 @@ const ProgressScreen = ({navigation}: NavigProps<null>) => {
           }}>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: GStyles.textColor['#3D3D3D'],
               fontFamily: GStyles.Poppins,
               fontWeight: '400',
@@ -160,7 +161,7 @@ const ProgressScreen = ({navigation}: NavigProps<null>) => {
             }}>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: FontSize(12),
                 color: '#000000',
                 fontFamily: GStyles.Poppins,
                 fontWeight: '400',
@@ -172,7 +173,7 @@ const ProgressScreen = ({navigation}: NavigProps<null>) => {
           </View>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: FontSize(12),
               color: GStyles.textColor['#3D3D3D'],
               fontFamily: GStyles.Poppins,
               fontWeight: '400',

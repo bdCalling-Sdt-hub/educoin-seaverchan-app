@@ -41,6 +41,7 @@ import { useContextApi } from '../../context/ContextApi';
 import Toast from 'react-native-toast-message';
 import { NavigProps } from '../../interfaces/NavigationPros';
 import { ITask } from '../../redux/interface/interface';
+import { FontSize } from '../../utils/utils';
 
 interface taskData {
   name: string;
@@ -210,7 +211,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
 
@@ -228,7 +229,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
               paddingLeft: 10,
               paddingRight: 10,
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               color: '#3D3D3D',
 
               fontWeight: '500',
@@ -268,7 +269,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
             />
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
 
@@ -324,7 +325,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 style={{
                   fontFamily: GStyles.PoppinsMedium,
                   backgroundColor: GStyles.gray.lightActive,
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   padding: 5,
                   borderRadius: 4,
                   textAlign: 'center',
@@ -346,7 +347,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 style={{
                   fontFamily: GStyles.PoppinsMedium,
                   backgroundColor: GStyles.primaryPurple,
-                  fontSize: 12,
+                  fontSize: FontSize(12),
                   padding: 5,
                   borderRadius: 4,
                   color: 'white',
@@ -392,7 +393,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
               <Text
               numberOfLines={1}
                 style={{
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontFamily: GStyles.PoppinsSemiBold,
                   color: '#3D3D3D',
                   fontWeight: '500',
@@ -426,7 +427,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     color:  taskData?.type === "good"  ? 'white' : GStyles.primaryPurple,
                     fontWeight: 'bold',
                   }}>
@@ -448,7 +449,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     color: taskData?.type === "bad" ?  'white' : GStyles.primaryPurple ,
                     fontWeight: 'bold',
                   }}>
@@ -509,7 +510,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                   </View>
                   <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: FontSize(14),
                       fontFamily: GStyles.Poppins,
                       color:
                       taskData.category === item.item._id
@@ -550,7 +551,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
 
@@ -628,7 +629,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
 
@@ -690,7 +691,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
             }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: FontSize(16),
                 fontFamily: GStyles.PoppinsSemiBold,
                 color: '#3D3D3D',
                 fontWeight: '500',
@@ -728,7 +729,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     color: 'white',
                     fontWeight: '500',
                     fontFamily : GStyles.Poppins
@@ -738,7 +739,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 <AntDesign
                   name="down"
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     color: 'white',
                     fontWeight: '500',
                     fontFamily : GStyles.Poppins
@@ -768,7 +769,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     color: 'white',
                     fontWeight: '500',
                     fontFamily : GStyles.Poppins
@@ -778,7 +779,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 <AntDesign
                   name="down"
                   style={{
-                    fontSize: 14,
+                    fontSize: FontSize(14),
                     color: 'white',
                     fontWeight: '500',
                     fontFamily : GStyles.Poppins
@@ -839,7 +840,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                   </View>
                   <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: FontSize(14),
                       fontFamily: GStyles.Poppins,
                       color: assignUser.includes(item.item.id)
                         ? GStyles.primaryPurple
@@ -892,7 +893,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
             style={{
               color: 'white',
               fontFamily: GStyles.Poppins,
-              fontSize: 16,
+              fontSize: FontSize(16),
               letterSpacing: 0.8,
               marginTop: 5,
             }}>
@@ -929,7 +930,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
           }}>
           <Text
             style={{
-              fontSize: 18,
+                fontSize: FontSize(18),
               fontFamily: GStyles.PoppinsMedium,
               textAlign: 'center',
               color: GStyles.textColor['#3D3D3D'],
@@ -940,7 +941,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
             style={{
               borderBottomColor: 'black',
               borderBottomWidth: 1,
-              fontSize: 16,
+              fontSize: FontSize(16),
             }}
             placeholder="number"
             keyboardType="decimal-pad"
@@ -963,7 +964,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                   color: 'white',
                   fontFamily: GStyles.Poppins,
                   textAlign: 'center',
-                  fontSize: 16,
+                  fontSize: FontSize(16),
                   fontWeight: '400',
                 }}>
                 Done

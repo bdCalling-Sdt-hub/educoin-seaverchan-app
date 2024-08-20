@@ -11,6 +11,7 @@ import BackButton from '../../components/BackButton';
 import {NavigProps} from '../../interfaces/NavigationPros';
 import {GStyles, HEIGHT} from '../../styles/GStyles';
 import LottieView from 'lottie-react-native';
+import { FontSize } from '../../utils/utils';
 
 const InternetStatusScreen = ({navigation}: NavigProps<null>) => {
   return (
@@ -28,7 +29,7 @@ const InternetStatusScreen = ({navigation}: NavigProps<null>) => {
         }}>
         <Text
           style={{
-            fontSize: 32,
+               fontSize: FontSize(32),
             fontFamily: GStyles.Poppins,
             color: 'rgb(195,195,195)',
           }}>
@@ -63,7 +64,7 @@ const InternetStatusScreen = ({navigation}: NavigProps<null>) => {
             <Text style={{
               color : GStyles?.textColor?.['#929394'],
               fontFamily : GStyles?.Poppins,
-              fontSize : 12,
+              fontSize: FontSize(12),
             }}>Please turn on internet</Text>
         </View> */}
         <View style={{
@@ -82,7 +83,7 @@ const InternetStatusScreen = ({navigation}: NavigProps<null>) => {
             />
        <Text
           style={{
-            fontSize: 24,
+              fontSize: FontSize(24),
             fontFamily: GStyles.Poppins,
             //  color: 'rgb(195,195,195)',
           }}>
