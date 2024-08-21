@@ -260,7 +260,7 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
               data={[
                 {value: completedTaskWithPercentage, color: '#FF8811', text: `${ProgressIfo?.data.totalCompletedTask}`},
                 // {value: ProgressIfo?.data.totalUnCompletedTask || 0, color: '#AB47BC', text: `${ProgressIfo?.data.totalUnCompletedTask}%`},
-                {value: AssignTaskWithPercentage || 1, color:  '#42A5F5', text: `${ProgressIfo?.data.totalAssignTask || 0}`},
+                {value:  AssignTaskWithPercentage  , color:  '#42A5F5', text: `${ProgressIfo?.data.totalAssignTask || 0}`},
               ]}
               showText
               textColor="white"

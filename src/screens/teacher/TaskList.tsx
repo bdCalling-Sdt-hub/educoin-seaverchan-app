@@ -22,7 +22,7 @@ import TaskCard from '../../components/common/Cards/TaskCard';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import {ShearTask, TaskIcons} from '../../utils/ShearData';
 import YesNoModal from '../../components/common/CustomModal/YesNoModal';
-import {FontSize} from '../../utils/utils';
+import {FontSize, isTablet} from '../../utils/utils';
 import {ActionSheet} from 'react-native-ui-lib';
 import {
   useApproveTaskMutation,
@@ -330,15 +330,16 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
         modalVisible={claimModal}
         // backButton
         setModalVisible={setClaimModal}
-        height={289}
-        width={"80%"}
+    
+        width={ isTablet() ? "40%" : "80%"}
         Radius={10}>
         <View
           style={{
             padding: 20,
             gap: 20,
             justifyContent: 'center',
-            flex: 1,
+            // flex: 1,
+            height :289,
             alignItems: 'center',
             position : "relative"
           }}>

@@ -96,7 +96,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
                 fontSize: FontSize(16),
                 fontWeight: '800',
                 fontFamily: GStyles.Poppins,
-                lineHeight: 22,
+                //lineHeight: 22,
                 letterSpacing: 1.4,
               }}>
               Welcome back
@@ -108,7 +108,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
                 fontFamily: GStyles.Poppins,
                 fontWeight: '800',
                 letterSpacing: 0.8,
-                lineHeight: 27,
+                //lineHeight: 27,
               }}>
             {userDetails?.name ? userDetails.name : ""} 
             </Text>
@@ -125,7 +125,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
             fontSize: FontSize(16),
             fontWeight: '800',
             fontFamily: GStyles.Poppins,
-            lineHeight: 22,
+            //lineHeight: 22,
             letterSpacing: 1.4,
           }}>
    {userDetails?.name ? userDetails.name : ""} 

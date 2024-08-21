@@ -78,7 +78,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
               fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
-              lineHeight: 20,
+              //lineHeight: 20,
             }}>
             Name
           </Text>
@@ -104,7 +104,7 @@ const TeacherFeedback = ({navigation}: NavigProps<null>) => {
               fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
-              lineHeight: 20,
+              //lineHeight: 20,
             }}>
             Description
           </Text>

@@ -43,7 +43,7 @@ function AdminCustomDrawer(props: any) {
               fontFamily: GStyles.ProstoOneRegular,
                 fontSize: FontSize(24),
               fontWeight: '400',
-              lineHeight: 34,
+              //lineHeight: 34,
               color: '#FCFCFC',
             }}>
             Logo name

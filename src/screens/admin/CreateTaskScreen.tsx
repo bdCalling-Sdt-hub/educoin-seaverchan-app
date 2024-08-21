@@ -161,7 +161,7 @@ const CreateTaskScreen = ({navigation}: AdminRoutesProps) => {
                         fontSize: FontSize(14),
                         color: '#3D3D3D',
                         fontFamily: GStyles.Poppins,
-                        lineHeight: 18,
+                        //lineHeight: 18,
                         fontWeight: '400',
                         letterSpacing: 0.8,
                       }}>

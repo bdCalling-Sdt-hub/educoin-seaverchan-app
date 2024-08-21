@@ -30,7 +30,7 @@ import { useContextApi } from '../../context/ContextApi';
 import { useGetEarnRewardsQuery, useGetStudentAssignRewardsQuery, useGetStudentAssignTaskQuery, useStudentAchieveActionMutation, useStudentClaimActionMutation } from '../../redux/apiSlices/student/studentSlices';
 import { imageUrl } from '../../redux/api/baseApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
-import { FontSize, removeStorageRole, removeStorageToken } from '../../utils/utils';
+import { FontSize, isTablet, removeStorageRole, removeStorageToken } from '../../utils/utils';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
@@ -366,15 +366,14 @@ const RItem = route?.params?.data
         modalVisible={claimModal}
         // backButton
         setModalVisible={setClaimModal}
-        height={289}
-        width={"80%"}
+        width={ isTablet() ? "40%" : "80%"}
         Radius={10}>
         <View
           style={{
             padding: 20,
             gap: 20,
             justifyContent: 'center',
-            flex: 1,
+            height :289,
             alignItems: 'center',
             position : "relative"
           }}>

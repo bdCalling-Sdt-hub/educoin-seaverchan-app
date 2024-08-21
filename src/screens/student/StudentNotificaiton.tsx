@@ -1,4 +1,4 @@
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
@@ -85,7 +85,7 @@ const StudentNotification = ({navigation}: AdminRoutesProps) => {
             readNotifications({token : user.token, id : item?.item?._id}).then(res=>{
               if(res.data?.success){
     
-              navigation?.navigate('TaskList',{data : "Tasks Pending"})
+              // navigation?.navigate('TaskList',{data : "Tasks Pending"})
             
               }
             }).catch(err=>{

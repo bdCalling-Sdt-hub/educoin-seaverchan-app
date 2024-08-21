@@ -56,7 +56,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   const popRef = React.useRef<PopUpModalRef>()
 
   const {user} = useContextApi();
-  const {data : categories,isLoading, refetch :iconsRefetch}  = useGetCategoriesQuery(user.token)
+  const {data : categories,isLoading, refetch :iconsRefetch}  = useGetCategoriesQuery( user.token)
   const [createTask,results] = useCreateTaskMutation()
   const [value, setValue] = React.useState<string>();
 
@@ -230,12 +230,12 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         <View
           style={{
             paddingHorizontal: '4%',
-            paddingVertical: '5%',
-            marginTop: -10,
+          
+         
           }}>
-          <View
+           <View
             style={{
-              marginVertical: 15,
+              marginTop: 15,
               flexDirection: 'row',
               gap: 10,
               alignItems: 'center',
@@ -261,7 +261,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
-              Points
+         Points 
             </Text>
             <View
               style={{
@@ -270,79 +270,32 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                 gap: 5,
               }}>
               <AntDesign name="star" size={15} color={GStyles.primaryOrange} />
-              <Text>{parseInt(customPoints)}</Text>
+              {/* <Text>{parseInt(rewordPoints)}</Text> */}
             </View>
+            
           </View>
-
-          <Slider
-            theme={{
-              disableMinTrackTintColor: GStyles.primaryOrange,
-              // maximumTrackTintColor:  GStyles.primaryOrange,
-              minimumTrackTintColor: GStyles.primaryOrange,
-              cacheTrackTintColor: GStyles.primaryOrange,
-              bubbleBackgroundColor: GStyles.primaryOrange,
-              heartbeatColor: GStyles.primaryOrange,
-            }}
-            progress={progress}
-            minimumValue={min}
-            maximumValue={max}
-            onSlidingComplete={(value: number) => {
-              setCustomPoints(value);
-              setTaskData({...taskData, points: parseInt(value)})
-            }}
-          />
-          <View
+       
+          <TextInput
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 10,
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                customPoints !== 0 && setCustomPoints(customPoints - 10);
-              }}
-              style={{
-                height: 35,
-                justifyContent: 'center',
-                //  alignItems : "center"
-              }}>
-              <Text
-                style={{
-                  fontFamily: GStyles.PoppinsMedium,
-                  backgroundColor: GStyles.gray.lightActive,
-                  fontSize: FontSize(12),
-                  padding: 5,
-                  borderRadius: 4,
-                  textAlign: 'center',
-                  width: 45,
-                }}>
-                -10
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                customPoints < max.value && setCustomPoints(customPoints + 10);
-              }}
-              style={{
-                height: 35,
-                justifyContent: 'center',
-                //  alignItems : "center"
-              }}>
-              <Text
-                style={{
-                  fontFamily: GStyles.PoppinsMedium,
-                  backgroundColor: GStyles.primaryPurple,
-                  fontSize: FontSize(12),
-                  padding: 5,
-                  borderRadius: 4,
-                  color: 'white',
-                  width: 45,
-                  textAlign: 'center',
-                }}>
-                +10
-              </Text>
-            </TouchableOpacity>
-          </View>
+              borderBottomColor: '#E2E2E2',
+              borderBottomWidth: 1,
+              width: '100%',
+              paddingLeft: 10,
+              paddingRight: 10,
+              fontFamily: GStyles.Poppins,
+              fontSize: FontSize(16),
+              color: '#3D3D3D',
+
+              fontWeight: '500',
+              letterSpacing: 0.5,
+            }}
+            onChangeText={text => setTaskData({...taskData, points: Number(text)})}
+            placeholderTextColor="gray"
+            // multiline
+            placeholder="0"
+            keyboardType='decimal-pad'
+            value={`${taskData?.points}`}
+          />
         </View>
         {/* have reword = true  */}
         <View

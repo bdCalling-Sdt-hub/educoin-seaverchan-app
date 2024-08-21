@@ -146,7 +146,7 @@ const StudentsProgressAndInfo = ({navigation,route}: HomeNavigProps<IFetchStatus
                   fontSize: FontSize(16),
                   fontWeight: '800',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 1.4,
                 }}>
                 {studentUser?.data?.name}

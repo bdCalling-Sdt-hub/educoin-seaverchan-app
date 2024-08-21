@@ -80,7 +80,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '800',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 1.4,
                 }}>
                 Welcome back
@@ -92,7 +92,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                   fontFamily: GStyles.Poppins,
                   fontWeight: '800',
                   letterSpacing: 0.8,
-                  lineHeight: 27,
+                  //lineHeight: 27,
                 }}>
                 Aarav Sharma
               </Text>
@@ -176,7 +176,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                 fontSize: FontSize(14),
                 fontWeight: '400',
                 fontFamily: GStyles.Poppins,
-                lineHeight: 19,
+                //lineHeight: 19,
               }}>
               View All
             </Text>
@@ -204,7 +204,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                 fontSize: FontSize(16),
                 fontWeight: '600',
                 fontFamily: GStyles.PoppinsSemiBold,
-                lineHeight: 22,
+                //lineHeight: 22,
                 letterSpacing: 0.8,
               }}>
               Dan’s family
@@ -215,7 +215,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                 fontSize: FontSize(14),
                 fontWeight: '400',
                 fontFamily: GStyles.Poppins,
-                lineHeight: 19,
+                //lineHeight: 19,
                 letterSpacing: 0.8,
               }}>
               Kids Count : 26
@@ -297,7 +297,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                     fontSize: FontSize(12),
                     color: '#797979',
                     fontFamily: GStyles.Poppins,
-                    lineHeight: 18,
+                    //lineHeight: 18,
                     fontWeight: '400',
                     letterSpacing: 0.8,
                   }}>
@@ -308,7 +308,7 @@ const AdminHomeScreen = ({navigation}: AdminHOmeProps) => {
                     fontSize: FontSize(12),
                     color: '#797979',
                     fontFamily: GStyles.Poppins,
-                    lineHeight: 18,
+                    //lineHeight: 18,
                     fontWeight: '400',
                     letterSpacing: 0.8,
                   }}>

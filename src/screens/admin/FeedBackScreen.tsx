@@ -29,7 +29,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
               fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
-              lineHeight: 20,
+              //lineHeight: 20,
             }}>
             Teacher Name
           </Text>
@@ -54,7 +54,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
               fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
-              lineHeight: 20,
+              //lineHeight: 20,
             }}>
             Student Name
           </Text>
@@ -78,7 +78,7 @@ const FeedBackScreen = ({navigation}: AdminRoutesProps) => {
               fontSize: FontSize(14),
               color: '#555656',
               marginBottom: 10,
-              lineHeight: 20,
+              //lineHeight: 20,
             }}>
             Description
           </Text>

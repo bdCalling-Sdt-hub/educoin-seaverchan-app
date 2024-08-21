@@ -96,7 +96,7 @@ const StudentHomeScreen = ({
                   fontSize: FontSize(16),
                   fontWeight: '800',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 1.4,
                 }}>
                 Rina Karina
@@ -386,7 +386,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -397,7 +397,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -508,7 +508,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -519,7 +519,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -719,7 +719,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -730,7 +730,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -839,7 +839,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -850,7 +850,7 @@ const StudentHomeScreen = ({
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>

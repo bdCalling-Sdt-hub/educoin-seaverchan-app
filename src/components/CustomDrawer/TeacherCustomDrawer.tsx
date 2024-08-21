@@ -70,7 +70,7 @@ function TeacherCustomDrawer(props: any) {
               fontFamily: GStyles.SarinaRegular,
                 fontSize: FontSize(24),
               fontWeight: '400',
-              lineHeight: 34,
+              //lineHeight: 34,
               color: '#FCFCFC',
               marginTop: 10,
             }}>

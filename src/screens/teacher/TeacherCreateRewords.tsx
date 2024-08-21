@@ -27,6 +27,7 @@ import { imageUrl } from '../../redux/api/baseApi';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 import { useCreateRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
 import { FontSize } from '../../utils/utils';
+import { ScrollView } from 'react-native';
 
 interface IRewardsUProps {
   name: string;
@@ -123,7 +124,7 @@ const TeacherCreateRewards = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal: '4%',
@@ -370,7 +371,7 @@ const TeacherCreateRewards = ({navigation}: NavigProps<null>) => {
             )}
           />
         </View>
-      </View>
+      </ScrollView>
       <View
         style={{
           paddingHorizontal: '4%',

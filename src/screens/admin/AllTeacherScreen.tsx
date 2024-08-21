@@ -78,7 +78,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Dan’s family
@@ -89,7 +89,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -171,7 +171,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -182,7 +182,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -229,7 +229,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Esther
@@ -240,7 +240,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -322,7 +322,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -333,7 +333,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -380,7 +380,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Dan’s family
@@ -391,7 +391,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -473,7 +473,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -484,7 +484,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -531,7 +531,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Dan’s family
@@ -542,7 +542,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -624,7 +624,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -635,7 +635,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -682,7 +682,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Dan’s family
@@ -693,7 +693,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -775,7 +775,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -786,7 +786,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -833,7 +833,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Dan’s family
@@ -844,7 +844,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -926,7 +926,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -937,7 +937,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -984,7 +984,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Dan’s family
@@ -995,7 +995,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -1077,7 +1077,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -1088,7 +1088,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -1135,7 +1135,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(16),
                   fontWeight: '600',
                   fontFamily: GStyles.PoppinsSemiBold,
-                  lineHeight: 22,
+                  //lineHeight: 22,
                   letterSpacing: 0.8,
                 }}>
                 Dan’s family
@@ -1146,7 +1146,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                   fontSize: FontSize(14),
                   fontWeight: '400',
                   fontFamily: GStyles.Poppins,
-                  lineHeight: 19,
+                  //lineHeight: 19,
                   letterSpacing: 0.8,
                 }}>
                 Kids Count : 26
@@ -1228,7 +1228,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -1239,7 +1239,7 @@ const AllTeacherScreen = ({navigation}: AdminRoutesProps) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>

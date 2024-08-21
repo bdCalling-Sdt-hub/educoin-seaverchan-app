@@ -131,7 +131,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>
@@ -142,7 +142,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
                       fontSize: FontSize(12),
                       color: '#797979',
                       fontFamily: GStyles.Poppins,
-                      lineHeight: 18,
+                      //lineHeight: 18,
                       fontWeight: '400',
                       letterSpacing: 0.8,
                     }}>

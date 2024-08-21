@@ -128,12 +128,16 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
             </Pressable>
           </View>
         </View>
-        <View style={styles.buttonContain} >
-        <NormalButtons title='Go' BtnColor={GStyles?.primaryOrange} onPress={()=>{
+        {/* <View style={styles.buttonContain} >
+        </View> */}
+      </ScrollView>
+       <View style={{
+        // marginVertical : 10
+       }}>
+       <NormalButtons title='Go' BtnColor={GStyles?.primaryOrange} onPress={()=>{
           handleGoPress()
         }} />
-        </View>
-      </ScrollView>
+       </View>
 
       <TextInput
         ref={textInputRef}
@@ -161,7 +165,7 @@ export default ChildLoginScreen;
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    width: '100%',
+    // width: '100%',
     backgroundColor: 'white',
   },
 
@@ -169,19 +173,19 @@ const styles = StyleSheet.create({
        fontSize: FontSize(32),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '600',
-    // lineHeight: 48,
+    // //lineHeight: 48,
     color: '#3D3D3D',
     textAlign: 'center',
     marginVertical: 30,
   },
   animationContainer: {
-    width: '100%',
+    // width: '100%',
     alignItems: 'center',
     gap: 40,
   },
   animationCircle: {
-    width: 186,
-    height: 186,
+    width: 165,
+    aspectRatio : 1,
     borderRadius: 100,
     backgroundColor: GStyles.primaryOrange,
     justifyContent: 'center',
@@ -191,13 +195,13 @@ const styles = StyleSheet.create({
       fontSize: FontSize(18),
     fontFamily: GStyles.Poppins,
     fontWeight: '400',
-    lineHeight: 27,
+    //lineHeight: 27,
     color: '#3D3D3D',
     textAlign: 'center',
   },
   inputContainer: {
     flexDirection: 'row',
-    width: '100%',
+    // width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -215,12 +219,12 @@ const styles = StyleSheet.create({
        fontSize: FontSize(25),
     fontFamily: GStyles.Poppins,
     fontWeight: '600',
-    lineHeight: 48,
+    //lineHeight: 48,
     color: '#3D3D3D',
     textAlign: 'center',
   },
   buttonContain: {
-    width: '100%',
+    // width: '100%',
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginTop: '40%',
@@ -237,7 +241,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize(16),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '400',
-    lineHeight: 18,
+    //lineHeight: 18,
     color: 'white',
     textAlign: 'center',
   },

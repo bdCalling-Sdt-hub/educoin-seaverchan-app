@@ -39,7 +39,7 @@ const BackButton = ({title, onPress, style, icon, iconStyle}: ButtonProps) => {
           style={{
             color: '#6C6E70',
             fontSize: FontSize(18),
-            lineHeight: 21,
+            //lineHeight: 21,
 
             fontWeight: '600',
             textAlign: 'center',

@@ -28,6 +28,7 @@ import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlic
 import { imageUrl } from '../../redux/api/baseApi';
 import { useUpdateRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
 import { FontSize } from '../../utils/utils';
+import { ScrollView } from 'react-native';
 
 interface IRewardsUProps {
   name: string;
@@ -113,7 +114,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal: '4%',
@@ -359,7 +360,7 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
             )}
           />
         </View>
-      </View>
+      </ScrollView>
       <View
         style={{
           paddingHorizontal: '4%',

@@ -81,7 +81,7 @@ const HeaderBackground = ({
             style={{
               fontFamily: GStyles.PoppinsSemiBold,
                  fontSize: FontSize(20),
-              lineHeight: 30,
+              //lineHeight: 30,
               textAlign: 'center',
               color: 'white',
             }}>
