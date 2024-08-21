@@ -12,7 +12,7 @@ import React from 'react';
 import {GStyles} from '../../styles/GStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import { FontSize } from '../../utils/utils';
+import { FontSize, isTablet } from '../../utils/utils';
 import { AppName } from '../../styles/AppDetails';
 
 
@@ -94,7 +94,7 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
           style={{
             height : "60%",
             width:  "100%",
-            marginRight :  "10%",
+            marginRight : isTablet() ? "2%" :  "10%",
             // marginBottom : - height * .015
           }}
             source={require('../../assets/images/loginAs/normalQuokka.png')}
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '85%',
-    height: 84,
+    height: "20%",
     backgroundColor: '#9556D7',
     borderRadius: 100,
     justifyContent: 'center',

@@ -314,7 +314,7 @@ const RItem = route?.params?.data
             padding: 20,
             gap: 20,
             justifyContent: 'center',
-            flex: 1,
+            // flex: 1,
           }}>
           <Text
             style={{

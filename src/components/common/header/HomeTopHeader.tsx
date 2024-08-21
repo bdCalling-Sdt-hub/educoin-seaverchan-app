@@ -70,7 +70,9 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
         }}>
 
     
-       <TouchableOpacity>
+       <TouchableOpacity onPress={()=>{
+        navigation?.navigate("TeacherProfile")
+       }}>
        {
           userDetails?.image && <Image
           style={{

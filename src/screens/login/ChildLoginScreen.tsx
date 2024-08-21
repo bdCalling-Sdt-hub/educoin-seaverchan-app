@@ -94,7 +94,7 @@ const ChildLoginScreen = ({navigation}: NavigProps<null>) => {
   return (
     <View style={styles.container}>
       <BackButton />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.welcomeText}>Welcome!</Text>
         <View style={styles.animationContainer}>
           <View style={styles.animationCircle}>
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
        fontSize: FontSize(32),
     fontFamily: GStyles.PoppinsSemiBold,
     fontWeight: '600',
-    lineHeight: 48,
+    // lineHeight: 48,
     color: '#3D3D3D',
     textAlign: 'center',
     marginVertical: 30,

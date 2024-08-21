@@ -915,7 +915,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             padding: 20,
             gap: 20,
             justifyContent: 'center',
-            flex: 1,
+            // flex: 1,
           }}>
           <Text
             style={{
@@ -967,7 +967,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         modalVisible={successModal}
         backButton
         setModalVisible={setSuccessModal}
-        height={'30%'}
+  
         width={'85%'}
         Radius={10}>
         <View
@@ -975,7 +975,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             padding: 20,
             gap: 20,
             justifyContent: 'center',
-            flex: 1,
+            // flex: 1,
           }}>
           <Text
             style={{

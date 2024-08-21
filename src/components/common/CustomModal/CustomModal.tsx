@@ -54,11 +54,12 @@ const CustomModal = ({
             borderTopRightRadius: onlyTopRadius && 9,
             borderTopLeftRadius: onlyTopRadius && 9,
             backgroundColor: 'white',
-            height: height ? height : '50%',
+            // height: height ? height : '50%',
             width: width ? width : '90%',
             padding: 10,
             justifyContent: center && 'center',
             position: 'relative',
+            
           }}>
           {backButton && (
             <TouchableOpacity

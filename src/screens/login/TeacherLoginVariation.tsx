@@ -12,7 +12,7 @@ import React from 'react';
 import {GStyles, HEIGHT} from '../../styles/GStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {FontSize, setStorageRole, setStorageToken} from '../../utils/utils';
+import {FontSize, isTablet, setStorageRole, setStorageToken} from '../../utils/utils';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AppName} from '../../styles/AppDetails';
 import {onGoogleButtonPress} from '../../utils/google';
@@ -79,7 +79,7 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
               style={{
                 height: "60%",
                 width: "90%",
-                marginRight: "5%",
+                marginRight: isTablet() ? "2%" : "10%",
                 // marginBottom: "5%",
               }}
               source={require('../../assets/images/loginAs/normalQuokka.png')}

@@ -40,6 +40,7 @@ import {
 } from 'react-native-ui-lib';
 import {
   FontSize,
+  isTablet,
   removeStorageRole,
   removeStorageToken,
 } from '../../utils/utils';
@@ -321,7 +322,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           data={classes?.data?.filter(classe =>
             search ? classe.className.includes(search) : classe,
           ) }
-          numColumns={2}
+          numColumns={ 2}
 
           // onEndReached={classes?.data?.length ? loadMoreClasses : () => {}}
           // onEndReachedThreshold={0}
@@ -425,13 +426,14 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         Radius={8}
-        height={'33%'}
+        // height={'33%'}
         width={'80%'}
         backButton>
         <View
           style={{
             gap: 15,
             marginTop: 10,
+            marginBottom : 20
           }}>
           <Text
             style={{

@@ -228,8 +228,8 @@ import { initiateSocket } from '../../redux/services/socket';
   
   const styles = StyleSheet.create({
     container: {
-      // flex: 1,
-      height :HEIGHT,
+      flex: 1,
+      // height :HEIGHT,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',

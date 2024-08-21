@@ -190,7 +190,7 @@ const StudentFeedback = ({navigation}: AdminRoutesProps) => {
             padding: 20,
             gap: 20,
             justifyContent: 'center',
-            flex: 1,
+            // flex: 1,
           }}>
           <Text
             style={{

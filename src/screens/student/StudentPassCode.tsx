@@ -30,7 +30,7 @@ const StudentPassCode = ({navigation} : NavigProps<null>) => {
         alignItems: 'center',
         justifyContent: 'center',
         flex : 1,
-        marginBottom : "50%"
+        // marginBottom : "50%"
     }}>
         <Text style={{
             fontSize: FontSize(14),
