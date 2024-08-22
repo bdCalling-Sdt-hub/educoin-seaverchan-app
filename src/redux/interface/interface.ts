@@ -117,7 +117,7 @@ export interface ITask {
   __v: number;
 }
 
-export interface ITasks extends IFetchStatus {
+export interface ITasks extends IFetchStatus, IFetchPagination {
   data: Array<ITask>;
 }
 export interface IReword {

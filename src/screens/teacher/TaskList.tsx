@@ -28,6 +28,7 @@ import {
   useApproveTaskMutation,
   useGetPendingTaskQuery,
   useGetTaskQuery,
+  useLazyGetTaskQuery,
 } from '../../redux/apiSlices/teacher/teaherTaskSlices';
 import {imageUrl} from '../../redux/api/baseApi';
 import {useContextApi} from '../../context/ContextApi';
@@ -36,11 +37,13 @@ import { RefreshControl } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
 import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
-
+import debounce from 'lodash.debounce';
 const TaskList = ({navigation,route}: NavigProps<string>) => {
-  console.log(route?.params?.data);
+  const [taskPage, setTaskPage] = useState(1);
+  // console.log(route?.params?.data);
   const {user} = useContextApi();
-  const {data: tasks, isLoading : taskLoading, refetch : taskRefetch} = useGetTaskQuery(user.token);
+  const {data: tasks, isLoading :taskLoading , refetch : taskRefetch} = useGetTaskQuery({token : user.token,page : taskPage});
+  const [fetchItems, { isFetching : taskFetching  ,currentData  }] = useLazyGetTaskQuery();
   const {data : categories} = useGetCategoriesQuery(user?.token);
   // console.log(tasks);
   const {data: pendingTasks, isLoading : pendingTaskIsLoading, refetch : pendingTskRefetch} = useGetPendingTaskQuery(user.token);
@@ -56,7 +59,12 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
   const [isYes, setIsYes] = React.useState(false);
   const [claimModal, setClaimModal] = React.useState(false);
   // console.log(selectItem);
+
+  const [allTask, setAllTask] = useState<Array<ITask>>([]);
+
+
   useEffect(() => {
+    loadItems()
     ShearTask;
     setReload(false);
     if(route?.params?.data ){
@@ -64,6 +72,28 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
     }
   }, [reLoad,route?.params?.data]);
 
+  const loadItems = async () => {
+    try {
+      const response = await fetchItems({ token : user?.token , page : taskPage  }).unwrap();
+       setAllTask(allTask?.concat(response?.data));
+      setTaskPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  const handleLoadMore = React.useCallback(
+    debounce(() => {
+      if ( currentData?.pagination?.totalPage >= taskPage && !taskFetching) {  
+        loadItems();
+      }
+    }, 500), 
+    [ taskPage]
+  );
+
+
+// console.log(taskPage);
 
   const bottom = useSharedValue(0)
   
@@ -88,6 +118,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
  
   
   },[claimModal,route])
+
 
 
 
@@ -121,7 +152,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
       {op === 'Task List' && (
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={tasks?.data}
+          data={allTask }
           contentContainerStyle={{
             gap: 10,
             paddingHorizontal: '4%',
@@ -135,9 +166,9 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
           refreshControl={<RefreshControl   onRefresh={() => taskRefetch()}
           refreshing={taskLoading} colors={[GStyles?.primaryPurple]} />}
 
-       
-    
-          keyExtractor={item => item._id}
+         onEndReached={handleLoadMore}
+          onEndReachedThreshold={0}
+          keyExtractor={item => item._id + Math?.random() * 10000000000 }
           renderItem={item => (
             <>
             {/* {console.log(item.item.category.image)} */}

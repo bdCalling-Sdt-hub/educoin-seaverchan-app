@@ -291,7 +291,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         maximumTrackTintColor={ GStyles?.primaryOrange } // Green color for positive
         thumbTintColor={ GStyles?.primaryYellow } // Change thumb color
       />
-      <View
+      {/* <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
@@ -342,7 +342,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
                 +10
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
        
           <TextInput
             style={{

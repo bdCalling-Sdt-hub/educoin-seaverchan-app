@@ -66,7 +66,8 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
     <View style={styles.container}>
       <LinearGradient
         style={{
-          height: HEIGHT,
+          flex :1,
+          height: "100%",
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -152,7 +153,9 @@ const TeacherLoginVariation = ({navigation}: LoginAsProps) => {
         </View>
       </LinearGradient>
 
-      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
+      <StatusBar backgroundColor={'white'} barStyle="dark-content" 
+      // translucent
+       />
     </View>
   );
 };

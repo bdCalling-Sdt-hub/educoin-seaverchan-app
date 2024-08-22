@@ -48,8 +48,7 @@ const StudentCard = ({
       }}>
       <View
         style={{
-          width: 61,
-          height: 61,
+        
           borderWidth: 1,
           borderColor: imgBorderColor ? imgBorderColor : GStyles.primaryBlue,
           padding: 3,

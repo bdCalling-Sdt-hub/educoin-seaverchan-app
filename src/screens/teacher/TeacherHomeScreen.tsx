@@ -279,11 +279,11 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           // )}
           renderItem={({item, index}) => (
             <View key={index} style={{}}>
-              <Image
+              {/* <Image
                 source={{
                   uri: imageUrl + item?.profile,
                 }}
-              />
+              /> */}
 
               <StudentCard
                 imgBorderColor={GStyles.primaryPurple}

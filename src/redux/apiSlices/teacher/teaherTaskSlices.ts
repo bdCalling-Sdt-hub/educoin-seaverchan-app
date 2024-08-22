@@ -4,8 +4,8 @@ import {IAssignTasks, IPendingTasks, ITasks} from '../../interface/interface';
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
     getTask: builder.query<ITasks, unknown>({
-      query: token => ({
-        url: `/task`,
+      query: ({token,page}) => ({
+        url: `/task?page=${page}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -90,6 +90,7 @@ const authSlice = api.injectEndpoints({
 
 export const {
   useGetTaskQuery,
+  useLazyGetTaskQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useGetPendingTaskQuery,
