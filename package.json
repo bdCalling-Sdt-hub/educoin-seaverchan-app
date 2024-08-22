@@ -12,6 +12,7 @@
   "dependencies": {
     "@dotlottie/react-player": "^1.6.19",
     "@notifee/react-native": "^7.8.2",
+    "@react-native-clipboard/clipboard": "^1.14.1",
     "@react-native-community/netinfo": "^11.3.2",
     "@react-native-community/slider": "^4.5.2",
     "@react-native-firebase/app": "^20.4.0",
