@@ -32,7 +32,6 @@ import {
   TaskIcons,
 } from '../../utils/ShearData';
 import {useSharedValue, withSpring, withTiming} from 'react-native-reanimated';
-import {Slider} from 'react-native-awesome-slider';
 import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
 import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
 import { imageUrl } from '../../redux/api/baseApi';
@@ -42,6 +41,7 @@ import Toast from 'react-native-toast-message';
 import { NavigProps } from '../../interfaces/NavigationPros';
 import { ITask } from '../../redux/interface/interface';
 import { FontSize } from '../../utils/utils';
+import Slider from '@react-native-community/slider';
 
 interface taskData {
   name: string;
@@ -75,40 +75,40 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
 
 
 
-  const handleImagePick = async (option: 'camera' | 'library') => {
-    try {
-      if (option === 'camera') {
-        const result = await launchCamera({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
+  // const handleImagePick = async (option: 'camera' | 'library') => {
+  //   try {
+  //     if (option === 'camera') {
+  //       const result = await launchCamera({
+  //         mediaType: 'photo',
+  //         maxWidth: 500,
+  //         maxHeight: 500,
+  //         quality: 0.5,
+  //         includeBase64: true,
+  //       });
 
-        if (!result.didCancel) {
-          setCustomImage(result?.assets![0].uri);
-          // console.log(result);
-        }
-      }
-      if (option === 'library') {
-        const result = await launchImageLibrary({
-          mediaType: 'photo',
-          maxWidth: 500,
-          maxHeight: 500,
-          quality: 0.5,
-          includeBase64: true,
-        });
+  //       if (!result.didCancel) {
+  //         setCustomImage(result?.assets![0].uri);
+  //         // console.log(result);
+  //       }
+  //     }
+  //     if (option === 'library') {
+  //       const result = await launchImageLibrary({
+  //         mediaType: 'photo',
+  //         maxWidth: 500,
+  //         maxHeight: 500,
+  //         quality: 0.5,
+  //         includeBase64: true,
+  //       });
 
-        if (!result.didCancel) {
-          setCustomImage(result?.assets![0].uri);
-          // console.log(result);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //       if (!result.didCancel) {
+  //         setCustomImage(result?.assets![0].uri);
+  //         // console.log(result);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const progress = useSharedValue(customPoints);
   const min = useSharedValue(0);
@@ -245,8 +245,6 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
         <View
           style={{
             paddingHorizontal: '4%',
-          
-         
           }}>
            <View
             style={{
@@ -276,7 +274,7 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
-         Points Required
+         Points 
             </Text>
             <View
               style={{
@@ -288,6 +286,77 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
               {/* <Text>{parseInt(rewordPoints)}</Text> */}
             </View>
             
+          </View>
+          <Slider
+        style={{
+          width: '100%',
+          height: 40,
+        }}
+        vertical
+        minimumValue={-500} // Set the min value (for negative)
+        maximumValue={500}  // Set the max value (for positive)
+        step={10}            // Set the increment/decrement steps
+        value={ typeof taskData?.points === 'number' ? taskData?.points : 0}
+                   // Start at the middle (0)
+
+        onValueChange={(value)=>{
+          setTaskData({...taskData,points : value});
+        }}
+        minimumTrackTintColor={ GStyles?.primaryPurple } // Red color for negative
+        maximumTrackTintColor={ GStyles?.primaryOrange } // Green color for positive
+        thumbTintColor={ GStyles?.primaryYellow } // Change thumb color
+      />
+      <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              // marginTop: 10,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                taskData?.points > -495 ? setTaskData({...taskData,points : taskData?.points - 10}) :  setTaskData({...taskData,points : -500});
+              }}
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.gray.lightActive,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  textAlign: 'center',
+                  width: 45,
+                }}>
+                -10
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                taskData?.points < 495 ? setTaskData({...taskData,points : Number(taskData?.points) + 10}) :  setTaskData({...taskData,points : 500});
+              }}
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.primaryPurple,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  color: 'white',
+                  width: 45,
+                  textAlign: 'center',
+                }}>
+                +10
+              </Text>
+            </TouchableOpacity>
           </View>
        
           <TextInput
@@ -304,7 +373,9 @@ const EditTeacherTask = ({navigation,route}: NavigProps<ITask>) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            onChangeText={text => setTaskData({...taskData, points: Number(text)})}
+            onChangeText={text => {
+              setTaskData({...taskData,points : text});
+            }}
             placeholderTextColor="gray"
             // multiline
             placeholder="0"

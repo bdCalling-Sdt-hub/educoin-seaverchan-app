@@ -11,7 +11,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import { NavigProps } from '../../interfaces/NavigationPros';
 import { GStyles } from '../../styles/GStyles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { FlatList } from 'react-native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
@@ -28,6 +27,8 @@ import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
 import LoaderScreen from '../../components/Loader/LoaderScreen';
 import { FontSize } from '../../utils/utils';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TeacherAddNewStudent = ({ navigation }: NavigProps<null>) => {
   const [createStudent, results] = useCreateStudentMutation();
@@ -44,6 +45,13 @@ const TeacherAddNewStudent = ({ navigation }: NavigProps<null>) => {
     profile: null,
   });
   const [dateModal, setDateModal] = useState(false);
+
+
+  const handleGenerateRandomNumber=()=>{
+    /// 6 digits of random
+    const randomNumber = Math.floor(100000 + Math.random() * 900000);
+    setStudentInfo({...studentInfo, password: randomNumber.toString() });
+  }
 
   const handleClassInfoSubmit = useCallback(
     (UData) => {
@@ -186,8 +194,15 @@ classLoading || avatarLoading ?<View style={{
 
 <View>
   <Require title="Passcode" />
-  <TextInput
+ <View style={{
+  flexDirection : 'row',
+  justifyContent : 'center',
+  alignItems : 'center',
+  gap : 10
+ }}>
+ <TextInput
     style={{
+      flex : 1,
       borderBottomColor: 'black',
       borderBottomWidth: 1,
       borderRadius: 2,
@@ -199,7 +214,26 @@ classLoading || avatarLoading ?<View style={{
     onChangeText={(text) => setStudentInfo({ ...studentInfo, password: text })}
     placeholder="123456"
     placeholderTextColor={GStyles.gray.lightHover}
+    value={studentInfo?.password}
   />
+  <TouchableOpacity onPress={()=>{
+    handleGenerateRandomNumber()
+  }} style={{
+    width: 40,
+    height: 40,
+    borderRadius: 30,
+    backgroundColor: GStyles.primaryPurple,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 2,
+  }}>
+  <MaterialCommunityIcons name='autorenew' size={30} color={GStyles?.white}/>
+  </TouchableOpacity>
+ </View>
 </View>
 
 <View>

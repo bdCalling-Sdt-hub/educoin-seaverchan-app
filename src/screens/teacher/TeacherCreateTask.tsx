@@ -65,7 +65,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   const [taskData, setTaskData] = React.useState<taskData>({
     category : categories?.data![0]?._id || "",
     name: "",
-    points: "",
+    points: 0,
     type: 'good',
     repeat: 'everyday',
   });
@@ -98,7 +98,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   
 
   const handleCreateTask = useCallback((UData : taskData) => {
-    UData.points = value;
+
      if(!UData?.points){
       UData.points = parseInt(customPoints)
      }
@@ -281,11 +281,11 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         minimumValue={-500} // Set the min value (for negative)
         maximumValue={500}  // Set the max value (for positive)
         step={10}            // Set the increment/decrement steps
-        value={ typeof value === 'number' ? value : 0}
+        value={ typeof taskData?.points === 'number' ? taskData?.points : 0}
                    // Start at the middle (0)
 
         onValueChange={(value)=>{
-          setValue(value);
+          setTaskData({...taskData,points : value});
         }}
         minimumTrackTintColor={ GStyles?.primaryPurple } // Red color for negative
         maximumTrackTintColor={ GStyles?.primaryOrange } // Green color for positive
@@ -299,7 +299,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             }}>
             <TouchableOpacity
               onPress={() => {
-                value > -495 ? setValue(Number(value) - 10) : setValue(-500);
+                taskData?.points > -495 ? setTaskData({...taskData,points : taskData?.points - 10}) :  setTaskData({...taskData,points : -500});
               }}
               style={{
                 height: 35,
@@ -321,7 +321,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                value < 495 ? setValue(Number(value) + 10) : setValue(500);
+                taskData?.points < 495 ? setTaskData({...taskData,points : Number(taskData?.points) + 10}) :  setTaskData({...taskData,points : 500});
               }}
               style={{
                 height: 35,
@@ -358,12 +358,14 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            onChangeText={text => setValue(text)}
+            onChangeText={text => {
+              setTaskData({...taskData,points : text});
+            }}
             placeholderTextColor="gray"
             // multiline
             placeholder="0"
             keyboardType='decimal-pad'
-            value={`${value}`}
+            value={`${taskData?.points}`}
           />
         </View>
         {/* have reword = true  */}
