@@ -145,7 +145,11 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
          
       </View>
     </ImageBackground>
-    <StatusBar backgroundColor={'white'} barStyle="dark-content" />
+    <StatusBar 
+    backgroundColor={'white'} 
+    barStyle="dark-content"
+    //  translucent 
+     />
           </LinearGradient>
     
   );
@@ -158,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height:  height,
+    height:  "100%",
     // backgroundColor: 'white',
   },
   bgImage: {
