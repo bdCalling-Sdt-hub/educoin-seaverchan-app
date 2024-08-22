@@ -162,7 +162,7 @@ classLoading || avatarLoading ?<View style={{
 </View>
 
 <View>
-  <Require title="Date of birth" />
+  <Require nonRequired title="Date of birth" />
   <TouchableOpacity
     activeOpacity={0.5}
     onPress={() => setDateModal(true)}

@@ -105,7 +105,7 @@ const [createTeacher, results]= useCreateTeacherMutation()
             title: res?.data?.message,
             buttonText : "Ok"
           })
-          navigation.navigate('TeacherLoginWithEmail',res.data);
+          navigation.navigate('TeacherLoginWithEmail',{data : UData?.email});
         }
         if(res?.error){
           popRef?.current?.open({

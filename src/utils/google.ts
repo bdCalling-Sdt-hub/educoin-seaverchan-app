@@ -11,11 +11,11 @@ export async function onGoogleButtonPress() {
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     return await auth().signInWithCredential(googleCredential);
   } catch (error) {
-    console.warn('Google Sign-In Error:', error);
+    // console.warn('Google Sign-In Error:', error);
     if (error.code === 'DEVELOPER_ERROR') {
-      alert('Developer error: Please check your Google API and Firebase configuration.');
+      // alert('Developer error: Please check your Google API and Firebase configuration.');
     } else {
-      alert('An error occurred: ' + error.message);
+      // alert('An error occurred: ' + error.message);
     }
   }
 }

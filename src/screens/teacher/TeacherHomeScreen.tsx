@@ -404,7 +404,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         style={{
           width: 68,
           height: 68,
-          backgroundColor: GStyles.primaryPurple,
+          backgroundColor: "green",
           borderRadius: 100,
           justifyContent: 'center',
           alignItems: 'center',

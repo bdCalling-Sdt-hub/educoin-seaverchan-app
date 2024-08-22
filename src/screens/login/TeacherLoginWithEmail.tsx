@@ -36,7 +36,7 @@ import { initiateSocket } from '../../redux/services/socket';
   
   // console.log(height);
   const TeacherLoginWithEmail = ({navigation,route}: NavigProps<any>) => {
-    // console.log();
+    console.log(route?.params?.data);
     const [loginUser, results] = useLoginTeacherMutation();
 
     const popRef = React.useRef<PopUpModalRef>()
@@ -47,7 +47,7 @@ import { initiateSocket } from '../../redux/services/socket';
     const {setUser, user} = useContextApi();
   
     const [userInfo, setUserInfo] = React.useState<{email : string, password : string}>({
-      email : route?.params?.data?.email ?route?.params?.data?.email :'',
+      email : route?.params?.data ? route?.params?.data :'',
       password : ''
     });
 
@@ -95,6 +95,15 @@ import { initiateSocket } from '../../redux/services/socket';
       }
       Keyboard.dismiss()
     },[userInfo])
+
+    React.useEffect(()=>{
+      if(route?.params?.data){
+        setUserInfo({
+           email : route?.params?.data ? route?.params?.data :'',
+      password : ''
+        })
+      }
+    },[route?.params?.data])
       
   
     return (

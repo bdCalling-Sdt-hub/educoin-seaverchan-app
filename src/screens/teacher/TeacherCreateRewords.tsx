@@ -158,7 +158,7 @@ const TeacherCreateRewards = ({navigation}: NavigProps<null>) => {
                 fontWeight: '500',
                 letterSpacing: 0.5,
               }}>
-              Reword Name
+              Reward Name
             </Text>
           </View>
           <TextInput

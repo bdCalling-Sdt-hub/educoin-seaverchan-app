@@ -224,7 +224,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             value={taskData?.name}
             placeholderTextColor="gray"
             multiline
-            placeholder="Rewards Name"
+            placeholder="Task Name"
           />
         </View>
         <View
@@ -274,6 +274,23 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             </View>
             
           </View>
+          <Slider
+            theme={{
+              disableMinTrackTintColor: GStyles.primaryOrange,
+              // maximumTrackTintColor:  GStyles.primaryOrange,
+              minimumTrackTintColor: GStyles.primaryOrange,
+              cacheTrackTintColor: GStyles.primaryOrange,
+              bubbleBackgroundColor: GStyles.primaryOrange,
+              heartbeatColor: GStyles.primaryOrange,
+            }}
+            progress={progress}
+            minimumValue={min}
+            maximumValue={max}
+            onSlidingComplete={(value: number) => {
+              setCustomPoints(value);
+              setTaskData({...taskData, points: parseInt(value)})
+            }}
+          />
        
           <TextInput
             style={{

@@ -85,7 +85,12 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
               '#FF8811',
              
             ]}>
-              {/* <ImageBackground resizeMode='repeat' source={require("../../assets/images/loginAs/backgroud.png")}> */}
+              <ImageBackground resizeMode='repeat'
+              
+              // source={require("../../assets/images/loginAs/backgroud.png")}
+              source={require("../../assets/images/loginAs/background.png")}
+              
+              >
              <View style={styles.bgImage}>
         {/* title on login as  */}
         <View style={styles.loginAsContainer}>
@@ -139,7 +144,7 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
         </View>
          
       </View>
-    {/* </ImageBackground> */}
+    </ImageBackground>
     <StatusBar backgroundColor={'white'} barStyle="dark-content" />
           </LinearGradient>
     
