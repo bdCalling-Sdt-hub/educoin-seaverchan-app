@@ -28,7 +28,7 @@ const baseQueryWithReauth: typeof baseQuery = async (args, api, extraOptions) =>
   let result = await baseQuery(args, api, extraOptions);
   // console.log(result);
   if(result?.error?.status === "FETCH_ERROR"){
-    Alert.alert(result.error.error)
+    // Alert.alert(result.error.error)
   }
   if (result?.error?.status === 401) {
     // Handle token refresh logic here if needed

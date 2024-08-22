@@ -249,7 +249,7 @@ const [createTeacher, results]= useCreateTeacherMutation()
             setUserInfo({...userInfo, location : text})
            }
            value={userInfo?.location}
-          placeholder="your name"
+          placeholder="address "
         />
       </View>
         <View style={{

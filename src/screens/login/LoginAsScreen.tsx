@@ -85,10 +85,10 @@ const LoginAsScreen = ({navigation}: LoginAsProps) => {
               '#FF8811',
              
             ]}>
-              <ImageBackground resizeMode='repeat'
+              <ImageBackground resizeMode='cover'
               
               // source={require("../../assets/images/loginAs/backgroud.png")}
-              source={require("../../assets/images/loginAs/background.png")}
+              source={require("../../assets/images/loginAs/addBackground.png")}
               
               >
              <View style={styles.bgImage}>

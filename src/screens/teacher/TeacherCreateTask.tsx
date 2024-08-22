@@ -32,7 +32,7 @@ import {
   TaskIcons,
 } from '../../utils/ShearData';
 import {useSharedValue, withSpring, withTiming} from 'react-native-reanimated';
-import {Slider} from 'react-native-awesome-slider';
+import Slider from '@react-native-community/slider';
 import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
 import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
 import { imageUrl } from '../../redux/api/baseApi';
@@ -58,7 +58,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   const {user} = useContextApi();
   const {data : categories,isLoading, refetch :iconsRefetch}  = useGetCategoriesQuery( user.token)
   const [createTask,results] = useCreateTaskMutation()
-  const [value, setValue] = React.useState<string>();
+  const [value, setValue] = React.useState<string>(50);
 
   const [customCategory, setCustomCategory] = React.useState<string>();
 
@@ -78,15 +78,15 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   const [isGood, setIsGood] = React.useState(true);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [successModal, setSuccessModal] = React.useState(false);
-  const [customImage, setCustomImage] = React.useState<string>();
+  const [customImage, setCustomImage] = React.useState<number>(50);
   const [customPoints, setCustomPoints] = React.useState<any>(100);
 
 
 
 
   const progress = useSharedValue(customPoints);
-  const min = useSharedValue(0);
-  const max = useSharedValue(200);
+  const min = useSharedValue(-500);
+  const max = useSharedValue(500);
 
   React.useEffect(() => {
     progress.value = withTiming(customPoints, {duration: 10});
@@ -98,7 +98,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
   
 
   const handleCreateTask = useCallback((UData : taskData) => {
-    // console.log(UData);
+    UData.points = value;
      if(!UData?.points){
       UData.points = parseInt(customPoints)
      }
@@ -145,7 +145,7 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
     iconsRefetch()
   },[])
 
-
+ 
 
   return (
     <View
@@ -230,8 +230,6 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
         <View
           style={{
             paddingHorizontal: '4%',
-          
-         
           }}>
            <View
             style={{
@@ -275,22 +273,76 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
             
           </View>
           <Slider
-            theme={{
-              disableMinTrackTintColor: GStyles.primaryOrange,
-              // maximumTrackTintColor:  GStyles.primaryOrange,
-              minimumTrackTintColor: GStyles.primaryOrange,
-              cacheTrackTintColor: GStyles.primaryOrange,
-              bubbleBackgroundColor: GStyles.primaryOrange,
-              heartbeatColor: GStyles.primaryOrange,
-            }}
-            progress={progress}
-            minimumValue={min}
-            maximumValue={max}
-            onSlidingComplete={(value: number) => {
-              setCustomPoints(value);
-              setTaskData({...taskData, points: parseInt(value)})
-            }}
-          />
+        style={{
+          width: '100%',
+          height: 40,
+        }}
+        vertical
+        minimumValue={-500} // Set the min value (for negative)
+        maximumValue={500}  // Set the max value (for positive)
+        step={10}            // Set the increment/decrement steps
+        value={ typeof value === 'number' ? value : 0}
+                   // Start at the middle (0)
+
+        onValueChange={(value)=>{
+          setValue(value);
+        }}
+        minimumTrackTintColor={ GStyles?.primaryPurple } // Red color for negative
+        maximumTrackTintColor={ GStyles?.primaryOrange } // Green color for positive
+        thumbTintColor={ GStyles?.primaryYellow } // Change thumb color
+      />
+      <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              // marginTop: 10,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                value > -495 ? setValue(Number(value) - 10) : setValue(-500);
+              }}
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.gray.lightActive,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  textAlign: 'center',
+                  width: 45,
+                }}>
+                -10
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                value < 495 ? setValue(Number(value) + 10) : setValue(500);
+              }}
+              style={{
+                height: 35,
+                justifyContent: 'center',
+                //  alignItems : "center"
+              }}>
+              <Text
+                style={{
+                  fontFamily: GStyles.PoppinsMedium,
+                  backgroundColor: GStyles.primaryPurple,
+                  fontSize: 12,
+                  padding: 5,
+                  borderRadius: 4,
+                  color: 'white',
+                  width: 45,
+                  textAlign: 'center',
+                }}>
+                +10
+              </Text>
+            </TouchableOpacity>
+          </View>
        
           <TextInput
             style={{
@@ -306,12 +358,12 @@ const TeacherCreateTask = ({navigation}: NavigProps<null>) => {
               fontWeight: '500',
               letterSpacing: 0.5,
             }}
-            onChangeText={text => setTaskData({...taskData, points: Number(text)})}
+            onChangeText={text => setValue(text)}
             placeholderTextColor="gray"
             // multiline
             placeholder="0"
             keyboardType='decimal-pad'
-            value={`${taskData?.points}`}
+            value={`${value}`}
           />
         </View>
         {/* have reword = true  */}
