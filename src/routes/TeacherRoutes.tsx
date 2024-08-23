@@ -24,12 +24,14 @@ function TeacherRoutes() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+  
       }}>
       <Tab.Screen
         name="TeacherHome"
         component={TeacherHomeScreen}
         options={{
           tabBarLabel: 'Home',
+      
           tabBarLabelStyle: {
             display: 'none',
           },

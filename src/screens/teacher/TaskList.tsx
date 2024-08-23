@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Alert,
   FlatList,
   Image,
@@ -38,12 +39,16 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-na
 import LottieView from 'lottie-react-native';
 import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
 import debounce from 'lodash.debounce';
+import { useIsFocused } from '@react-navigation/native';
+import PaginationHook from '../../utils/hooks/PaginationHook';
 const TaskList = ({navigation,route}: NavigProps<string>) => {
+
+   const isFocused = useIsFocused()
   const [taskPage, setTaskPage] = useState(1);
   // console.log(route?.params?.data);
   const {user} = useContextApi();
-  const {data: tasks, isLoading :taskLoading , refetch : taskRefetch} = useGetTaskQuery({token : user.token,page : taskPage});
-  const [fetchItems, { isFetching : taskFetching  ,currentData  }] = useLazyGetTaskQuery();
+  // const {data: tasks, isLoading :taskLoading , refetch : taskRefetch} = useGetTaskQuery({token : user.token,page : taskPage});
+ 
   const {data : categories} = useGetCategoriesQuery(user?.token);
   // console.log(tasks);
   const {data: pendingTasks, isLoading : pendingTaskIsLoading, refetch : pendingTskRefetch} = useGetPendingTaskQuery(user.token);
@@ -53,44 +58,47 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
   const [op, setOp] = React.useState('Task List');
   const [optionIndex, setOptionIndex] = useState<number>();
   const [selectItem,setSelectItem] = React.useState<ITask | null>()
-  const [reLoad, setReload] = React.useState(false);
+
   const [isActionOpen, setIsActions] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [isYes, setIsYes] = React.useState(false);
   const [claimModal, setClaimModal] = React.useState(false);
   // console.log(selectItem);
 
+
+  // console.log(pendingTasks);
+
   const [allTask, setAllTask] = useState<Array<ITask>>([]);
 
+  const [fetchItems, { isFetching : taskFetching  ,currentData, isLoading : taskLoading  }] = useLazyGetTaskQuery();
+
+  const [handleLoadMore ,loadItems] = PaginationHook(fetchItems,setAllTask,allTask,setTaskPage,taskPage,currentData,taskFetching)
 
   useEffect(() => {
-    loadItems()
-    ShearTask;
-    setReload(false);
+   if(isFocused){
+   setTimeout(()=>{
+    handleRefetchTask()
+   },100)
+   }
     if(route?.params?.data ){
       setOp(route?.params?.data)
     }
-  }, [reLoad,route?.params?.data]);
-
-  const loadItems = async () => {
-    try {
-      const response = await fetchItems({ token : user?.token , page : taskPage  }).unwrap();
-       setAllTask(allTask?.concat(response?.data));
-      setTaskPage((prevPage) => prevPage + 1);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  }, [isFocused,route?.params?.data]);
 
 
-  const handleLoadMore = React.useCallback(
-    debounce(() => {
-      if ( currentData?.pagination?.totalPage >= taskPage && !taskFetching) {  
-        loadItems();
-      }
-    }, 500), 
-    [ taskPage]
-  );
+
+
+
+
+  // refetch handle manual
+  const handleRefetchTask = () =>{
+    setTaskPage(1)
+    fetchItems({token : user.token,taskPage}).then(res=>{
+    //  console.log(res);
+    setAllTask(res.data?.data)
+    })
+  }
+
 
 
 // console.log(taskPage);
@@ -163,12 +171,15 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
           ListHeaderComponentStyle={{
             width: '100%',
           }}
-          refreshControl={<RefreshControl   onRefresh={() => taskRefetch()}
+          refreshControl={<RefreshControl   onRefresh={() => handleRefetchTask()}
           refreshing={taskLoading} colors={[GStyles?.primaryPurple]} />}
 
          onEndReached={handleLoadMore}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.5}
           keyExtractor={item => item._id + Math?.random() * 10000000000 }
+          ListFooterComponent={()=>{
+            return taskFetching? <ActivityIndicator color={GStyles?.primaryPurple} size="large" /> : null;
+          }}
           renderItem={item => (
             <>
             {/* {console.log(item.item.category.image)} */}

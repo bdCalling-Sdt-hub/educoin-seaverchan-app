@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -7,37 +8,77 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useIsFocused,
+} from '@react-navigation/native';
 import React, {Fragment} from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import {
+  useGetRewardsQuery,
+  useLazyGetRewardsQuery,
+} from '../../redux/apiSlices/teacher/teacherRewords';
 
+import {ActionSheet} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
-import {GStyles} from '../../styles/GStyles';
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
+import Feather from 'react-native-vector-icons/Feather';
+import {FontSize} from '../../utils/utils';
+import {GStyles} from '../../styles/GStyles';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import {IReword} from '../../redux/interface/interface';
 import LottieView from 'lottie-react-native';
 import {NavigProps} from '../../interfaces/NavigationPros';
-
-import { categoryIcons } from '../../utils/ShearData';
-
-import { useSharedValue } from 'react-native-reanimated';
-import { useContextApi } from '../../context/ContextApi';
-import { imageUrl } from '../../redux/api/baseApi';
-import { ActionSheet } from 'react-native-ui-lib';
-import { FontSize } from '../../utils/utils';
-import { IReword } from '../../redux/interface/interface';
-import { RefreshControl } from 'react-native-gesture-handler';
-import { useGetRewardsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
+import PaginationHook from '../../utils/hooks/PaginationHook';
+import {RefreshControl} from 'react-native-gesture-handler';
 import RewardsCard from '../../components/common/Cards/RewordsCard';
+import {categoryIcons} from '../../utils/ShearData';
+import {imageUrl} from '../../redux/api/baseApi';
+import {useContextApi} from '../../context/ContextApi';
+import {useSharedValue} from 'react-native-reanimated';
 
 const TeacherRewards = ({navigation}: NavigProps<null>) => {
+  const isFocused = useIsFocused();
+  const [rewardPage, setRewardPage] = React.useState(1);
   const {user} = useContextApi();
-  const {data : Rewards, isLoading : rewordLoading, refetch : rewordRefetch} = useGetRewardsQuery(user.token)
+ 
+
+  const [
+    fetchItems,
+    {isFetching: rewardFetching, currentData, isLoading: rewardLoading},
+  ] = useLazyGetRewardsQuery();
   // console.log(Rewards);
-  const [selectItem,setSelectItem] = React.useState<IReword | null>()
-  const [isEarned, setIsEarned] = React.useState(false);
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const [selectItem, setSelectItem] = React.useState<IReword | null>();
+
   const [isActionOpen, setIsActions] = React.useState(false);
+
+  const [allRewards, setAllRewards] = React.useState<Array<IReword>>([]);
+
+  const [handleLoadMore, loadItems] = PaginationHook(
+    fetchItems,
+    setAllRewards,
+    allRewards,
+    setRewardPage,
+    rewardPage,
+    currentData,
+    rewardFetching,
+  );
+
+  React.useEffect(() => {
+    if (isFocused) {
+      setTimeout(() => {
+        handleRefetchTask();
+      }, 100);
+    }
+  }, [isFocused]);
+
+  const handleRefetchTask = () => {
+    setRewardPage(1);
+    fetchItems({token: user.token, rewardPage}).then(res => {
+      //  console.log(res);
+      setAllRewards(res.data?.data);
+    });
+  };
 
   return (
     <View
@@ -55,41 +96,47 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
       />
 
       <FlatList
-
-     refreshControl={<RefreshControl  refreshing={rewordLoading}
-     onRefresh={rewordRefetch} colors={[GStyles?.primaryPurple]} />}
-
+        refreshControl={
+          <RefreshControl
+            refreshing={rewardLoading}
+            onRefresh={handleRefetchTask}
+            colors={[GStyles?.primaryPurple]}
+          />
+        }
+        onEndReachedThreshold={0.5}
+        onEndReached={handleLoadMore}
         contentContainerStyle={{
           paddingBottom: 80,
           paddingTop: 15,
           paddingHorizontal: '5%',
-          gap : 5
+          gap: 5,
+        }}
+
+        ListFooterComponent={()=>{
+          return rewardFetching? <ActivityIndicator color={GStyles?.primaryPurple} size="large" /> : null;
         }}
         showsVerticalScrollIndicator={false}
-        data={Rewards?.data}
-
-        renderItem={(item)=>
+        data={allRewards}
+        renderItem={item => (
           <Fragment key={item.index}>
-          <RewardsCard
-            navigation={navigation}
-            // editRoute={"TeacherEditRewards"}
-            // routeData={item?.item}
-            editOption={true}
-            // achieved
-            optionOnPress={()=>{
-              setSelectItem(item?.item)
-              setIsActions(true)
-            }}
-            points={item?.item?.requiredPoints}
-            title={item?.item?.name}
-            imgAssets={{ uri : imageUrl + item?.item.image}}
-          />
-        </Fragment>
+            <RewardsCard
+              navigation={navigation}
+              // editRoute={"TeacherEditRewards"}
+              // routeData={item?.item}
+              editOption={true}
+              // achieved
+              optionOnPress={() => {
+                setSelectItem(item?.item);
+                setIsActions(true);
+              }}
+              points={item?.item?.requiredPoints}
+              title={item?.item?.name}
+              imgAssets={{uri: imageUrl + item?.item.image}}
+            />
+          </Fragment>
+        )}
+      />
 
-        }
-        />
-       
-    
       <View
         style={{
           paddingHorizontal: '4%',
@@ -102,10 +149,8 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
         }}>
         <TouchableOpacity
           onPress={() => {
-           
-            navigation?.navigate('TeacherCreateRewards')
-          } 
-        }
+            navigation?.navigate('TeacherCreateRewards');
+          }}
           style={{
             backgroundColor: GStyles.primaryPurple,
             padding: 10,
@@ -135,10 +180,7 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
         </TouchableOpacity>
       </View>
 
-   
-
-
-   <ActionSheet
+      <ActionSheet
         visible={isActionOpen}
         onDismiss={() => {
           setIsActions(false);
@@ -161,14 +203,13 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
           {
             label: 'Edit',
             onPress: () => {
-
-              navigation?.navigate('TeacherEditRewards',{data : selectItem})
+              navigation?.navigate('TeacherEditRewards', {data: selectItem});
             },
           },
           {
             label: 'Re-assign',
             onPress: () => {
-              navigation?.navigate('TeacherRewardsAssign',{data : selectItem})
+              navigation?.navigate('TeacherRewardsAssign', {data: selectItem});
             },
           },
         ]}
@@ -201,7 +242,6 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
           );
         }}
       />
-
     </View>
   );
 };

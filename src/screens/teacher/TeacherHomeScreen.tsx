@@ -1,4 +1,11 @@
 import {
+  ActionSheet,
+  ButtonProps,
+  GridList,
+  GridView,
+} from 'react-native-ui-lib';
+import {
+  ActivityIndicator,
   Alert,
   Button,
   FlatList,
@@ -12,56 +19,51 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Fragment, useCallback, useEffect, useState} from 'react';
-import {GStyles, WIDTH} from '../../styles/GStyles';
-import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import SmallSubHeaderCard from '../../components/common/Cards/SmallSubHeaderCard';
-import StudentCard from '../../components/common/Cards/StudentCard';
-import HeaderOption from '../../components/common/header/HeaderOption';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import HomeTopHeader from '../../components/common/header/HomeTopHeader';
-import YesNoModal from '../../components/common/CustomModal/YesNoModal';
-import {useSelector} from 'react-redux';
-import {useGetStudentsQuery} from '../../redux/apiSlices/teacher/teacherStudentSlices';
-import {useContextApi} from '../../context/ContextApi';
-
-import {imageUrl} from '../../redux/api/baseApi';
-import {
-  ActionSheet,
-  ButtonProps,
-  GridList,
-  GridView,
-} from 'react-native-ui-lib';
 import {
   FontSize,
   isTablet,
   removeStorageRole,
   removeStorageToken,
 } from '../../utils/utils';
+import {GStyles, WIDTH} from '../../styles/GStyles';
+import { IClass, IStudent } from '../../redux/interface/interface';
+import {NavigationProp, ParamListBase, useFocusEffect, useIsFocused} from '@react-navigation/native';
+import PopUpModal, {PopUpModalRef} from '../../components/modals/PopUpModal';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
 import {
   useDeletedClassMutation,
   useGetClassesQuery,
+  useLazyGetClassesQuery,
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import {useGetStudentsQuery, useLazyGetSingleStudentQuery, useLazyGetStudentsQuery} from '../../redux/apiSlices/teacher/teacherStudentSlices';
 import {
   useGetUserTeacherQuery,
   useLoginForTeacherStudentMutation,
   useLoginStudentMutation,
 } from '../../redux/apiSlices/authSlice';
-import PopUpModal, {PopUpModalRef} from '../../components/modals/PopUpModal';
+
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import HomeTopHeader from '../../components/common/header/HomeTopHeader';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import PaginationHook from '../../utils/hooks/PaginationHook';
 import {RefreshControl} from 'react-native-gesture-handler';
+import SmallSubHeaderCard from '../../components/common/Cards/SmallSubHeaderCard';
+import StudentCard from '../../components/common/Cards/StudentCard';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
+import {imageUrl} from '../../redux/api/baseApi';
+import {useContextApi} from '../../context/ContextApi';
 import {useGetNotificationsQuery} from '../../redux/apiSlices/setings/notification';
+import {useSelector} from 'react-redux';
 
-interface AdminHOmeProps {
-  navigation: DrawerNavigationProp<ParamListBase>;
-}
-
-const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
+const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
+  const isFocused = useIsFocused();
   const [pageStudent, setPageStudent] = React.useState(1);
   const [pageClass, setPageClass] = React.useState(1);
   const PopModal = React.useRef<PopUpModalRef>();
@@ -73,20 +75,9 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
     data: userTeacherInfo,
   } = useGetUserTeacherQuery(user?.token);
 
-  // get student fetch 
 
-  const {
-    data: students,
-    isLoading: studentLoading,
-    refetch: studentRefetch,
-    isFetching : studentsFetching,
-  } = useGetStudentsQuery({token : user?.token, page : pageStudent == 0 ? 1 : pageStudent });
-  // get all classes
-  const {
-    data: classes,
-    isLoading: classesLoading,
-    refetch: classesRefetch,
-  } = useGetClassesQuery({token : user?.token, page : pageClass == 0 ? 1 : pageClass });
+  
+
   // get all notification 
   const {data: notifications, refetch} = useGetNotificationsQuery(user.token);
   // class deleted post 
@@ -122,71 +113,68 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
     [selectedItem],
   );
 
-  //  console.log(classes);
+   // get student fetch 
+   const [AllStudents, setAllStudents] = React.useState<Array<IStudent>>([]);
 
-  // if(userTeacherInfoError?.status === 401){
-  //     removeStorageRole();
-  //     removeStorageToken();
-  //     setUser({
-  //       token: null,
-  //       role: null,
-  //     });
-  // }
+   const [fetchStudent , { isFetching : studentFetching  ,currentData : studentData ,isLoading : studentLoading }]= useLazyGetStudentsQuery()
 
-  const [AllClasses, setAllClasses] = React.useState([]);
-  const [ALlStudents, setALlStudents] = React.useState([]);
-  
-  // React.useEffect(() => {
-  //   // Append new classes data to the existing state only if there are new items
-  //   if (classes?.data?.length) {
-  //     setAllClasses(prevClasses => prevClasses.concat(classes?.data));
-  //   }
-  //   return ()=>{
-  //     // Cleanup function
-    
-  //   }
-  // }, [classes?.data]);
-  
-  // React.useEffect(() => {
-  //   // Append new students data to the existing state only if there are new items
-  //   if (students?.data?.length) {
-  //     setALlStudents(prevStudents => prevStudents.concat(students?.data));
-  //   }
-  //   return ()=>{
-  //     // Cleanup function
-  
-  //   }
-  // }, [students?.data]);
-  
-  // const loadMoreStudents = () => {
-  //   if (pageStudent < students?.pagination?.totalPage) {
-  //     setPageStudent(prevPage => prevPage == 0 ? 2 :prevPage + 1);
-  //   }
-  // };
-  
-  // const loadMoreClasses = () => {
-  //   if (pageClass <= classes?.pagination?.totalPage) {
-  //     setPageClass(prevPage => prevPage === 0 ? 2 :prevPage + 1);
-  //   }
-  // };
+   const [handleLoadMoreStudent ,loadStudent] = PaginationHook(fetchStudent,setAllStudents,AllStudents,setPageStudent,pageStudent,studentData,studentFetching)
+  // get class fetch 
 
-  // console.log(page,classes?.pagination?.totalPage);
-  
-  // const resetStudentData = () => {
-  //  if(pageStudent){
-  //    setPageStudent(0);
-  //   setALlStudents([]);
-  //   studentRefetch();
+   const [fetchClass , { isFetching : classFetching  ,currentData : classData ,isLoading : classLoading }]= useLazyGetClassesQuery()
 
-  //  }
-  // };
-  // const resetClassData = () => {
-  //  if(pageClass){
-  //    setPageClass(0);
-  //   setAllClasses([]);
-  //   classesRefetch();
-  //  }
-  // };
+   
+   // doing student pagination 
+   const [AllClasses, setAllClasses] = React.useState<Array<IClass>>([]);
+
+
+  // doing class pagination 
+
+  const [handleLoadMoreClass ,loadIClass] = PaginationHook(fetchClass,setAllClasses,AllClasses,setPageClass,pageClass,classData,classFetching)
+
+  // console.log(pageStudent);
+
+  
+
+  // React.useEffect(()=>{
+ 
+  //   return ( )=>{
+  //     // cleanup code here
+  //   }
+  // },[])
+
+
+  useEffect(() => {
+    setTimeout(()=>{
+      handleRefetchStudent()
+    handleRefetchClass()
+    },100)
+  }, [isFocused]);
+
+
+
+  // refetch handle manual
+  const handleRefetchStudent = () =>{
+    setPageStudent(1)
+    fetchStudent({token : user.token,pageStudent}).then(res=>{
+    //  console.log(res);
+    setAllStudents(res.data?.data)
+    })
+  }
+
+  
+
+  const handleRefetchClass = () =>{
+    setPageClass(1)
+    fetchClass({token : user.token,pageClass}).then(res=>{
+    //  console.log(res);
+    setAllClasses(res.data?.data)
+    })
+  }
+
+
+
+
 
   return (
     <View
@@ -214,14 +202,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
         notifyRoute="TeacherNotification"
         // containerGap={35}
       />
-      {/* header part  end */}
-
-      {/* <SmallSubHeaderCard
-        marginTop={10}
-        title="Teacher Name"
-        count={20}
-        subTitle="Students Counts"
-      /> */}
+    
       <HeaderOption
         op1="All Students"
         op2="All Classes"
@@ -241,24 +222,18 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
       {op === 'All Students' ? (
         <GridList
           showsVerticalScrollIndicator={false}
-          // onEndReached={students?.data?.length ? loadMoreStudents : () => {}}
-          // onEndReachedThreshold={0}
+          onEndReached={handleLoadMoreStudent}
+          onEndReachedThreshold={0.5}
        
           refreshControl={
             <RefreshControl
               refreshing={studentLoading}
-              onRefresh={studentRefetch}
+              onRefresh={handleRefetchStudent}
               colors={[GStyles?.primaryPurple]}
             />
           }
-          // data={ALlStudents.length ? ALlStudents?.filter(student =>
-          //   search
-          //     ? student?.name
-          //         ?.toLocaleLowerCase()
-          //         .includes(search.toLocaleLowerCase())
-          //     : student,
-          // ) : students?.data}
-          data={students?.data?.filter(student =>
+      
+          data={AllStudents?.filter(student =>
             search
               ? student?.name
                   ?.toLocaleLowerCase()
@@ -272,18 +247,12 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             paddingVertical: 10,
             paddingHorizontal: '5%',
           }}
-          // ListHeaderComponent={item => (
-
-          // ListHeaderComponent={item => (
-
-          // )}
+       
+          ListFooterComponent={()=>{
+            return studentFetching? <ActivityIndicator color={GStyles?.primaryPurple} size="large" /> : null;
+          }}
           renderItem={({item, index}) => (
-            <View key={index} style={{}}>
-              {/* <Image
-                source={{
-                  uri: imageUrl + item?.profile,
-                }}
-              /> */}
+       
 
               <StudentCard
                 imgBorderColor={GStyles.primaryPurple}
@@ -300,7 +269,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                   loadingStudent(item.password).then(res => {
                     // console.log(res.data);
                     if (res.data.success) {
-                      navigation.navigate('StudentsProgressAndInfo', res.data);
+                      navigation?.navigate('StudentsProgressAndInfo', res.data);
                     }
                     if (res.error) {
                     }
@@ -308,29 +277,26 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
                 }}
             
               />
-            </View>
+        
           )}
         />
       ) : (
         <GridList
           showsVerticalScrollIndicator={false}
          
-          // data={AllClasses?.length ? AllClasses.filter(classe =>
-          //   search ? classe.className.includes(search) : classe,
-          // ) : classes?.data}
-          // numColumns={2}
-          data={classes?.data?.filter(classe =>
+     
+          data={AllClasses?.filter(classe =>
             search ? classe.className.includes(search) : classe,
           ) }
           numColumns={ 2}
 
-          // onEndReached={classes?.data?.length ? loadMoreClasses : () => {}}
-          // onEndReachedThreshold={0}
+          onEndReached={handleLoadMoreClass}
+          onEndReachedThreshold={0.5}
           containerWidth={WIDTH * 0.9}
           refreshControl={
             <RefreshControl
-              refreshing={classesLoading}
-              onRefresh={classesRefetch}
+              refreshing={classLoading}
+              onRefresh={handleRefetchClass}
               colors={[GStyles?.primaryPurple]}
             />
           }
@@ -339,14 +305,14 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             paddingVertical: 10,
             paddingHorizontal: '5%',
           }}
-          // ListHeaderComponent={item => (
-
-          // )}
+          ListFooterComponent={()=>{
+            return classFetching? <ActivityIndicator color={GStyles?.primaryPurple} size="large" /> : null;
+          }}
           renderItem={({item, index}) => (
             <Fragment key={index}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('ParticularClassStudent', {
+                  navigation?.navigate('ParticularClassStudent', {
                     data: item?.className,
                   });
                 }}
@@ -448,7 +414,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              if (classes?.data?.length !== 0 || AllClasses?.length !==0) {
+              if ( AllClasses?.length !==0) {
                 setModalVisible(false);
                 navigation?.navigate('TeacherAddNewStudent');
               } else {
@@ -481,7 +447,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
           <TouchableOpacity
             onPress={() => {
               setModalVisible(false);
-              navigation.navigate('TeacherAddNewClass');
+              navigation?.navigate('TeacherAddNewClass');
             }}
             style={{
               borderColor: GStyles.primaryPurple,
@@ -540,6 +506,7 @@ const TeacherHomeScreen = ({navigation}: AdminHOmeProps) => {
             label: 'Deleted',
             onPress: () => {
               handleClassAction('deleted');
+              handleRefetchClass()
             },
           },
         ]}

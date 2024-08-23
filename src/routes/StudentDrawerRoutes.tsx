@@ -15,6 +15,7 @@ function StudentDrawerRoutes() {
       drawerContent={props => <StudentCustomDrawer {...props} />}
       screenOptions={{
         headerShown: false,
+        
       }}>
       <Drawer.Screen
         name="NewStudentHome"

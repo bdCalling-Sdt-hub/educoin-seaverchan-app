@@ -60,6 +60,7 @@ const authSlice = api.injectEndpoints({
 
 export const {
   useGetClassesQuery,
+  useLazyGetClassesQuery,
   useCreateClassMutation,
   useDeletedClassMutation,
   useGetSingleClassesQuery,

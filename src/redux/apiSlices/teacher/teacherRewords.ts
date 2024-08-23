@@ -4,8 +4,8 @@ import { IAssignReword, IAssignRewards, IRewards} from '../../interface/interfac
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
     getRewards: builder.query<IRewards, unknown>({
-      query: token => ({
-        url: `/reward`,
+      query: ({token, page}) => ({
+        url: `/reward?page=${page}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,6 +71,7 @@ const authSlice = api.injectEndpoints({
 
 export const {
   useGetRewardsQuery,
+  useLazyGetRewardsQuery,
   useCreateRewardsMutation,
   useGetAssignRewardsQuery,
   useUpdateRewardsMutation,

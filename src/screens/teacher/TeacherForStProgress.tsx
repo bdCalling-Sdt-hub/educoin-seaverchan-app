@@ -1,38 +1,28 @@
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
-  Image,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import React, {Fragment, useEffect, useState} from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {GStyles, HEIGHT, WIDTH} from '../../styles/GStyles';
-import {NavigProps} from '../../interfaces/NavigationPros';
-
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
-import HeaderOption from '../../components/common/header/HeaderOption';
-import StudentMiniCard from '../../components/common/Cards/StudentMiniCard';
-import {Dropdown} from 'react-native-element-dropdown';
-
 import Animated, {
-  Easing,
-  ReduceMotion,
   useSharedValue,
   withSpring,
-  withTiming,
+  withTiming
 } from 'react-native-reanimated';
-import {PieChart} from 'react-native-gifted-charts';
-import LinearGradient from 'react-native-linear-gradient';
+import { useGetStatisticStudentQuery, useGetStudentThrowClassQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
+
+import { Dropdown } from 'react-native-element-dropdown';
+import { PieChart } from 'react-native-gifted-charts';
+import StudentMiniCard from '../../components/common/Cards/StudentMiniCard';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import { useContextApi } from '../../context/ContextApi';
-import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
-import { useGetSingleStudentQuery, useGetStatisticStudentQuery, useGetStudentThrowClassQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
+import { NavigProps } from '../../interfaces/NavigationPros';
 import { imageUrl } from '../../redux/api/baseApi';
-import LoaderScreen from '../../components/Loader/LoaderScreen';
+import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import { GStyles } from '../../styles/GStyles';
 import { FontSize } from '../../utils/utils';
 
 const TeacherForStProgress = ({navigation}: NavigProps<null>) => {

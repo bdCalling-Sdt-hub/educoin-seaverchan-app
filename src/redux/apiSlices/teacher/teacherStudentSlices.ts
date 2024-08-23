@@ -67,8 +67,11 @@ const authSlice = api.injectEndpoints({
 
 export const {
   useGetStudentsQuery,
+  useLazyGetStudentsQuery,
+  useLazyGetSingleStudentQuery,
   useCreateStudentMutation,
   useGetSingleStudentQuery,
   useGetStudentThrowClassQuery,
   useGetStatisticStudentQuery
+
 } = authSlice;

@@ -1,33 +1,33 @@
 import {
+  Image,
   StyleSheet,
   Text,
-  View,
   TextInput,
   TouchableOpacity,
-  Image,
+  View,
 } from 'react-native';
-import React, {Fragment, useCallback} from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {GStyles} from '../../styles/GStyles';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {NavigProps} from '../../interfaces/NavigationPros';
-import {FlatList} from 'react-native';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import {categoryIcons, ShearIcons, SherAvatar} from '../../utils/ShearData';
-import {Slider} from 'react-native-awesome-slider';
-import {useSharedValue, withTiming} from 'react-native-reanimated';
-import { useContextApi } from '../../context/ContextApi';
-import Toast from 'react-native-toast-message';
-import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
-import { imageUrl } from '../../redux/api/baseApi';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
-import { useCreateRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+import React, {Fragment, useCallback} from 'react';
+import {ShearIcons, SherAvatar, categoryIcons} from '../../utils/ShearData';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {useSharedValue, withTiming} from 'react-native-reanimated';
+
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import Feather from 'react-native-vector-icons/Feather';
+import {FlatList} from 'react-native';
 import { FontSize } from '../../utils/utils';
+import {GStyles} from '../../styles/GStyles';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {NavigProps} from '../../interfaces/NavigationPros';
 import { ScrollView } from 'react-native';
+import {Slider} from 'react-native-awesome-slider';
+import Toast from 'react-native-toast-message';
+import { imageUrl } from '../../redux/api/baseApi';
+import { useContextApi } from '../../context/ContextApi';
+import { useCreateRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 
 interface IRewardsUProps {
   name: string;
@@ -124,7 +124,7 @@ const TeacherCreateRewards = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
         <View
           style={{
             paddingHorizontal: '4%',

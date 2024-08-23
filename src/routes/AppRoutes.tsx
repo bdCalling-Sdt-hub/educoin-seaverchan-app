@@ -176,6 +176,7 @@ export const NavigationRoutes = () => {
             <Stack.Screen
               name="StudentDrawerRoutes"
               component={StudentDrawerRoutes}
+           
             />
             <Stack.Screen
               name="StudentPublicProfile"

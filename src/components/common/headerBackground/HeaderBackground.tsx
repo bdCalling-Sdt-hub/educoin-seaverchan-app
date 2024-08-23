@@ -12,6 +12,7 @@ interface HeaderBackgroundProps {
   backgroundColor?: string;
   ringColor?: string;
   opacity?: number;
+  backRoute ?: string;
 }
 
 const HeaderBackground = ({
@@ -20,6 +21,7 @@ const HeaderBackground = ({
   ringColor,
   navigation,
   opacity,
+  backRoute
 }: HeaderBackgroundProps) => {
   return (
     <View>
@@ -62,7 +64,7 @@ const HeaderBackground = ({
             opacity: opacity ? opacity : 0.4,
           }}></View>
         <TouchableOpacity
-          onPress={() => navigation?.goBack()}
+          onPress={() => backRoute ? navigation?.navigate(backRoute) :  navigation?.goBack()}
           style={{
             padding: 12,
             position: 'absolute',

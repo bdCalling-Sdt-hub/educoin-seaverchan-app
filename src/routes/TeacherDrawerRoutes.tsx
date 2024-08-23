@@ -16,10 +16,12 @@ function TeacherDrawerRoutes() {
       drawerContent={props => <TeacherCustomDrawer {...props} />}
       screenOptions={{
         headerShown: false,
+  
       }}>
       <Drawer.Screen
         name="TeacherRoutes"
         options={{
+      
           drawerStyle: {
             // display: 'none',
           },
