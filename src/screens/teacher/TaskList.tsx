@@ -1,50 +1,43 @@
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import React, {Fragment, useEffect, useState} from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
-import {GStyles} from '../../styles/GStyles';
-
-import {NavigProps} from '../../interfaces/NavigationPros';
-import StudentCard from '../../components/common/Cards/StudentCard';
-import HeaderOption from '../../components/common/header/HeaderOption';
-import TaskCard from '../../components/common/Cards/TaskCard';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import {ShearTask, TaskIcons} from '../../utils/ShearData';
-import YesNoModal from '../../components/common/CustomModal/YesNoModal';
-import {FontSize, isTablet} from '../../utils/utils';
-import {ActionSheet} from 'react-native-ui-lib';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import {
   useApproveTaskMutation,
   useGetPendingTaskQuery,
-  useGetTaskQuery,
-  useLazyGetTaskQuery,
+  useLazyGetTaskQuery
 } from '../../redux/apiSlices/teacher/teaherTaskSlices';
-import {imageUrl} from '../../redux/api/baseApi';
-import {useContextApi} from '../../context/ContextApi';
-import { ITask } from '../../redux/interface/interface';
-import { RefreshControl } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-import LottieView from 'lottie-react-native';
-import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
-import debounce from 'lodash.debounce';
+import { FontSize, isTablet } from '../../utils/utils';
+
 import { useIsFocused } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
+import { RefreshControl } from 'react-native-gesture-handler';
+import { ActionSheet } from 'react-native-ui-lib';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import TaskCard from '../../components/common/Cards/TaskCard';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import { useContextApi } from '../../context/ContextApi';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { imageUrl } from '../../redux/api/baseApi';
+import { useGetCategoriesQuery } from '../../redux/apiSlices/teacher/techerCategorySlices';
+import { ITask } from '../../redux/interface/interface';
+import { GStyles } from '../../styles/GStyles';
 import PaginationHook from '../../utils/hooks/PaginationHook';
+
 const TaskList = ({navigation,route}: NavigProps<string>) => {
 
    const isFocused = useIsFocused()
-  const [taskPage, setTaskPage] = useState(1);
+  const [taskPage, setTaskPage] = useState(2);
   // console.log(route?.params?.data);
   const {user} = useContextApi();
   // const {data: tasks, isLoading :taskLoading , refetch : taskRefetch} = useGetTaskQuery({token : user.token,page : taskPage});
@@ -92,8 +85,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
 
   // refetch handle manual
   const handleRefetchTask = () =>{
-    setTaskPage(1)
-    fetchItems({token : user.token,taskPage}).then(res=>{
+    fetchItems({token : user.token,page : 1}).then(res=>{
     //  console.log(res);
     setAllTask(res.data?.data)
     })

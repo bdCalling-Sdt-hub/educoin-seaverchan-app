@@ -1,45 +1,35 @@
 import {
+  useIsFocused
+} from '@react-navigation/native';
+import React, { Fragment } from 'react';
+import {
   ActivityIndicator,
   FlatList,
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {
-  NavigationProp,
-  ParamListBase,
-  useIsFocused,
-} from '@react-navigation/native';
-import React, {Fragment} from 'react';
-import {
-  useGetRewardsQuery,
-  useLazyGetRewardsQuery,
+  useLazyGetRewardsQuery
 } from '../../redux/apiSlices/teacher/teacherRewords';
 
-import {ActionSheet} from 'react-native-ui-lib';
+import { RefreshControl } from 'react-native-gesture-handler';
+import { ActionSheet } from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import Feather from 'react-native-vector-icons/Feather';
-import {FontSize} from '../../utils/utils';
-import {GStyles} from '../../styles/GStyles';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {IReword} from '../../redux/interface/interface';
-import LottieView from 'lottie-react-native';
-import {NavigProps} from '../../interfaces/NavigationPros';
-import PaginationHook from '../../utils/hooks/PaginationHook';
-import {RefreshControl} from 'react-native-gesture-handler';
 import RewardsCard from '../../components/common/Cards/RewordsCard';
-import {categoryIcons} from '../../utils/ShearData';
-import {imageUrl} from '../../redux/api/baseApi';
-import {useContextApi} from '../../context/ContextApi';
-import {useSharedValue} from 'react-native-reanimated';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import { useContextApi } from '../../context/ContextApi';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { imageUrl } from '../../redux/api/baseApi';
+import { IReword } from '../../redux/interface/interface';
+import { GStyles } from '../../styles/GStyles';
+import PaginationHook from '../../utils/hooks/PaginationHook';
+import { FontSize } from '../../utils/utils';
 
 const TeacherRewards = ({navigation}: NavigProps<null>) => {
   const isFocused = useIsFocused();
-  const [rewardPage, setRewardPage] = React.useState(1);
+  const [rewardPage, setRewardPage] = React.useState(2);
   const {user} = useContextApi();
  
 
@@ -54,7 +44,7 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
 
   const [allRewards, setAllRewards] = React.useState<Array<IReword>>([]);
 
-  const [handleLoadMore, loadItems] = PaginationHook(
+  const [handleLoadMore] = PaginationHook(
     fetchItems,
     setAllRewards,
     allRewards,
@@ -73,8 +63,8 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
   }, [isFocused]);
 
   const handleRefetchTask = () => {
-    setRewardPage(1);
-    fetchItems({token: user.token, rewardPage}).then(res => {
+
+    fetchItems({token: user.token, page : 1}).then(res => {
       //  console.log(res);
       setAllRewards(res.data?.data);
     });

@@ -1,71 +1,51 @@
-import {
-  ActionSheet,
-  ButtonProps,
-  GridList,
-  GridView,
-} from 'react-native-ui-lib';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
-  Button,
-  FlatList,
-  Image,
-  Pressable,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {
-  FontSize,
-  isTablet,
-  removeStorageRole,
-  removeStorageToken,
-} from '../../utils/utils';
-import {GStyles, WIDTH} from '../../styles/GStyles';
-import { IClass, IStudent } from '../../redux/interface/interface';
-import {NavigationProp, ParamListBase, useFocusEffect, useIsFocused} from '@react-navigation/native';
-import PopUpModal, {PopUpModalRef} from '../../components/modals/PopUpModal';
-import React, {Fragment, useCallback, useEffect, useState} from 'react';
-import {
-  useDeletedClassMutation,
-  useGetClassesQuery,
-  useLazyGetClassesQuery,
-} from '../../redux/apiSlices/teacher/tacherClassSlices';
-import {useGetStudentsQuery, useLazyGetSingleStudentQuery, useLazyGetStudentsQuery} from '../../redux/apiSlices/teacher/teacherStudentSlices';
+  ActionSheet,
+  GridList
+} from 'react-native-ui-lib';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 import {
   useGetUserTeacherQuery,
-  useLoginForTeacherStudentMutation,
-  useLoginStudentMutation,
+  useLoginForTeacherStudentMutation
 } from '../../redux/apiSlices/authSlice';
+import {
+  useDeletedClassMutation,
+  useGetClassesQuery
+} from '../../redux/apiSlices/teacher/tacherClassSlices';
+import { GStyles, WIDTH } from '../../styles/GStyles';
 
+import { useIsFocused } from '@react-navigation/native';
+import { RefreshControl } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import StudentCard from '../../components/common/Cards/StudentCard';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
+import { useContextApi } from '../../context/ContextApi';
 import { NavigProps } from '../../interfaces/NavigationPros';
+import { imageUrl } from '../../redux/api/baseApi';
+import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
+import { useLazyGetStudentsQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
+import { IStudent } from '../../redux/interface/interface';
 import PaginationHook from '../../utils/hooks/PaginationHook';
-import {RefreshControl} from 'react-native-gesture-handler';
-import SmallSubHeaderCard from '../../components/common/Cards/SmallSubHeaderCard';
-import StudentCard from '../../components/common/Cards/StudentCard';
-import YesNoModal from '../../components/common/CustomModal/YesNoModal';
-import {imageUrl} from '../../redux/api/baseApi';
-import {useContextApi} from '../../context/ContextApi';
-import {useGetNotificationsQuery} from '../../redux/apiSlices/setings/notification';
-import {useSelector} from 'react-redux';
+import {
+  FontSize
+} from '../../utils/utils';
 
 const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
   const isFocused = useIsFocused();
-  const [pageStudent, setPageStudent] = React.useState(1);
-  const [pageClass, setPageClass] = React.useState(1);
+  const [pageStudent, setPageStudent] = React.useState(2);
+  
   const PopModal = React.useRef<PopUpModalRef>();
   const {user} = useContextApi();
 
@@ -118,36 +98,24 @@ const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
 
    const [fetchStudent , { isFetching : studentFetching  ,currentData : studentData ,isLoading : studentLoading }]= useLazyGetStudentsQuery()
 
-   const [handleLoadMoreStudent ,loadStudent] = PaginationHook(fetchStudent,setAllStudents,AllStudents,setPageStudent,pageStudent,studentData,studentFetching)
+   const [handleLoadMoreStudent] = PaginationHook(fetchStudent,setAllStudents,AllStudents,setPageStudent,pageStudent,studentData,studentFetching)
   // get class fetch 
 
-   const [fetchClass , { isFetching : classFetching  ,currentData : classData ,isLoading : classLoading }]= useLazyGetClassesQuery()
+   const { data : classes, isFetching : classFetching  ,currentData : classData ,isLoading : classLoading ,refetch : refetchClasses }= useGetClassesQuery({token :user?.token})
 
-   
-   // doing student pagination 
-   const [AllClasses, setAllClasses] = React.useState<Array<IClass>>([]);
+  
 
 
   // doing class pagination 
 
-  const [handleLoadMoreClass ,loadIClass] = PaginationHook(fetchClass,setAllClasses,AllClasses,setPageClass,pageClass,classData,classFetching)
-
-  // console.log(pageStudent);
-
   
 
-  // React.useEffect(()=>{
- 
-  //   return ( )=>{
-  //     // cleanup code here
-  //   }
-  // },[])
+
 
 
   useEffect(() => {
     setTimeout(()=>{
       handleRefetchStudent()
-    handleRefetchClass()
     },100)
   }, [isFocused]);
 
@@ -155,22 +123,14 @@ const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
 
   // refetch handle manual
   const handleRefetchStudent = () =>{
-    setPageStudent(1)
-    fetchStudent({token : user.token,pageStudent}).then(res=>{
-    //  console.log(res);
+    fetchStudent({token : user.token}).then(res=>{
     setAllStudents(res.data?.data)
     })
   }
 
   
 
-  const handleRefetchClass = () =>{
-    setPageClass(1)
-    fetchClass({token : user.token,pageClass}).then(res=>{
-    //  console.log(res);
-    setAllClasses(res.data?.data)
-    })
-  }
+
 
 
 
@@ -285,18 +245,17 @@ const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
           showsVerticalScrollIndicator={false}
          
      
-          data={AllClasses?.filter(classe =>
+          data={classes?.data?.filter(classe =>
             search ? classe.className.includes(search) : classe,
           ) }
           numColumns={ 2}
 
-          onEndReached={handleLoadMoreClass}
-          onEndReachedThreshold={0.5}
+ 
           containerWidth={WIDTH * 0.9}
           refreshControl={
             <RefreshControl
               refreshing={classLoading}
-              onRefresh={handleRefetchClass}
+              onRefresh={refetchClasses}
               colors={[GStyles?.primaryPurple]}
             />
           }
@@ -414,7 +373,7 @@ const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              if ( AllClasses?.length !==0) {
+              if ( classes?.data?.length !==0) {
                 setModalVisible(false);
                 navigation?.navigate('TeacherAddNewStudent');
               } else {
