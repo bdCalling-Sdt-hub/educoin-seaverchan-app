@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { GStyles } from '../../../styles/GStyles'
-import { Image } from 'react-native'
 
-import Feather from "react-native-vector-icons/Feather"
+import React from 'react'
+import { Image } from 'react-native'
 import AntDesign from "react-native-vector-icons/AntDesign"
+import Feather from "react-native-vector-icons/Feather"
 import { NavigProps } from '../../../interfaces/NavigationPros'
+import { GStyles } from '../../../styles/GStyles'
 import { FontSize } from '../../../utils/utils'
 
 interface HomeTopHeaderProps extends NavigProps<null> {
@@ -27,9 +27,10 @@ interface HomeTopHeaderProps extends NavigProps<null> {
     containerGap ?: number,
     imgAssets? : any,
     isNotification ?: boolean;
+    profileNavigate ? : string
 }
 
-const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,isNotification} : HomeTopHeaderProps) => {
+const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor,notifyRoute,userDetails,ringColor,notifyRouteData,searchValue,setSearchValue,ringColorOpacity,containerGap,isNotification,profileNavigate} : HomeTopHeaderProps) => {
   return (
     <View
     style={{
@@ -71,7 +72,7 @@ const HomeTopHeader = ({drawerNavigation,navigation,profileStyle,backgroundColor
 
     
        <TouchableOpacity onPress={()=>{
-        navigation?.navigate("TeacherProfile")
+       profileNavigate &&  navigation?.navigate(profileNavigate)
        }}>
        {
           userDetails?.image && <Image

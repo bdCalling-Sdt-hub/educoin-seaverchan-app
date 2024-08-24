@@ -1,37 +1,30 @@
+import React, { useCallback } from 'react';
 import {
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-  } from 'react-native';
-  import React, { useCallback } from 'react';
-  import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-  import {NavigProps} from '../../interfaces/NavigationPros';
-  import {GStyles} from '../../styles/GStyles';
-  
-  import AntDesign from 'react-native-vector-icons/AntDesign';
-  import {FlatList} from 'react-native';
-  import CustomModal from '../../components/common/CustomModal/CustomModal';
-  import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { SherAvatar } from '../../utils/ShearData';
-import { IStudent, IStudentUser } from '../../redux/interface/interface';
-import { useGetUserStudentQuery, useUpdateStudentMutation } from '../../redux/apiSlices/authSlice';
-import { useContextApi } from '../../context/ContextApi';
-import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
-import NormalButtons from '../../components/common/Buttons/NormalButtons';
-import DateTimePicker from 'react-native-ui-datepicker';
-import Require from '../../components/common/require/Require';
-import { Dropdown } from 'react-native-element-dropdown';
-import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
-import { imageUrl } from '../../redux/api/baseApi';
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import { useUpdateStudentMutation } from '../../redux/apiSlices/authSlice';
+
+import { FlatList } from 'react-native';
+import DateTimePicker from 'react-native-ui-datepicker';
+import NormalButtons from '../../components/common/Buttons/NormalButtons';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import Require from '../../components/common/require/Require';
+import { useContextApi } from '../../context/ContextApi';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { imageUrl } from '../../redux/api/baseApi';
+import { useGetAvatarPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import { GStyles } from '../../styles/GStyles';
 import { FontSize } from '../../utils/utils';
-  
-  
-  const StudentProfileEdit = ({navigation,route}: NavigProps<any>) => {
+
+const StudentProfileEdit = ({navigation,route}: NavigProps<any>) => {
 
     const popRef = React.useRef<PopUpModalRef>()
   const {user} = useContextApi();

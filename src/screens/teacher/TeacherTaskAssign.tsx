@@ -72,6 +72,9 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
 
       // refetch handle manual
   const handleRefetchStudent = () =>{
+    if(pageStudent > 2){
+      setPageStudent(2)
+    }
     fetchStudent({token : user.token}).then(res=>{
     setAllStudents(res.data?.data)
     })

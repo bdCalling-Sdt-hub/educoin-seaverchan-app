@@ -63,7 +63,9 @@ const TeacherRewards = ({navigation}: NavigProps<null>) => {
   }, [isFocused]);
 
   const handleRefetchTask = () => {
-
+    if(rewardPage > 2){
+      setRewardPage(2)
+    }
     fetchItems({token: user.token, page : 1}).then(res => {
       //  console.log(res);
       setAllRewards(res.data?.data);

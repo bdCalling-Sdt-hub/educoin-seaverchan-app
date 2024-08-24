@@ -85,6 +85,9 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
 
   // refetch handle manual
   const handleRefetchTask = () =>{
+    if(taskPage > 2){
+      setTaskPage(2)
+    }
     fetchItems({token : user.token,page : 1}).then(res=>{
     //  console.log(res);
     setAllTask(res.data?.data)

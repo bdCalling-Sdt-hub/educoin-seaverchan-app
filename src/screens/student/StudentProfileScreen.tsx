@@ -45,20 +45,22 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
         }}>
         <View
           style={{
-            width: 70,
-            height: 70,
-            borderRadius: 100,
+          
+            borderRadius: 500,
             borderColor: GStyles.primaryOrange,
             borderWidth: 2,
+            padding : 2,
             justifyContent: 'center',
             alignItems: 'center',
             marginBottom: 5,
-            alignSelf: 'center',
+            // alignSelf: 'center',
           }}>
           <Image
+         
             style={{
-              width: 60,
+              aspectRatio : 1,
               height: 60,
+            resizeMode : "cover",
               borderRadius: 100,
             }}
             source={{

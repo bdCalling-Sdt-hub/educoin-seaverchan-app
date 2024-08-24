@@ -1,40 +1,31 @@
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {GStyles} from '../../styles/GStyles';
-import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { useGetEarnRewardsQuery, useGetStudentAssignRewardsQuery, useGetStudentAssignTaskQuery, useStudentAchieveActionMutation, useStudentClaimActionMutation } from '../../redux/apiSlices/student/studentSlices';
+import { FontSize, isTablet } from '../../utils/utils';
 
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import LottieView from 'lottie-react-native';
+import { RefreshControl } from 'react-native-gesture-handler';
+import RewardsCard from '../../components/common/Cards/RewordsCard';
+import TaskCard from '../../components/common/Cards/TaskCard';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
 import HeaderOption from '../../components/common/header/HeaderOption';
 import HomeTopHeader from '../../components/common/header/HomeTopHeader';
-import {HomeNavigProps} from '../../interfaces/NavigationPros';
-import StudentCard from '../../components/common/Cards/StudentCard';
-import TaskCard from '../../components/common/Cards/TaskCard';
-import YesNoModal from '../../components/common/CustomModal/YesNoModal';
-import LottieView from 'lottie-react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import LoaderScreen from '../../components/Loader/LoaderScreen';
 import { useContextApi } from '../../context/ContextApi';
-import { useGetEarnRewardsQuery, useGetStudentAssignRewardsQuery, useGetStudentAssignTaskQuery, useStudentAchieveActionMutation, useStudentClaimActionMutation } from '../../redux/apiSlices/student/studentSlices';
+import { HomeNavigProps } from '../../interfaces/NavigationPros';
 import { imageUrl } from '../../redux/api/baseApi';
 import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
-import { FontSize, isTablet, removeStorageRole, removeStorageToken } from '../../utils/utils';
-import LoaderScreen from '../../components/Loader/LoaderScreen';
-import { RefreshControl } from 'react-native-gesture-handler';
 import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
-import RewardsCard from '../../components/common/Cards/RewordsCard';
+import { GStyles } from '../../styles/GStyles';
 
 const NewStudentHomeScreen = ({navigation,route}: HomeNavigProps<string>) => {
 const RItem = route?.params?.data
@@ -139,7 +130,7 @@ const RItem = route?.params?.data
         isNotification={!!notifications?.data?.find(nt=>nt?.read === false)}
         notifyRoute="StudentNotification"
         profileStyle="student"
-     
+     profileNavigate='StudentProfile'
         searchValue={search}
         setSearchValue={setSearch}
         userDetails={{

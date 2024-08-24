@@ -1,30 +1,25 @@
+import React, { useCallback, useState } from 'react';
 import {
-  ActivityIndicator,
   Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { GStyles, WIDTH } from '../../styles/GStyles';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import { ScrollView } from 'react-native';
+import { Dialog } from 'react-native-ui-lib';
 import Feather from 'react-native-vector-icons/Feather';
-import {GStyles, WIDTH} from '../../styles/GStyles';
-import {NavigProps} from '../../interfaces/NavigationPros';
-import {ScrollView} from 'react-native';
-
-import {imageUrl} from '../../redux/api/baseApi';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import React, {useCallback, useState} from 'react';
-import {useContextApi} from '../../context/ContextApi';
-import {Dialog} from 'react-native-ui-lib';
-import Toast from 'react-native-toast-message';
 import NormalButtons from '../../components/common/Buttons/NormalButtons';
-import {useUpdateTeacherMutation} from '../../redux/apiSlices/teacher/teacherSlices';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import { useContextApi } from '../../context/ContextApi';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { imageUrl } from '../../redux/api/baseApi';
 import { useGetUserTeacherQuery } from '../../redux/apiSlices/authSlice';
+import { useUpdateTeacherMutation } from '../../redux/apiSlices/teacher/teacherSlices';
 import { FontSize } from '../../utils/utils';
 
 const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
@@ -175,7 +170,7 @@ const EditTeacherProfile = ({navigation}: NavigProps<null>) => {
            {/* {console.log(data?.data?.profile)} */}
             <Image
               source={{
-                uri: imgUrl
+                uri: categoryImage ?categoryImage : imgUrl
               }}
               style={{
                 height: 86,
