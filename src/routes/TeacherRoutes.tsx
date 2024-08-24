@@ -1,21 +1,12 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import AdminHomeScreen from '../screens/admin/AdminHomeScreen';
-import AdminDrawerRoutes from './AdminDrawerRoutes';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo';
-
-import AdminTask from '../screens/admin/AdminTask';
-import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
-import StudentDrawerRoutes from './StudentDrawerRoutes';
-import {GStyles} from '../styles/GStyles';
-
-import ProgressScreen from '../screens/student/ProgressScreen';
-import TeacherDrawerRoutes from './TeacherDrawerRoutes';
-import TeacherHomeScreen from '../screens/teacher/TeacherHomeScreen';
-import TeacherForStProgress from '../screens/teacher/TeacherForStProgress';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TaskList from '../screens/teacher/TaskList';
+import TeacherForStProgress from '../screens/teacher/TeacherForStProgress';
+import TeacherHomeScreen from '../screens/teacher/TeacherHomeScreen';
 import TeacherRewards from '../screens/teacher/TeacherRewords';
+import { GStyles } from '../styles/GStyles';
 
 const Tab = createBottomTabNavigator();
 

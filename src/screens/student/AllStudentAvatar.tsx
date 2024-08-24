@@ -1,14 +1,9 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {NavigProps} from '../../interfaces/NavigationPros';
-import {GStyles} from '../../styles/GStyles';
-
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Image} from 'react-native';
-import { SherAvatar } from '../../utils/ShearData';
-
-
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { GStyles } from '../../styles/GStyles';
 
 const AllStudentAvatar = ({navigation}: NavigProps<null>) => {
   const [selectAvatar,setSelectedAvatar] =React.useState<number>()
@@ -24,7 +19,7 @@ const AllStudentAvatar = ({navigation}: NavigProps<null>) => {
         ringColor={GStyles.orange.normalHover}
         navigation={navigation}
       />
-      <FlatList
+      {/* <FlatList
         showsHorizontalScrollIndicator={false}
         data={SherAvatar}
         numColumns={3}
@@ -67,7 +62,7 @@ const AllStudentAvatar = ({navigation}: NavigProps<null>) => {
             />
           </TouchableOpacity>
         )}
-      />
+      /> */}
     </View>
   );
 };

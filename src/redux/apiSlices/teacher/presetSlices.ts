@@ -1,5 +1,6 @@
-import {api} from '../../api/baseApi';
-import {IClass, IClasses, IPreset, IPresets, IStudents} from '../../interface/interface';
+import { IPresets } from '../../interface/interface';
+
+import { api } from '../../api/baseApi';
 
 const presetSlice = api.injectEndpoints({
   endpoints: builder => ({

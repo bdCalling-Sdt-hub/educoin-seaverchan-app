@@ -1,48 +1,47 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
 import {
   ActionSheet,
   GridList
 } from 'react-native-ui-lib';
-import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
 import {
-  useGetUserTeacherQuery,
-  useLoginForTeacherStudentMutation
-} from '../../redux/apiSlices/authSlice';
+  ActivityIndicator,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import { GStyles, WIDTH } from '../../styles/GStyles';
+import PopUpModal, { PopUpModalRef } from '../../components/modals/PopUpModal';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import {
   useDeletedClassMutation,
   useGetClassesQuery
 } from '../../redux/apiSlices/teacher/tacherClassSlices';
-import { GStyles, WIDTH } from '../../styles/GStyles';
+import {
+  useGetUserTeacherQuery,
+  useLoginForTeacherStudentMutation
+} from '../../redux/apiSlices/authSlice';
 
-import { useIsFocused } from '@react-navigation/native';
-import { RefreshControl } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
-import StudentCard from '../../components/common/Cards/StudentCard';
 import CustomModal from '../../components/common/CustomModal/CustomModal';
-import YesNoModal from '../../components/common/CustomModal/YesNoModal';
-import HeaderOption from '../../components/common/header/HeaderOption';
-import HomeTopHeader from '../../components/common/header/HomeTopHeader';
-import { useContextApi } from '../../context/ContextApi';
-import { NavigProps } from '../../interfaces/NavigationPros';
-import { imageUrl } from '../../redux/api/baseApi';
-import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
-import { useLazyGetStudentsQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
-import { IStudent } from '../../redux/interface/interface';
-import PaginationHook from '../../utils/hooks/PaginationHook';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {
   FontSize
 } from '../../utils/utils';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import HomeTopHeader from '../../components/common/header/HomeTopHeader';
+import { IStudent } from '../../redux/interface/interface';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import PaginationHook from '../../utils/hooks/PaginationHook';
+import { RefreshControl } from 'react-native-gesture-handler';
+import StudentCard from '../../components/common/Cards/StudentCard';
+import YesNoModal from '../../components/common/CustomModal/YesNoModal';
+import { imageUrl } from '../../redux/api/baseApi';
+import { useContextApi } from '../../context/ContextApi';
+import { useGetNotificationsQuery } from '../../redux/apiSlices/setings/notification';
+import { useIsFocused } from '@react-navigation/native';
+import { useLazyGetStudentsQuery } from '../../redux/apiSlices/teacher/teacherStudentSlices';
 
-const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
+const TeacherHomeScreen = ({navigation}: NavigProps<string>) => {
   const isFocused = useIsFocused();
   const [pageStudent, setPageStudent] = React.useState(2);
   
@@ -61,7 +60,7 @@ const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
   // get all notification 
   const {data: notifications, refetch} = useGetNotificationsQuery(user.token);
   // class deleted post 
-  const [deletedClass, results] = useDeletedClassMutation();
+  const [deletedClass] = useDeletedClassMutation();
   // student login fetch
   const [loadingStudent] = useLoginForTeacherStudentMutation();
   
@@ -465,7 +464,7 @@ const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
             label: 'Deleted',
             onPress: () => {
               handleClassAction('deleted');
-              handleRefetchClass()
+           
             },
           },
         ]}
@@ -505,4 +504,4 @@ const TeacherHomeScreen = ({navigation,route}: NavigProps<string>) => {
 
 export default TeacherHomeScreen;
 
-const styles = StyleSheet.create({});
+

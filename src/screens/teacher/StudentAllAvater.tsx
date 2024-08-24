@@ -1,52 +1,51 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
 import React from 'react';
 import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {NavigProps} from '../../interfaces/NavigationPros';
-import {GStyles} from '../../styles/GStyles';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { GStyles } from '../../styles/GStyles';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Image} from 'react-native';
-import { SherAvatar } from '../../utils/ShearData';
+// import { SherAvatar } from '../../utils/ShearData';
 
 
-const data = [
-  {
-    id: 1,
-    avatar: require("../../assets/images/studentAvatar/1.png"),
-  },
-  {
-    id: 2,
-    avatar: require("../../assets/images/studentAvatar/2.png"),
-  },
-  {
-    id: 3,
-    avatar: require("../../assets/images/studentAvatar/3.png"),
-  },
-  {
-    id: 4,
-    avatar: require("../../assets/images/studentAvatar/4.png"),
-  },
-  {
-    id: 5,
-    avatar: require("../../assets/images/studentAvatar/5.png"),
-  },
-  {
-    id: 6,
-    avatar: require("../../assets/images/studentAvatar/6.png"),
-  },
-  {
-    id: 7,
-    avatar: require("../../assets/images/studentAvatar/7.png"),
-  },
-  {
-    id: 8,
-    avatar: require("../../assets/images/studentAvatar/8.png"),
-  },
-  {
-    id: 9,
-    avatar: require("../../assets/images/studentAvatar/9.png"),
-  },
-]
+// const data = [
+//   {
+//     id: 1,
+//     avatar: require("../../assets/images/studentAvatar/1.png"),
+//   },
+//   {
+//     id: 2,
+//     avatar: require("../../assets/images/studentAvatar/2.png"),
+//   },
+//   {
+//     id: 3,
+//     avatar: require("../../assets/images/studentAvatar/3.png"),
+//   },
+//   {
+//     id: 4,
+//     avatar: require("../../assets/images/studentAvatar/4.png"),
+//   },
+//   {
+//     id: 5,
+//     avatar: require("../../assets/images/studentAvatar/5.png"),
+//   },
+//   {
+//     id: 6,
+//     avatar: require("../../assets/images/studentAvatar/6.png"),
+//   },
+//   {
+//     id: 7,
+//     avatar: require("../../assets/images/studentAvatar/7.png"),
+//   },
+//   {
+//     id: 8,
+//     avatar: require("../../assets/images/studentAvatar/8.png"),
+//   },
+//   {
+//     id: 9,
+//     avatar: require("../../assets/images/studentAvatar/9.png"),
+//   },
+// ]
 
 const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
   const [selectAvatar,setSelectedAvatar] =React.useState<number>()
@@ -63,7 +62,7 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
         backgroundColor={GStyles.primaryPurple}
         navigation={navigation}
       />
-      <FlatList
+      {/* <FlatList
         showsHorizontalScrollIndicator={false}
         data={SherAvatar}
         numColumns={3}
@@ -106,7 +105,7 @@ const StudentAllAvatar = ({navigation}: NavigProps<null>) => {
             />
           </TouchableOpacity>
         )}
-      />
+      /> */}
     </View>
   );
 };

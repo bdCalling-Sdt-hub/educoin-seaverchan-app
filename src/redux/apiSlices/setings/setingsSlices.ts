@@ -1,10 +1,5 @@
-import {api} from '../../api/baseApi';
-import {
-  IAssignRewards,
-  IAssignStudentTasks,
-  IEarnedStudentRewards,
-  IFetchStatus,
-} from '../../interface/interface';
+
+import { api } from '../../api/baseApi';
 
 const studentPartSlice = api.injectEndpoints({
   endpoints: builder => ({

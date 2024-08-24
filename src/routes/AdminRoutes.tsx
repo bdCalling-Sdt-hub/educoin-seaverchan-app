@@ -1,11 +1,9 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import AdminHomeScreen from '../screens/admin/AdminHomeScreen';
-import AdminDrawerRoutes from './AdminDrawerRoutes';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import AdminRewards from '../screens/admin/AdminRewards';
-import AdminTask from '../screens/admin/AdminTask';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
+import AdminDrawerRoutes from './AdminDrawerRoutes';
+
 const Tab = createBottomTabNavigator();
 
 function AdminRoutes() {

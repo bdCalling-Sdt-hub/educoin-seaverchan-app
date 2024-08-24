@@ -1,5 +1,6 @@
-import {api} from '../../api/baseApi';
-import { IAssignReword, IAssignRewards, IRewards} from '../../interface/interface';
+import { IAssignRewards, IRewards } from '../../interface/interface';
+
+import { api } from '../../api/baseApi';
 
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({

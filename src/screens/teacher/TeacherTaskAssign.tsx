@@ -1,44 +1,40 @@
 import {
   ActivityIndicator,
   FlatList,
-  Image,
-  ScrollView,
+  RefreshControl,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import React from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {TextInput} from 'react-native';
-
-import Feather from 'react-native-vector-icons/Feather';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {GStyles} from '../../styles/GStyles';
-import HeaderOption from '../../components/common/header/HeaderOption';
-import {NavigProps} from '../../interfaces/NavigationPros';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import {Dropdown} from 'react-native-element-dropdown';
 import {
-  useGetStudentsQuery,
   useGetStudentThrowClassQuery,
+  useLazyGetStudentsQuery
 } from '../../redux/apiSlices/teacher/teacherStudentSlices';
-import {imageUrl} from '../../redux/api/baseApi';
-import {useGetClassesQuery} from '../../redux/apiSlices/teacher/tacherClassSlices';
-import {useContextApi} from '../../context/ContextApi';
-import {ITask} from '../../redux/interface/interface';
-import AssignCard from '../../components/assingCard/AssignCard';
 import {
   useCreateAssignTaskMutation,
   useGetAssignTaskQuery,
 } from '../../redux/apiSlices/teacher/teaherTaskSlices';
-import Toast from 'react-native-toast-message';
-import LoaderScreen from '../../components/Loader/LoaderScreen';
+import { IStudent, ITask } from '../../redux/interface/interface';
+
+import React from 'react';
+import { TextInput } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
+import Feather from 'react-native-vector-icons/Feather';
+import AssignCard from '../../components/assingCard/AssignCard';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import { useContextApi } from '../../context/ContextApi';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import { GStyles } from '../../styles/GStyles';
+import PaginationHook from '../../utils/hooks/PaginationHook';
 import { FontSize } from '../../utils/utils';
 
 const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
   const Item = route?.params?.data;
+  const [pageStudent, setPageStudent] = React.useState(2);
   // console.log(Item);
   const {user} = useContextApi();
   const [createAssignTask, results] = useCreateAssignTaskMutation();
@@ -54,7 +50,7 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
   const [selectClass, setSelectClass] = React.useState<string>(
     classes?.data![0]?.className as string,
   );
-  const {data: students , isFetching : studentLoading,refetch : studentRefetch} = useGetStudentsQuery({token : user.token});
+  // const {data: students , isFetching : studentLoading,refetch : studentRefetch} = useGetStudentsQuery({token : user.token});
   const {data: classFilterStudents, refetch, isFetching : SCLoading} = useGetStudentThrowClassQuery({
     token: user.token,
     className: selectClass,
@@ -66,9 +62,25 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
   const [selection, setSelection] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
 
+
+    // get student fetch 
+    const [AllStudents, setAllStudents] = React.useState<Array<IStudent>>([]);
+
+    const [fetchStudent , { isFetching : studentFetching  ,currentData : studentData ,isLoading : studentLoading }]= useLazyGetStudentsQuery()
+ 
+    const [handleLoadMoreStudent] = PaginationHook(fetchStudent,setAllStudents,AllStudents,setPageStudent,pageStudent,studentData,studentFetching)
+
+      // refetch handle manual
+  const handleRefetchStudent = () =>{
+    fetchStudent({token : user.token}).then(res=>{
+    setAllStudents(res.data?.data)
+    })
+  }
+
+
   React.useEffect(() => {
     refetch();
-    studentRefetch()
+    handleRefetchStudent()
   }, [selectClass, op]);
 
 
@@ -154,9 +166,15 @@ const TeacherTaskAssign = ({navigation, route}: NavigProps<ITask>) => {
             }}>
               <ActivityIndicator size="large" color={GStyles?.primaryPurple} />
             </View> : <FlatList
-            data={students?.data?.filter(student=>search ? student.name.includes(search) : student)}
+            data={AllStudents?.filter(student=>search ? student.name.includes(search) : student)}
             keyExtractor={item => item._id + item.password}
             showsVerticalScrollIndicator={false}
+            refreshControl={<RefreshControl refreshing={studentLoading}  onRefresh={handleRefetchStudent} colors={[GStyles.primaryPurple]} />}
+            onEndReachedThreshold={0.5}
+            onEndReached={handleLoadMoreStudent}
+            ListFooterComponent={()=>{
+              return studentFetching? <ActivityIndicator color={GStyles?.primaryPurple} size="large" /> : null;
+            }}
             contentContainerStyle={{
               paddingHorizontal: '4%',
               paddingBottom: 10,

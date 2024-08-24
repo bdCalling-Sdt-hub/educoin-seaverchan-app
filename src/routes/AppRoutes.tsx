@@ -1,60 +1,70 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LoginAsScreen from '../screens/login/LoginAsScreen';
-import TeacherLoginScreen from '../screens/login/TeacherLoginScreen';
+
+import notifee, { AuthorizationStatus } from '@notifee/react-native';
+import { Provider } from 'react-redux';
+import ContextApi, { useContextApi } from '../context/ContextApi';
+import { useGetUserStudentQuery, useGetUserTeacherQuery } from '../redux/apiSlices/authSlice';
+import { getSocket } from '../redux/services/socket';
+
+import NetInfo from '@react-native-community/netinfo';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Socket } from 'socket.io-client';
+import { onDisplayNotification } from '../..';
+import { useGetNotificationsQuery } from '../redux/apiSlices/setings/notification';
+import { useGetPendingTaskQuery } from '../redux/apiSlices/teacher/teaherTaskSlices';
+import { INotification } from '../redux/interface/interface';
+import store from '../redux/store';
+import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
 import AdminLoginScreen from '../screens/login/AdminLoginScreen';
 import ChildLoginScreen from '../screens/login/ChildLoginScreen';
-
+import LoginAsScreen from '../screens/login/LoginAsScreen';
+import SignUpScreen from '../screens/login/SignUpScreen';
+import TeacherLoginScreen from '../screens/login/TeacherLoginScreen';
+import TeacherLoginVariation from '../screens/login/TeacherLoginVariation';
+import TeacherLoginWithEmail from '../screens/login/TeacherLoginWithEmail';
+import AddPaymentCards from '../screens/payments/AddPaymentCards';
+import PaymentScreen from '../screens/payments/PaymentScreen';
+import GlobalSplash from '../screens/slpash/GlobalSplash';
 import SplashScreen from '../screens/slpash/SplashScreen';
-import AdminRoutes from './AdminRoutes';
-
-import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
-import CustomTaskScreen from '../screens/admin/CustomTaskScreen';
-import EditCustomTaskScreen from '../screens/admin/EditCustomTaskScreen';
-import FeedBackScreen from '../screens/admin/FeedBackScreen';
-import AdminProfileScreen from '../screens/admin/AdminProfileScreen';
-import AssignTaskScreen from '../screens/admin/AssignTaskScreen';
-import AllTeacherScreen from '../screens/admin/AllTeacherScreen';
-import AdminNotification from '../screens/admin/AdminNotification';
-import StudentRoutes from './StudentRoutes';
-import StudentPublicProfileScreen from '../screens/student/StudentPublicProfileScreen';
-import StudentFeedbackScreen from '../screens/student/StudentFeedbackScreen';
-import StudentProfileScreen from '../screens/student/StudentProfileScreen';
-import StudentNotification from '../screens/student/StudentNotificaiton';
-import AllStudentsScreen from '../screens/student/AllStudentsScreen';
-import PrivacyAndPolicyScreen from '../screens/teacher/PrivacyAndPolicyScreen';
-import TermsAndConditionScreen from '../screens/teacher/TermsAndConditionScreen';
-import TeacherDrawerRoutes from './TeacherDrawerRoutes';
-import StudentsProgressAndInfo from '../screens/teacher/StudentsProgressAndInfo';
-import TeacherNotification from '../screens/teacher/TeacherNotification';
-import CategoryScreen from '../screens/teacher/CategoryScreen';
-import EditTeacherTask from '../screens/teacher/EditTeacherTask';
-import TeacherTaskAssign from '../screens/teacher/TeacherTaskAssign';
-
-import TeacherAddCategory from '../screens/teacher/TeacherAddCategory';
-import TeacherFeedback from '../screens/teacher/TeacherFeedBack';
-import TeacherProfile from '../screens/teacher/TeacherProfile';
-import TeacherAddNewStudent from '../screens/teacher/TeacherAddNewStudent';
-import StudentAllAvatar from '../screens/teacher/StudentAllAvater';
-import TeacherAddNewClass from '../screens/teacher/TeacherAddNewClass';
-import StudentDrawerRoutes from './StudentDrawerRoutes';
-import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
-import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
-import TastingComponents from '../screens/Testing';
-import EditTeacherProfile from '../screens/teacher/EditTeacherProfileScreen';
-import StudentPassCode from '../screens/student/StudentPassCode';
-import TeacherPassCode from '../screens/teacher/TeacherPassCode';
-import StudentProfileEdit from '../screens/student/StudentProfileEdit';
-import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
-import EditCategory from '../screens/teacher/EditCategory';
-import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTeacher';
 import AllStudentAvatar from '../screens/student/AllStudentAvatar';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {Provider, useDispatch, useSelector} from 'react-redux';
-import { Socket } from 'socket.io-client';
+import AllStudentsScreen from '../screens/student/AllStudentsScreen';
+import StudentFeedbackScreen from '../screens/student/StudentFeedbackScreen';
+import StudentNotification from '../screens/student/StudentNotificaiton';
+import StudentPassCode from '../screens/student/StudentPassCode';
+import StudentProfileEdit from '../screens/student/StudentProfileEdit';
+import StudentProfileScreen from '../screens/student/StudentProfileScreen';
+import StudentPublicProfileScreen from '../screens/student/StudentPublicProfileScreen';
+import CategoryScreen from '../screens/teacher/CategoryScreen';
+import EditCategory from '../screens/teacher/EditCategory';
+import EditTeacherProfile from '../screens/teacher/EditTeacherProfileScreen';
+import TeacherEditRewards from '../screens/teacher/EditTeacherRewords';
+import EditTeacherTask from '../screens/teacher/EditTeacherTask';
+import ParticularClassStudents from '../screens/teacher/ParticularClassStudents';
+import PrivacyAndPolicyScreen from '../screens/teacher/PrivacyAndPolicyScreen';
+import StudentAllAvatar from '../screens/teacher/StudentAllAvater';
+import StudentPassCodeWithTeacher from '../screens/teacher/StudentPassCodeWithTeacher';
+import StudentsProgressAndInfo from '../screens/teacher/StudentsProgressAndInfo';
+import TaskDetailsScreen from '../screens/teacher/TaskDetailsScreen';
+import TeacherAddCategory from '../screens/teacher/TeacherAddCategory';
+import TeacherAddNewClass from '../screens/teacher/TeacherAddNewClass';
+import TeacherAddNewStudent from '../screens/teacher/TeacherAddNewStudent';
+import TeacherCreateRewards from '../screens/teacher/TeacherCreateRewords';
+import TeacherCreateTask from '../screens/teacher/TeacherCreateTask';
+import TeacherEditClass from '../screens/teacher/TeacherEditClass';
+import TeacherFeedback from '../screens/teacher/TeacherFeedBack';
+import TeacherNotification from '../screens/teacher/TeacherNotification';
+import TeacherPassCode from '../screens/teacher/TeacherPassCode';
+import TeacherProfile from '../screens/teacher/TeacherProfile';
+import TeacherRewards from '../screens/teacher/TeacherRewords';
+import TeacherRewardsAssign from '../screens/teacher/TeacherRewordsAssign';
+import TeacherTaskAssign from '../screens/teacher/TeacherTaskAssign';
+import TermsAndConditionScreen from '../screens/teacher/TermsAndConditionScreen';
+import StudentDrawerRoutes from './StudentDrawerRoutes';
+import TeacherDrawerRoutes from './TeacherDrawerRoutes';
 
 let socket: Socket;
 
@@ -297,35 +307,35 @@ export const NavigationRoutes = () => {
   );
 };
 
-import NetInfo from '@react-native-community/netinfo';
-import store from '../redux/store';
-import ContextApi, {useContextApi} from '../context/ContextApi';
-import Toast from 'react-native-toast-message';
-
-import ToasTConfig from '../components/common/toaster/ToasTConfig';
-import InternetStatusScreen from '../screens/internet/InternetStatusScreen';
-import TeacherEditClass from '../screens/teacher/TeacherEditClass';
-import AddPaymentCards from '../screens/payments/AddPaymentCards';
-import PaymentScreen from '../screens/payments/PaymentScreen';
-
-import GlobalSplash from '../screens/slpash/GlobalSplash';
 
 
 
-import notifee, { AuthorizationStatus } from '@notifee/react-native';
-import {  getSocket, initiateSocket } from '../redux/services/socket';
-import { useGetUserStudentQuery, useGetUserTeacherQuery } from '../redux/apiSlices/authSlice';
-import { INotification } from '../redux/interface/interface';
-import { onDisplayNotification } from '../..';
-import { useGetNotificationsQuery } from '../redux/apiSlices/setings/notification';
-import { useGetPendingTaskQuery } from '../redux/apiSlices/teacher/teaherTaskSlices';
-import TeacherRewards from '../screens/teacher/TeacherRewords';
-import TeacherCreateRewards from '../screens/teacher/TeacherCreateRewords';
-import TeacherEditRewards from '../screens/teacher/EditTeacherRewords';
-import TeacherRewardsAssign from '../screens/teacher/TeacherRewordsAssign';
-import TeacherLoginVariation from '../screens/login/TeacherLoginVariation';
-import TeacherLoginWithEmail from '../screens/login/TeacherLoginWithEmail';
-import SignUpScreen from '../screens/login/SignUpScreen';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //  google clude message 
 // import messaging from '@react-native-firebase/messaging';

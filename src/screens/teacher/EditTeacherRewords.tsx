@@ -1,34 +1,27 @@
+import React, { useCallback } from 'react';
 import {
+  FlatList,
+  Image,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
   TextInput,
   TouchableOpacity,
-  Image,
+  View
 } from 'react-native';
-import React, {Fragment, useCallback} from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {GStyles} from '../../styles/GStyles';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {NavigProps} from '../../interfaces/NavigationPros';
-import {FlatList} from 'react-native';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import {categoryIcons, ShearIcons, SherAvatar} from '../../utils/ShearData';
-import {Slider} from 'react-native-awesome-slider';
-import {useSharedValue, withTiming} from 'react-native-reanimated';
-import { useContextApi } from '../../context/ContextApi';
 
 import Toast from 'react-native-toast-message';
-import { IReword } from '../../redux/interface/interface';
-import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import { useContextApi } from '../../context/ContextApi';
+import { NavigProps } from '../../interfaces/NavigationPros';
 import { imageUrl } from '../../redux/api/baseApi';
+import { useGetIconsPresetQuery } from '../../redux/apiSlices/teacher/presetSlices';
 import { useUpdateRewardsMutation } from '../../redux/apiSlices/teacher/teacherRewords';
+import { IReword } from '../../redux/interface/interface';
+import { GStyles } from '../../styles/GStyles';
 import { FontSize } from '../../utils/utils';
-import { ScrollView } from 'react-native';
 
 interface IRewardsUProps {
   name: string;
@@ -235,11 +228,12 @@ const TeacherEditRewards = ({navigation, route}: NavigProps<IReword>) => {
               letterSpacing: 0.5,
             }}
             onChangeText={text => setRewardsData({...RewardsData, requiredPoints: Number(text)})}
+            value={`${RewardsData?.requiredPoints}`}
             placeholderTextColor="gray"
             // multiline
             placeholder="0"
             keyboardType='decimal-pad'
-            value={`${RewardsData?.requiredPoints}`}
+            // value={`${RewardsData?.requiredPoints}`}
           />
         </View>
         <View

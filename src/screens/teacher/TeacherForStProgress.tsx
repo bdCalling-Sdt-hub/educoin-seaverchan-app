@@ -30,14 +30,25 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
 
   const {user} = useContextApi();
   const {data : classes, isSuccess : classesIsSuccess,isLoading : classLoading} = useGetClassesQuery({token : user.token});
+
+
+
+
   const [selectedClass, setSelectedClass] = useState<any>(classes?.data![0]?.className);
+
+  // filter with class students
   const {data : students,refetch : studentRefetch,isSuccess : studentIsSuccess , isLoading : studentLoading} = useGetStudentThrowClassQuery({token :  user.token , className : selectedClass})
+   
+
+
   const [selectedStudent, setSelectedStudent] = useState<string>(students?.data![0]?._id as string);
   const {data : ProgressIfo,refetch : studentInfoRefetch, isSuccess : ProgressInfLoading,isLoading : ProgressLoading} = useGetStatisticStudentQuery({token : user.token, id : selectedStudent})
   // console.log(students);
   // console.log(student?.data._id);
   
   // console.log(ProgressIfo?.data?.totalCompletedTask + 1);
+
+  // refetch handle manual
 
 
 
@@ -52,11 +63,11 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
     {value: 0, color: '#FF8811', text: '0%'},
     ]
   );
-  const [isOp, setIsOp] = React.useState('Profile');
-  const [value, setValue] = React.useState<string>();
-  const [isFocus, setIsFocus] = React.useState(false);
+
+
+
   const [isPayment, setIsPayment] = React.useState(false);
-  const [animate, setAnimate] = useState(false);
+
 
   const animationOpacity = useSharedValue(0);
 
@@ -191,9 +202,8 @@ const TeacherForStProgress = ({navigation}: NavigProps<null>) => {
             }}
             labelField="className"
             valueField="className"
-            value={value}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
+    
+         
             onChange={item => {
               // console.log(item);
               setSelectedClass(item?.className);

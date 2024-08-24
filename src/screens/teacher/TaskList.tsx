@@ -65,7 +65,7 @@ const TaskList = ({navigation,route}: NavigProps<string>) => {
 
   const [fetchItems, { isFetching : taskFetching  ,currentData, isLoading : taskLoading  }] = useLazyGetTaskQuery();
 
-  const [handleLoadMore ,loadItems] = PaginationHook(fetchItems,setAllTask,allTask,setTaskPage,taskPage,currentData,taskFetching)
+  const [handleLoadMore ] = PaginationHook(fetchItems,setAllTask,allTask,setTaskPage,taskPage,currentData,taskFetching)
 
   useEffect(() => {
    if(isFocused){

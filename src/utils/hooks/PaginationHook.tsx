@@ -1,7 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-
-import React from 'react'
 import debounce from 'lodash.debounce';
+import React from 'react';
 import { useContextApi } from '../../context/ContextApi';
 
 // Debounce Hook for pagination
@@ -29,6 +27,7 @@ const PaginationHook: (
   isFetching
 ) => {
     const {user} = useContextApi()
+    // console.log("Fetching");
     const loadItems = async () => {
         try {
           const response = await fetchItems({ token : user?.token , page   }).unwrap();

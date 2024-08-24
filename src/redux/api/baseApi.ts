@@ -1,10 +1,6 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import { Alert } from 'react-native';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { removeStorageRole, removeStorageToken } from '../../utils/utils';
 import { getSocket, initiateSocket } from '../services/socket';
-
-
-
 
 
 const baseQuery = fetchBaseQuery({

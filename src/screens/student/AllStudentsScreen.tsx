@@ -1,19 +1,12 @@
+import React from 'react';
 import {
-  FlatList,
-  Image,
-  ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import React, {Fragment} from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {GStyles} from '../../styles/GStyles';
-import {NavigProps} from '../../interfaces/NavigationPros';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { SherAvatar } from '../../utils/ShearData';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
+import { NavigProps } from '../../interfaces/NavigationPros';
+import { GStyles } from '../../styles/GStyles';
 
 const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
   return (
@@ -29,7 +22,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
         navigation={navigation}
       />
 
-      <FlatList
+      {/* <FlatList
         data={SherAvatar}
         showsVerticalScrollIndicator={false}
         numColumns={2}
@@ -157,8 +150,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
                     right: 0,
                     padding: 10,
                   }}>
-                  {/* <FontAwesome name="tasks" color="#686868" size={18} />
-                   */}
+                
                   <Image
                     source={require('../../assets/icons/taskIcon.png')}
                     style={{
@@ -172,7 +164,7 @@ const AllStudentsScreen = ({navigation}: NavigProps<null>) => {
             </View>
           </Fragment>
         )}
-      />
+      /> */}
     </View>
   );
 };

@@ -1,6 +1,3 @@
-import {
-  useIsFocused
-} from '@react-navigation/native';
 import React, { Fragment } from 'react';
 import {
   ActivityIndicator,
@@ -10,10 +7,10 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import {
-  useLazyGetRewardsQuery
-} from '../../redux/apiSlices/teacher/teacherRewords';
 
+import {
+  useIsFocused
+} from '@react-navigation/native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { ActionSheet } from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -22,6 +19,9 @@ import HeaderBackground from '../../components/common/headerBackground/HeaderBac
 import { useContextApi } from '../../context/ContextApi';
 import { NavigProps } from '../../interfaces/NavigationPros';
 import { imageUrl } from '../../redux/api/baseApi';
+import {
+  useLazyGetRewardsQuery
+} from '../../redux/apiSlices/teacher/teacherRewords';
 import { IReword } from '../../redux/interface/interface';
 import { GStyles } from '../../styles/GStyles';
 import PaginationHook from '../../utils/hooks/PaginationHook';

@@ -1,5 +1,6 @@
-import {api} from '../../api/baseApi';
-import {IStatistics, IStudent, IStudents} from '../../interface/interface';
+import { IStatistics, IStudent, IStudents } from '../../interface/interface';
+
+import { api } from '../../api/baseApi';
 
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -72,6 +73,7 @@ export const {
   useCreateStudentMutation,
   useGetSingleStudentQuery,
   useGetStudentThrowClassQuery,
+  useLazyGetStudentThrowClassQuery,
   useGetStatisticStudentQuery
 
 } = authSlice;

@@ -1,18 +1,11 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import AdminHomeScreen from '../screens/admin/AdminHomeScreen';
-import AdminDrawerRoutes from './AdminDrawerRoutes';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo';
-
-import AdminTask from '../screens/admin/AdminTask';
-import CreateTaskScreen from '../screens/admin/CreateTaskScreen';
-import StudentDrawerRoutes from './StudentDrawerRoutes';
-import {GStyles} from '../styles/GStyles';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProgressScreen from '../screens/student/ProgressScreen';
 import StudentHomeScreen from '../screens/student/StudentHomeScreen';
 import StudentRewardsScreen from '../screens/student/StudentRewordsScreen';
+import { GStyles } from '../styles/GStyles';
+
 const Tab = createBottomTabNavigator();
 
 function StudentRoutes() {

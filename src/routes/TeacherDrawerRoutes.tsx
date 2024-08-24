@@ -1,13 +1,7 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import AdminHomeScreen from '../screens/admin/AdminHomeScreen';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import StudentHomeScreen from '../screens/student/StudentHomeScreen';
-
-import StudentCustomDrawer from '../components/CustomDrawer/StudentCustomDrawer';
-import TeacherHomeScreen from '../screens/teacher/TeacherHomeScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import TeacherCustomDrawer from '../components/CustomDrawer/TeacherCustomDrawer';
 import TeacherRoutes from './TeacherRoutes';
+
 const Drawer = createDrawerNavigator();
 
 function TeacherDrawerRoutes() {

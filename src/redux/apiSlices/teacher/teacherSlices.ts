@@ -1,5 +1,5 @@
-import {api} from '../../api/baseApi';
-import {IClasses, IStudents} from '../../interface/interface';
+
+import { api } from '../../api/baseApi';
 
 const authSlice = api.injectEndpoints({
   endpoints: builder => ({
