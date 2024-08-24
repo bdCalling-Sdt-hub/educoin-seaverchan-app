@@ -7,28 +7,27 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { IReword, IStudent } from '../../redux/interface/interface';
 import {
   useGetStudentThrowClassQuery,
-  useGetStudentsQuery,
-  useLazyGetStudentsQuery,
+  useLazyGetStudentsQuery
 } from '../../redux/apiSlices/teacher/teacherStudentSlices';
+import { IReword, IStudent } from '../../redux/interface/interface';
 
-import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
-import CustomModal from '../../components/common/CustomModal/CustomModal';
-import { Dropdown } from 'react-native-element-dropdown';
-import Feather from 'react-native-vector-icons/Feather';
-import { FontSize } from '../../utils/utils';
-import { GStyles } from '../../styles/GStyles';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import HeaderOption from '../../components/common/header/HeaderOption';
-import { NavigProps } from '../../interfaces/NavigationPros';
-import PaginationHook from '../../utils/hooks/PaginationHook';
 import React from 'react';
 import { TextInput } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
+import Feather from 'react-native-vector-icons/Feather';
+import AssignRewordCard from '../../components/assingCard/AssignRewordCard';
+import CustomModal from '../../components/common/CustomModal/CustomModal';
+import HeaderOption from '../../components/common/header/HeaderOption';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import { useContextApi } from '../../context/ContextApi';
-import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
+import { NavigProps } from '../../interfaces/NavigationPros';
 import { useGetClassesQuery } from '../../redux/apiSlices/teacher/tacherClassSlices';
+import { useGetAssignRewardsQuery } from '../../redux/apiSlices/teacher/teacherRewords';
+import { GStyles } from '../../styles/GStyles';
+import PaginationHook from '../../utils/hooks/PaginationHook';
+import { FontSize } from '../../utils/utils';
 
 const TeacherRewardsAssign = ({navigation, route}: NavigProps<IReword>) => {
     const Item = route?.params?.data;
@@ -50,7 +49,7 @@ const TeacherRewardsAssign = ({navigation, route}: NavigProps<IReword>) => {
     const [selectClass, setSelectClass] = React.useState<string>(
       classes?.data![0]?.className as string,
     );
-    const {data: students} = useGetStudentsQuery({token : user.token});
+ 
     const {data: classFilterStudents, refetch} = useGetStudentThrowClassQuery({
       token: user.token,
       className: selectClass,
@@ -58,7 +57,7 @@ const TeacherRewardsAssign = ({navigation, route}: NavigProps<IReword>) => {
     // console.log(classFilterStudents);
     const [search,setSearch] = React.useState(null)
     const [op, setOp] = React.useState<string>('All Students');
-    const [selection, setSelection] = React.useState(false);
+  
     const [modalVisible, setModalVisible] = React.useState(false);
   
     // get student fetch 
@@ -165,7 +164,7 @@ const TeacherRewardsAssign = ({navigation, route}: NavigProps<IReword>) => {
                 paddingHorizontal: '4%',
                 paddingBottom: 10,
               }}
-              renderItem={({item, index}) => {
+              renderItem={({item}) => {
                 return (
                   <>
                     <AssignRewordCard
@@ -245,7 +244,7 @@ const TeacherRewardsAssign = ({navigation, route}: NavigProps<IReword>) => {
                 paddingHorizontal: '4%',
                 paddingBottom: 10,
               }}
-              renderItem={({item, index}) => {
+              renderItem={({item}) => {
                 return (
                   //   <View
   

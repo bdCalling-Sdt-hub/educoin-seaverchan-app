@@ -1,26 +1,16 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
-import {GStyles} from '../../styles/GStyles';
-import {NavigProps} from '../../interfaces/NavigationPros';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {BarChart} from 'react-native-gifted-charts';
+import HeaderBackground from '../../components/common/headerBackground/HeaderBackground';
 import { useContextApi } from '../../context/ContextApi';
-import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
+import { NavigProps } from '../../interfaces/NavigationPros';
 import { imageUrl } from '../../redux/api/baseApi';
+import { useGetUserStudentQuery } from '../../redux/apiSlices/authSlice';
+import { GStyles } from '../../styles/GStyles';
 import { FontSize } from '../../utils/utils';
 
 const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
-  const barData = [
-    {value: 30, label: 'Sun'},
-    {value: 50, label: 'Mon'},
-    {value: 20, label: 'Tue'},
-    {value: 70, label: 'Wed'},
-    {value: 35, label: 'Thu'},
-    {value: 90, label: 'Fri'},
-    {value: 20, label: 'Sat'},
-  ];
 
 
   const {user} = useContextApi()
@@ -71,9 +61,9 @@ const StudentProfileScreen = ({navigation}: NavigProps<null>) => {
               height: 60,
               borderRadius: 100,
             }}
-            source={studentData?.data?.profile ?{
+            source={{
               uri: imageUrl + studentData?.data?.profile
-            } : require("../../assets/images/avatar/default_avatar.png")}
+            }}
           />
         </View>
         <View
